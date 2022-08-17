@@ -52,10 +52,18 @@ export default defineConfig({
     ['box-center', { 'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'position': 'relative' }],
 
     ['flex', { display: 'flex' }],
-    ['flex-row-between', { 'justify-content': 'space-between', 'align-items': 'center' }],
-    ['flex-row-center', { 'justify-content': 'center', 'align-items': 'center' }],
-    ['flex-row-start', { 'align-items': 'center' }],
-    ['flex-row-end', { 'justify-content': 'flex-end', 'align-items': 'center' }],
+    ['flex-row-between', { 'justify-content': 'space-between' }],
+    ['flex-row-center', { 'justify-content': 'center' }],
+    ['flex-row-start', {}],
+    ['flex-row-end', { 'justify-content': 'flex-end' }],
+    ['flex-column-between', { 'flex-direction': 'column', 'justify-content': 'space-between' }],
+    ['flex-column-center', { 'flex-direction': 'column', 'justify-content': 'center' }],
+    ['flex-column-start', { 'flex-direction': 'column' }],
+    ['flex-column-end', { 'flex-direction': 'column', 'justify-content': 'space-end' }],
+    ['cross-axis-stretch', { 'align-items': 'stretch' }],
+    ['cross-axis-center', { 'align-items': 'center' }],
+    ['cross-axis-start', {}],
+    ['cross-axis-end', { 'align-items': 'flex-end' }],
 
     [/^pl-(\d+)$/, ([, d]) => ({ 'padding-left': `${d}px` })],
     [/^pr-(\d+)$/, ([, d]) => ({ 'padding-right': `${d}px` })],
@@ -79,7 +87,8 @@ export default defineConfig({
 
     [/^bw-(\d+)$/, ([, d]) => ({ 'border-width': `${d}px` })],
     [/^bs-(\w+)$/, ([, w]) => ({ 'border-style': `${w}` })],
-    // [/^bc~=(\w+)$/, ([, w]) => ({ 'border-color': `${w}` })],
+
+    ['cursor-p', { cursor: 'pointer' }],
 
   ],
   transformers: [
