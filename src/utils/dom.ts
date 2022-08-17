@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 11:52:04
- * @LastEditTime: 2022-08-13 11:53:01
+ * @LastEditTime: 2022-08-17 15:47:13
  * @LastEditors: By
  * @Description: domTS
  * @FilePath: \big-screen-vue3\src\utils\dom.ts

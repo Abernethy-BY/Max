@@ -2,6 +2,8 @@ lockfileVersion: 5.4
 
 specifiers:
   '@antfu/eslint-config': ^0.26.1
+  '@element-plus/icons-vue': ^2.0.9
+  '@iconify-json/ep': ^1.1.6
   '@intlify/vite-plugin-vue-i18n': ^6.0.1
   '@rollup/pluginutils': ^4.2.1
   '@types/node': ^18.7.2
@@ -50,6 +52,7 @@ specifiers:
   vue-tsc: ^0.40.1
 
 dependencies:
+  '@element-plus/icons-vue': 2.0.9_vue@3.2.37
   '@types/node': 18.7.2
   axios: 0.27.2
   echarts: 5.3.3
@@ -66,6 +69,7 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config': 0.26.1_qugx7qdu5zevzvxaiqyxfiwquq
+  '@iconify-json/ep': 1.1.6
   '@intlify/vite-plugin-vue-i18n': 6.0.1_vite@3.0.7+vue-i18n@9.2.2
   '@rollup/pluginutils': 4.2.1
   '@types/nprogress': 0.2.0
@@ -1479,6 +1483,12 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+
+  /@iconify-json/ep/1.1.6:
+    resolution: {integrity: sha512-EJNIHVsBOOfH6cuRqzPJT+zTnLPcLQGu3/WIENEXpWQ0wwIkaSWAewmPjS1ksvu4rf1lLJEgMimuivIrGSONKA==}
+    dependencies:
+      '@iconify/types': 1.1.0
+    dev: true
 
   /@iconify/types/1.1.0:
     resolution: {integrity: sha512-Jh0llaK2LRXQoYsorIH8maClebsnzTcve+7U3rQUSnC11X4jtPnFuyatqFLvMxZ8MLG8dB4zfHsbPfuvxluONw==}
