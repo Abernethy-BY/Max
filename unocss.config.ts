@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 10:45:51
- * @LastEditTime: 2022-08-17 18:02:01
+ * @LastEditTime: 2022-08-18 22:12:50
  * @LastEditors: By
  * @Description: ,
  * @FilePath: \big-screen-vue3\unocss.config.ts
@@ -49,7 +49,7 @@ export default defineConfig({
 
     ['layouts', { width: '100vw', height: '100vh' }],
     ['box-until', { width: '100%', height: '100%' }],
-    ['box-center', { 'display': 'flex', 'justify-content': 'center', 'align-items': 'center', 'position': 'relative' }],
+    ['box-center', { 'display': 'flex', 'flex-direction': 'column', 'flex': '1', 'position': 'relative' }],
 
     ['flex', { display: 'flex' }],
     ['flex-row-between', { 'justify-content': 'space-between' }],
@@ -64,6 +64,8 @@ export default defineConfig({
     ['cross-axis-center', { 'align-items': 'center' }],
     ['cross-axis-start', {}],
     ['cross-axis-end', { 'align-items': 'flex-end' }],
+    [/^fx-(\d+)$/, ([, d]) => ({ 'flex-shrink': `${d}` })],
+    [/^flex-(\d+)$/, ([, d]) => ({ flex: `${d}` })],
 
     [/^pl-(\d+)$/, ([, d]) => ({ 'padding-left': `${d}px` })],
     [/^pr-(\d+)$/, ([, d]) => ({ 'padding-right': `${d}px` })],
@@ -77,9 +79,11 @@ export default defineConfig({
     [/^fs-(\d+)$/, ([, d]) => ({ 'font-size': `${d}px` })],
     [/^lh-(\d+)$/, ([, d]) => ({ 'line-height': `${d}px` })],
     [/^fw-(\d+)$/, ([, d]) => ({ 'font-weight': `${d}` })],
-    [/^fw-(\d+)$/, ([, d]) => ({ 'font-weight': `${d}px` })],
+    [/^fw-(\d+)$/, ([, d]) => ({ 'font-weight': `${d}` })],
 
     [/^position-(\w+)$/, ([, w]) => ({ position: `${w}` })],
+    ['po-r', { position: 'relative' }],
+    ['po-a', { position: 'absolute' }],
     [/^pot-(\d+)$/, ([, d]) => ({ top: `${d}px` })],
     [/^pob-(\d+)$/, ([, d]) => ({ bottom: `${d}px` })],
     [/^pol-(\d+)$/, ([, d]) => ({ left: `${d}px` })],
@@ -87,6 +91,8 @@ export default defineConfig({
 
     [/^bw-(\d+)$/, ([, d]) => ({ 'border-width': `${d}px` })],
     [/^bs-(\w+)$/, ([, w]) => ({ 'border-style': `${w}` })],
+
+    [/^br-(\d+)$/, ([, d]) => ({ ' border-radius': `${d}px` })],
 
     ['cursor-p', { cursor: 'pointer' }],
 

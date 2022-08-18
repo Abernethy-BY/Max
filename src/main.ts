@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-06-16 10:00:26
- * @LastEditTime: 2022-08-17 16:44:12
+ * @LastEditTime: 2022-08-18 19:37:24
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\main.ts
@@ -10,14 +10,14 @@
 import { ViteSSG } from 'vite-ssg'
 import { setupLayouts } from 'virtual:generated-layouts'
 import App from './App.vue'
-// import { setDomFontSize } from '~/utils/dom'
 import generatedRoutes from '~pages'
 import 'normalize.css/normalize.css'
 import '@unocss/reset/tailwind.css'
+import 'nprogress/nprogress.css'
 // import './styles/main.css'
 import 'uno.css'
 
-// setDomFontSize()
+setDomFontSize()
 const routes = setupLayouts(generatedRoutes)
 
 // https://github.com/antfu/vite-ssg

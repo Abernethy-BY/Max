@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 11:52:04
- * @LastEditTime: 2022-08-17 15:47:13
+ * @LastEditTime: 2022-08-18 11:58:27
  * @LastEditors: By
  * @Description: domTS
  * @FilePath: \big-screen-vue3\src\utils\dom.ts
@@ -9,10 +9,10 @@
  */
 import _ from 'lodash'
 
-// 以1920px 底图为准开发页面
 export const setDomFontSize = (): void => {
   const width = document.documentElement.clientWidth || document.body.clientWidth
-  const fontsize = `${(width <= 1200 ? 1200 : width) / 100}px`;
+  const scale = 37.5 * Math.min((width <= 1200 ? 1200 : width) / 1920, 2)
+  const fontsize = `${scale}px`;
   (document.getElementsByTagName('html')[0].style as any)['font-size'] = fontsize
 }
 

@@ -15,10 +15,13 @@ import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import pxToRem from 'postcss-pxtorem'
 import autoPreFixer from 'autoprefixer'
+import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-import'
+// import { consola } from 'consola'
 
 const loader_pxToRem = pxToRem({
   // rootValue: 192,
-  rootValue: 16,
+  // rootValue: 16,
+  rootValue: 37.5,
   unitPrecision: 2,
   propList: ['*'],
   exclude: /(node_module)/,
@@ -60,11 +63,25 @@ export default defineConfig({
     }),
 
     AutoImport({
-      imports: ['vue', 'vue-router', 'vue-i18n', 'vue/macros', '@vueuse/head', '@vueuse/core'],
+      imports: ['vue', 'vue-router', 'vue-i18n', 'vue/macros', '@vueuse/head', '@vueuse/core',
+        { axios: [['default', 'axios']] },
+        { consola: [['default', 'consola']] },
+        { 'axios-mapper': [['default', 'HttpClient']] },
+        { pinia: [['default', 'pinia']] },
+        { nprogress: [['default', 'nprogress']] },
+      ],
       dts: 'src/auto-imports.d.ts',
-      dirs: ['src/composables', 'src/store', 'src/utils'],
+      dirs: ['src/composables', 'src/store', 'src/utils', 'src/api'],
       vueTemplate: true,
       resolvers: [IconsResolver({ prefix: 'Icon' }), ElementPlusResolver()],
+    }),
+    createStyleImportPlugin({
+      resolves: [ElementPlusResolve()],
+      libs: [{
+        libraryName: 'element-plus',
+        esModule: true,
+        resolveStyle: (name: string) => { return `element-plus/theme-chalk/${name}.css` },
+      }],
     }),
     Components({
       extensions: ['vue', 'md'],
@@ -72,6 +89,7 @@ export default defineConfig({
       dts: 'src/components.d.ts',
       resolvers: [IconsResolver({ enabledCollections: ['ep'] }), ElementPlusResolver()],
     }),
+
     UnoCss(),
     VitePWA({
       registerType: 'autoUpdate',
@@ -101,6 +119,9 @@ export default defineConfig({
 
     Inspect(),
   ],
+  esbuild: {
+    logOverride: { 'this-is-undefined-in-esm': 'silent' },
+  },
 
   ssgOptions: {
     script: 'async',
