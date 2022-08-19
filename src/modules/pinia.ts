@@ -1,3 +1,12 @@
+/*
+ * @Author: By
+ * @Date: 2022-08-18 16:14:30
+ * @LastEditTime: 2022-08-19 11:16:03
+ * @LastEditors: By
+ * @Description: pinia
+ * @FilePath: \big-screen-vue3\src\modules\pinia.ts
+ * 可以输入预定的版权声明、个性签名、空行等
+ */
 import { createPinia } from 'pinia'
 import piniaPluginPersist from 'pinia-plugin-persist'
 import { type UserModule } from '~/types'

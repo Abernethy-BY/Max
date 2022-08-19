@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:25:51
- * @LastEditTime: 2022-08-18 20:10:18
+ * @LastEditTime: 2022-08-19 15:44:14
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\login.vue
@@ -224,19 +224,19 @@ meta:
     background-size: 100% 100%;
   }
 
-  ::v-deep(.handoff-icon) {
+  :deep(.handoff-icon) {
     width: 9px;
     height: 14px;
     margin-left: 9px;
   }
 
-  ::v-deep(.login-form-content) {
+  :deep(.login-form-content) {
     .el-form-item {
       margin-bottom: 0;
     }
   }
 
-  ::v-deep(.login-input) {
+  :deep(.login-input) {
     height: 56px;
     border: 1px solid #1489CC;
     border-radius: 4px;
@@ -276,7 +276,7 @@ meta:
 
   }
 
-  ::v-deep(.login-button) {
+  :deep(.login-button) {
     width: 100%;
     height: 52px;
     background: #1ADCFF;
@@ -291,7 +291,7 @@ meta:
     }
   }
 
-  ::v-deep(.verification-code-form-item) {
+  :deep(.verification-code-form-item) {
     .el-form-item__content {
       display: flex;
       justify-content: space-between;

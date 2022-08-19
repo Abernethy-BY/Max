@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-08-18 16:48:15
+ * @LastEditTime: 2022-08-19 20:21:18
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\api\api.ts
@@ -35,3 +35,6 @@ export const cytj = (param: any) => post('/cytj.aspx', param)
 
 // 4、双碳监测
 export const stjc = (param: any) => post('/stjc.aspx', param)
+
+// 4、双碳监测
+export const yqjk = (param: any) => post('/yqjk.aspx', param)

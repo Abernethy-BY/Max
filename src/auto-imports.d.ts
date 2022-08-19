@@ -8,11 +8,16 @@ declare global {
   const $ref: typeof import('vue/macros')['$ref']
   const $shallowRef: typeof import('vue/macros')['$shallowRef']
   const $toRef: typeof import('vue/macros')['$toRef']
+  const Big: typeof import('big.js')['default']
   const EffectScope: typeof import('vue')['EffectScope']
   const HttpClient: typeof import('axios-mapper')['default']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const axios: typeof import('axios')['default']
+  const b64MD5: typeof import('./utils/md5')['b64MD5']
+  const b64MD5w: typeof import('./utils/md5')['b64MD5w']
+  const calcMD5: typeof import('./utils/md5')['calcMD5']
+  const clone: typeof import('./utils/deepClone')['clone']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -35,6 +40,7 @@ declare global {
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const del: typeof import('./utils/http')['del']
+  const eCharts: typeof import('echarts')
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
@@ -42,6 +48,8 @@ declare global {
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const h: typeof import('vue')['h']
+  const hexMD5: typeof import('./utils/md5')['hexMD5']
+  const hexMD5w: typeof import('./utils/md5')['hexMD5w']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const isDefined: typeof import('@vueuse/core')['isDefined']
@@ -271,6 +279,7 @@ declare global {
   const watchWithFilter: typeof import('@vueuse/core')['watchWithFilter']
   const whenever: typeof import('@vueuse/core')['whenever']
   const xtdl: typeof import('./api/api')['xtdl']
+  const yqjk: typeof import('./api/api')['yqjk']
   const yqzl: typeof import('./api/api')['yqzl']
 }
 // for vue template auto import
@@ -284,11 +293,16 @@ declare module '@vue/runtime-core' {
     readonly $ref: UnwrapRef<typeof import('vue/macros')['$ref']>
     readonly $shallowRef: UnwrapRef<typeof import('vue/macros')['$shallowRef']>
     readonly $toRef: UnwrapRef<typeof import('vue/macros')['$toRef']>
+    readonly Big: UnwrapRef<typeof import('big.js')['default']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly HttpClient: UnwrapRef<typeof import('axios-mapper')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly axios: UnwrapRef<typeof import('axios')['default']>
+    readonly b64MD5: UnwrapRef<typeof import('./utils/md5')['b64MD5']>
+    readonly b64MD5w: UnwrapRef<typeof import('./utils/md5')['b64MD5w']>
+    readonly calcMD5: UnwrapRef<typeof import('./utils/md5')['calcMD5']>
+    readonly clone: UnwrapRef<typeof import('./utils/deepClone')['clone']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -311,6 +325,7 @@ declare module '@vue/runtime-core' {
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly del: UnwrapRef<typeof import('./utils/http')['del']>
+    readonly eCharts: UnwrapRef<typeof import('echarts')>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
@@ -318,6 +333,8 @@ declare module '@vue/runtime-core' {
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
+    readonly hexMD5: UnwrapRef<typeof import('./utils/md5')['hexMD5']>
+    readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
@@ -547,6 +564,7 @@ declare module '@vue/runtime-core' {
     readonly watchWithFilter: UnwrapRef<typeof import('@vueuse/core')['watchWithFilter']>
     readonly whenever: UnwrapRef<typeof import('@vueuse/core')['whenever']>
     readonly xtdl: UnwrapRef<typeof import('./api/api')['xtdl']>
+    readonly yqjk: UnwrapRef<typeof import('./api/api')['yqjk']>
     readonly yqzl: UnwrapRef<typeof import('./api/api')['yqzl']>
   }
 }

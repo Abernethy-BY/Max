@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 11:07:23
- * @LastEditTime: 2022-08-18 22:24:49
+ * @LastEditTime: 2022-08-19 19:44:14
  * @LastEditors: By
  * @Description: layouts
  * @FilePath: \big-screen-vue3\src\layouts\screen.vue
@@ -22,12 +22,12 @@ const pageIndex = ref(0)
 const router = useRouter()
 
 const tabList = ref([
-  { name: '园区总览', path: '/home/pandect', bg: overviewIcon },
-  { name: '产业图鉴', path: '/home/enterprise', bg: industryAtlasIcon },
-  { name: '企业画像', path: '/home/corporatePortrait', bg: corporatePortraitIcon },
+  { name: '园区总览', path: '/', bg: overviewIcon },
+  { name: '产业图鉴', path: '/enterprise', bg: industryAtlasIcon },
+  { name: '企业画像', path: '/corporatePortrait', bg: corporatePortraitIcon },
   { name: '项目投资', path: '', bg: projectInvestmentIcon },
-  { name: '双碳监测', path: '/home/doubleCarbon', bg: doubleCarbonIcon },
-  { name: '舆情监控', path: '/home/publicOpinionMonitoring', bg: publicOpinionIcon },
+  { name: '双碳监测', path: '/doubleCarbon', bg: doubleCarbonIcon },
+  { name: '舆情监控', path: '/publicOpinionMonitoring', bg: publicOpinionIcon },
 ])
 
 const jump = (index) => {
@@ -85,12 +85,12 @@ const jump = (index) => {
     background-size: 100% 100%;
   }
 
-  ::v-deep(.area-icon) {
+  :deep(.area-icon) {
     width: 43px;
     height: 41px;
   }
 
-  ::v-deep(.time-icon) {
+  :deep(.time-icon) {
     width: 62px;
     height: 62px;
   }
@@ -98,7 +98,7 @@ const jump = (index) => {
   .tab-Wrap {
     // transform: translateX(-50%);
 
-    ::v-deep(.time-icon) {
+    :deep(.time-icon) {
       position: absolute;
       top: 0;
       left: 0;

@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:36:33
- * @LastEditTime: 2022-08-18 22:28:02
+ * @LastEditTime: 2022-08-19 15:41:01
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\index.vue
@@ -9,25 +9,42 @@
 -->
 
 <script lang="ts" setup>
+const userInfo = useUserStore()
+
 const industryRankingData = ref([])
 const constructionProgressData = ref([])
 const progressData = ref([])
+
+const getYqzl = async () => {
+  const submitId = new Date().getTime()
+  const param = {
+    submitid: submitId,
+    usercode: userInfo.userCode,
+    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+  }
+  const res: any = await yqzl(param)
+  industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名')
+  constructionProgressData.value = res?.filter(e => e['位置'] === '右下')
+  progressData.value = res?.find(e => e['位置'] === '五好园区建设进度')
+}
+
+getYqzl()
 </script>
 
 <template>
-  <div class="pandect-wrap">
-    <div class="pandect-left">
-      <div class="top10">
+  <div hPE-100 wPE-100 flex flex-row-between>
+    <div wPE-25 hPE-100>
+      <div class="top10" wPE-100 hPE-61>
         <industryRanking :industry-ranking-prop="industryRankingData" />
       </div>
-      <div class="Income">
+      <div class="Income" mt-30 wPE-100 hPE-29>
         <income />
       </div>
     </div>
-    <div class="pandect-center">
+    <div class="pandect-center" wPE-39 hPE-90>
       <pandectMap />
     </div>
-    <div class="pandect-right">
+    <div class="pandect-right" wPE-28 hPE-97>
       <constructionProgress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />
     </div>
   </div>
@@ -38,38 +55,3 @@ meta:
   layout: screen
 </route>
 
-<style scoped lang="scss">
-.pandect-wrap {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-
-  .pandect-left {
-    width: 25%;
-    height: 100%;
-
-    .top10 {
-      width: 100%;
-      height: 61%;
-    }
-
-    .Income {
-      margin-top: 30px;
-      width: 468px;
-      height: 253px;
-    }
-  }
-
-  .pandect-center {
-    width: 711px;
-    height: 785px;
-  }
-
-  .pandect-right {
-    width: 510px;
-    height: 820px;
-  }
-}
-</style>

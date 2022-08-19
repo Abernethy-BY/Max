@@ -1,0 +1,131 @@
+<!--
+ * @Author: By
+ * @Date: 2022-07-27 14:35:26
+ * @LastEditTime: 2022-08-19 19:29:26
+ * @LastEditors: By
+ * @Description: 园区各产业单月用电量及占比（单位：万度） 模块
+ * @FilePath: \big-screen-vue3\src\components\doubleCarbon\electricityUsedProportion.vue
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+
+<script>
+import electricityUsedProportionBg from '~/assets/image/doubleCarbon/electricityUsedProportion.png'
+import dianzixinxi from '~/assets/image/doubleCarbon/dianzixinxi.png'
+import shengwudayaofang from '~/assets/image/doubleCarbon/shengwudayaofang.png'
+import xianjinshebei from '~/assets/image/doubleCarbon/xianjinshebei.png'
+import newEnergy from '~/assets/image/doubleCarbon/newEnergy.png'
+import other from '~/assets/image/doubleCarbon/other.png'
+
+export default {
+  props: ['electricityUsedProportionProp'],
+  data() {
+    return {
+      electricityUsedProportionBg,
+      electricityUsedProportionList: [
+        { label: '电子信息', icon: dianzixinxi, value: '', proportion: '' },
+        { label: '生物医药大药房', icon: shengwudayaofang, value: '', proportion: '' },
+        { label: '先进设备制造', icon: xianjinshebei, value: '', proportion: '' },
+        { label: '新能源材料', icon: newEnergy, value: '', proportion: '' },
+        { label: '其他', icon: other, value: '', proportion: '' },
+      ],
+    }
+  },
+  watch: { electricityUsedProportionProp() { this.initElectricityUsedProportion() } },
+  methods: {
+    initElectricityUsedProportion() {
+      this.electricityUsedProportionList.forEach((element) => {
+        this.electricityUsedProportionProp.forEach((propElement) => {
+          if (element.label === propElement['数据']) {
+            element.value = propElement['数值1']
+            element.proportion = propElement['数值2']
+          }
+        })
+      })
+    },
+  },
+
+}
+</script>
+
+<template>
+  <div class="electricity-used-proportion">
+    <el-image class="electricity-usage-bg" :src="electricityUsedProportionBg" fit="fill" />
+    <span class="electricity-used-proportion-title">
+      园区各产业单月用电量及占比（单位：万度）
+    </span>
+    <div class="electricity-used-proportion-content">
+      <div
+        v-for="(item, index) in electricityUsedProportionList" :key="index"
+        class="electricity-used-proportion-content-item"
+      >
+        <el-image class="electricity-used-proportion-content-item-icon" :src="item.icon" fit="fill" />
+        <span class="electricity-used-proportion-content-item-span">{{ item.label }}</span>
+        <span class="electricity-used-proportion-content-item-span">{{ item.value }}万度</span>
+        <span class="electricity-used-proportion-content-item-span">{{ item.proportion }}</span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.electricity-used-proportion {
+  margin-top: 33px;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  padding-top: 36px;
+
+  :deep(.electricity-usage-bg) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .electricity-used-proportion-title {
+    font-size: 24px;
+    font-family: Source Han Sans CN;
+    font-weight: 500;
+    color: #92FCFF;
+    position: absolute;
+    top: 12px;
+    left: 30px;
+    // line-height: 107px;
+  }
+
+  .electricity-used-proportion-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .electricity-used-proportion-content-item {
+    width: 18%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+   :deep(.electricity-used-proportion-content-item-icon)  {
+      width: 100%;
+      height: auto;
+    }
+
+    .electricity-used-proportion-content-item-span {
+
+      font-size: 16px;
+      font-family: Source Han Sans CN;
+      font-weight: bold;
+      color: #9FDBFD;
+      // line-height: 24px;
+    }
+  }
+}
+</style>

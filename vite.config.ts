@@ -69,6 +69,8 @@ export default defineConfig({
         { 'axios-mapper': [['default', 'HttpClient']] },
         { pinia: [['default', 'pinia']] },
         { nprogress: [['default', 'nprogress']] },
+        { 'big.js': [['default', 'Big']] },
+        { echarts: [['*', 'eCharts']] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: ['src/composables', 'src/store', 'src/utils', 'src/api'],

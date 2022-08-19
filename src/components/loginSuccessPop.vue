@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-18 14:41:40
- * @LastEditTime: 2022-08-18 20:34:43
+ * @LastEditTime: 2022-08-19 09:59:54
  * @LastEditors: By
  * @Description: 登录成功弹窗
  * @FilePath: \big-screen-vue3\src\components\loginSuccessPop.vue
@@ -36,7 +36,7 @@ const jumpToIndex = () => {
   background-size: 100% 100%;
 }
 
-::v-deep(.confirm-button) {
+:deep(.confirm-button) {
   width: 317px;
   height: 53px;
   border: none;
@@ -50,7 +50,7 @@ const jumpToIndex = () => {
   }
 }
 
-::v-deep(.close-icon){
+:deep(.close-icon){
   width: 48px;
   height: 48px;
   position: absolute;
