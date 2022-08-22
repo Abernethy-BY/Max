@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-08-19 11:15:55
+ * @LastEditTime: 2022-08-22 15:17:35
  * @LastEditors: By
  * @Description: 封装axios请求
  * @FilePath: \big-screen-vue3\src\utils\http.ts
@@ -14,47 +14,35 @@ import type { meeting } from '~/model'
 
 const config: HttpClientConfig = {
   baseURL: 'http://47.107.96.124:8034',
-  headers: { },
+  headers: {},
 }
+
 const https = new HttpClient(config)
+https.httpClient.interceptors.response.use((res) => {
+  if (res.data.message === '签名错误') {
+    useUserStore().$state = { token: '', userCode: '', userRole: '' }
+    return Promise.reject(new Error(res.data.message || 'Error'))
+  }
+  else { return res }
+})
 
 export const post = (url: string, data: RequestParams) => {
-  const store = useUserStore()
-  if (!store.hasToken && url !== '/xtdl.aspx') {
-    useRouter().push({ path: '/login' })
-    return
-  }
   return new Promise((resolve, reject) => {
     https.request<meeting>(url, Method.POST, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
   })
 }
 
 export const get = (url: string, data: RequestParams) => {
-  const store = useUserStore()
-  if (!store.hasToken) {
-    useRouter().push({ path: '/login' })
-    return
-  }
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.GET, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
+    https.request<meeting>(url, Method.GET, data).then((response: any) => { resolve(response) }, (err: any) => { reject(err) })
   })
 }
 export const put = (url: string, data: RequestParams) => {
-  const store = useUserStore()
-  if (!store.hasToken) {
-    useRouter().push({ path: '/login' })
-    return
-  }
   return new Promise((resolve, reject) => {
     https.request<meeting>(url, Method.PUT, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
   })
 }
 export const del = (url: string, data: RequestParams) => {
-  const store = useUserStore()
-  if (!store.hasToken) {
-    useRouter().push({ path: '/login' })
-    return
-  }
   return new Promise((resolve, reject) => {
     https.request<meeting>(url, Method.DELETE, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
   })

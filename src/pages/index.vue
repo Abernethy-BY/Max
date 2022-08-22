@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:36:33
- * @LastEditTime: 2022-08-19 15:41:01
+ * @LastEditTime: 2022-08-22 15:11:02
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\index.vue
@@ -21,6 +21,7 @@ const getYqzl = async () => {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    address: '湖南省长沙市',
   }
   const res: any = await yqzl(param)
   industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名')

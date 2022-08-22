@@ -56,7 +56,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
       reactivityTransform: true,
     }),
-    Pages({ extensions: ['vue', 'md'] }),
+    Pages({ extensions: ['vue'], exclude: ['**/components/*.vue'] }),
     Layouts({
       layoutsDirs: 'src/layouts',
       defaultLayout: 'screen',
@@ -71,6 +71,8 @@ export default defineConfig({
         { nprogress: [['default', 'nprogress']] },
         { 'big.js': [['default', 'Big']] },
         { echarts: [['*', 'eCharts']] },
+        { 'd3-geo': [['*', 'd3']] },
+        { '@amap/amap-jsapi-loader': [['default', 'AMapLoader']] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: ['src/composables', 'src/store', 'src/utils', 'src/api'],

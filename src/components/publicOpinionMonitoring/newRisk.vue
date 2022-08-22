@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-29 09:50:40
- * @LastEditTime: 2022-08-19 19:53:26
+ * @LastEditTime: 2022-08-22 21:49:13
  * @LastEditors: By
  * @Description: 最新风险
  * @FilePath: \big-screen-vue3\src\components\publicOpinionMonitoring\newRisk.vue
@@ -10,7 +10,15 @@
 
 <script>
 import newRiskTableBg from '~/assets/image/publicOpinionMonitoring/newRiskTableBg.png'
+import businessesNumber from '~/assets/image/publicOpinionMonitoring/businessesNumber.png'
+import businessInformation from '~/assets/image/publicOpinionMonitoring/businessInformation.png'
+import judicialProceedings from '~/assets/image/publicOpinionMonitoring/judicialProceedings.png'
+import operationalRisks from '~/assets/image/publicOpinionMonitoring/operationalRisks.png'
+import newsAndPublic from '~/assets/image/publicOpinionMonitoring/newsAndPublic.png'
+import compass from '~/assets/image/publicOpinionMonitoring/compass.png'
+import changes from '~/assets/image/publicOpinionMonitoring/changes.png'
 
+// businessesNumber
 export default {
   data() {
     return {
@@ -32,23 +40,25 @@ export default {
         { label: '风险级别', prop: 'riskLevel' },
       ],
       subItemizationRiskList: [
-        { image: require('@/views/publicOpinionMonitoring/assets/businessesNumber.png'), value: '341', label: '监控企业数量', unit: '家' },
-        { image: require('@/views/publicOpinionMonitoring/assets/businessInformation.png'), value: '480', label: '工商信息', unit: '条' },
-        { image: require('@/views/publicOpinionMonitoring/assets/judicialProceedings.png'), value: '1642', label: '司法诉讼 ', unit: '条' },
-        { image: require('@/views/publicOpinionMonitoring/assets/operationalRisks.png'), value: '156', label: '经营风险', unit: '条' },
-        { image: require('@/views/publicOpinionMonitoring/assets/newsAndPublic.png'), value: '682', label: '新闻舆情', unit: '条' },
+        { image: businessesNumber, value: '341', label: '监控企业数量', unit: '家' },
+        { image: businessInformation, value: '480', label: '工商信息', unit: '条' },
+        { image: judicialProceedings, value: '1642', label: '司法诉讼 ', unit: '条' },
+        { image: operationalRisks, value: '156', label: '经营风险', unit: '条' },
+        { image: newsAndPublic, value: '682', label: '新闻舆情', unit: '条' },
       ],
-      compassBg: require('@/views/publicOpinionMonitoring/assets/compass.png'),
-      changes: require('@/views/publicOpinionMonitoring/assets/changes.png'),
+      compassBg: compass,
+      changes,
     }
   },
   methods: {
-    tableRowClassName({ row, rowIndex }) {
-      // console.log(`--------------------------------------`);
-      // console.log(row);
-      // console.log(rowIndex);
-      // console.log(`======================================`);
-      return ''
+    rowClass({ row, rowIndex }) {
+      consola.info(row)
+      consola.info(rowIndex)
+      if (rowIndex % 2 === 0)
+        return 'odd'
+
+      else
+        return 'even'
     },
   },
 }
@@ -58,10 +68,7 @@ export default {
   <div class="new-risk">
     <div class="new-risk-table">
       <span class="new-risk-table-title">最新风险</span>
-      <el-table
-        class="new-risk-table-main" :data="tableData" :row-class-name="tableRowClassName"
-        height="calc(100% - 44px)"
-      >
+      <el-table class="new-risk-table-main" :data="tableData" height="100%" :row-class-name="rowClass">
         <el-table-column v-for="(item, index) in headerList" :key="index" :prop="item.prop" :label="item.label" />
       </el-table>
     </div>
@@ -99,6 +106,8 @@ export default {
   .new-risk-table {
     width: 100%;
     height: 51.5%;
+          background-image: url("~/assets/image/publicOpinionMonitoring/newRiskTableBg.png");
+      background-size: 100% 100%;
 
     // ::v-deep .new-risk-table-bg {
     //   width: 100%;
@@ -125,13 +134,17 @@ export default {
     :deep(.new-risk-table-main) {
       width: 100%;
 
-      background-image: url("~@/views/publicOpinionMonitoring/assets/newRiskTableBg.png");
-      background-size: cover;
+      background-color: rgba(0, 0, 0, 0);
 
-      tr,
-      td,
-      th {
-        background-color: rgba(0, 0, 0, 0) !important;
+      .el-table__header-wrapper {
+        tr {
+          background-color: #0A2157;
+        }
+
+        .el-table__cell {
+       background-color: inherit;
+          height: 42.2px;
+        }
       }
 
       .el-table__body {
@@ -143,6 +156,44 @@ export default {
           background-color: #747d8c;
         }
       }
+
+      .el-table__row {
+        height: 42.2px;
+
+        &:hover {
+          .el-table__cell {
+            background-color: inherit;
+          }
+        }
+      }
+
+      .odd {
+        background-color: rgba(113, 205, 249, 0.1) !important;
+      }
+
+      .even {
+        background-color: #163364 !important;
+      }
+
+      .el-table__cell {
+        padding: 0;
+        border: none;
+      }
+
+      .el-table__inner-wrapper {
+        &:before {
+          display: none;
+        }
+      }
+
+      .cell {
+
+        font-size: 12px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #FFFFFF;
+      }
+
     }
 
   }

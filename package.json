@@ -9,12 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@element-plus/icons-vue": "^2.0.9",
     "@types/node": "^18.7.2",
     "axios-mapper": "^0.5.9",
     "big.js": "^6.2.1",
-    "default-passive-events": "^2.0.0",
+    "d3-geo": "^3.0.1",
     "echarts": "^5.3.3",
+    "echarts-gl": "^2.0.9",
     "element-plus": "^2.2.13",
     "eslint": "^8.21.0",
     "eslint-plugin-cypress": "^2.12.1",

@@ -8,6 +8,7 @@ declare global {
   const $ref: typeof import('vue/macros')['$ref']
   const $shallowRef: typeof import('vue/macros')['$shallowRef']
   const $toRef: typeof import('vue/macros')['$toRef']
+  const AMapLoader: typeof import('@amap/amap-jsapi-loader')['default']
   const Big: typeof import('big.js')['default']
   const EffectScope: typeof import('vue')['EffectScope']
   const HttpClient: typeof import('axios-mapper')['default']
@@ -35,6 +36,7 @@ declare global {
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
   const customRef: typeof import('vue')['customRef']
   const cytj: typeof import('./api/api')['cytj']
+  const d3: typeof import('d3-geo')
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
@@ -52,6 +54,7 @@ declare global {
   const hexMD5w: typeof import('./utils/md5')['hexMD5w']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
+  const install: typeof import('./utils/amap')['install']
   const isDefined: typeof import('@vueuse/core')['isDefined']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
@@ -281,6 +284,7 @@ declare global {
   const xtdl: typeof import('./api/api')['xtdl']
   const yqjk: typeof import('./api/api')['yqjk']
   const yqzl: typeof import('./api/api')['yqzl']
+  const yzdx: typeof import('./api/api')['yzdx']
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -293,6 +297,7 @@ declare module '@vue/runtime-core' {
     readonly $ref: UnwrapRef<typeof import('vue/macros')['$ref']>
     readonly $shallowRef: UnwrapRef<typeof import('vue/macros')['$shallowRef']>
     readonly $toRef: UnwrapRef<typeof import('vue/macros')['$toRef']>
+    readonly AMapLoader: UnwrapRef<typeof import('@amap/amap-jsapi-loader')['default']>
     readonly Big: UnwrapRef<typeof import('big.js')['default']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly HttpClient: UnwrapRef<typeof import('axios-mapper')['default']>
@@ -320,6 +325,7 @@ declare module '@vue/runtime-core' {
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly cytj: UnwrapRef<typeof import('./api/api')['cytj']>
+    readonly d3: UnwrapRef<typeof import('d3-geo')>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
@@ -337,6 +343,7 @@ declare module '@vue/runtime-core' {
     readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
+    readonly install: UnwrapRef<typeof import('./utils/amap')['install']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
@@ -566,5 +573,6 @@ declare module '@vue/runtime-core' {
     readonly xtdl: UnwrapRef<typeof import('./api/api')['xtdl']>
     readonly yqjk: UnwrapRef<typeof import('./api/api')['yqjk']>
     readonly yqzl: UnwrapRef<typeof import('./api/api')['yqzl']>
+    readonly yzdx: UnwrapRef<typeof import('./api/api')['yzdx']>
   }
 }

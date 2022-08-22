@@ -1,13 +1,14 @@
 /*
  * @Author: By
  * @Date: 2022-06-16 10:00:26
- * @LastEditTime: 2022-08-19 19:01:45
+ * @LastEditTime: 2022-08-22 21:06:41
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\main.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
 import { ViteSSG } from 'vite-ssg'
+
 import { setupLayouts } from 'virtual:generated-layouts'
 import App from './App.vue'
 import generatedRoutes from '~pages'
@@ -15,8 +16,6 @@ import 'normalize.css/normalize.css'
 import '@unocss/reset/tailwind.css'
 import 'nprogress/nprogress.css'
 import 'uno.css'
-import 'default-passive-events'
-
 setDomFontSize()
 const routes = setupLayouts(generatedRoutes)
 
@@ -25,6 +24,10 @@ export const createApp = ViteSSG(
   App,
   { routes, base: import.meta.env.BASE_URL },
   (ctx) => {
+    ctx.router.beforeEach(async (to) => {
+      if (!useUserStore().hasToken && to.path !== '/login')
+        return { path: '/login' }
+    })
     // install all modules under `modules/`
     Object.values(import.meta.globEager('./modules/*.ts')).forEach((i: any) => i.install?.(ctx))
   },

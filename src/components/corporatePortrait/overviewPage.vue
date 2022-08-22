@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-08-19 17:53:50
+ * @LastEditTime: 2022-08-22 22:04:32
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\corporatePortrait\overviewPage.vue
@@ -198,7 +198,8 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #0645b9;
+        // background-color: #0645b9;
+        background-color: white;
 
         font-size: 14px;
         font-family: Source Han Sans CN;

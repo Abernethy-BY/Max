@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 17:20:30
- * @LastEditTime: 2022-08-19 20:28:46
+ * @LastEditTime: 2022-08-22 21:16:44
  * @LastEditors: By
  * @Description: 舆情监控
  * @FilePath: \big-screen-vue3\src\pages\publicOpinionMonitoring.vue
@@ -27,8 +27,7 @@ const getYqjk = async () => {
   }
   const res: any = await yqjk(param)
 
-  enterpriseRiskComData.value = res?.find(e => e['位置'] === '企业风险分布')
-  consola.info(res)
+  enterpriseRiskComData.value = res?.filter(e => e['位置'] === '企业风险分布')
 }
 
 getYqjk()
@@ -44,12 +43,12 @@ getYqjk()
         >
           企业风险
         </div>
-        <div
+        <!-- <div
           class="risk-button" :class="clickFlag === 'corporatePublicOpinion' ? 'click-button' : ''"
           @click="risk('corporatePublicOpinion')"
         >
           企业舆情
-        </div>
+        </div> -->
       </div>
 
       <div class="enterprise-risk-box">
@@ -59,7 +58,7 @@ getYqjk()
 
     <!-- 最新风险 -->
     <div class="new-risk-box">
-      <!-- <newRisk /> -->
+      <newRisk />
     </div>
   </div>
 </template>

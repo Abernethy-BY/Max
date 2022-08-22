@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 19:29:22
- * @LastEditTime: 2022-08-19 20:36:26
+ * @LastEditTime: 2022-08-22 21:15:13
  * @LastEditors: By
  * @Description: 企业风险
  * @FilePath: \big-screen-vue3\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
@@ -17,14 +17,101 @@ const prop = defineProps({
 const riskDistribution = ref()
 const input = ref('')
 
-const riskDistributionOption = ref({})
+const data = [220, 182, 191, 234, 290, 330, 310]
+const sideData = data.map(item => item + 4.5)
+
+const riskDistributionOption = ref({
+
+  // backgroundColor: '#041730',
+  tooltip: {
+    trigger: 'axis',
+    formatter: '{b} : {c}',
+    axisPointer: { type: 'shadow' },
+  },
+  xAxis: {
+    data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    // 坐标轴
+    axisLine: {
+      lineStyle: { color: '#3eb2e8' },
+    },
+    // 坐标值标注
+    axisLabel: {
+      show: true,
+      textStyle: { color: '#fff' },
+    },
+  },
+  yAxis: { show: false },
+  series: [{
+    name: 'a',
+    tooltip: { show: false },
+    type: 'bar',
+    barWidth: 24.5,
+    itemStyle: {
+      normal: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            { offset: 0, color: '#0B4EC3' },
+            { offset: 0.6, color: '#138CEB' },
+            { offset: 1, color: '#17AAFE' },
+          ],
+          global: false,
+        },
+      },
+    },
+    data,
+    barGap: 0,
+  }, {
+    type: 'bar',
+    barWidth: 8,
+    itemStyle: {
+      normal: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [
+            { offset: 0, color: '#09337C' },
+            { offset: 0.6, color: '#0761C0' },
+            { offset: 1, color: '#0761C0' },
+          ],
+          global: false,
+        },
+      },
+    },
+    barGap: 0,
+    data: sideData,
+  }, {
+    name: 'b',
+    tooltip: { show: false },
+    type: 'pictorialBar',
+    itemStyle: {
+      borderWidth: 1,
+      borderColor: '#0571D5',
+      color: '#1779E0',
+    },
+    symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
+    symbolSize: ['30', '12'],
+    symbolOffset: ['0', '-11'],
+    // symbolRotate: -5,
+    symbolPosition: 'end',
+    data,
+    z: 3,
+  }],
+})
 const initRiskDistributionChart = () => {
   const riskDistributionChart = eCharts.init(riskDistribution.value)
   riskDistributionChart.setOption(riskDistributionOption.value)
 }
 
 watch(() => prop.enterpriseRiskComProp, (val) => {
-  consola.log(prop.enterpriseRiskComProp)
+  consola.info(prop.enterpriseRiskComProp)
   initRiskDistributionChart()
 })
 </script>
@@ -42,7 +129,7 @@ watch(() => prop.enterpriseRiskComProp, (val) => {
 
     <div class="risk-distribution-box">
       <span class="risk-distribution-title">企业风险分布</span>
-      <div ref="riskDistribution" class="risk-distribution" />
+      <div ref="riskDistribution" wPE-100 hPE-100 class="risk-distribution" />
     </div>
 
     <div class="Risk-level-box">
@@ -136,6 +223,7 @@ watch(() => prop.enterpriseRiskComProp, (val) => {
       position: absolute;
       left: 17px;
       top: 17px;
+      z-index: 10;
     }
   }
 

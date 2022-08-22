@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:25:51
- * @LastEditTime: 2022-08-19 15:44:14
+ * @LastEditTime: 2022-08-22 10:09:02
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\login.vue
@@ -111,9 +111,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 const phoneLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl)
     return
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid)
       consola.success('submit!')
+      // const res = await yzdx()
+      // consola.info(res)
 
     else consola.error('error submit!', fields)
   })
