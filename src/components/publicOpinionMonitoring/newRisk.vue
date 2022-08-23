@@ -1,15 +1,14 @@
 <!--
  * @Author: By
  * @Date: 2022-07-29 09:50:40
- * @LastEditTime: 2022-08-22 21:49:13
+ * @LastEditTime: 2022-08-23 18:19:13
  * @LastEditors: By
  * @Description: 最新风险
  * @FilePath: \big-screen-vue3\src\components\publicOpinionMonitoring\newRisk.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
-<script>
-import newRiskTableBg from '~/assets/image/publicOpinionMonitoring/newRiskTableBg.png'
+<script lang="ts" setup>
 import businessesNumber from '~/assets/image/publicOpinionMonitoring/businessesNumber.png'
 import businessInformation from '~/assets/image/publicOpinionMonitoring/businessInformation.png'
 import judicialProceedings from '~/assets/image/publicOpinionMonitoring/judicialProceedings.png'
@@ -18,50 +17,50 @@ import newsAndPublic from '~/assets/image/publicOpinionMonitoring/newsAndPublic.
 import compass from '~/assets/image/publicOpinionMonitoring/compass.png'
 import changes from '~/assets/image/publicOpinionMonitoring/changes.png'
 
-// businessesNumber
-export default {
-  data() {
-    return {
-      newRiskTableBg,
-      tableData: [
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-        { changeData: '2021-12-08', businessName: '有限公司', riskType: '开庭公告', riskLevel: '警示信息 ' },
-      ],
-      headerList: [
-        { label: '变动日期', prop: 'changeData' },
-        { label: '企业名称', prop: 'businessName' },
-        { label: '风险类型', prop: 'riskType' },
-        { label: '风险级别', prop: 'riskLevel' },
-      ],
-      subItemizationRiskList: [
-        { image: businessesNumber, value: '341', label: '监控企业数量', unit: '家' },
-        { image: businessInformation, value: '480', label: '工商信息', unit: '条' },
-        { image: judicialProceedings, value: '1642', label: '司法诉讼 ', unit: '条' },
-        { image: operationalRisks, value: '156', label: '经营风险', unit: '条' },
-        { image: newsAndPublic, value: '682', label: '新闻舆情', unit: '条' },
-      ],
-      compassBg: compass,
-      changes,
-    }
-  },
-  methods: {
-    rowClass({ row, rowIndex }) {
-      consola.info(row)
-      consola.info(rowIndex)
-      if (rowIndex % 2 === 0)
-        return 'odd'
+const prop = defineProps({
+  latestRisksProp: Object,
+  riskClassificationProp: Array,
+})
 
-      else
-        return 'even'
-    },
-  },
+const tableData = ref<any>([])
+
+const headerList = ([
+  { label: '变动日期', prop: '变更日期' },
+  { label: '企业名称', prop: '企业名称' },
+  { label: '风险类型', prop: '风险类型' },
+  { label: '风险级别', prop: '风险级别' },
+])
+const subItemizationRiskList = ref([
+  { image: businessesNumber, value: '', label: '监控企业数量', unit: '家' },
+  { image: businessInformation, value: '', label: '工商信息', unit: '条' },
+  { image: judicialProceedings, value: '', label: '司法诉讼', unit: '条' },
+  { image: operationalRisks, value: '', label: '经营风险', unit: '条' },
+  { image: newsAndPublic, value: '', label: '新闻舆情', unit: '条' },
+])
+
+const rowClass = ({ row, rowIndex }) => {
+  if (rowIndex % 2 === 0)
+    return 'odd'
+
+  else
+    return 'even'
 }
+
+watch(() => prop.latestRisksProp, (val) => {
+  tableData.value = prop.latestRisksProp?.['数值1']
+})
+
+watch(() => prop.riskClassificationProp, (val) => {
+  consola.start(prop.riskClassificationProp)
+  prop.riskClassificationProp?.forEach((e: any, i) => {
+    const temp = subItemizationRiskList.value.find(childElement => childElement.label === e?.['数据'])
+    consola.start(temp)
+    consola.error(e)
+    consola.warn(subItemizationRiskList.value)
+    if (temp)
+      temp.value = e?.['值1']
+  })
+})
 </script>
 
 <template>
@@ -71,20 +70,11 @@ export default {
       <el-table class="new-risk-table-main" :data="tableData" height="100%" :row-class-name="rowClass">
         <el-table-column v-for="(item, index) in headerList" :key="index" :prop="item.prop" :label="item.label" />
       </el-table>
-    </div>
-    <div class="sub-itemization-risk-box">
+    </div><div class="sub-itemization-risk-box">
       <div v-for="(item, index) in subItemizationRiskList" :key="index" class="sub-itemization-risk-item">
-        <el-image class="sub-itemization-risk-item-bg" :src="item.image" fit="fill" />
-        <span class="sub-itemization-risk-item-value">
-          {{ item.value }}
-          <span class="sub-itemization-risk-item-unit">{{ item.unit }}</span>
-        </span>
-        <span class="sub-itemization-risk-item-label">{{ item.label }}</span>
+        <el-image class="sub-itemization-risk-item-bg" :src="item.image" fit="fill" /><span class="sub-itemization-risk-item-value">{{ item.value }}<span class="sub-itemization-risk-item-unit">{{ item.unit }}</span></span><span class="sub-itemization-risk-item-label">{{ item.label }}</span>
       </div>
-    </div>
-
-    <el-image class="compass-bg" :src="compassBg" fit="fill" />
-    <el-image class="changes-bg" :src="changes" fit="fill" />
+    </div><el-image class="compass-bg" :src="compass" fit="fill" /><el-image class="changes-bg" :src="changes" fit="fill" />
   </div>
 </template>
 
@@ -106,8 +96,8 @@ export default {
   .new-risk-table {
     width: 100%;
     height: 51.5%;
-          background-image: url("~/assets/image/publicOpinionMonitoring/newRiskTableBg.png");
-      background-size: 100% 100%;
+    background-image: url("~/assets/image/publicOpinionMonitoring/newRiskTableBg.png");
+    background-size: 100% 100%;
 
     // ::v-deep .new-risk-table-bg {
     //   width: 100%;
@@ -142,7 +132,7 @@ export default {
         }
 
         .el-table__cell {
-       background-color: inherit;
+          background-color: inherit;
           height: 42.2px;
         }
       }

@@ -46,16 +46,33 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const format: typeof import('./utils/dateUtil')['format']
   const get: typeof import('./utils/http')['get']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
+  const getDay: typeof import('./utils/dateUtil')['getDay']
+  const getLastDayOfMonth: typeof import('./utils/dateUtil')['getLastDayOfMonth']
+  const getMilliseconds: typeof import('./utils/dateUtil')['getMilliseconds']
+  const getMonth: typeof import('./utils/dateUtil')['getMonth']
+  const getNowDate: typeof import('./utils/dateUtil')['getNowDate']
+  const getNowDay: typeof import('./utils/dateUtil')['getNowDay']
+  const getNowMonth: typeof import('./utils/dateUtil')['getNowMonth']
+  const getNowTime: typeof import('./utils/dateUtil')['getNowTime']
+  const getNowWeek: typeof import('./utils/dateUtil')['getNowWeek']
+  const getOneDayOfMonth: typeof import('./utils/dateUtil')['getOneDayOfMonth']
+  const getOneDayOfYear: typeof import('./utils/dateUtil')['getOneDayOfYear']
+  const getTimeDifference: typeof import('./utils/dateUtil')['getTimeDifference']
+  const getYear: typeof import('./utils/dateUtil')['getYear']
+  const getYearLastDay: typeof import('./utils/dateUtil')['getYearLastDay']
   const h: typeof import('vue')['h']
   const hexMD5: typeof import('./utils/md5')['hexMD5']
   const hexMD5w: typeof import('./utils/md5')['hexMD5w']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
   const install: typeof import('./utils/amap')['install']
+  const isDate: typeof import('./utils/dateUtil')['isDate']
   const isDefined: typeof import('@vueuse/core')['isDefined']
+  const isNull: typeof import('./utils/dateUtil')['isNull']
   const isProxy: typeof import('vue')['isProxy']
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
@@ -335,16 +352,33 @@ declare module '@vue/runtime-core' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly format: UnwrapRef<typeof import('./utils/dateUtil')['format']>
     readonly get: UnwrapRef<typeof import('./utils/http')['get']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
+    readonly getDay: UnwrapRef<typeof import('./utils/dateUtil')['getDay']>
+    readonly getLastDayOfMonth: UnwrapRef<typeof import('./utils/dateUtil')['getLastDayOfMonth']>
+    readonly getMilliseconds: UnwrapRef<typeof import('./utils/dateUtil')['getMilliseconds']>
+    readonly getMonth: UnwrapRef<typeof import('./utils/dateUtil')['getMonth']>
+    readonly getNowDate: UnwrapRef<typeof import('./utils/dateUtil')['getNowDate']>
+    readonly getNowDay: UnwrapRef<typeof import('./utils/dateUtil')['getNowDay']>
+    readonly getNowMonth: UnwrapRef<typeof import('./utils/dateUtil')['getNowMonth']>
+    readonly getNowTime: UnwrapRef<typeof import('./utils/dateUtil')['getNowTime']>
+    readonly getNowWeek: UnwrapRef<typeof import('./utils/dateUtil')['getNowWeek']>
+    readonly getOneDayOfMonth: UnwrapRef<typeof import('./utils/dateUtil')['getOneDayOfMonth']>
+    readonly getOneDayOfYear: UnwrapRef<typeof import('./utils/dateUtil')['getOneDayOfYear']>
+    readonly getTimeDifference: UnwrapRef<typeof import('./utils/dateUtil')['getTimeDifference']>
+    readonly getYear: UnwrapRef<typeof import('./utils/dateUtil')['getYear']>
+    readonly getYearLastDay: UnwrapRef<typeof import('./utils/dateUtil')['getYearLastDay']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hexMD5: UnwrapRef<typeof import('./utils/md5')['hexMD5']>
     readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
     readonly install: UnwrapRef<typeof import('./utils/amap')['install']>
+    readonly isDate: UnwrapRef<typeof import('./utils/dateUtil')['isDate']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
+    readonly isNull: UnwrapRef<typeof import('./utils/dateUtil')['isNull']>
     readonly isProxy: UnwrapRef<typeof import('vue')['isProxy']>
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>

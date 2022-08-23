@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 17:20:30
- * @LastEditTime: 2022-08-22 21:16:44
+ * @LastEditTime: 2022-08-23 17:59:53
  * @LastEditors: By
  * @Description: 舆情监控
  * @FilePath: \big-screen-vue3\src\pages\publicOpinionMonitoring.vue
@@ -12,6 +12,10 @@ const userInfo = useUserStore()
 const clickFlag = ref('enterpriseRisk')
 
 const enterpriseRiskComData = ref([])
+const riskLevelData = ref([])
+const riskClassificationData = ref([])
+
+const latestRisksData = ref([])
 const risk = (flag) => {
   if (flag === clickFlag.value)
     return
@@ -26,8 +30,13 @@ const getYqjk = async () => {
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
   }
   const res: any = await yqjk(param)
-
+  consola.info(res)
   enterpriseRiskComData.value = res?.filter(e => e['位置'] === '企业风险分布')
+  riskLevelData.value = res?.filter(e => e['位置'] === '风险级别分布')
+
+  latestRisksData.value = res?.find(e => e['位置'] === '最新风险')
+
+  riskClassificationData.value = res?.filter(e => e['位置'] === '右下')
 }
 
 getYqjk()
@@ -52,13 +61,13 @@ getYqjk()
       </div>
 
       <div class="enterprise-risk-box">
-        <enterpriseRiskCom :enterprise-risk-com-prop="enterpriseRiskComData" />
+        <enterpriseRiskCom :enterprise-risk-com-prop="enterpriseRiskComData" :risk-level-prop="riskLevelData" />
       </div>
     </div>
 
     <!-- 最新风险 -->
     <div class="new-risk-box">
-      <newRisk />
+      <newRisk :latest-risks-prop="latestRisksData" :risk-classification-prop="riskClassificationData" />
     </div>
   </div>
 </template>

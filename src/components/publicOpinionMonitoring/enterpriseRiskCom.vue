@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 19:29:22
- * @LastEditTime: 2022-08-22 21:15:13
+ * @LastEditTime: 2022-08-23 17:55:22
  * @LastEditors: By
  * @Description: 企业风险
  * @FilePath: \big-screen-vue3\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
@@ -13,14 +13,15 @@ import enterpriseRiskBg from '~/assets/image/publicOpinionMonitoring/enterpriseR
 import riskLevelBg from '~/assets/image/publicOpinionMonitoring/riskLevelBg.png'
 const prop = defineProps({
   enterpriseRiskComProp: Array,
+  riskLevelProp: Array,
 })
 const riskDistribution = ref()
 const input = ref('')
 
-const data = [220, 182, 191, 234, 290, 330, 310]
-const sideData = data.map(item => item + 4.5)
+// const data = [220, 182, 191, 234, 290, 330, 310]
+// const sideData = data.map(item => item + 4.5)
 
-const riskDistributionOption = ref({
+const riskDistributionOption = ref<any>({
 
   // backgroundColor: '#041730',
   tooltip: {
@@ -28,17 +29,18 @@ const riskDistributionOption = ref({
     formatter: '{b} : {c}',
     axisPointer: { type: 'shadow' },
   },
+  grid: {
+    left: '5%',
+    top: '5%',
+    right: '5%',
+    bottom: '20%',
+  },
   xAxis: {
-    data: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    data: [],
     // 坐标轴
-    axisLine: {
-      lineStyle: { color: '#3eb2e8' },
-    },
+    axisLine: { lineStyle: { color: '#3eb2e8' } },
     // 坐标值标注
-    axisLabel: {
-      show: true,
-      textStyle: { color: '#fff' },
-    },
+    axisLabel: { show: true, color: '#fff', hideOverlap: false, rotate: 50, margin: 15 },
   },
   yAxis: { show: false },
   series: [{
@@ -47,46 +49,45 @@ const riskDistributionOption = ref({
     type: 'bar',
     barWidth: 24.5,
     itemStyle: {
-      normal: {
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: '#0B4EC3' },
-            { offset: 0.6, color: '#138CEB' },
-            { offset: 1, color: '#17AAFE' },
-          ],
-          global: false,
-        },
+
+      color: {
+        type: 'linear',
+        x: 0,
+        y: 0,
+        x2: 0,
+        y2: 1,
+        colorStops: [
+          { offset: 0, color: '#0B4EC3' },
+          { offset: 0.6, color: '#138CEB' },
+          { offset: 1, color: '#17AAFE' },
+        ],
+        global: false,
       },
+
     },
-    data,
+    data: [],
     barGap: 0,
   }, {
     type: 'bar',
     barWidth: 8,
     itemStyle: {
-      normal: {
-        color: {
-          type: 'linear',
-          x: 0,
-          y: 0,
-          x2: 0,
-          y2: 1,
-          colorStops: [
-            { offset: 0, color: '#09337C' },
-            { offset: 0.6, color: '#0761C0' },
-            { offset: 1, color: '#0761C0' },
-          ],
-          global: false,
-        },
+      color: {
+        type: 'linear',
+        x: 0,
+        y: 0,
+        x2: 0,
+        y2: 1,
+        colorStops: [
+          { offset: 0, color: '#09337C' },
+          { offset: 0.6, color: '#0761C0' },
+          { offset: 1, color: '#0761C0' },
+        ],
+        global: false,
       },
+
     },
     barGap: 0,
-    data: sideData,
+    data: [],
   }, {
     name: 'b',
     tooltip: { show: false },
@@ -99,19 +100,22 @@ const riskDistributionOption = ref({
     symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
     symbolSize: ['30', '12'],
     symbolOffset: ['0', '-11'],
-    // symbolRotate: -5,
     symbolPosition: 'end',
-    data,
+    data: [],
     z: 3,
   }],
 })
 const initRiskDistributionChart = () => {
   const riskDistributionChart = eCharts.init(riskDistribution.value)
+  riskDistributionOption.value.xAxis.data = prop.enterpriseRiskComProp?.map((e: any) => e?.['数据'])
+  riskDistributionOption.value.series[0].data = prop.enterpriseRiskComProp?.map((e: any) => e?.['值1'])
+
+  riskDistributionOption.value.series[1].data = prop.enterpriseRiskComProp?.map((e: any) => e?.['值1'])
+  riskDistributionOption.value.series[2].data = prop.enterpriseRiskComProp?.map((e: any) => e?.['值1'])
   riskDistributionChart.setOption(riskDistributionOption.value)
 }
 
 watch(() => prop.enterpriseRiskComProp, (val) => {
-  consola.info(prop.enterpriseRiskComProp)
   initRiskDistributionChart()
 })
 </script>
@@ -181,6 +185,10 @@ watch(() => prop.enterpriseRiskComProp, (val) => {
       color: #FFFFFF;
 
       -webkit-padding-start: 30px;
+
+      &::-webkit-input-placeholder{
+        color: white;
+      }
     }
 
     .el-input__suffix {
@@ -203,7 +211,6 @@ watch(() => prop.enterpriseRiskComProp, (val) => {
   .risk-distribution-box {
     width: 402px;
     height: 53%;
-    // background-color: red;
     position: relative;
 
     :deep(.risk-distribution-bg) {
