@@ -2,7 +2,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 20:44:04
- * @LastEditTime: 2022-08-22 20:21:35
+ * @LastEditTime: 2022-08-24 18:29:39
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\pandect\income.vue
@@ -127,7 +127,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
 
     series[i].pieData.startRatio = startValue / sumValue
     series[i].pieData.endRatio = endValue / sumValue
-    series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value === series[0].pieData.value ? 35 : 10)
+    series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value === series[0].pieData.value ? 75 : 50)
 
     startValue = endValue
 
@@ -215,7 +215,7 @@ onMounted(() => {
         startRatio = option.series[hoveredIndex].pieData.startRatio
         endRatio = option.series[hoveredIndex].pieData.endRatio
         k = option.series[hoveredIndex].pieStatus.k
-        i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 35 : 10
+        i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 75 : 50
         // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
         option.series[hoveredIndex].parametricEquation = getParametricEquation(
           startRatio,
@@ -270,7 +270,7 @@ onMounted(() => {
       const startRatio = option.series[hoveredIndex].pieData.startRatio
       const endRatio = option.series[hoveredIndex].pieData.endRatio
       // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
-      const i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 35 : 10
+      const i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 75 : 50
       option.series[hoveredIndex].parametricEquation = getParametricEquation(
         startRatio,
         endRatio,

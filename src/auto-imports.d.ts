@@ -69,7 +69,6 @@ declare global {
   const hexMD5w: typeof import('./utils/md5')['hexMD5w']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
-  const install: typeof import('./utils/amap')['install']
   const isDate: typeof import('./utils/dateUtil')['isDate']
   const isDefined: typeof import('@vueuse/core')['isDefined']
   const isNull: typeof import('./utils/dateUtil')['isNull']
@@ -82,6 +81,7 @@ declare global {
   const logicOr: typeof import('@vueuse/core')['logicOr']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
+  const md5: typeof import('js-md5')['default']
   const nextTick: typeof import('vue')['nextTick']
   const nprogress: typeof import('nprogress')['default']
   const onActivated: typeof import('vue')['onActivated']
@@ -375,7 +375,6 @@ declare module '@vue/runtime-core' {
     readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>
     readonly ignorableWatch: UnwrapRef<typeof import('@vueuse/core')['ignorableWatch']>
     readonly inject: UnwrapRef<typeof import('vue')['inject']>
-    readonly install: UnwrapRef<typeof import('./utils/amap')['install']>
     readonly isDate: UnwrapRef<typeof import('./utils/dateUtil')['isDate']>
     readonly isDefined: UnwrapRef<typeof import('@vueuse/core')['isDefined']>
     readonly isNull: UnwrapRef<typeof import('./utils/dateUtil')['isNull']>
@@ -388,6 +387,7 @@ declare module '@vue/runtime-core' {
     readonly logicOr: UnwrapRef<typeof import('@vueuse/core')['logicOr']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
+    readonly md5: UnwrapRef<typeof import('js-md5')['default']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly nprogress: UnwrapRef<typeof import('nprogress')['default']>
     readonly onActivated: UnwrapRef<typeof import('vue')['onActivated']>

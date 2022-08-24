@@ -73,6 +73,7 @@ export default defineConfig({
         { echarts: [['*', 'eCharts']] },
         { 'd3-geo': [['*', 'd3']] },
         { '@amap/amap-jsapi-loader': [['default', 'AMapLoader']] },
+        { 'js-md5': [['default', 'md5']] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: ['src/composables', 'src/store', 'src/utils', 'src/api'],

@@ -28,6 +28,7 @@ specifiers:
   fp-ts: ^2.12.2
   happy-dom: ^6.0.4
   inferred-types: ^0.22.0
+  js-md5: ^0.7.3
   normalize.css: ^8.0.1
   nprogress: ^0.2.0
   pinia: ^2.0.18
@@ -70,6 +71,7 @@ dependencies:
   element-plus: 2.2.13_vue@3.2.37
   eslint: 8.21.0
   eslint-plugin-cypress: 2.12.1_eslint@8.21.0
+  js-md5: 0.7.3
   nprogress: 0.2.0
   pinia: 2.0.18_j6bzmzd4ujpabbp5objtwxyjp4
   pinia-plugin-persist: 1.0.0_pinia@2.0.18+vue@3.2.37
@@ -5128,6 +5130,10 @@ packages:
     resolution: {integrity: sha512-4IwstlaKQc9vCTC+qUXLM1hajy2ImiL9KnLvVYiaHOtS/v3wRjhLlGl121AmgDgx/O43uKmxownJghS5XMya2A==}
     hasBin: true
     dev: true
+
+  /js-md5/0.7.3:
+    resolution: {integrity: sha512-ZC41vPSTLKGwIRjqDh8DfXoCrdQIyBgspJVPXHBGu4nZlAEvG3nf+jO9avM9RmLiGakg7vz974ms99nEV0tmTQ==}
+    dev: false
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}

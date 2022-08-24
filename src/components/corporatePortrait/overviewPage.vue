@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-08-22 22:04:32
+ * @LastEditTime: 2022-08-24 18:11:09
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\corporatePortrait\overviewPage.vue
@@ -91,7 +91,7 @@ export default {
       <el-carousel-item v-for="item in 4" :key="item">
         <div class="overview-content">
           <div class="overview-content-item">
-            <span class="overview-content-item-title">是否高新技术企业</span>
+            <span class="overview-content-item-title">高新技术企业</span>
             <!-- <div class="overview-content-item-main" v-for="(item, index) in HighTechEnterpriseList" :key="index">
               暂无图片
             </div> -->
@@ -101,7 +101,7 @@ export default {
             />
           </div>
           <div class="overview-content-item">
-            <span class="overview-content-item-title">是否专精特新企业</span>
+            <span class="overview-content-item-title">专精特新企业</span>
             <!-- <div class="overview-content-item-main" v-for="(item, index) in 3" :key="index">
               暂无图片
             </div> -->

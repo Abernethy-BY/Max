@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 19:59:21
- * @LastEditTime: 2022-08-19 18:29:40
+ * @LastEditTime: 2022-08-24 18:11:46
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\corporatePortrait\enterpriseProducts.vue
@@ -25,7 +25,7 @@ export default {
         暂无图片
       </div>
     </div>
-    <span class="enterprise-products-remark" cursor-p>上传图片</span>
+    <!-- <span class="enterprise-products-remark" cursor-p>上传图片</span> -->
   </div>
 </template>
 
