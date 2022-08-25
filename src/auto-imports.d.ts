@@ -48,6 +48,7 @@ declare global {
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const format: typeof import('./utils/dateUtil')['format']
   const get: typeof import('./utils/http')['get']
+  const getAdCode: typeof import('./api/api')['getAdCode']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getDay: typeof import('./utils/dateUtil')['getDay']
@@ -354,6 +355,7 @@ declare module '@vue/runtime-core' {
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly format: UnwrapRef<typeof import('./utils/dateUtil')['format']>
     readonly get: UnwrapRef<typeof import('./utils/http')['get']>
+    readonly getAdCode: UnwrapRef<typeof import('./api/api')['getAdCode']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getDay: UnwrapRef<typeof import('./utils/dateUtil')['getDay']>

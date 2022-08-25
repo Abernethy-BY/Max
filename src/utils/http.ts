@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-08-24 21:47:08
+ * @LastEditTime: 2022-08-25 16:37:13
  * @LastEditors: By
  * @Description: 封装axios请求
  * @FilePath: \big-screen-vue3\src\utils\http.ts
@@ -14,7 +14,8 @@ import type { meeting } from '~/model'
 
 const config: HttpClientConfig = {
   baseURL: 'http://47.107.96.124:8034',
-  headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+  // headers: { 'Content-Type': 'application/json;charset=UTF-8' },
+  headers: {},
 }
 
 const https = new HttpClient(config)
@@ -34,7 +35,7 @@ export const post = (url: string, data: RequestParams) => {
 
 export const get = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.GET, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
+    https.request<meeting>(url, Method.GET, data).then((response: any) => { resolve(response.districts) }, (err: any) => { reject(err) })
   })
 }
 export const put = (url: string, data: RequestParams) => {

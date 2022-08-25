@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 21:12:14
- * @LastEditTime: 2022-08-24 22:24:37
+ * @LastEditTime: 2022-08-25 20:57:37
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\pandect\pandectMap.vue
@@ -113,62 +113,84 @@ const initMap = async (code) => {
 
 // const map = shallowRef(null)
 
-const initMapFun = () => {
-  AMapLoader.load({
-    key: 'a9618a7db350f35205fe226cd22b6868', // 申请好的Web端开发者Key，首次调用 load 时必填
-    version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-    plugins: ['geo/DistrictExplorer', 'AMap.Geocoder', 'AMap.GeoJSON'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
-  }).then((AMap) => {
-    // map.value = new AMap.Map('container', { // 设置地图容器id
-    //   viewMode: '3D', // 是否为3D地图模式
-    //   zoom: 5, // 初始化地图级别
-    //   center: [105.602725, 37.076636], // 初始化地图中心点位置
-    // })
-    // new AMap()
-    // const res = get()
-    consola.info(AMap)
-    consola.info(AMap.Geocoder)
-    // new AMap.Map('mapRef', {
+// const initMapFun = () => {
+//   window._AMapSecurityConfig = {
+//     securityJsCode: '2a88ea7922bf542b9483b44324b74775',
+//   }
+//   AMapLoader.load({
+//     key: 'a9618a7db350f35205fe226cd22b6868', // 申请好的Web端开发者Key，首次调用 load 时必填
+//     version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+//     plugins: ['geo/DistrictExplorer', 'AMap.Geocoder', 'AMap.GeoJSON'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+//   }).then((AMap) => {
+//     // map.value = new AMap.Map('container', { // 设置地图容器id
+//     //   viewMode: '3D', // 是否为3D地图模式
+//     //   zoom: 5, // 初始化地图级别
+//     //   center: [105.602725, 37.076636], // 初始化地图中心点位置
+//     // })
+//     // new AMap()
+//     // const res = get()
+//     consola.info(AMap)
+//     consola.info(AMap.Geocoder)
+//     // new AMap.Map('mapRef', {
 
-    //   // districtExplorer.loadAreaNode(100000, (error, areaNode) => {
-    //   //     if (error) {
-    //   //         console.error(error);
-    //   //         return;
-    //   //     }
-    //   //     const Json = areaNode.getSubFeatures(); // 获取Features
-    //   // })
+//     //   // districtExplorer.loadAreaNode(100000, (error, areaNode) => {
+//     //   //     if (error) {
+//     //   //         console.error(error);
+//     //   //         return;
+//     //   //     }
+//     //   //     const Json = areaNode.getSubFeatures(); // 获取Features
+//     //   // })
 
-    // })
-    const GeoCoder = new AMap.Geocoder({
-      city: '湖南省',
-    })
+//     // })
+//     const GeoCoder = new AMap.Geocoder({
+//       city: '湖南省',
+//     })
 
-    GeoCoder.getLocation('长沙1', (res) => {
-      consola.info('1111111111111111111111111111111111')
-      consola.info(res)
-      consola.info('1111111111111111111111111111111111')
-    })
-    consola.warn(GeoCoder)
+//     GeoCoder.getLocation('长沙1', (res) => {
+//       consola.info('1111111111111111111111111111111111')
+//       consola.info(res)
+//       consola.info('1111111111111111111111111111111111')
+//     })
+//     consola.warn(GeoCoder)
 
-    const GeoJSON = new AMap.GeoJSON({
+//     // const GeoJSON = new AMap.GeoJSON({
 
-    })
-    // consola.warn(GeoCoder)
-    const param = {
-      key: '79848c3f3fbd1e9321efb5408c3c4a31',
-      address: encodeURIComponent('湖南省'),
-    }
-    const sig = md5('address=湖南省&key=79848c3f3fbd1e9321efb5408c3c4a31cef67f7186b4debe1f9dd24dec1141a4')
-    consola.info({ ...param, sig })
-    consola.info(JSON.stringify({ ...param, sig }))
-    consola.info(sig)
-    param.address = decodeURI(param.address)
-    const res = get('https://restapi.amap.com/v3/geocode/geo', { ...param, sig })
-    consola.info(res)
-  }).catch((e) => {
-    consola.info(e)
-  })
-}
+//     // })
+//     // consola.warn(GeoCoder)
+//     const param = {
+//       key: '79848c3f3fbd1e9321efb5408c3c4a31',
+//       address: encodeURIComponent('湖南省'),
+//     }
+//     const sig = md5('address=湖南省&key=79848c3f3fbd1e9321efb5408c3c4a31cef67f7186b4debe1f9dd24dec1141a4')
+//     // consola.info({ ...param, sig })
+//     // consola.info(JSON.stringify({ ...param, sig }))
+//     // consola.info(sig)
+//     param.address = decodeURI(param.address)
+//     const res = get('https://restapi.amap.com/v3/geocode/geo', { ...param, sig })
+//     consola.success(res)
+
+//     const geoParam = {
+//       key: '79848c3f3fbd1e9321efb5408c3c4a31',
+//       keywords: encodeURIComponent('湖南省'),
+//       subdistrict: 5,
+//     }
+
+//     const geoKey = Object.keys(geoParam).sort((a: any, b: any) => { return a - b })
+//     consola.info('geoKey')
+//     consola.info(geoKey)
+//     consola.info(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
+//     // const geoSig = md5(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
+//     const geoSig = md5('key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=湖南省&subdistrict=5cef67f7186b4debe1f9dd24dec1141a4')
+
+//     geoParam.keywords = decodeURI(geoParam.keywords)
+//     const geoRes = get('https://restapi.amap.com/v3/config/district', { ...geoParam, sig: geoSig })
+//     consola.info('GeoRes')
+//     consola.info(geoRes)
+//     consola.info(geoRes)
+//   }).catch((e) => {
+//     consola.info(e)
+//   })
+// }
 // const current_position = ref<any>([])
 // const path = ref<any>([])
 
@@ -237,9 +259,125 @@ const initMapFun = () => {
 //     })
 // }
 
+const initMapChart = async () => {
+  const geoParam = {
+    key: '79848c3f3fbd1e9321efb5408c3c4a31',
+    keywords: decodeURI('湖南省'),
+    subdistrict: 1,
+  }
+  const geoKey = Object.keys(geoParam).sort((a: any, b: any) => { return a - b })
+  const geoSig = md5(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
+
+  // const geoRes = await get('', { ...geoParam, sig: geoSig })
+  const geoRes = await getAdCode({ ...geoParam, sig: geoSig })
+  consola.success(geoRes)
+
+  // eCharts.registerMap('map', geoRes)
+
+  // chartDom.value = eCharts.init(mapRef.value)
+  // chartDom.value.setOption(option.value)
+  // chartDom.value.on('click', (params) => {
+  //   const clickTemp = mapArr.find(e => e.properties.name === params.name)
+  //   initMap(`${clickTemp.properties.adcode}`)
+  // })
+
+  window._AMapSecurityConfig = {
+    securityJsCode: '2a88ea7922bf542b9483b44324b74775',
+  }
+
+  AMapLoader.load({
+    key: 'a9618a7db350f35205fe226cd22b6868', // 申请好的Web端开发者Key，首次调用 load 时必填
+    version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
+    plugins: ['geo/DistrictExplorer', 'AMap.Geocoder', 'AMap.GeoJSON', 'AMap.DistrictSearch'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
+  }).then((AMap) => {
+    consola.info(AMap.DistrictSearch)
+    consola.info('q')
+    const districtSearch = new AMap.DistrictSearch({
+      level: 'province',
+      showbiz: false,
+      extensions: true,
+      subdistrict: 3,
+    })
+    consola.info(districtSearch)
+    consola.info(districtSearch.search)
+    districtSearch.search('湖南省', (status, result) => {
+      consola.warn(status)
+      consola.warn(result)
+    })
+    // map.value = new AMap.Map('container', { // 设置地图容器id
+    //   viewMode: '3D', // 是否为3D地图模式
+    //   zoom: 5, // 初始化地图级别
+    //   center: [105.602725, 37.076636], // 初始化地图中心点位置
+    // })
+    // new AMap()
+    // // const res = get()
+    // consola.info(AMap)
+    // consola.info(AMap.Geocoder)
+    // // new AMap.Map('mapRef', {
+
+    //   // districtExplorer.loadAreaNode(100000, (error, areaNode) => {
+    //   //     if (error) {
+    //   //         console.error(error);
+    //   //         return;
+    //   //     }
+    //   //     const Json = areaNode.getSubFeatures(); // 获取Features
+    //   // })
+
+    // // })
+    // const GeoJSON = new AMap.GeoJSON({
+    //   city: '湖南省',
+    // })
+
+    // GeoCoder.getLocation('长沙1', (res) => {
+    //   consola.info('1111111111111111111111111111111111')
+    //   consola.info(res)
+    //   consola.info('1111111111111111111111111111111111')
+    // })
+    // consola.warn(GeoCoder)
+
+    // const GeoJSON = new AMap.GeoJSON({
+
+    // })
+    // // consola.warn(GeoCoder)
+    // const param = {
+    //   key: '79848c3f3fbd1e9321efb5408c3c4a31',
+    //   address: encodeURIComponent('湖南省'),
+    // }
+    // const sig = md5('address=湖南省&key=79848c3f3fbd1e9321efb5408c3c4a31cef67f7186b4debe1f9dd24dec1141a4')
+    // // consola.info({ ...param, sig })
+    // // consola.info(JSON.stringify({ ...param, sig }))
+    // // consola.info(sig)
+    // param.address = decodeURI(param.address)
+    // const res = get('https://restapi.amap.com/v3/geocode/geo', { ...param, sig })
+    // consola.success(res)
+
+    // const geoParam = {
+    //   key: '79848c3f3fbd1e9321efb5408c3c4a31',
+    //   keywords: encodeURIComponent('湖南省'),
+    //   subdistrict: 5,
+    // }
+
+    // const geoKey = Object.keys(geoParam).sort((a: any, b: any) => { return a - b })
+    // consola.info('geoKey')
+    // consola.info(geoKey)
+    // consola.info(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
+    // // const geoSig = md5(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
+    // const geoSig = md5('key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=湖南省&subdistrict=5cef67f7186b4debe1f9dd24dec1141a4')
+
+    // geoParam.keywords = decodeURI(geoParam.keywords)
+    // const geoRes = get('https://restapi.amap.com/v3/config/district', { ...geoParam, sig: geoSig })
+    // consola.info('GeoRes')
+    // consola.info(geoRes)
+    // consola.info(geoRes)
+  }).catch((e) => {
+    consola.warn(e)
+  })
+}
+
 onMounted(() => {
   // initMap('430000')
-  initMapFun()
+  // initMapFun()
+  initMapChart()
 })
 </script>
 
