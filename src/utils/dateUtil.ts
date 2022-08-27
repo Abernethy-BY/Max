@@ -3,19 +3,20 @@
  * @Version: 2.0
  * @Date: 2022-03-10 16:24:39
  * @LastEditors: By
- * @LastEditTime: 2022-08-23 18:36:59
+ * @LastEditTime: 2022-08-27 14:50:55
  * @Description: 时间处理通用类
- * @FilePath: \big-screen-vue3\src\utils\DateUtil.ts
+ * @FilePath: \big-screen-vue3\src\utils\dateUtil.ts
  */
 // 日期格式化规范
 
-const types = {
+export const dateTypes = {
   yyyy_MM_dd_HH_mm_ss: 'yyyy-MM-dd HH:mm:ss',
   yyyy_MM_dd_HH_mm: 'yyyy-MM-dd HH:mm',
   yyyy_MM_dd: 'yyyy-MM-dd',
   yyyy_MM_dd_1: 'yyyy/MM/dd',
   yyyyMMdd: 'yyyyMMdd',
   HH_mm_ss: 'HH:mm:ss',
+  yyyy_MM_dd_cn: 'yyyy-MM-dd-cn',
 }
 
 /**
@@ -50,7 +51,7 @@ export const isDate = (date: any) => {
      * @param pattern 可为空，默认yyyy-MM-dd HH:mm:ss
      * @returns {string}
      */
-export const format = (date, pattern?) => {
+export const formatDate = (date, pattern?) => {
   const yy = date.getFullYear() // 年
   const mm = date.getMonth() + 1 // 月
   const dd = date.getDate() // 日
@@ -74,26 +75,23 @@ export const format = (date, pattern?) => {
   if (ss < 10)
     clock += '0'
   clock += ss
-  if (isNull(pattern) || pattern === types.yyyy_MM_dd_HH_mm_ss)
-    return clock
+  if (isNull(pattern) || pattern === dateTypes.yyyy_MM_dd_HH_mm_ss) { return clock }
 
-  else if (pattern === types.yyyy_MM_dd)
-    return clock.substring(0, 10)
+  else if (pattern === dateTypes.yyyy_MM_dd) { return clock.substring(0, 10) }
 
-  else if (pattern === types.HH_mm_ss)
-    return clock.substring(11)
+  else if (pattern === dateTypes.HH_mm_ss) { return clock.substring(11) }
 
-  else if (pattern === types.yyyy_MM_dd_1)
-    return clock.substring(0, 10).replace(/-/g, '/')
+  else if (pattern === dateTypes.yyyy_MM_dd_1) { return clock.substring(0, 10).replace(/-/g, '/') }
 
-  else if (pattern === types.yyyyMMdd)
-    return clock.substring(0, 10).replace(/-/g, '')
+  else if (pattern === dateTypes.yyyyMMdd) { return clock.substring(0, 10).replace(/-/g, '') }
 
-  else if (pattern === types.yyyy_MM_dd_HH_mm)
-    return clock.substring(0, 16)
+  else if (pattern === dateTypes.yyyy_MM_dd_HH_mm) { return clock.substring(0, 16) }
 
-  else
-    return clock
+  else if (pattern === dateTypes.yyyy_MM_dd_cn) {
+    const temp = clock.substring(0, 10).split('-')
+    return `${temp[0]}年${temp[1]}月${temp[2]}`
+  }
+  else { return clock }
 }
 
 /**
@@ -110,7 +108,7 @@ export const getNowDate = () => {
      * @return {*} 格式化后的当前时间
      */
 export const getNowTime = () => {
-  return format(new Date()).substring(10)
+  return formatDate(new Date())?.substring(10)
 }
 
 /**
@@ -197,16 +195,16 @@ export const getYear = (date, num, separator) => {
      * @return {String}
      */
 export const getOneDayOfMonth = (date, pattern = 'yyyy-MM-dd') => {
-  const currentTimeArr = format(date, pattern).split('')
+  const currentTimeArr = formatDate(date, pattern)?.split('')
   if (pattern === 'yyyyMMdd') {
-    currentTimeArr[6] = '0'
-    currentTimeArr[7] = '1'
+    currentTimeArr![6] = '0'
+    currentTimeArr![7] = '1'
   }
   else {
-    currentTimeArr[8] = '0'
-    currentTimeArr[9] = '1'
+    currentTimeArr![8] = '0'
+    currentTimeArr![9] = '1'
   }
-  return currentTimeArr.join('')
+  return currentTimeArr?.join('')
 }
 
 /**
@@ -227,18 +225,18 @@ export const getLastDayOfMonth = (date, pattern = 'yyyy-MM-dd') => {
   const theMonthLastDayTime = nextMonthFirstDayTime - 24 * 60 * 60 * 1000 // 下个月一号减去一天，正好是这个月最后一天
 
   const theMonthDay = (new Date(theMonthLastDayTime)).getDate()
-  const currentTimeArr = format(date, pattern).split('')
+  const currentTimeArr = formatDate(date, pattern)?.split('')
   const theMonthDayArr = theMonthDay.toString().split('')
   if (pattern === 'yyyyMMdd') {
-    currentTimeArr[6] = theMonthDayArr[0]
-    currentTimeArr[7] = theMonthDayArr[1] ? theMonthDayArr[1] : '0'
+    currentTimeArr![6] = theMonthDayArr[0]
+    currentTimeArr![7] = theMonthDayArr[1] ? theMonthDayArr[1] : '0'
   }
   else {
-    currentTimeArr[8] = theMonthDayArr[0]
-    currentTimeArr[9] = theMonthDayArr[1] ? theMonthDayArr[1] : '0'
+    currentTimeArr![8] = theMonthDayArr[0]
+    currentTimeArr![9] = theMonthDayArr[1] ? theMonthDayArr[1] : '0'
   }
 
-  return currentTimeArr.join('')
+  return currentTimeArr?.join('')
 }
 
 /**
@@ -248,20 +246,20 @@ export const getLastDayOfMonth = (date, pattern = 'yyyy-MM-dd') => {
      * @return {string}
      */
 export const getOneDayOfYear = (date, pattern = 'yyyy-MM-dd') => {
-  const currentTimeArr = format(date, pattern).split('')
+  const currentTimeArr = formatDate(date, pattern)?.split('')
   if (pattern === 'yyyy-MM-dd') {
-    currentTimeArr[5] = '0'
-    currentTimeArr[6] = '1'
-    currentTimeArr[8] = '0'
-    currentTimeArr[9] = '1'
+    currentTimeArr![5] = '0'
+    currentTimeArr![6] = '1'
+    currentTimeArr![8] = '0'
+    currentTimeArr![9] = '1'
   }
   else {
-    currentTimeArr[4] = '0'
-    currentTimeArr[5] = '1'
-    currentTimeArr[6] = '0'
-    currentTimeArr[7] = '1'
+    currentTimeArr![4] = '0'
+    currentTimeArr![5] = '1'
+    currentTimeArr![6] = '0'
+    currentTimeArr![7] = '1'
   }
-  return currentTimeArr.join('')
+  return currentTimeArr?.join('')
 }
 
 /**
@@ -314,5 +312,5 @@ export const getYearLastDay = (year, pattern = 'yyyy-MM-dd') => {
   lastDay.setFullYear(lastDay.getFullYear() + 2)
   lastDay.setDate(0)
   lastDay.setMonth(-1)
-  return format(lastDay, pattern)
+  return formatDate(lastDay, pattern)
 }

@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 21:12:14
- * @LastEditTime: 2022-08-25 20:57:37
+ * @LastEditTime: 2022-08-27 17:03:47
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\pandect\pandectMap.vue
@@ -10,42 +10,22 @@
 <script lang="ts" setup>
 import 'echarts/lib/chart/map'
 import 'echarts/lib/component/geo'
+import type { EChartsType } from 'echarts'
+// import { parseGeoJson } from 'echarts'
 import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
 
 const option = ref({
-  // visualMap: {
-  //   type: 'continuous',
-  //   show: false,
-  //   min: 800,
-  //   max: 50000,
-  //   text: ['High', 'Low'],
-  //   realtime: false,
-  //   calculable: true,
-  //   inRange: { color: ['lightskyblue', 'yellow', 'orangered'] },
-  // },
   geo: {
     map: 'map',
     aspectScale: 0.75, // 长宽比
-    zoom: 1.1,
+    zoom: 1,
     roam: false,
     label: {
       show: true,
       color: 'white',
     },
     itemStyle: {
-
-      // areaColor: {
-      //   type: 'radial',
-      //   x: 0.5,
-      //   y: 0.5,
-      //   r: 0.8,
-      //   colorStops: [
-      //     { offset: 0, color: '#09132c' },
-      //     { offset: 1, color: '#274d68' },
-      //   ],
-      //   globalCoord: true,
-      // },
       areaColor: '#35356C',
       borderColor: 'white',
       shadowColor: 'rgba(53,53,108,.5)',
@@ -53,28 +33,10 @@ const option = ref({
       shadowOffsetY: 11,
     },
     emphasis: {
-      // disabled: true,
-      areaColor: '#2AB8FF',
+      itemStyle: { areaColor: '#3A50AB' },
       borderWidth: 0,
-      color: 'green',
-      label: { show: true, color: 'white' },
-
+      label: { show: true, color: '#2ACFF6' },
     },
-    // regions: [{
-    //   name: '南海诸岛',
-    //   itemStyle: {
-    //     areaColor: 'rgba(0, 10, 52, 1)',
-
-    //     borderColor: 'rgba(0, 10, 52, 1)',
-    //     normal: {
-    //       opacity: 0,
-    //       label: {
-    //         show: false,
-    //         color: "#009cc9",
-    //       }
-    //     }
-    //   },
-    // }],
   },
   series: [
     // {
@@ -94,299 +56,82 @@ const option = ref({
   ],
 })
 
-const chartDom = ref()
+let chartDom: EChartsType | null = null
 const mapRef = ref()
-
+const userInfo = useUserStore()
 const initMap = async (code) => {
-  const temp: any = await get(`https://geo.datav.aliyun.com/areas_v3/bound/geojson?code=${code}_full`, {})
+  const submitId = new Date().getTime()
+  const param = {
+    submitid: submitId,
+    usercode: userInfo.userCode,
+    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    // mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
+    mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
+  }
+  const temp: any = await getmapdata(param)
   const mapArr = temp.features
   eCharts.registerMap('map', temp)
   nextTick(() => {
-    chartDom.value = eCharts.init(mapRef.value)
-    chartDom.value.setOption(option.value)
-    chartDom.value.on('click', (params) => {
+    chartDom = eCharts.init(mapRef.value)
+    chartDom?.setOption(option.value)
+    chartDom?.on('click', (params) => {
       const clickTemp = mapArr.find(e => e.properties.name === params.name)
       initMap(`${clickTemp.properties.adcode}`)
+    })
+
+    window.addEventListener('resize', () => {
+      chartDom?.resize()
     })
   })
 }
 
-// const map = shallowRef(null)
+const magnifyMap = () => {
+  option.value.geo.zoom += 0.1
+  chartDom?.setOption(option.value)
+}
 
-// const initMapFun = () => {
-//   window._AMapSecurityConfig = {
-//     securityJsCode: '2a88ea7922bf542b9483b44324b74775',
-//   }
-//   AMapLoader.load({
-//     key: 'a9618a7db350f35205fe226cd22b6868', // 申请好的Web端开发者Key，首次调用 load 时必填
-//     version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-//     plugins: ['geo/DistrictExplorer', 'AMap.Geocoder', 'AMap.GeoJSON'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
-//   }).then((AMap) => {
-//     // map.value = new AMap.Map('container', { // 设置地图容器id
-//     //   viewMode: '3D', // 是否为3D地图模式
-//     //   zoom: 5, // 初始化地图级别
-//     //   center: [105.602725, 37.076636], // 初始化地图中心点位置
-//     // })
-//     // new AMap()
-//     // const res = get()
-//     consola.info(AMap)
-//     consola.info(AMap.Geocoder)
-//     // new AMap.Map('mapRef', {
+const shrinkMap = () => {
+  option.value.geo.zoom -= 0.1
+  chartDom?.setOption(option.value)
+}
 
-//     //   // districtExplorer.loadAreaNode(100000, (error, areaNode) => {
-//     //   //     if (error) {
-//     //   //         console.error(error);
-//     //   //         return;
-//     //   //     }
-//     //   //     const Json = areaNode.getSubFeatures(); // 获取Features
-//     //   // })
+let timeOutEvent: NodeJS.Timeout | number = 0
 
-//     // })
-//     const GeoCoder = new AMap.Geocoder({
-//       city: '湖南省',
-//     })
+const goMagnifyMapStart = () => {
+  clearInterval(timeOutEvent)
+  timeOutEvent = setInterval(() => { magnifyMap() }, 600)
+}
 
-//     GeoCoder.getLocation('长沙1', (res) => {
-//       consola.info('1111111111111111111111111111111111')
-//       consola.info(res)
-//       consola.info('1111111111111111111111111111111111')
-//     })
-//     consola.warn(GeoCoder)
+const goMagnifyMapTouchEnd = () => {
+  clearInterval(timeOutEvent)
+  if (timeOutEvent !== 0)
+    magnifyMap()
+}
 
-//     // const GeoJSON = new AMap.GeoJSON({
+let shrinkTimeOut: NodeJS.Timeout | number = 0
+const goShrinkMapStart = () => {
+  clearInterval(shrinkTimeOut)
+  shrinkTimeOut = setInterval(() => { shrinkMap() }, 600)
+}
 
-//     // })
-//     // consola.warn(GeoCoder)
-//     const param = {
-//       key: '79848c3f3fbd1e9321efb5408c3c4a31',
-//       address: encodeURIComponent('湖南省'),
-//     }
-//     const sig = md5('address=湖南省&key=79848c3f3fbd1e9321efb5408c3c4a31cef67f7186b4debe1f9dd24dec1141a4')
-//     // consola.info({ ...param, sig })
-//     // consola.info(JSON.stringify({ ...param, sig }))
-//     // consola.info(sig)
-//     param.address = decodeURI(param.address)
-//     const res = get('https://restapi.amap.com/v3/geocode/geo', { ...param, sig })
-//     consola.success(res)
-
-//     const geoParam = {
-//       key: '79848c3f3fbd1e9321efb5408c3c4a31',
-//       keywords: encodeURIComponent('湖南省'),
-//       subdistrict: 5,
-//     }
-
-//     const geoKey = Object.keys(geoParam).sort((a: any, b: any) => { return a - b })
-//     consola.info('geoKey')
-//     consola.info(geoKey)
-//     consola.info(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
-//     // const geoSig = md5(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
-//     const geoSig = md5('key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=湖南省&subdistrict=5cef67f7186b4debe1f9dd24dec1141a4')
-
-//     geoParam.keywords = decodeURI(geoParam.keywords)
-//     const geoRes = get('https://restapi.amap.com/v3/config/district', { ...geoParam, sig: geoSig })
-//     consola.info('GeoRes')
-//     consola.info(geoRes)
-//     consola.info(geoRes)
-//   }).catch((e) => {
-//     consola.info(e)
-//   })
-// }
-// const current_position = ref<any>([])
-// const path = ref<any>([])
-
-// const initMap = () => {
-//   AMapLoader.load({
-//     key: 'd46cf5068a9a22141e1a3719fbcf65f5', // 申请好的Web端开发者Key，首次调用 load 时必填
-//     version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-//   }).then((AMap) => {
-//     const map = new AMap.Map('mapRef', {
-//       // 设置地图容器id
-//       viewMode: '3D', // 是否为3D地图模式
-//       zoom: 10, // 初始化地图级别
-//       center: [120.374926, 30.310678], // 初始化地图中心点位置
-//     })
-//     // 添加插件
-//     AMap.plugin(['AMap.ToolBar', 'AMap.Scale', 'AMap.HawkEye'], () => {
-//       // 异步同时加载多个插件
-//       map.addControl(new AMap.HawkEye()) // 显示缩略图
-//       map.addControl(new AMap.Scale()) // 显示当前地图中心的比例尺
-//     })
-//     // 单击
-//     map.on('click', (e: any) => {
-//       // console.log(e);
-//       current_position.value = [e.lnglat.KL, e.lnglat.kT]
-//       path.value.push([e.lnglat.KL, e.lnglat.kT])
-//       addMarker()
-
-//       addPolyLine()
-//       // 地图按照适合展示图层内数据的缩放等级展示
-//       // map.setFitView();
-//     })
-
-//     // 实例化点标记
-//     function addMarker() {
-//       const marker = new AMap.Marker({
-//         icon: '//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-default.png',
-//         position: current_position.value,
-//         offset: new AMap.Pixel(-26, -54),
-//       })
-//       marker.setMap(map)
-//     }
-
-//     // 折线
-//     function addPolyLine() {
-//       const polyline = new AMap.Polyline({
-//         path: path.value,
-//         isOutline: true,
-//         outlineColor: '#ffeeff',
-//         borderWeight: 1,
-//         strokeColor: '#3366FF',
-//         strokeOpacity: 0.6,
-//         strokeWeight: 5,
-//         // 折线样式还支持 'dashed'
-//         strokeStyle: 'solid',
-//         // strokeStyle是dashed时有效
-//         // strokeDasharray: [10, 5],
-//         lineJoin: 'round',
-//         lineCap: 'round',
-//         zIndex: 50,
-//       })
-//       map.add([polyline])
-//     }
-//   })
-//     .catch((e) => {
-//       consola.error(e)
-//     })
-// }
-
-const initMapChart = async () => {
-  const geoParam = {
-    key: '79848c3f3fbd1e9321efb5408c3c4a31',
-    keywords: decodeURI('湖南省'),
-    subdistrict: 1,
-  }
-  const geoKey = Object.keys(geoParam).sort((a: any, b: any) => { return a - b })
-  const geoSig = md5(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
-
-  // const geoRes = await get('', { ...geoParam, sig: geoSig })
-  const geoRes = await getAdCode({ ...geoParam, sig: geoSig })
-  consola.success(geoRes)
-
-  // eCharts.registerMap('map', geoRes)
-
-  // chartDom.value = eCharts.init(mapRef.value)
-  // chartDom.value.setOption(option.value)
-  // chartDom.value.on('click', (params) => {
-  //   const clickTemp = mapArr.find(e => e.properties.name === params.name)
-  //   initMap(`${clickTemp.properties.adcode}`)
-  // })
-
-  window._AMapSecurityConfig = {
-    securityJsCode: '2a88ea7922bf542b9483b44324b74775',
-  }
-
-  AMapLoader.load({
-    key: 'a9618a7db350f35205fe226cd22b6868', // 申请好的Web端开发者Key，首次调用 load 时必填
-    version: '2.0', // 指定要加载的 JSAPI 的版本，缺省时默认为 1.4.15
-    plugins: ['geo/DistrictExplorer', 'AMap.Geocoder', 'AMap.GeoJSON', 'AMap.DistrictSearch'], // 需要使用的的插件列表，如比例尺'AMap.Scale'等
-  }).then((AMap) => {
-    consola.info(AMap.DistrictSearch)
-    consola.info('q')
-    const districtSearch = new AMap.DistrictSearch({
-      level: 'province',
-      showbiz: false,
-      extensions: true,
-      subdistrict: 3,
-    })
-    consola.info(districtSearch)
-    consola.info(districtSearch.search)
-    districtSearch.search('湖南省', (status, result) => {
-      consola.warn(status)
-      consola.warn(result)
-    })
-    // map.value = new AMap.Map('container', { // 设置地图容器id
-    //   viewMode: '3D', // 是否为3D地图模式
-    //   zoom: 5, // 初始化地图级别
-    //   center: [105.602725, 37.076636], // 初始化地图中心点位置
-    // })
-    // new AMap()
-    // // const res = get()
-    // consola.info(AMap)
-    // consola.info(AMap.Geocoder)
-    // // new AMap.Map('mapRef', {
-
-    //   // districtExplorer.loadAreaNode(100000, (error, areaNode) => {
-    //   //     if (error) {
-    //   //         console.error(error);
-    //   //         return;
-    //   //     }
-    //   //     const Json = areaNode.getSubFeatures(); // 获取Features
-    //   // })
-
-    // // })
-    // const GeoJSON = new AMap.GeoJSON({
-    //   city: '湖南省',
-    // })
-
-    // GeoCoder.getLocation('长沙1', (res) => {
-    //   consola.info('1111111111111111111111111111111111')
-    //   consola.info(res)
-    //   consola.info('1111111111111111111111111111111111')
-    // })
-    // consola.warn(GeoCoder)
-
-    // const GeoJSON = new AMap.GeoJSON({
-
-    // })
-    // // consola.warn(GeoCoder)
-    // const param = {
-    //   key: '79848c3f3fbd1e9321efb5408c3c4a31',
-    //   address: encodeURIComponent('湖南省'),
-    // }
-    // const sig = md5('address=湖南省&key=79848c3f3fbd1e9321efb5408c3c4a31cef67f7186b4debe1f9dd24dec1141a4')
-    // // consola.info({ ...param, sig })
-    // // consola.info(JSON.stringify({ ...param, sig }))
-    // // consola.info(sig)
-    // param.address = decodeURI(param.address)
-    // const res = get('https://restapi.amap.com/v3/geocode/geo', { ...param, sig })
-    // consola.success(res)
-
-    // const geoParam = {
-    //   key: '79848c3f3fbd1e9321efb5408c3c4a31',
-    //   keywords: encodeURIComponent('湖南省'),
-    //   subdistrict: 5,
-    // }
-
-    // const geoKey = Object.keys(geoParam).sort((a: any, b: any) => { return a - b })
-    // consola.info('geoKey')
-    // consola.info(geoKey)
-    // consola.info(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
-    // // const geoSig = md5(`${geoKey.map((e) => { return `${e}=${geoParam[e]}` }).join('&')}cef67f7186b4debe1f9dd24dec1141a4`)
-    // const geoSig = md5('key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=湖南省&subdistrict=5cef67f7186b4debe1f9dd24dec1141a4')
-
-    // geoParam.keywords = decodeURI(geoParam.keywords)
-    // const geoRes = get('https://restapi.amap.com/v3/config/district', { ...geoParam, sig: geoSig })
-    // consola.info('GeoRes')
-    // consola.info(geoRes)
-    // consola.info(geoRes)
-  }).catch((e) => {
-    consola.warn(e)
-  })
+const goShrinkMapEnd = () => {
+  clearInterval(shrinkTimeOut)
+  if (shrinkTimeOut !== 0)
+    shrinkMap()
 }
 
 onMounted(() => {
   // initMap('430000')
-  // initMapFun()
-  initMapChart()
+  initMap('430405')
 })
 </script>
 
 <template>
   <div class="map-box">
-    <div class="coordinate-box">
+    <div class="coordinate-box" po-r z-10>
       <div class="icon-box">
-        <el-image class="operate-icon" :src="magnify" fit="fill" />
-        <el-image class="operate-icon" :src="shrink" fit="fill" />
+        <el-image class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart" @mouseup.prevent="goMagnifyMapTouchEnd" />
+        <el-image class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart" @mouseup.prevent="goShrinkMapEnd" />
       </div>
       <div class="coordinate-span">
         <span>N</span>

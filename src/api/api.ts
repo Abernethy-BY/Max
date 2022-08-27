@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-08-25 16:34:36
+ * @LastEditTime: 2022-08-27 11:29:43
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\api\api.ts
@@ -44,3 +44,6 @@ export const yzdx = (param: any) => post('/yzdx.aspx', param)
 
 // 获取地区adcode
 export const getAdCode = (param: any) => get('https://restapi.amap.com/v3/config/district', param)
+
+// 获取地图数据
+export const getmapdata = (param: any) => post('/getmapdata.aspx', param)

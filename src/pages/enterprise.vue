@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-19 15:50:58
- * @LastEditTime: 2022-08-19 16:59:27
+ * @LastEditTime: 2022-08-27 17:13:45
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\enterprise.vue
@@ -40,7 +40,6 @@ getData()
     </div>
     <div class="occ-map" hPE-51>
       <div class="map" />
-
       <div class="chart-right">
         <enterpriseProgress :enterprise-progress-prop="enterpriseProgressData" />
       </div>

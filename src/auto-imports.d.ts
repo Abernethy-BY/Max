@@ -37,6 +37,7 @@ declare global {
   const customRef: typeof import('vue')['customRef']
   const cytj: typeof import('./api/api')['cytj']
   const d3: typeof import('d3-geo')
+  const dateTypes: typeof import('./utils/dateUtil')['dateTypes']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
@@ -46,7 +47,7 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
-  const format: typeof import('./utils/dateUtil')['format']
+  const formatDate: typeof import('./utils/dateUtil')['formatDate']
   const get: typeof import('./utils/http')['get']
   const getAdCode: typeof import('./api/api')['getAdCode']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
@@ -65,6 +66,7 @@ declare global {
   const getTimeDifference: typeof import('./utils/dateUtil')['getTimeDifference']
   const getYear: typeof import('./utils/dateUtil')['getYear']
   const getYearLastDay: typeof import('./utils/dateUtil')['getYearLastDay']
+  const getmapdata: typeof import('./api/api')['getmapdata']
   const h: typeof import('vue')['h']
   const hexMD5: typeof import('./utils/md5')['hexMD5']
   const hexMD5w: typeof import('./utils/md5')['hexMD5w']
@@ -344,6 +346,7 @@ declare module '@vue/runtime-core' {
     readonly customRef: UnwrapRef<typeof import('vue')['customRef']>
     readonly cytj: UnwrapRef<typeof import('./api/api')['cytj']>
     readonly d3: UnwrapRef<typeof import('d3-geo')>
+    readonly dateTypes: UnwrapRef<typeof import('./utils/dateUtil')['dateTypes']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
@@ -353,7 +356,7 @@ declare module '@vue/runtime-core' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
-    readonly format: UnwrapRef<typeof import('./utils/dateUtil')['format']>
+    readonly formatDate: UnwrapRef<typeof import('./utils/dateUtil')['formatDate']>
     readonly get: UnwrapRef<typeof import('./utils/http')['get']>
     readonly getAdCode: UnwrapRef<typeof import('./api/api')['getAdCode']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
@@ -372,6 +375,7 @@ declare module '@vue/runtime-core' {
     readonly getTimeDifference: UnwrapRef<typeof import('./utils/dateUtil')['getTimeDifference']>
     readonly getYear: UnwrapRef<typeof import('./utils/dateUtil')['getYear']>
     readonly getYearLastDay: UnwrapRef<typeof import('./utils/dateUtil')['getYearLastDay']>
+    readonly getmapdata: UnwrapRef<typeof import('./api/api')['getmapdata']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hexMD5: UnwrapRef<typeof import('./utils/md5')['hexMD5']>
     readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>

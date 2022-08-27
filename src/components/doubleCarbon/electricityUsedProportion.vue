@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 14:35:26
- * @LastEditTime: 2022-08-19 19:29:26
+ * @LastEditTime: 2022-08-27 15:39:24
  * @LastEditors: By
  * @Description: 园区各产业单月用电量及占比（单位：万度） 模块
  * @FilePath: \big-screen-vue3\src\components\doubleCarbon\electricityUsedProportion.vue
@@ -58,7 +58,7 @@ export default {
         v-for="(item, index) in electricityUsedProportionList" :key="index"
         class="electricity-used-proportion-content-item"
       >
-        <el-image class="electricity-used-proportion-content-item-icon" :src="item.icon" fit="fill" />
+        <el-image class="electricity-used-proportion-content-item-icon" :src="item.icon" fit="cover" />
         <span class="electricity-used-proportion-content-item-span">{{ item.label }}</span>
         <span class="electricity-used-proportion-content-item-span">{{ item.value }}万度</span>
         <span class="electricity-used-proportion-content-item-span">{{ item.proportion }}</span>

@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 11:07:23
- * @LastEditTime: 2022-08-19 19:44:14
+ * @LastEditTime: 2022-08-27 15:21:43
  * @LastEditors: By
  * @Description: layouts
  * @FilePath: \big-screen-vue3\src\layouts\screen.vue
@@ -20,6 +20,8 @@ import industryAtlasIcon from '~/assets/image/common/industryAtlasIcon.png'
 
 const pageIndex = ref(0)
 const router = useRouter()
+
+const realTime = ref(formatDate(getNowDate(), 'yyyy-MM-dd-cn'))
 
 const tabList = ref([
   { name: '园区总览', path: '/', bg: overviewIcon },
@@ -40,7 +42,7 @@ const jump = (index) => {
 
 <template>
   <div class="layout-box" layouts box-center>
-    <header h-101 flex flex-row-center po-r cross-axis-center pl-21 pr-27 pb-23>
+    <header hPE-10 flex flex-row-center po-r cross-axis-center pl-21 pr-27 pb-23>
       <div class="area-select-box" po-a pol-21 h-41 flex cross-axis-center>
         <el-image class="area-icon" :src="areaIcon" fit="fill" />
         <span fs-20 color="#FFFFFF" ml-9>工业大数据平台</span>
@@ -49,21 +51,21 @@ const jump = (index) => {
       <div class="time-box" po-a por-27 h-41 flex cross-axis-center>
         <div class="time-content" flex flex-column-center cross-axis-end>
           <span fs-30 color="#FFFFFF">星期三</span>
-          <span fs-16 color="#9FDBFD">2021年12月8日</span>
+          <span fs-16 color="#9FDBFD">{{ realTime }}</span>
         </div>
         <el-image class="time-icon" :src="timeIcon" fit="fill" />
       </div>
     </header>
-    <div class="tab-Wrap" wPE-100 flex flex-row-center cross-axis-center mt-19>
+    <div class="tab-Wrap" wPE-100 hPE-6 flex flex-row-center cross-axis-center mt-19>
       <div
-        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 h-59 mr-18 ml-18 flex flex-row-end
+        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 hPE-100 mr-18 ml-18 flex flex-row-end
         cross-axis-end :class="pageIndex === index ? 'click' : ''" @click="jump(index)"
       >
         <el-image class="time-icon" :src="item.bg" fit="fill" />
         <span po-a fs-20 fw-400 color="#2E9EFF" mr-39 mb-10>{{ item.name }}</span>
       </div>
     </div>
-    <main mt-31 flex-1 pl-34 pr-34>
+    <main hPE-80 wPE-100 mt-31 flex-1 pl-34 pr-34>
       <RouterView />
     </main>
   </div>

@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-08-24 18:11:09
+ * @LastEditTime: 2022-08-27 16:21:43
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\corporatePortrait\overviewPage.vue
@@ -173,9 +173,9 @@ export default {
 
     .overview-content-item {
       width: 396px;
-      height: 242px;
+      height: 232px;
       background-image: url("~/assets/image/corporatePortrait/overview/moduleBg.png");
-      background-size: cover;
+      background-size: 100% 100%;
       position: relative;
       padding: 66px 28px 40px;
       display: flex;

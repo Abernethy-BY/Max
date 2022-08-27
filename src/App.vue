@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 09:51:05
- * @LastEditTime: 2022-08-25 14:45:22
+ * @LastEditTime: 2022-08-27 15:03:34
  * @LastEditors: By
  * @Description: app入口
  * @FilePath: \big-screen-vue3\src\App.vue
@@ -26,8 +26,11 @@
 }
 
 .app {
+  /* min-height: 100%; */
   /* width: 100vw;
 height: 100vh; */
+    /* background: no-repeat url(/src/assets/image/common/background.png);
+    background-size: 100% 100%; */
 }
 </style>
 

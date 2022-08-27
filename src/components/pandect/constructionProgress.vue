@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 20:16:31
- * @LastEditTime: 2022-08-19 15:43:37
+ * @LastEditTime: 2022-08-27 15:35:19
  * @LastEditors: By
  * @Description: 五好园区建设进度
  * @FilePath: \big-screen-vue3\src\components\pandect\constructionProgress.vue
@@ -69,15 +69,15 @@ export default {
 
 <template>
   <div class="construction-progress">
-    <div class="progress-bar-box">
+    <div class="progress-bar-box" hPE-5>
       <div class="progress-main">
         <div class="progress" :style="initProgress()" />
       </div>
       <span class="progress-value">{{ progressValue }}</span>
     </div>
     <span class="pandect-title">五好园区建设进度</span>
-    <div class="data-overview-box">
-      <div v-for="(item, index) in dataOverViewList" :key="index" class="data-overview-item">
+    <div class="data-overview-box" hPE-90>
+      <div v-for="(item, index) in dataOverViewList" :key="index" hPE-11 class="data-overview-item">
         <el-image class="data-overview-bg" :src="item.bg" fit="cover" />
         <div class="data-box">
           <span class="data">
@@ -104,7 +104,7 @@ export default {
 
   .progress-bar-box {
     width: 100%;
-    height: 25px;
+    // height: 25px;
     position: relative;
     display: flex;
     align-items: center;
@@ -173,7 +173,7 @@ export default {
 
     .data-overview-item {
       width: 235px;
-      height: 83px;
+      // height: 83px;
       margin: 11px 19px;
       position: relative;
 
