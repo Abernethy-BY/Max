@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:36:33
- * @LastEditTime: 2022-08-22 15:11:02
+ * @LastEditTime: 2022-08-29 16:42:24
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\index.vue
@@ -14,6 +14,7 @@ const userInfo = useUserStore()
 const industryRankingData = ref([])
 const constructionProgressData = ref([])
 const progressData = ref([])
+const incomeData = ref([])
 
 const getYqzl = async () => {
   const submitId = new Date().getTime()
@@ -27,6 +28,7 @@ const getYqzl = async () => {
   industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名')
   constructionProgressData.value = res?.filter(e => e['位置'] === '右下')
   progressData.value = res?.find(e => e['位置'] === '五好园区建设进度')
+  incomeData.value = res?.filter(e => e['位置'] === '各产业主营业务收入占比')
 }
 
 getYqzl()
@@ -39,7 +41,7 @@ getYqzl()
         <industryRanking :industry-ranking-prop="industryRankingData" />
       </div>
       <div class="Income" mt-30 wPE-100 hPE-29>
-        <income />
+        <income :income-prop="incomeData" />
       </div>
     </div>
     <div class="pandect-center" wPE-39 hPE-90>

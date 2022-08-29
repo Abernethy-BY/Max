@@ -75,6 +75,10 @@ export default defineConfig({
     [/^mr-(\d+)$/, ([, d]) => ({ 'margin-right': `${d}px` })],
     [/^mt-(\d+)$/, ([, d]) => ({ 'margin-top': `${d}px` })],
     [/^mb-(\d+)$/, ([, d]) => ({ 'margin-bottom': `${d}px` })],
+    [/^mlPE-(\d+)$/, ([, d]) => ({ 'margin-left': `${d}%` })],
+    [/^mrPE-(\d+)$/, ([, d]) => ({ 'margin-right': `${d}%` })],
+    [/^mtPE-(\d+)$/, ([, d]) => ({ 'margin-top': `${d}%` })],
+    [/^mbpE-(\d+)$/, ([, d]) => ({ 'margin-bottom': `${d}%` })],
 
     [/^fs-(\d+)$/, ([, d]) => ({ 'font-size': `${d}px` })],
     [/^lh-(\d+)$/, ([, d]) => ({ 'line-height': `${d}px` })],

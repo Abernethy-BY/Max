@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 11:07:23
- * @LastEditTime: 2022-08-27 15:21:43
+ * @LastEditTime: 2022-08-29 14:20:16
  * @LastEditors: By
  * @Description: layouts
  * @FilePath: \big-screen-vue3\src\layouts\screen.vue
@@ -58,12 +58,14 @@ const jump = (index) => {
     </header>
     <div class="tab-Wrap" wPE-100 hPE-6 flex flex-row-center cross-axis-center mt-19>
       <div
-        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 hPE-100 mr-18 ml-18 flex flex-row-end
-        cross-axis-end :class="pageIndex === index ? 'click' : ''" @click="jump(index)"
+        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 hPE-100 mr-18 ml-18 flex flex-row-start
+        cross-axis-center :class="pageIndex === index ? 'click' : ''" @click="jump(index)"
       >
         <el-image class="time-icon" :src="item.bg" fit="fill" />
-        <span po-a fs-20 fw-400 color="#2E9EFF" mr-39 mb-10>{{ item.name }}</span>
+        <span po-a fs-20 fw-400 color="#2E9EFF" mlPE-40 mbPE-10>{{ item.name }}</span>
       </div>
+
+      <!-- 40% -->
     </div>
     <main hPE-80 wPE-100 mt-31 flex-1 pl-34 pr-34>
       <RouterView />

@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 14:16:32
- * @LastEditTime: 2022-08-24 18:43:44
+ * @LastEditTime: 2022-08-29 19:28:36
  * @LastEditors: By
  * @Description: 园区工业用电情况（单位：万度）
  * @FilePath: \big-screen-vue3\src\components\doubleCarbon\electricityUsage.vue
@@ -14,15 +14,23 @@ export default {
   data() {
     return {
       electricityUsageOption: {
+        // legend: {
+        //   show: true,
+        //   left: 'center',
+        //   top: 'bottom',
+        //   width: '50%',
+        //   itemWidth: '300',
+        //   // orient: 'horizontal',
+        //   // data: ['本月', '去年同月', '增长率'],
+        // },
         legend: {
-          type: 'plain',
           show: true,
-          left: 'center',
           top: 'bottom',
-          width: '50%',
-          itemWidth: '300',
-          orient: 'horizontal',
-          data: ['本月', '去年同月', '增长率'],
+          left: 'center',
+          itemGap: 200,
+          textStyle: {
+            color: '#E6E6E6',
+          },
         },
         tooltip: { trigger: 'axis' },
         grid: {

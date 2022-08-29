@@ -2,7 +2,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 20:44:04
- * @LastEditTime: 2022-08-24 18:29:39
+ * @LastEditTime: 2022-08-29 17:50:29
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\pandect\income.vue
@@ -13,6 +13,10 @@
 import 'echarts/lib/chart/pie'
 import 'echarts-gl'
 import 'echarts/theme/macarons'
+
+const propObj = defineProps({
+  incomeProp: Array,
+})
 
 const incomeRef = ref()
 let hoveredIndex = ''
@@ -28,7 +32,6 @@ const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h
 
   // 如果只有一个扇形，则不实现选中效果。
   if (startRatio === 0 && endRatio === 1)
-
     isSelected = false
 
   // 通过扇形内径/外径的值，换算出辅助参数 k（默认值 1/3）
@@ -106,7 +109,10 @@ const getPie3D = (pieData, internalDiameterRatio) => {
         hovered: false,
         k,
       },
+      silent: false,
       itemStyle: {},
+      radius: ['40%', '90%'],
+      center: ['50%', '50%'],
     }
 
     if (typeof pieData[i].itemStyle !== 'undefined') {
@@ -127,7 +133,8 @@ const getPie3D = (pieData, internalDiameterRatio) => {
 
     series[i].pieData.startRatio = startValue / sumValue
     series[i].pieData.endRatio = endValue / sumValue
-    series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value === series[0].pieData.value ? 75 : 50)
+    // series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value === series[0].pieData.value ? 75 : 50)
+    series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value)
 
     startValue = endValue
 
@@ -140,9 +147,19 @@ const getPie3D = (pieData, internalDiameterRatio) => {
     tooltip: {
       formatter: (params) => {
         if (params.seriesName !== 'mouseoutSeries')
-          return `${params.seriesName}<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>${option.series[params.seriesIndex].pieData.value}`
-
-        return ''
+          return `${params.seriesName}<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>${option.series[params.seriesIndex].pieData.value}%`
+      },
+    },
+    legend: {
+      show: true,
+      data: legendData,
+      orient: 'vertical',
+      right: '30',
+      top: 'center',
+      icon: 'circle',
+      itemHeight: 6,
+      textStyle: {
+        color: '#ffffff',
       },
     },
     xAxis3D: { min: -1, max: 1 },
@@ -150,17 +167,25 @@ const getPie3D = (pieData, internalDiameterRatio) => {
     zAxis3D: { min: -1, max: 1 },
     grid3D: {
       show: false,
-      boxHeight: 5,
-      top: '-20%',
+      boxHeight: 0.8,
+      width: '100%',
+      boxWidth: 100,
+      // left: 'right',
+      right: '100%',
+      top: 0,
+      // bottom: '20%',
+
+      // top: '-20%',
       viewControl: {
         // 3d效果可以放大、旋转等，请自己去查看官方配置
         alpha: 35,
         // beta: 30,
-        rotateSensitivity: 1,
+        beta: 130,
+        rotateSensitivity: 0,
         zoomSensitivity: 0,
         panSensitivity: 0,
         autoRotate: false,
-        distance: 150,
+        distance: 200,
       },
       // 后处理特效可以为画面添加高光、景深、环境光遮蔽（SSAO）、调色等效果。可以让整个画面更富有质感。
       postEffect: {
@@ -168,25 +193,46 @@ const getPie3D = (pieData, internalDiameterRatio) => {
         enable: false,
         bloom: { enable: true, bloomIntensity: 0.1 },
         SSAO: { enable: true, quality: 'medium', radius: 2 },
-        // temporalSuperSampling: {
-        //   enable: true,
-        // },
       },
+
+      splitLine: { show: false },
     },
     series,
   }
   return option
 }
 
-const option = getPie3D([
-  { name: 'cc', value: 47, itemStyle: { color: '#f77b66' } },
-  { name: 'aa', value: 44, itemStyle: { color: '#3edce0' } },
-  { name: 'bb', value: 32, itemStyle: { color: '#f94e76' } },
-  { name: 'ee', value: 16, itemStyle: { color: '#018ef1' } },
-  { name: 'dd', value: 23, itemStyle: { color: '#9e60f9' } },
-], 0.59)
+// const option = getPie3D([
+//   { name: 'cc', value: 50, itemStyle: { color: '#f77b66' } },
+//   { name: 'aa', value: 29, itemStyle: { color: '#3edce0' } },
+//   { name: 'bb', value: 10, itemStyle: { color: '#f94e76' } },
+//   { name: 'ee', value: 11, itemStyle: { color: '#018ef1' } },
+//   { name: 'dd', value: 12, itemStyle: { color: '#9e60f9' } },
+// ], 0.59)
 
 onMounted(() => {
+
+})
+
+const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
+
+watch(() => propObj.incomeProp, () => {
+  const initialValue = 0
+  const sumWithInitial = propObj.incomeProp?.reduce(
+    (previousValue: any, currentValue: any) => previousValue + Number(currentValue?.['值1']),
+    initialValue,
+  )
+
+  const temp = propObj.incomeProp?.map((e: any, i) => {
+    return {
+      name: e?.['数据'],
+      value: new Big(Number(e?.['值1'])).div(sumWithInitial).times(100).toFixed(2),
+      itemStyle: { color: colorList[i] },
+    }
+  })
+
+  const option = getPie3D(temp, 0.7)
+
   const myChart = eCharts.init(incomeRef.value)
   myChart.setOption(option)
 
@@ -215,7 +261,9 @@ onMounted(() => {
         startRatio = option.series[hoveredIndex].pieData.startRatio
         endRatio = option.series[hoveredIndex].pieData.endRatio
         k = option.series[hoveredIndex].pieStatus.k
-        i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 75 : 50
+        i = option.series[hoveredIndex].pieData.value
+        // i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 75 : 50
+        //  getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value)
         // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
         option.series[hoveredIndex].parametricEquation = getParametricEquation(
           startRatio,
@@ -270,7 +318,7 @@ onMounted(() => {
       const startRatio = option.series[hoveredIndex].pieData.startRatio
       const endRatio = option.series[hoveredIndex].pieData.endRatio
       // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
-      const i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 75 : 50
+      const i = option.series[hoveredIndex].pieData.value
       option.series[hoveredIndex].parametricEquation = getParametricEquation(
         startRatio,
         endRatio,
@@ -320,7 +368,7 @@ onMounted(() => {
 
   .income-content {
     width: 100%;
-    height: 80%;
+    height: 100%;
     position: absolute;
     bottom: 0;
   }

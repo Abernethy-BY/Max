@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-29 09:50:40
- * @LastEditTime: 2022-08-23 18:19:13
+ * @LastEditTime: 2022-08-29 19:32:43
  * @LastEditors: By
  * @Description: 最新风险
  * @FilePath: \big-screen-vue3\src\components\publicOpinionMonitoring\newRisk.vue
@@ -67,7 +67,7 @@ watch(() => prop.riskClassificationProp, (val) => {
   <div class="new-risk">
     <div class="new-risk-table">
       <span class="new-risk-table-title">最新风险</span>
-      <el-table class="new-risk-table-main" :data="tableData" height="100%" :row-class-name="rowClass">
+      <el-table class="new-risk-table-main" :data="tableData" height="calc(100% - 59px)" :row-class-name="rowClass">
         <el-table-column v-for="(item, index) in headerList" :key="index" :prop="item.prop" :label="item.label" />
       </el-table>
     </div><div class="sub-itemization-risk-box">
