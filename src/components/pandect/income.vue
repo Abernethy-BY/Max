@@ -2,7 +2,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 20:44:04
- * @LastEditTime: 2022-08-29 17:50:29
+ * @LastEditTime: 2022-08-30 19:50:21
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\pandect\income.vue
@@ -209,10 +209,6 @@ const getPie3D = (pieData, internalDiameterRatio) => {
 //   { name: 'ee', value: 11, itemStyle: { color: '#018ef1' } },
 //   { name: 'dd', value: 12, itemStyle: { color: '#9e60f9' } },
 // ], 0.59)
-
-onMounted(() => {
-
-})
 
 const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
 

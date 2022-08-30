@@ -7,11 +7,9 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    2: typeof import('./components/pandect/income copy 2.vue')['default']
     BusinessElectricityConsumption: typeof import('./components/corporatePortrait/businessElectricityConsumption.vue')['default']
     BusinessRankings: typeof import('./components/doubleCarbon/businessRankings.vue')['default']
     ConstructionProgress: typeof import('./components/pandect/constructionProgress.vue')['default']
-    copy: typeof import('./components/pandect/income copy.vue')['default']
     CorporateIntellectualProperty: typeof import('./components/corporatePortrait/corporateIntellectualProperty.vue')['default']
     EconomicalOperation: typeof import('./components/corporatePortrait/economicalOperation.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -34,7 +32,6 @@ declare module '@vue/runtime-core' {
     HelloWorld: typeof import('./components/HelloWorld.vue')['default']
     IEpSearch: typeof import('~icons/ep/search')['default']
     Income: typeof import('./components/pandect/income.vue')['default']
-    'Income copy 2': typeof import('./components/pandect/income copy 2.vue')['default']
     IndustryRanking: typeof import('./components/pandect/industryRanking.vue')['default']
     LoginSuccessPop: typeof import('./components/loginSuccessPop.vue')['default']
     NewRisk: typeof import('./components/publicOpinionMonitoring/newRisk.vue')['default']

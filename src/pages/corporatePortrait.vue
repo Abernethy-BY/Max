@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-26 17:43:55
- * @LastEditTime: 2022-08-29 14:02:29
+ * @LastEditTime: 2022-08-30 19:51:21
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\corporatePortrait.vue
@@ -17,6 +17,7 @@ const riskIndexData = ref([])
 const corporateIntellectualPropertyData = ref([])
 const highTechEnterpriseListData = ref([])
 const newEnterprisesListData = ref([])
+const enterpriseAssociationMapData = ref({})
 
 const getQyhx = async () => {
   const submitid = new Date().getTime()
@@ -36,6 +37,9 @@ const getQyhx = async () => {
   corporateIntellectualPropertyData.value = res?.filter(e => e?.['位置'] === '企业知识产权')
   highTechEnterpriseListData.value = res?.filter(e => e?.['位置'] === '是否高新技术企业')
   newEnterprisesListData.value = res?.filter(e => e?.['位置'] === '是否专精特新企业')
+
+  enterpriseAssociationMapData.value = toRaw(res?.find(e => e?.['位置'] === '企业关联图谱'))
+  // 企业关联图谱
 }
 getQyhx()
 </script>
@@ -81,7 +85,7 @@ getQyhx()
       </div>
       <!-- 企业关联图谱 -->
       <div class="enterprise-association-map-box">
-        <enterpriseAssociationMap />
+        <enterpriseAssociationMap :enterprise-association-map-prop="enterpriseAssociationMapData" />
       </div>
       <!-- 企业知识产权 (智能制造 、R&D研发经费) -->
       <div class="corporate-intellectual-property-box">

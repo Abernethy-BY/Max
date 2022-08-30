@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 15:07:25
- * @LastEditTime: 2022-08-19 11:02:08
+ * @LastEditTime: 2022-08-30 20:39:54
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\store\useUserStore.ts
@@ -25,7 +25,7 @@ export const useUserStore = defineStore('user', {
   },
   persist: {
     enabled: true,
-    strategies: [{ key: 'user', storage: localStorage }],
+    strategies: [{ key: 'user', storage: sessionStorage }],
   },
 
 })

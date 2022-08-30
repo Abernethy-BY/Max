@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:25:51
- * @LastEditTime: 2022-08-22 10:09:02
+ * @LastEditTime: 2022-08-30 20:59:07
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\pages\login.vue
@@ -112,32 +112,53 @@ const phoneLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl)
     return
   await formEl.validate(async (valid, fields) => {
-    if (valid)
-      consola.success('submit!')
-      // const res = await yzdx()
-      // consola.info(res)
+    // if (valid)
+    //   consola.success('submit!')
 
-    else consola.error('error submit!', fields)
+    // // consola.info(res)
+
+    // else consola.error('error submit!', fields)
   })
+}
+
+/**
+ * @description: 获取验证码
+ * @return {*}
+ */
+const getVerificationCode = async () => {
+  const submitId = new Date().getTime()
+  const param = {
+    submitid: submitId,
+    usercode: '',
+    // submitId + userInfo.userCode + userInfo.token
+    sign: hexMD5(`${submitId}12378915242952083 `),
+    tel: '15242952083',
+    token: '123789',
+  }
+  const res = await yzdx(param)
+  consola.start(res)
 }
 /**
  * @description: 跳转到注册
  * @return {*}
  */
-const jumpToEnroll = () => {}
+const jumpToEnroll = () => { }
 </script>
 
 <template>
   <div
-    class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552 position-absolute
-    pot-255 por-344 h-579
+    class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552 position-absolute pot-255
+    por-344 h-579
   >
     <!-- 二维码登录头 -->
     <header v-if="accountFlag === 'scan'" flex cross-axis-center flex-row-center ml-53 mr-56>
       <span fs-24 fw-400 color="#05FFFF">{{ titleObj.mainTitle }}</span>
     </header>
     <!-- 账号|手机验证登录头 -->
-    <header v-else-if="accountFlag === 'verification' || accountFlag === 'account'" flex cross-axis-center flex-row-between ml-53 mr-56>
+    <header
+      v-else-if="accountFlag === 'verification' || accountFlag === 'account'" flex cross-axis-center
+      flex-row-between ml-53 mr-56
+    >
       <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ titleObj.mainTitle }}</span>
       <div class="handoff-login-type" cursor-p @click="handoffLoginType('manual')">
         <span fs-18 lh-42 color="#05FFFF">{{ titleObj.subTitle }}</span>
@@ -189,7 +210,7 @@ const jumpToEnroll = () => {}
       </el-form-item>
       <el-form-item mt-48 prop="verificationCode" class="verification-code-form-item">
         <el-input v-model="phoneLoginForm.verificationCode" class="login-input" placeholder="验证码" />
-        <el-button class="send-verification ">
+        <el-button class="send-verification " @click="getVerificationCode">
           发送验证码
         </el-button>
       </el-form-item>
@@ -220,103 +241,104 @@ meta:
 </route>
 
 <style lang="scss" scoped>
-  .login-form {
-    // border-color: #1A8BFF;
-    background: no-repeat url("~/assets/image/login/loginFormBg.png");
-    background-size: 100% 100%;
-  }
+.login-form {
+  // border-color: #1A8BFF;
+  background: no-repeat url("~/assets/image/login/loginFormBg.png");
+  background-size: 100% 100%;
+}
 
-  :deep(.handoff-icon) {
-    width: 9px;
-    height: 14px;
-    margin-left: 9px;
-  }
+:deep(.handoff-icon) {
+  width: 9px;
+  height: 14px;
+  margin-left: 9px;
+}
 
-  :deep(.login-form-content) {
-    .el-form-item {
-      margin-bottom: 0;
+:deep(.login-form-content) {
+  .el-form-item {
+    margin-bottom: 0;
+  }
+}
+
+:deep(.login-input) {
+  height: 56px;
+  border: 1px solid #1489CC;
+  border-radius: 4px;
+  --el-border-color: none;
+
+  .el-input__wrapper {
+    background: inherit;
+    box-shadow: none !important;
+
+    .el-input__inner {
+      color: white;
+
+      &::-webkit-input-placeholder {
+        font-size: 16px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #17A1E6;
+      }
     }
   }
 
-  :deep(.login-input) {
-    height: 56px;
-    border: 1px solid #1489CC;
-    border-radius: 4px;
-    --el-border-color: none;
+  .el-input-group__prepend {
+    background: inherit;
+    position: relative;
+    display: flex;
+    align-items: center;
 
-    .el-input__wrapper {
+    &:after {
+      content: "";
+      width: 2px;
+      height: 20.4px;
+      position: absolute;
+      right: 0;
+      background-color: #0071D4;
+    }
+
+  }
+
+}
+
+:deep(.login-button) {
+  width: 100%;
+  height: 52px;
+  background: #1ADCFF;
+  border-radius: 4px;
+
+  span {
+    font-size: 24px;
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+    color: #02389B;
+    line-height: 38px;
+  }
+}
+
+:deep(.verification-code-form-item) {
+  .el-form-item__content {
+    display: flex;
+    justify-content: space-between;
+
+    .el-input {
+      width: 60%;
+    }
+
+    .el-button {
+      width: 36%;
+      height: 56px;
+      border: 1px solid #1489CC;
+      border-radius: 4px;
       background: inherit;
-      box-shadow: none !important;
 
-      .el-input__inner {
-        color: white;
-        &::-webkit-input-placeholder {
-          font-size: 16px;
-          font-family: Source Han Sans CN;
-          font-weight: 400;
-          color: #17A1E6;
-        }
-      }
-    }
-
-    .el-input-group__prepend {
-      background: inherit;
-      position: relative;
-      display: flex;
-      align-items: center;
-
-      &:after {
-        content: "";
-        width: 2px;
-        height: 20.4px;
-        position: absolute;
-        right: 0;
-        background-color: #0071D4;
-      }
-
-    }
-
-  }
-
-  :deep(.login-button) {
-    width: 100%;
-    height: 52px;
-    background: #1ADCFF;
-    border-radius: 4px;
-
-    span {
-      font-size: 24px;
-      font-family: Source Han Sans CN;
-      font-weight: 400;
-      color: #02389B;
-      line-height: 38px;
-    }
-  }
-
-  :deep(.verification-code-form-item) {
-    .el-form-item__content {
-      display: flex;
-      justify-content: space-between;
-
-      .el-input {
-        width: 60%;
-      }
-
-      .el-button {
-        width: 36%;
-        height: 56px;
-        border: 1px solid #1489CC;
-        border-radius: 4px;
-        background: inherit;
-
-        span {
-          font-size: 16px;
-          font-family: Source Han Sans CN;
-          font-weight: 400;
-          color: #1ADCFF;
-          line-height: 42px;
-        }
+      span {
+        font-size: 16px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #1ADCFF;
+        line-height: 42px;
       }
     }
   }
+}
 </style>

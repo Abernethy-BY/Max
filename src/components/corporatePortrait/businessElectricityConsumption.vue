@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 19:29:16
- * @LastEditTime: 2022-08-19 18:32:50
+ * @LastEditTime: 2022-08-30 19:45:12
  * @LastEditors: By
  * @Description: 企业工业用电量（单位：万度）
  * @FilePath: \big-screen-vue3\src\components\corporatePortrait\businessElectricityConsumption.vue
@@ -77,13 +77,15 @@ export default {
   },
   methods: {
     initBusinessElectricityConsumptionChart() {
-      this.initCharts()
-      this.businessElectricityConsumptionOption.xAxis.data = this.businessElectricityConsumptionProp.map(e => e['数据'])
-      const temp = this.businessElectricityConsumptionProp.map(e => e['值1'])
-      this.businessElectricityConsumptionOption.series[0].data = temp
-      this.businessElectricityConsumptionOption.series[1].data = temp
-      this.businessElectricityConsumptionOption.series[2].data = temp
-      this.businessElectricityConsumptionChart.setOption(this.businessElectricityConsumptionOption)
+      this.$nextTick(() => {
+        this.initCharts()
+        this.businessElectricityConsumptionOption.xAxis.data = this.businessElectricityConsumptionProp.map(e => e['数据'])
+        const temp = this.businessElectricityConsumptionProp.map(e => e['值1'])
+        this.businessElectricityConsumptionOption.series[0].data = temp
+        this.businessElectricityConsumptionOption.series[1].data = temp
+        this.businessElectricityConsumptionOption.series[2].data = temp
+        this.businessElectricityConsumptionChart.setOption(this.businessElectricityConsumptionOption)
+      })
     },
     initCharts() {
       this.businessElectricityConsumptionChart = eCharts.init(this.$refs.businessElectricityConsumptionRef)

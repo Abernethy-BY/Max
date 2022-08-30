@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 21:12:14
- * @LastEditTime: 2022-08-27 17:03:47
+ * @LastEditTime: 2022-08-30 20:14:43
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\components\pandect\pandectMap.vue
@@ -68,7 +68,7 @@ const initMap = async (code) => {
     // mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
     mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
   }
-  const temp: any = await getmapdata(param)
+  const temp: any = await getMapdata(param)
   const mapArr = temp.features
   eCharts.registerMap('map', temp)
   nextTick(() => {

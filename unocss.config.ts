@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 10:45:51
- * @LastEditTime: 2022-08-18 22:12:50
+ * @LastEditTime: 2022-08-30 20:03:04
  * @LastEditors: By
  * @Description: ,
  * @FilePath: \big-screen-vue3\unocss.config.ts
@@ -78,7 +78,7 @@ export default defineConfig({
     [/^mlPE-(\d+)$/, ([, d]) => ({ 'margin-left': `${d}%` })],
     [/^mrPE-(\d+)$/, ([, d]) => ({ 'margin-right': `${d}%` })],
     [/^mtPE-(\d+)$/, ([, d]) => ({ 'margin-top': `${d}%` })],
-    [/^mbpE-(\d+)$/, ([, d]) => ({ 'margin-bottom': `${d}%` })],
+    [/^mbPE-(\d+)$/, ([, d]) => ({ 'margin-bottom': `${d}%` })],
 
     [/^fs-(\d+)$/, ([, d]) => ({ 'font-size': `${d}px` })],
     [/^lh-(\d+)$/, ([, d]) => ({ 'line-height': `${d}px` })],
@@ -92,6 +92,10 @@ export default defineConfig({
     [/^pob-(\d+)$/, ([, d]) => ({ bottom: `${d}px` })],
     [/^pol-(\d+)$/, ([, d]) => ({ left: `${d}px` })],
     [/^por-(\d+)$/, ([, d]) => ({ right: `${d}px` })],
+    [/^potPE-(\d+)$/, ([, d]) => ({ top: `${d}%` })],
+    [/^pobPE-(\d+)$/, ([, d]) => ({ bottom: `${d}%` })],
+    [/^polPE-(\d+)$/, ([, d]) => ({ left: `${d}%` })],
+    [/^porPE-(\d+)$/, ([, d]) => ({ right: `${d}%` })],
 
     [/^bw-(\d+)$/, ([, d]) => ({ 'border-width': `${d}px` })],
     [/^bs-(\w+)$/, ([, w]) => ({ 'border-style': `${w}` })],

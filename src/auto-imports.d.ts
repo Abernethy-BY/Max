@@ -54,6 +54,7 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getDay: typeof import('./utils/dateUtil')['getDay']
   const getLastDayOfMonth: typeof import('./utils/dateUtil')['getLastDayOfMonth']
+  const getMapdata: typeof import('./api/api')['getMapdata']
   const getMilliseconds: typeof import('./utils/dateUtil')['getMilliseconds']
   const getMonth: typeof import('./utils/dateUtil')['getMonth']
   const getNowDate: typeof import('./utils/dateUtil')['getNowDate']
@@ -66,7 +67,6 @@ declare global {
   const getTimeDifference: typeof import('./utils/dateUtil')['getTimeDifference']
   const getYear: typeof import('./utils/dateUtil')['getYear']
   const getYearLastDay: typeof import('./utils/dateUtil')['getYearLastDay']
-  const getmapdata: typeof import('./api/api')['getmapdata']
   const h: typeof import('vue')['h']
   const hexMD5: typeof import('./utils/md5')['hexMD5']
   const hexMD5w: typeof import('./utils/md5')['hexMD5w']
@@ -363,6 +363,7 @@ declare module '@vue/runtime-core' {
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getDay: UnwrapRef<typeof import('./utils/dateUtil')['getDay']>
     readonly getLastDayOfMonth: UnwrapRef<typeof import('./utils/dateUtil')['getLastDayOfMonth']>
+    readonly getMapdata: UnwrapRef<typeof import('./api/api')['getMapdata']>
     readonly getMilliseconds: UnwrapRef<typeof import('./utils/dateUtil')['getMilliseconds']>
     readonly getMonth: UnwrapRef<typeof import('./utils/dateUtil')['getMonth']>
     readonly getNowDate: UnwrapRef<typeof import('./utils/dateUtil')['getNowDate']>
@@ -375,7 +376,6 @@ declare module '@vue/runtime-core' {
     readonly getTimeDifference: UnwrapRef<typeof import('./utils/dateUtil')['getTimeDifference']>
     readonly getYear: UnwrapRef<typeof import('./utils/dateUtil')['getYear']>
     readonly getYearLastDay: UnwrapRef<typeof import('./utils/dateUtil')['getYearLastDay']>
-    readonly getmapdata: UnwrapRef<typeof import('./api/api')['getmapdata']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hexMD5: UnwrapRef<typeof import('./utils/md5')['hexMD5']>
     readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>

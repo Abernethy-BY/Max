@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-08-27 11:29:43
+ * @LastEditTime: 2022-08-30 20:31:30
  * @LastEditors: By
  * @Description:
  * @FilePath: \big-screen-vue3\src\api\api.ts
@@ -40,10 +40,14 @@ export const stjc = (param: any) => post('/stjc.aspx', param)
 export const yqjk = (param: any) => post('/yqjk.aspx', param)
 
 // 验证登录
-export const yzdx = (param: any) => post('/yzdx.aspx', param)
+export const yzdx = (param: any) => post('/fsdx.aspx', param)
 
 // 获取地区adcode
 export const getAdCode = (param: any) => get('https://restapi.amap.com/v3/config/district', param)
 
 // 获取地图数据
-export const getmapdata = (param: any) => post('/getmapdata.aspx', param)
+export const getMapdata = (param: any) => post('/getmapdata.aspx', param)
+
+// export const getmapdata = (param: any) => post('/yzdx.aspx', param)
+
+// url/yzdx.aspx

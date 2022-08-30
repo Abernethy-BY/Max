@@ -1,19 +1,20 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 10:36:05
- * @LastEditTime: 2022-08-29 20:18:56
+ * @LastEditTime: 2022-08-30 19:57:09
  * @LastEditors: By
  * @Description: 企业关联图谱
  * @FilePath: \big-screen-vue3\src\components\corporatePortrait\enterpriseAssociationMap.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script lang="ts" setup>
-const enterpriseAssociationChart = ref()
+const propObj = defineProps({
+  enterpriseAssociationMapProp: Object,
+})
+const enterpriseAssociationRef = ref()
+// enterpriseAssociationMapData
 
-const option = ref({
-  title: {
-    text: 'Basic Graph',
-  },
+const option: any = {
   tooltip: {},
   animationDurationUpdate: 1500,
   animationEasingUpdate: 'quinticInOut',
@@ -33,7 +34,6 @@ const option = ref({
         { name: 'Node 3', x: 550, y: 100 },
         { name: 'Node 4', x: 550, y: 500 },
       ],
-      // links: [],
       links: [
         {
           source: 0,
@@ -56,13 +56,19 @@ const option = ref({
       lineStyle: { opacity: 0.9, width: 2, curveness: 0 },
     },
   ],
+}
+
+watch(() => propObj.enterpriseAssociationMapProp, () => {
+  consola.info(propObj.enterpriseAssociationMapProp)
+  const enterpriseAssociationChart = eCharts.init(enterpriseAssociationRef.value)
+  enterpriseAssociationChart?.setOption(option)
 })
 </script>
 
 <template>
   <div class="enterprise-association-map">
     <span class="enterprise-association-map-title">企业关联图谱 </span>
-    <div ref="enterpriseAssociationChart" />
+    <div ref="enterpriseAssociationRef" wPE-100 hPE-100 />
   </div>
 </template>
 
