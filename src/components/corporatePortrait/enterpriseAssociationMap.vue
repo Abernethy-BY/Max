@@ -1,12 +1,13 @@
 <!--
- * @Author: By
- * @Date: 2022-07-28 10:36:05
- * @LastEditTime: 2022-08-30 19:57:09
- * @LastEditors: By
- * @Description: 企业关联图谱
- * @FilePath: \big-screen-vue3\src\components\corporatePortrait\enterpriseAssociationMap.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Author: Forrest-Rice by15242952083@outlook.com
+ * @Date: 2022-09-01 16:29:28
+ * @LastEditors: Forrest-Rice by15242952083@outlook.com
+ * @LastEditTime: 2022-09-01 17:54:24
+ * @FilePath: \big-screen\src\components\corporatePortrait\enterpriseAssociationMap.vue
+ * @Description:企业关联图谱
+ * Copyright (c) 2022 by Forrest-Rice email: by15242952083@outlook.com, All Rights Reserved.
 -->
+
 <script lang="ts" setup>
 const propObj = defineProps({
   enterpriseAssociationMapProp: Object,
@@ -18,55 +19,50 @@ const option: any = {
   tooltip: {},
   animationDurationUpdate: 1500,
   animationEasingUpdate: 'quinticInOut',
-  series: [
-    {
-      type: 'graph',
-      layout: 'none',
-      symbolSize: 50,
-      roam: true,
-      label: { show: true },
-      edgeSymbol: ['circle', 'arrow'],
-      edgeSymbolSize: [4, 10],
-      edgeLabel: { fontSize: 20 },
-      data: [
-        { name: 'Node 1', x: 300, y: 300 },
-        { name: 'Node 2', x: 800, y: 300 },
-        { name: 'Node 3', x: 550, y: 100 },
-        { name: 'Node 4', x: 550, y: 500 },
-      ],
-      links: [
-        {
-          source: 0,
-          target: 1,
-          symbolSize: [5, 20],
-          label: { show: true },
-          lineStyle: { width: 5, curveness: 0.2 },
-        },
-        {
-          source: 'Node 2',
-          target: 'Node 1',
-          label: { show: true },
-          lineStyle: { curveness: 0.2 },
-        },
-        { source: 'Node 1', target: 'Node 3' },
-        { source: 'Node 2', target: 'Node 3' },
-        { source: 'Node 2', target: 'Node 4' },
-        { source: 'Node 1', target: 'Node 4' },
-      ],
-      lineStyle: { opacity: 0.9, width: 2, curveness: 0 },
-    },
-  ],
+  series:
+  {
+    type: 'graph',
+    layout: 'circular',
+    symbolSize: 50,
+    // center: [0, 0],
+    roam: false,
+    label: { show: true },
+    left: 'center',
+    top: '10%',
+    width: '100%',
+    height: '100%',
+    // edgeSymbol: ['circle', 'arrow'],
+    edgeSymbolSize: [4, 10],
+    edgeLabel: { fontSize: 20 },
+    lineStyle: { width: 5, curveness: 0.2 },
+    data: [],
+    zoom: 0.6,
+    links: [],
+
+  },
+
 }
 
 watch(() => propObj.enterpriseAssociationMapProp, () => {
   consola.info(propObj.enterpriseAssociationMapProp)
+  const centerArr = [{ name: propObj.enterpriseAssociationMapProp?.['数据'] }]
+  const perimeterArr = propObj.enterpriseAssociationMapProp?.['值1'].split(',').map((e) => { return { name: e } })
+  option.series.data = centerArr.concat(perimeterArr)
+  option.series.links = perimeterArr.map((e, i) => {
+    return {
+      id: i + 1,
+      source: centerArr[0].name,
+      target: e.name,
+    }
+  })
+  consola.info(option)
   const enterpriseAssociationChart = eCharts.init(enterpriseAssociationRef.value)
   enterpriseAssociationChart?.setOption(option)
 })
 </script>
 
 <template>
-  <div class="enterprise-association-map">
+  <div class="enterprise-association-map flex cross-axis-end">
     <span class="enterprise-association-map-title">企业关联图谱 </span>
     <div ref="enterpriseAssociationRef" wPE-100 hPE-100 />
   </div>

@@ -1,12 +1,13 @@
 <!--
- * @Author: By
- * @Date: 2022-07-26 17:43:55
- * @LastEditTime: 2022-08-30 19:51:21
- * @LastEditors: By
+ * @Author: Forrest-Rice by15242952083@outlook.com
+ * @Date: 2022-09-01 16:29:28
+ * @LastEditors: Forrest-Rice by15242952083@outlook.com
+ * @LastEditTime: 2022-09-01 17:02:07
+ * @FilePath: \big-screen\src\pages\corporatePortrait.vue
  * @Description:
- * @FilePath: \big-screen-vue3\src\pages\corporatePortrait.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * Copyright (c) 2022 by Forrest-Rice email: by15242952083@outlook.com, All Rights Reserved.
 -->
+
 <script lang="ts" setup>
 const userInfo = useUserStore()
 const subItemizationData = ref([])
