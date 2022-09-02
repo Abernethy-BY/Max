@@ -1,15 +1,14 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:25:51
- * @LastEditTime: 2022-08-30 20:59:07
- * @LastEditors: By
+ * @LastEditTime: 2022-09-02 17:58:35
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\pages\login.vue
+ * @FilePath: \big-screen\src\pages\login.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import { ElMessage } from 'element-plus'
 import handoffIcon from '~/assets/image/login/handoffIcon.png'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
@@ -88,7 +87,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     return
   await formEl.validate(async (valid, fields) => {
     if (valid) {
-      const res: any = await xtdl({ submitid: '1213', usercode: '', sign: '97d595e6d6997525cf98aa66e670511f', pass: '123', tel: '13111112222', type: 1, token: '' })
+      // const res: any = await xtdl({ submitid: '1213', usercode: '', sign: '97d595e6d6997525cf98aa66e670511f', pass: '123', tel: '13111112222', type: 1, token: '' })
+      const param = {
+        submitid: '1213',
+        usercode: '',
+        sign: '97d595e6d6997525cf98aa66e670511f',
+        pass: loginForm.value.passWord,
+        tel: loginForm.value.userName,
+        type: 1,
+        token: '',
+      }
+      const res: any = await xtdl(param)
+
       const temp = res?.[0]
       if (res[0]) {
         userInfo.token = temp.token
@@ -96,9 +106,9 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.userRole = temp.role
         succeedFlag.value = true
       }
-      else {
-        ElMessage({ message: res.message, type: 'error' })
-      }
+      // else {
+      //   ElMessage({ message: res.data.message, type: 'error' })
+      // }
     }
   })
 }
@@ -146,19 +156,15 @@ const jumpToEnroll = () => { }
 </script>
 
 <template>
-  <div
-    class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552 position-absolute pot-255
-    por-344 h-579
-  >
+  <div class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552 position-absolute pot-255
+    por-344 h-579>
     <!-- 二维码登录头 -->
     <header v-if="accountFlag === 'scan'" flex cross-axis-center flex-row-center ml-53 mr-56>
       <span fs-24 fw-400 color="#05FFFF">{{ titleObj.mainTitle }}</span>
     </header>
     <!-- 账号|手机验证登录头 -->
-    <header
-      v-else-if="accountFlag === 'verification' || accountFlag === 'account'" flex cross-axis-center
-      flex-row-between ml-53 mr-56
-    >
+    <header v-else-if="accountFlag === 'verification' || accountFlag === 'account'" flex cross-axis-center
+      flex-row-between ml-53 mr-56>
       <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ titleObj.mainTitle }}</span>
       <div class="handoff-login-type" cursor-p @click="handoffLoginType('manual')">
         <span fs-18 lh-42 color="#05FFFF">{{ titleObj.subTitle }}</span>
@@ -166,10 +172,8 @@ const jumpToEnroll = () => { }
       </div>
     </header>
     <!-- 账号登陆 -->
-    <el-form
-      v-if="accountFlag === 'account'" ref="ruleFormRef" :rules="rules" class="login-form-content"
-      :model="loginForm" ml-53 mr-56
-    >
+    <el-form v-if="accountFlag === 'account'" ref="ruleFormRef" :rules="rules" class="login-form-content"
+      :model="loginForm" ml-53 mr-56>
       <el-form-item mt-48 prop="userName">
         <el-input v-model="loginForm.userName" class="login-input" placeholder="请输入用户名">
           <template #prepend>
@@ -194,10 +198,8 @@ const jumpToEnroll = () => { }
       </el-form-item>
     </el-form>
     <!-- 验证登录 -->
-    <el-form
-      v-else-if="accountFlag === 'verification'" ref="phoneLoginFormRef" :rules="phoneLoginRules"
-      class="phone-login-form-content" :model="phoneLoginForm" ml-53 mr-56
-    >
+    <el-form v-else-if="accountFlag === 'verification'" ref="phoneLoginFormRef" :rules="phoneLoginRules"
+      class="phone-login-form-content" :model="phoneLoginForm" ml-53 mr-56>
       <el-form-item mt-21>
         <span fs-16 color="#05FFFF" opacity-50>验证即登录，未注册将自动创建账号</span>
       </el-form-item>

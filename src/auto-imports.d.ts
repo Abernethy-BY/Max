@@ -11,6 +11,7 @@ declare global {
   const AMapLoader: typeof import('@amap/amap-jsapi-loader')['default']
   const Big: typeof import('big.js')['default']
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const HttpClient: typeof import('axios-mapper')['default']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -320,6 +321,7 @@ declare module '@vue/runtime-core' {
     readonly AMapLoader: UnwrapRef<typeof import('@amap/amap-jsapi-loader')['default']>
     readonly Big: UnwrapRef<typeof import('big.js')['default']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly HttpClient: UnwrapRef<typeof import('axios-mapper')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>

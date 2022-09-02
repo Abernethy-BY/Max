@@ -1,10 +1,10 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 10:45:51
- * @LastEditTime: 2022-08-30 20:03:04
- * @LastEditors: By
+ * @LastEditTime: 2022-09-02 11:08:36
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: ,
- * @FilePath: \big-screen-vue3\unocss.config.ts
+ * @FilePath: \big-screen\unocss.config.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
 import {
@@ -54,7 +54,6 @@ export default defineConfig({
     ['flex', { display: 'flex' }],
     ['flex-row-between', { 'justify-content': 'space-between' }],
     ['flex-row-center', { 'justify-content': 'center' }],
-    ['flex-row-start', {}],
     ['flex-row-end', { 'justify-content': 'flex-end' }],
     ['flex-column-between', { 'flex-direction': 'column', 'justify-content': 'space-between' }],
     ['flex-column-center', { 'flex-direction': 'column', 'justify-content': 'center' }],
@@ -62,9 +61,9 @@ export default defineConfig({
     ['flex-column-end', { 'flex-direction': 'column', 'justify-content': 'space-end' }],
     ['cross-axis-stretch', { 'align-items': 'stretch' }],
     ['cross-axis-center', { 'align-items': 'center' }],
-    ['cross-axis-start', {}],
     ['cross-axis-end', { 'align-items': 'flex-end' }],
     [/^fx-(\d+)$/, ([, d]) => ({ 'flex-shrink': `${d}` })],
+    ['fw', { 'flex-wrap': 'wrap' }],
     [/^flex-(\d+)$/, ([, d]) => ({ flex: `${d}` })],
 
     [/^pl-(\d+)$/, ([, d]) => ({ 'padding-left': `${d}px` })],

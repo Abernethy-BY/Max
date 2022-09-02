@@ -1,11 +1,11 @@
 <!--
- * @Author: Forrest-Rice by15242952083@outlook.com
+ * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
- * @LastEditors: Forrest-Rice by15242952083@outlook.com
- * @LastEditTime: 2022-09-01 17:54:24
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-09-02 10:07:40
  * @FilePath: \big-screen\src\components\corporatePortrait\enterpriseAssociationMap.vue
- * @Description:企业关联图谱
- * Copyright (c) 2022 by Forrest-Rice email: by15242952083@outlook.com, All Rights Reserved.
+ * @Description:
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
@@ -13,7 +13,6 @@ const propObj = defineProps({
   enterpriseAssociationMapProp: Object,
 })
 const enterpriseAssociationRef = ref()
-// enterpriseAssociationMapData
 
 const option: any = {
   tooltip: {},
@@ -24,27 +23,23 @@ const option: any = {
     type: 'graph',
     layout: 'circular',
     symbolSize: 50,
-    // center: [0, 0],
     roam: false,
     label: { show: true },
     left: 'center',
     top: '10%',
     width: '100%',
     height: '100%',
-    // edgeSymbol: ['circle', 'arrow'],
     edgeSymbolSize: [4, 10],
     edgeLabel: { fontSize: 20 },
     lineStyle: { width: 5, curveness: 0.2 },
     data: [],
     zoom: 0.6,
     links: [],
-
   },
 
 }
 
 watch(() => propObj.enterpriseAssociationMapProp, () => {
-  consola.info(propObj.enterpriseAssociationMapProp)
   const centerArr = [{ name: propObj.enterpriseAssociationMapProp?.['数据'] }]
   const perimeterArr = propObj.enterpriseAssociationMapProp?.['值1'].split(',').map((e) => { return { name: e } })
   option.series.data = centerArr.concat(perimeterArr)
@@ -55,9 +50,12 @@ watch(() => propObj.enterpriseAssociationMapProp, () => {
       target: e.name,
     }
   })
-  consola.info(option)
   const enterpriseAssociationChart = eCharts.init(enterpriseAssociationRef.value)
   enterpriseAssociationChart?.setOption(option)
+
+  window.addEventListener('resize', () => {
+    enterpriseAssociationChart.resize()
+  })
 })
 </script>
 

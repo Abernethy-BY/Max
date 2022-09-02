@@ -1,21 +1,21 @@
 <!--
- * @Author: By
- * @Date: 2022-08-08 21:12:14
- * @LastEditTime: 2022-08-30 20:14:43
- * @LastEditors: By
- * @Description:
- * @FilePath: \big-screen-vue3\src\components\pandect\pandectMap.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-01 16:29:28
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-09-02 17:59:07
+ * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
+ * @Description: http配置
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
+
 <script lang="ts" setup>
 import 'echarts/lib/chart/map'
 import 'echarts/lib/component/geo'
 import type { EChartsType } from 'echarts'
-// import { parseGeoJson } from 'echarts'
 import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
 
-const option = ref({
+const option = {
   geo: {
     map: 'map',
     aspectScale: 0.75, // 长宽比
@@ -38,61 +38,76 @@ const option = ref({
       label: { show: true, color: '#2ACFF6' },
     },
   },
-  series: [
-    // {
-    //   name: '湖南省',
-    //   type: 'map',
-    //   // map: 'map',
-    //   roam: false,
-
-    //   itemStyle: {
-    //     areaColor: '#35356C',
-    //     borderColor: 'white',
-    //   },
-    //   data: [],
-    //   // 自定义名称映射
-    //   nameMap: {},
-    // },
-  ],
-})
+  series: [],
+}
 
 let chartDom: EChartsType | null = null
 const mapRef = ref()
 const userInfo = useUserStore()
-const initMap = async (code) => {
-  const submitId = new Date().getTime()
-  const param = {
-    submitid: submitId,
-    usercode: userInfo.userCode,
-    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-    // mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
-    mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
-  }
-  const temp: any = await getMapdata(param)
-  const mapArr = temp.features
-  eCharts.registerMap('map', temp)
-  nextTick(() => {
-    chartDom = eCharts.init(mapRef.value)
-    chartDom?.setOption(option.value)
-    chartDom?.on('click', (params) => {
-      const clickTemp = mapArr.find(e => e.properties.name === params.name)
-      initMap(`${clickTemp.properties.adcode}`)
-    })
 
-    window.addEventListener('resize', () => {
-      chartDom?.resize()
+let mapArr: any = []
+
+const initChart = (geojson) => {
+  eCharts.registerMap('map', geojson)
+  chartDom = eCharts.init(mapRef.value)
+  chartDom?.setOption(option)
+  // consola.info(geojson.features)
+  chartDom?.on('click', (params) => {
+    const clickTemp = mapArr?.find((e) => {
+      return e.properties.name === params.name
     })
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    getMap(clickTemp.properties.adcode)
+  })
+
+  window.addEventListener('resize', () => {
+    chartDom?.resize()
   })
 }
 
-const magnifyMap = () => {
-  option.value.geo.zoom += 0.1
-  chartDom?.setOption(option.value)
+const getMap = async (code) => {
+  try {
+    const submitId = new Date().getTime()
+    const param = {
+      submitid: submitId,
+      usercode: userInfo.userCode,
+      sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+      mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
+    }
+    const temp: any = await getMapdata(param)
+    mapArr = temp.features
+    initChart(temp)
+  }
+  catch (error) {
+    const submitId = new Date().getTime()
+    const param = {
+      submitid: submitId,
+      usercode: userInfo.userCode,
+      sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+      mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
+    }
+    const temp: any = await getMapdata(param)
+    mapArr = temp.features
+    initChart(temp)
+  }
 }
 
+/**
+ * @description: 地图放大方法
+ * @return {*}
+ */
+const magnifyMap = () => {
+  option.geo.zoom += 0.1
+  chartDom?.setOption(option)
+}
+
+/**
+ * @description: 地图缩小方法
+ * @return {*}
+ */
 const shrinkMap = () => {
-  option.value.geo.zoom -= 0.1
-  chartDom?.setOption(option.value)
+  option.geo.zoom -= 0.1
+  chartDom?.setOption(option)
 }
 
 let timeOutEvent: NodeJS.Timeout | number = 0
@@ -122,7 +137,9 @@ const goShrinkMapEnd = () => {
 
 onMounted(() => {
   // initMap('430000')
-  initMap('430405')
+  // initMap('430405')
+  // initMap('430000')
+  getMap('430000')
 })
 </script>
 
@@ -130,8 +147,14 @@ onMounted(() => {
   <div class="map-box">
     <div class="coordinate-box" po-r z-10>
       <div class="icon-box">
-        <el-image class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart" @mouseup.prevent="goMagnifyMapTouchEnd" />
-        <el-image class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart" @mouseup.prevent="goShrinkMapEnd" />
+        <el-image
+          class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
+          @mouseup.prevent="goMagnifyMapTouchEnd"
+        />
+        <el-image
+          class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
+          @mouseup.prevent="goShrinkMapEnd"
+        />
       </div>
       <div class="coordinate-span">
         <span>N</span>
