@@ -22,7 +22,6 @@ const getYqzl = async () => {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-    address: '湖南省长沙市',
   }
   const res: any = await yqzl(param)
   industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名')

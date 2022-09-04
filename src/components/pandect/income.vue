@@ -169,7 +169,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       show: false,
       boxHeight: 3,
       // top: '-20%',
-      left: '-20%',
+      left: '-15%',
       viewControl: {
         alpha: 25,
         rotateSensitivity: 1,

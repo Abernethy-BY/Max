@@ -1,11 +1,11 @@
 <!--
- * @Author: By
- * @Date: 2022-08-13 16:25:51
- * @LastEditTime: 2022-09-02 17:58:35
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @Description:
+ * @LastEditTime: 2022-09-05 00:58:49
  * @FilePath: \big-screen\src\pages\login.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Description: 登录
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'

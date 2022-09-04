@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 17:20:30
- * @LastEditTime: 2022-08-23 17:59:53
- * @LastEditors: By
+ * @LastEditTime: 2022-09-05 01:01:21
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 舆情监控
- * @FilePath: \big-screen-vue3\src\pages\publicOpinionMonitoring.vue
+ * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script lang="ts" setup>
@@ -30,7 +30,6 @@ const getYqjk = async () => {
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
   }
   const res: any = await yqjk(param)
-  consola.info(res)
   enterpriseRiskComData.value = res?.filter(e => e['位置'] === '企业风险分布')
   riskLevelData.value = res?.filter(e => e['位置'] === '风险级别分布')
 
@@ -81,7 +80,7 @@ getYqjk()
   align-items: center;
   padding-bottom: 47px;
   box-sizing: border-box;
-// src\assets\image\publicOpinionMonitoring\publicOpinionMonitoringBg.png
+  // src\assets\image\publicOpinionMonitoring\publicOpinionMonitoringBg.png
   background-image: url("~/assets/image/publicOpinionMonitoring/publicOpinionMonitoringBg.png");
   background-size: cover;
 

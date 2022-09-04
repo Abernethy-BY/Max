@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-07-29 09:50:40
- * @LastEditTime: 2022-08-29 19:32:43
- * @LastEditors: By
+ * @LastEditTime: 2022-09-05 01:02:19
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 最新风险
- * @FilePath: \big-screen-vue3\src\components\publicOpinionMonitoring\newRisk.vue
+ * @FilePath: \big-screen\src\components\publicOpinionMonitoring\newRisk.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
@@ -51,12 +51,8 @@ watch(() => prop.latestRisksProp, (val) => {
 })
 
 watch(() => prop.riskClassificationProp, (val) => {
-  consola.start(prop.riskClassificationProp)
   prop.riskClassificationProp?.forEach((e: any, i) => {
     const temp = subItemizationRiskList.value.find(childElement => childElement.label === e?.['数据'])
-    consola.start(temp)
-    consola.error(e)
-    consola.warn(subItemizationRiskList.value)
     if (temp)
       temp.value = e?.['值1']
   })
@@ -70,11 +66,18 @@ watch(() => prop.riskClassificationProp, (val) => {
       <el-table class="new-risk-table-main" :data="tableData" height="calc(100% - 59px)" :row-class-name="rowClass">
         <el-table-column v-for="(item, index) in headerList" :key="index" :prop="item.prop" :label="item.label" />
       </el-table>
-    </div><div class="sub-itemization-risk-box">
+    </div>
+    <div class="sub-itemization-risk-box">
       <div v-for="(item, index) in subItemizationRiskList" :key="index" class="sub-itemization-risk-item">
-        <el-image class="sub-itemization-risk-item-bg" :src="item.image" fit="fill" /><span class="sub-itemization-risk-item-value">{{ item.value }}<span class="sub-itemization-risk-item-unit">{{ item.unit }}</span></span><span class="sub-itemization-risk-item-label">{{ item.label }}</span>
+        <el-image class="sub-itemization-risk-item-bg" :src="item.image" fit="fill" /><span
+          class="sub-itemization-risk-item-value"
+        >{{ item.value }}<span class="sub-itemization-risk-item-unit">{{
+          item.unit
+        }}</span></span><span class="sub-itemization-risk-item-label">{{ item.label }}</span>
       </div>
-    </div><el-image class="compass-bg" :src="compass" fit="fill" /><el-image class="changes-bg" :src="changes" fit="fill" />
+    </div>
+    <el-image class="compass-bg" :src="compass" fit="fill" />
+    <el-image class="changes-bg" :src="changes" fit="fill" />
   </div>
 </template>
 
