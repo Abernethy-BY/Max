@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-05 00:58:49
+ * @LastEditTime: 2022-09-05 01:47:40
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description: 登录
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -136,12 +136,12 @@ const phoneLogin = async (formEl: FormInstance | undefined) => {
  * @return {*}
  */
 const getVerificationCode = async () => {
-  const submitId = new Date().getTime()
+  // const submitId = new Date().getTime()
   const param = {
-    submitid: submitId,
+    submitid: '123',
     usercode: '',
     // submitId + userInfo.userCode + userInfo.token
-    sign: hexMD5(`${submitId}12378915242952083 `),
+    sign: '97d595e6d6997525cf98aa66e670511f',
     tel: '15242952083',
     token: '123789',
   }
@@ -156,15 +156,19 @@ const jumpToEnroll = () => { }
 </script>
 
 <template>
-  <div class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552 position-absolute pot-255
-    por-344 h-579>
+  <div
+    class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552 position-absolute pot-255
+    por-344 h-579
+  >
     <!-- 二维码登录头 -->
     <header v-if="accountFlag === 'scan'" flex cross-axis-center flex-row-center ml-53 mr-56>
       <span fs-24 fw-400 color="#05FFFF">{{ titleObj.mainTitle }}</span>
     </header>
     <!-- 账号|手机验证登录头 -->
-    <header v-else-if="accountFlag === 'verification' || accountFlag === 'account'" flex cross-axis-center
-      flex-row-between ml-53 mr-56>
+    <header
+      v-else-if="accountFlag === 'verification' || accountFlag === 'account'" flex cross-axis-center
+      flex-row-between ml-53 mr-56
+    >
       <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ titleObj.mainTitle }}</span>
       <div class="handoff-login-type" cursor-p @click="handoffLoginType('manual')">
         <span fs-18 lh-42 color="#05FFFF">{{ titleObj.subTitle }}</span>
@@ -172,8 +176,10 @@ const jumpToEnroll = () => { }
       </div>
     </header>
     <!-- 账号登陆 -->
-    <el-form v-if="accountFlag === 'account'" ref="ruleFormRef" :rules="rules" class="login-form-content"
-      :model="loginForm" ml-53 mr-56>
+    <el-form
+      v-if="accountFlag === 'account'" ref="ruleFormRef" :rules="rules" class="login-form-content"
+      :model="loginForm" ml-53 mr-56
+    >
       <el-form-item mt-48 prop="userName">
         <el-input v-model="loginForm.userName" class="login-input" placeholder="请输入用户名">
           <template #prepend>
@@ -198,8 +204,10 @@ const jumpToEnroll = () => { }
       </el-form-item>
     </el-form>
     <!-- 验证登录 -->
-    <el-form v-else-if="accountFlag === 'verification'" ref="phoneLoginFormRef" :rules="phoneLoginRules"
-      class="phone-login-form-content" :model="phoneLoginForm" ml-53 mr-56>
+    <el-form
+      v-else-if="accountFlag === 'verification'" ref="phoneLoginFormRef" :rules="phoneLoginRules"
+      class="phone-login-form-content" :model="phoneLoginForm" ml-53 mr-56
+    >
       <el-form-item mt-21>
         <span fs-16 color="#05FFFF" opacity-50>验证即登录，未注册将自动创建账号</span>
       </el-form-item>

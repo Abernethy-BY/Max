@@ -1,11 +1,11 @@
 <!--
- * @Author: By
- * @Date: 2022-08-13 11:07:23
- * @LastEditTime: 2022-08-30 20:04:07
- * @LastEditors: By
- * @Description: layouts
- * @FilePath: \big-screen-vue3\src\layouts\screen.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-03 01:56:14
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-09-05 01:40:08
+ * @FilePath: \big-screen\src\layouts\screen.vue
+ * @Description: 页面layout
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
@@ -38,13 +38,22 @@ const jump = (index) => {
   pageIndex.value = index
   router.push({ path: tabList.value[index].path })
 }
+
+const jumpToLogin = () => {
+  const backlen = history.length - 2
+  const userInfo = useUserStore()
+  userInfo.userCode = ''
+  userInfo.token = ''
+  userInfo.userRole = ''
+  router.go(backlen - (backlen * 2))
+}
 </script>
 
 <template>
   <div class="layout-box" layouts box-center>
     <header hPE-10 flex flex-row-center po-r cross-axis-center pl-21 pr-27 pb-23>
       <div class="area-select-box" po-a pol-21 h-41 flex cross-axis-center>
-        <el-image class="area-icon" :src="areaIcon" fit="fill" />
+        <el-image cursor-p class="area-icon" :src="areaIcon" fit="fill" @click="jumpToLogin" />
         <span fs-20 color="#FFFFFF" ml-9>工业大数据平台</span>
       </div>
       <span fx-40 fw-800 color="#FFFFFF">麦可思工业大数据中心</span>
@@ -58,14 +67,12 @@ const jump = (index) => {
     </header>
     <div class="tab-Wrap" wPE-100 hPE-6 flex flex-row-center cross-axis-center mt-19>
       <div
-        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 hPE-100 mr-18 ml-18 flex
-        cross-axis-center :class="pageIndex === index ? 'click' : ''" @click="jump(index)"
+        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 hPE-100 mr-18 ml-18 flex cross-axis-center
+        :class="pageIndex === index ? 'click' : ''" @click="jump(index)"
       >
         <el-image class="time-icon" :src="item.bg" fit="fill" />
         <span po-a fs-20 fw-400 color="#2E9EFF" polPE-40 potPE-36>{{ item.name }}</span>
       </div>
-
-      <!-- 40% -->
     </div>
     <main hPE-80 wPE-100 mt-31 flex-1 pl-34 pr-34>
       <RouterView />
