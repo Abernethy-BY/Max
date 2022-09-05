@@ -1,10 +1,10 @@
 /*
  * @Author: By
  * @Date: 2022-06-16 10:00:26
- * @LastEditTime: 2022-08-22 21:06:41
- * @LastEditors: By
+ * @LastEditTime: 2022-09-05 15:23:52
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\main.ts
+ * @FilePath: \big-screen\src\main.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
 import { ViteSSG } from 'vite-ssg'
@@ -28,7 +28,6 @@ export const createApp = ViteSSG(
       if (!useUserStore().hasToken && to.path !== '/login')
         return { path: '/login' }
     })
-    // install all modules under `modules/`
     Object.values(import.meta.globEager('./modules/*.ts')).forEach((i: any) => i.install?.(ctx))
   },
 )

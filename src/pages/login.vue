@@ -2,13 +2,14 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-05 01:47:40
+ * @LastEditTime: 2022-09-05 15:41:51
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description: 登录
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import handoffIcon from '~/assets/image/login/handoffIcon.png'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
@@ -41,12 +42,31 @@ const rules = reactive<FormRules>({
 const loginForm = ref({ userName: '', passWord: '' })
 
 // 手机登录表单节点
-const phoneLoginFormRef = ref<FormInstance>()
+const phoneFormRef = ref<FormInstance>()
 // 手机登录校验规则
 const phoneLoginRules = ref<FormRules>({
-  phoneNum: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+  phoneNum: [
+    { required: true, message: '请输入手机号码', trigger: 'blur' },
+    { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
+    {
+      pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+      message: '请输入正确的手机号码',
+    },
+  ],
   verificationCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 })
+// const verificationCodeRule = {
+//   phoneNum: [
+//     { required: true, message: '请输入手机号码', trigger: 'blur' },
+//     { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
+//     {
+//       pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+//       message: '请输入正确的手机号码',
+//     },
+//   ],
+// }
+
+// const verificationLoginRule = ref(verificationCodeRule)
 // 手机登录表单
 const phoneLoginForm = ref({ phoneNum: '', verificationCode: '' })
 
@@ -106,9 +126,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.userRole = temp.role
         succeedFlag.value = true
       }
-      // else {
-      //   ElMessage({ message: res.data.message, type: 'error' })
-      // }
     }
   })
 }
@@ -122,36 +139,46 @@ const phoneLogin = async (formEl: FormInstance | undefined) => {
   if (!formEl)
     return
   await formEl.validate(async (valid, fields) => {
-    // if (valid)
-    //   consola.success('submit!')
+    if (valid) {
+      const submitId = new Date().getTime()
+      const param = {
+        submitid: '',
+        usercode: '',
+        sign: md5(`${submitId}123789`),
+        pass: phoneLoginForm.value.verificationCode,
+        tel: phoneLoginForm.value.phoneNum,
+        type: 2,
+      }
+      const res: any = await xtdl(param)
 
-    // // consola.info(res)
-
-    // else consola.error('error submit!', fields)
+      const temp = res?.[0]
+      if (res[0]) {
+        userInfo.token = temp.token
+        userInfo.userCode = temp.usercode
+        userInfo.userRole = temp.role
+        succeedFlag.value = true
+      }
+    }
   })
 }
 
-/**
- * @description: 获取验证码
- * @return {*}
- */
-const getVerificationCode = async () => {
-  // const submitId = new Date().getTime()
-  const param = {
-    submitid: '123',
-    usercode: '',
-    // submitId + userInfo.userCode + userInfo.token
-    sign: '97d595e6d6997525cf98aa66e670511f',
-    tel: '15242952083',
-    token: '123789',
-  }
-  const res = await yzdx(param)
-  consola.start(res)
+const phoneInputFun = (e) => {
+  const temp = e[e.length - 1]
+  if (temp.charCodeAt() < 48 || temp.charCodeAt() > 57)
+    phoneLoginForm.value.phoneNum = phoneLoginForm.value.phoneNum.substring(0, phoneLoginForm.value.phoneNum.length - 1)
 }
-/**
- * @description: 跳转到注册
- * @return {*}
- */
+
+const getVerificationCode = async () => {
+  const submitId = new Date().getTime()
+  const param = {
+    submitid: submitId,
+    usercode: '',
+    sign: md5(`${submitId}123789`),
+    tel: phoneLoginForm.value.phoneNum,
+  }
+  await yzdx(param)
+  ElMessage({ message: '验证码已发送', type: 'success' })
+}
 const jumpToEnroll = () => { }
 </script>
 
@@ -205,14 +232,14 @@ const jumpToEnroll = () => { }
     </el-form>
     <!-- 验证登录 -->
     <el-form
-      v-else-if="accountFlag === 'verification'" ref="phoneLoginFormRef" :rules="phoneLoginRules"
+      v-else-if="accountFlag === 'verification'" ref="phoneFormRef" :rules="phoneLoginRules"
       class="phone-login-form-content" :model="phoneLoginForm" ml-53 mr-56
     >
       <el-form-item mt-21>
         <span fs-16 color="#05FFFF" opacity-50>验证即登录，未注册将自动创建账号</span>
       </el-form-item>
       <el-form-item mt-34 prop="userName">
-        <el-input v-model="phoneLoginForm.phoneNum" class="login-input" placeholder="请输入手机号">
+        <el-input v-model="phoneLoginForm.phoneNum" class="login-input" placeholder="请输入手机号" @input="phoneInputFun">
           <template #prepend>
             <el-image w-26 h-26 :src="phoneInputIcon" fit="fill" />
           </template>
@@ -225,17 +252,16 @@ const jumpToEnroll = () => { }
         </el-button>
       </el-form-item>
       <el-form-item mt-48>
-        <el-button class="login-button" type="primary" @click="phoneLogin(phoneLoginFormRef)">
+        <el-button class="login-button" type="primary" @click="phoneLogin(phoneFormRef)">
           登录
         </el-button>
       </el-form-item>
     </el-form>
     <!-- 二维码登录 -->
-    <div v-else-if="accountFlag === 'scan'" flex flex-column-center cross-axis-center>
+    <!-- <div v-else-if="accountFlag === 'scan'" flex flex-column-center cross-axis-center>
       <div w-243 h-243 bg="#70a1ff">
-        <!-- QR code -->
       </div>
-    </div>
+    </div> -->
     <footer mt-36 h-64 flex cross-axis-center flex-row-between fx-0 position-relative>
       <span ml-53 cursor-p color="#05FFFF" fs-18 @click="handoffLoginType('sweep')">{{ titleObj.footerTitle }}</span>
       <span mr-56 cursor-p color="#05FFFF" fs-18 @click="jumpToEnroll">立即注册</span>

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-09-02 17:58:16
+ * @LastEditTime: 2022-09-05 14:07:43
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -21,15 +21,10 @@ const config: HttpClientConfig = {
 
 const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
-  if (res.data.message === '签名错误') {
-    useUserStore().$state = { token: '', userCode: '', userRole: '' }
+  if (Number(res.data.state) !== 0)
     ElMessage({ message: res.data.message, type: 'error' })
-    return Promise.reject(new Error(res.data.message || 'Error'))
-  }
-  else if (res.data.message === '账号或密码错误') {
-    ElMessage({ message: res.data.message, type: 'error' })
-  }
-  else { return res }
+
+  else return res
 })
 
 export const post = (url: string, data: RequestParams) => {

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-02 17:59:07
+ * @LastEditTime: 2022-09-05 17:47:51
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: http配置
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -53,11 +53,14 @@ const initChart = (geojson) => {
   chartDom?.setOption(option)
   // consola.info(geojson.features)
   chartDom?.on('click', (params) => {
-    const clickTemp = mapArr?.find((e) => {
-      return e.properties.name === params.name
-    })
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    getMap(clickTemp.properties.adcode)
+    const drillDownFun = () => {
+      const clickTemp = mapArr?.find((e) => {
+        return e.properties.name === params.name
+      })
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      getMap(clickTemp.properties.adcode)
+    }
+    debounce(drillDownFun, 1000, true)
   })
 
   window.addEventListener('resize', () => {
@@ -76,6 +79,7 @@ const getMap = async (code) => {
     }
     const temp: any = await getMapdata(param)
     mapArr = temp.features
+    option.geo.label.show = true
     initChart(temp)
   }
   catch (error) {
@@ -88,6 +92,7 @@ const getMap = async (code) => {
     }
     const temp: any = await getMapdata(param)
     mapArr = temp.features
+    option.geo.label.show = false
     initChart(temp)
   }
 }
@@ -157,8 +162,8 @@ onMounted(() => {
         />
       </div>
       <div class="coordinate-span">
-        <span>N</span>
-        <span>E</span>
+        <!-- <span>N</span>
+        <span>E</span> -->
       </div>
     </div>
     <div id="mapRef" ref="mapRef" class="pandect-map" />

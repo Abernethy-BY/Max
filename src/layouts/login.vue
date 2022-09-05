@@ -18,7 +18,7 @@
 
 <style lang="scss" scoped>
 .login-layouts {
-  background: no-repeat url("~/assets/image/login/loginBg.png");
+  background: no-repeat url("~/assets/image/login/loginBg.jpg");
   background-size: 100% 100%;
 }
 </style>

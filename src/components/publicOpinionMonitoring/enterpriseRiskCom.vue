@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-05 01:24:24
+ * @LastEditTime: 2022-09-05 10:04:37
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
  * @Description:企业风险
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -279,40 +279,16 @@ watch(() => prop.enterpriseRiskComProp, (val) => {
 watch(() => prop.riskLevelProp, (val) => {
   consola.info(prop.riskLevelProp)
 
-  const temp = prop.riskLevelProp?.map((e, i) => {
+  const temp = prop.riskLevelProp?.map((e: any, i) => {
     return {
       name: e?.['数据'],
       value: Number(new Big(Number(e?.['值1'])).toFixed(0)),
       itemStyle: { color: colorList[i] },
     }
   })
-  const option = getPie3D(
-    // [
-    //   { name: 'cc', value: 47, itemStyle: { color: '#f77b66' } },
-    //   { name: 'aa', value: 44, itemStyle: { color: '#3edce0' } },
-    //   { name: 'bb', value: 32, itemStyle: { color: '#f94e76' } },
-    //   { name: 'ee', value: 16, itemStyle: { color: '#018ef1' } },
-    //   { name: 'dd', value: 23, itemStyle: { color: '#9e60f9' } },
-    // ],
-
-    temp,
-    0.59,
-  )
+  const option = getPie3D(temp, 0.59)
   const myChart = eCharts.init(riskRef.value)
   myChart.setOption(option)
-
-  //   0
-  // :
-  // {位置: '风险级别分布', 数据: '良好信息', 值1: '2', 值2: '', 图标: ''}
-  // 1
-  // :
-  // {位置: '风险级别分布', 数据: '警示', 值1: '2', 值2: '', 图标: ''}
-  // 2
-  // :
-  // {位置: '风险级别分布', 数据: '良好信息', 值1: '5', 值2: '', 图标: ''}
-  // 3
-  // :
-  // {位置: '风险级别分布', 数据: '警示信息', 值1: '1', 值2: '', 图标: ''}
 
   //  修正取消高亮失败的 bug
   // 监听 mouseover，近似实现高亮（放大）效果

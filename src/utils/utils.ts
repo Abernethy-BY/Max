@@ -1,11 +1,11 @@
 /*
- * @Author: By
- * @Version: 2.0
- * @Date: 2022-03-10 16:24:39
- * @LastEditors: By
- * @LastEditTime: 2022-08-27 14:50:55
- * @Description: 时间处理通用类
- * @FilePath: \big-screen-vue3\src\utils\dateUtil.ts
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-01 16:29:28
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-09-05 15:17:08
+ * @FilePath: \big-screen\src\utils\utils.ts
+ * @Description: 工具类
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
  */
 // 日期格式化规范
 
@@ -20,10 +20,10 @@ export const dateTypes = {
 }
 
 /**
-     * 判断日期是否为空
-     * @param data
-     * @returns {boolean}
-     */
+ * @description: 判断日期是否为空
+ * @param {*} data
+ * @return {*}
+ */
 export const isNull = (data) => {
   if (data === null || data === undefined || data === '')
     return true
@@ -33,10 +33,10 @@ export const isNull = (data) => {
 }
 
 /**
-     * 判断是否为日期
-     * @param date 不支持yyyyMMdd格式
-     * @returns {boolean}
-     */
+ * @description: 判断是否为日期
+ * @param {any} date
+ * @return {*}
+ */
 export const isDate = (date: any) => {
   if (isNaN(date) && !isNaN(Date.parse(date)))
     return true
@@ -46,11 +46,11 @@ export const isDate = (date: any) => {
 }
 
 /**
-     * Date日期格式化
-     * @param date
-     * @param pattern 可为空，默认yyyy-MM-dd HH:mm:ss
-     * @returns {string}
-     */
+ * @description: Date日期格式化
+ * @param {*} date
+ * @param {*} pattern 可为空，默认yyyy-MM-dd HH:mm:ss
+ * @return {*}
+ */
 export const formatDate = (date, pattern?) => {
   const yy = date.getFullYear() // 年
   const mm = date.getMonth() + 1 // 月
@@ -95,51 +95,52 @@ export const formatDate = (date, pattern?) => {
 }
 
 /**
-     * 获取当前日期
-     * @returns {Date}
-     */
+ * @description: 获取当前日期
+ * @return {*}
+ */
 export const getNowDate = () => {
   return new Date()
 }
 
 /**
-     * @description: 获取当前时间
-     * @param {*}
-     * @return {*} 格式化后的当前时间
-     */
+ * @description: 获取当前时间
+ * @return {*}
+ */
 export const getNowTime = () => {
   return formatDate(new Date())?.substring(10)
 }
 
 /**
-     * @description: 获取当前月份
-     * @return {*}
-     */
+ * @description: 获取当前月份
+ * @return {*}
+ */
 export const getNowMonth = () => {
   return new Date().getMonth() + 1
 }
 
 /**
-     * @description: 获取当前日期数
-     * @return {*}
-     */
+ * @description: 获取当前日期数
+ * @return {*}
+ */
 export const getNowDay = () => {
   return new Date().getDate()
 }
 
 /**
-     * @description: 获取当前星期
-     * @return {*}
-     */
+ * @description: 获取当前星期
+ * @return {*}
+ */
 export const getNowWeek = () => {
   return new Date().getDay()
 }
+
 /**
-     * 获取几天前日期(1代表明天，-1 代表前一天，-2前两天...)
-     * @param date 指定日期
-     * @param num
-     * @param separator 连接符 如果为-,则结果为:yyyy-MM-dd
-     */
+ * @description: 获取几天前日期(1代表明天，-1 代表前一天，-2前两天...)
+ * @param {*} date 指定日期
+ * @param {*} num
+ * @param {*} separator 连接符 如果为-,则结果为:yyyy-MM-dd
+ * @return {*}
+ */
 export const getDay = (date, num, separator) => {
   const today = new Date(date)
   const nowTime = today.getTime()
@@ -156,12 +157,12 @@ export const getDay = (date, num, separator) => {
 }
 
 /**
-     * @description: 获取前几月日期(1代表下月，-1 代表上月，-2上两月...)
-     * @param {*} date 指定日期
-     * @param {*} num 月跨度
-     * @param {*} separator 连接符
-     * @return {*} 处理后数据
-     */
+ * @description:  获取前几月日期(1代表下月，-1 代表上月，-2上两月...)
+ * @param {*} date 指定日期
+ * @param {*} num 月跨度
+ * @param {*} separator 连接符
+ * @return {*} 处理后数据
+ */
 export const getMonth = (date, num, separator) => {
   // debugger
   const today = new Date(date)
@@ -175,12 +176,12 @@ export const getMonth = (date, num, separator) => {
 }
 
 /**
-     * @description: 获取几年前日期
-     * @param {*} date 指定日期
-     * @param {*} num 年跨度
-     * @param {*} separator 连接符
-     * @return {*} 处理后数据
-     */
+ * @description: 获取几年前日期
+ * @param {*} date  指定日期
+ * @param {*} num 年跨度
+ * @param {*} separator 连接符
+ * @return {*} 处理后数据
+ */
 export const getYear = (date, num, separator) => {
   const today = new Date(date)
   today.setFullYear(today.getFullYear() + num)
@@ -191,9 +192,11 @@ export const getYear = (date, num, separator) => {
 }
 
 /**
-     * @description: 获取当月第一天日期
-     * @return {String}
-     */
+ * @description: 获取当月第一天日期
+ * @param {*} date 月份日期
+ * @param {*} pattern 时间格式
+ * @return {*}
+ */
 export const getOneDayOfMonth = (date, pattern = 'yyyy-MM-dd') => {
   const currentTimeArr = formatDate(date, pattern)?.split('')
   if (pattern === 'yyyyMMdd') {
@@ -208,11 +211,11 @@ export const getOneDayOfMonth = (date, pattern = 'yyyy-MM-dd') => {
 }
 
 /**
-     * @description: 获取月中最后一天
-     * @param {*} date 日期对象
-     * @param {*} pattern 返回格式
-     * @return {string}
-     */
+ * @description: 获取月中最后一天
+ * @param {*} date 日期对象
+ * @param {*} pattern 日期格式
+ * @return {*}
+ */
 export const getLastDayOfMonth = (date, pattern = 'yyyy-MM-dd') => {
   const dateStr = date
   const dateObj = new Date(dateStr)
@@ -240,11 +243,11 @@ export const getLastDayOfMonth = (date, pattern = 'yyyy-MM-dd') => {
 }
 
 /**
-     * @description: 获取目标年份第一月第一天
-     * @param {*} date 日期对象
-     * @param {*} pattern 日期格式
-     * @return {string}
-     */
+ * @description:  获取目标年份第一月第一天
+ * @param {*} date 日期对象
+ * @param {*} pattern 日期格式
+ * @return {*}
+ */
 export const getOneDayOfYear = (date, pattern = 'yyyy-MM-dd') => {
   const currentTimeArr = formatDate(date, pattern)?.split('')
   if (pattern === 'yyyy-MM-dd') {
@@ -263,10 +266,10 @@ export const getOneDayOfYear = (date, pattern = 'yyyy-MM-dd') => {
 }
 
 /**
-     * @description: 获取毫秒数
-     * @param {*} date 时间对象，不传则返回当前时间毫秒数
-     * @return {*}
-     */
+ * @description: 获取毫秒数
+ * @param {*} date 时间对象，不传则返回当前时间毫秒数
+ * @return {*}
+ */
 export const getMilliseconds = (date = getNowDate()) => {
   if (isNull(date))
     return
@@ -274,12 +277,12 @@ export const getMilliseconds = (date = getNowDate()) => {
 }
 
 /**
-     * @description: 计算时间差
-     * @param {Date} start 开始时间
-     * @param {Date} end 结束时间
-     * @param {*} flag 时间差标识 --- 天，小时，分钟，秒
-     * @return {*}
-     */
+ * @description:  计算时间差
+ * @param {Date} start 开始时间
+ * @param {Date} end 结束时间
+ * @param {*} flag 时间差标识 --- 天，小时，分钟，秒
+ * @return {*}
+ */
 export const getTimeDifference = (start: Date, end: Date, flag) => {
   if (isNull(start) || isNull(end)) {
     console.error(`时间参数错误，${Error}`)
@@ -302,15 +305,46 @@ export const getTimeDifference = (start: Date, end: Date, flag) => {
 }
 
 /**
-     * @description: 获取目标年份最后一天
-     * @param {*} year 年份
-     * @param {*} pattern 格式化
-     * @return {string}
-     */
+ * @description: 获取目标年份最后一天
+ * @param {*} year 年份
+ * @param {*} pattern 格式化
+ * @return {*}
+ */
 export const getYearLastDay = (year, pattern = 'yyyy-MM-dd') => {
   const lastDay = new Date(year)
   lastDay.setFullYear(lastDay.getFullYear() + 2)
   lastDay.setDate(0)
   lastDay.setMonth(-1)
   return formatDate(lastDay, pattern)
+}
+
+// 防抖
+let timeout: ReturnType<typeof setTimeout> | null = null
+/**
+* 防抖原理：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数
+*
+* @param {Function} func 要执行的回调函数
+* @param {Number} wait 延时的时间
+* @param {Boolean} immediate 是否立即执行
+* @return null
+*/
+export const debounce = (func, wait = 500, immediate = false) => {
+  // 清除定时器
+  if (timeout !== null)
+    clearTimeout(timeout)
+  // 立即执行，此类情况一般用不到
+  if (immediate) {
+    const callNow = !timeout
+    timeout = setTimeout(() => {
+      timeout = null
+    }, wait)
+    if (callNow)
+      typeof func === 'function' && func()
+  }
+  else {
+    // 设置定时器，当最后一次操作后，timeout不会再被清除，所以在延时wait毫秒后执行func回调方法
+    timeout = setTimeout(() => {
+      typeof func === 'function' && func()
+    }, wait)
+  }
 }
