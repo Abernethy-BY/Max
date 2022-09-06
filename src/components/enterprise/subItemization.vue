@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 16:28:05
- * @LastEditTime: 2022-08-19 16:46:17
- * @LastEditors: By
+ * @LastEditTime: 2022-09-06 16:32:22
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\components\enterprise\subItemization.vue
+ * @FilePath: \big-screen\src\components\enterprise\subItemization.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script>
@@ -38,11 +38,11 @@ export default {
       ], [
         { image: taxAmountBg, label: '税收额', value: '', unit: '亿元' },
         { image: governmentSubsidiesBg, label: '产业政府补贴', value: '', unit: '亿元' },
-        { image: energyConsumptionBg, label: '能耗', value: '', unit: '亿元' },
+        { image: energyConsumptionBg, label: '能耗', value: '', unit: '万度' },
         { image: businessIncomeBg, label: '重点企业主营业务收入', value: '', unit: '亿元' },
-        { image: powerConsumptionBg, label: '电耗', value: '', unit: '亿元' },
-        { image: statisticalEnterprisesBg, label: '纳入统计企业', value: '', unit: '亿元' },
-        { image: averageIndexPerAcreBg, label: '亩均指数', value: '', unit: '亿元' },
+        { image: powerConsumptionBg, label: '电耗', value: '', unit: '万度' },
+        { image: statisticalEnterprisesBg, label: '纳入统计企业', value: '', unit: '家' },
+        { image: averageIndexPerAcreBg, label: '亩均指数', value: '', unit: '' },
       ]],
     }
   },

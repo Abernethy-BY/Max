@@ -1,19 +1,19 @@
 <!--
  * @Author: BY by15242952083@outlook.com
- * @Date: 2022-09-01 16:29:28
+ * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-06 19:18:14
- * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
- * @Description: http配置
+ * @LastEditTime: 2022-09-06 20:27:03
+ * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
+ * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
-
 <script lang="ts" setup>
-import 'echarts/lib/chart/map'
-import 'echarts/lib/component/geo'
 import type { EChartsType } from 'echarts'
 import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
+
+import 'echarts/lib/chart/map'
+import 'echarts/lib/component/geo'
 
 const option = {
   geo: {
@@ -148,70 +148,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="map-box">
-    <div class="coordinate-box" po-r z-10>
-      <div class="icon-box">
-        <el-image
-          class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
-          @mouseup.prevent="goMagnifyMapTouchEnd"
-        />
-        <el-image
-          class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
-          @mouseup.prevent="goShrinkMapEnd"
-        />
-      </div>
-      <div class="coordinate-span">
-        <!-- <span>N</span>
-        <span>E</span> -->
-      </div>
+  <div wPE-100 hPE-100 po-r>
+    <div ref="mapRef" wPE-100 hPE-100 />
+    <div po-a por-0 pob-0 flex flex-column-between>
+      <el-image
+        class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
+        @mouseup.prevent="goMagnifyMapTouchEnd"
+      />
+      <el-image
+        class="operate-icon" :src="shrink" fit="fill" mt-22
+        @mousedown.prevent="goShrinkMapStart" @mouseup.prevent="goShrinkMapEnd"
+      />
     </div>
-    <div id="mapRef" ref="mapRef" class="pandect-map" />
   </div>
 </template>
 
-<style lang="scss" scoped>
-.map-box {
-  width: 100%;
-  height: 100%;
-  position: relative;
-
-  .coordinate-box {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  :deep(.operate-icon) {
-    width: 48px;
-    height: 48px;
-
-    &:last-child {
-      margin-left: 43px;
-    }
-  }
-
-  .coordinate-span {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    ;
-
-    span {
-      font-size: 16px;
-      font-family: Source Han Sans CN;
-      font-weight: 500;
-      color: #FFFFFF;
-      line-height: 16px;
-      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.58);
-
-    }
-  }
-
-  .pandect-map {
-    width: 100%;
-    height: 100%;
-  }
-}
-</style>

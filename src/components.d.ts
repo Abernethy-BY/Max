@@ -25,6 +25,7 @@ declare module '@vue/runtime-core' {
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     EnterpriseAssociationMap: typeof import('./components/corporatePortrait/enterpriseAssociationMap.vue')['default']
+    EnterpriseMap: typeof import('./components/enterprise/enterpriseMap.vue')['default']
     EnterpriseProducts: typeof import('./components/corporatePortrait/enterpriseProducts.vue')['default']
     EnterpriseProgress: typeof import('./components/enterprise/enterpriseProgress.vue')['default']
     EnterpriseRiskCom: typeof import('./components/publicOpinionMonitoring/enterpriseRiskCom.vue')['default']

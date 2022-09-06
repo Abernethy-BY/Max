@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 17:20:30
- * @LastEditTime: 2022-09-05 01:01:21
+ * @LastEditTime: 2022-09-06 18:47:44
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 舆情监控
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
@@ -10,24 +10,22 @@
 <script lang="ts" setup>
 const userInfo = useUserStore()
 const clickFlag = ref('enterpriseRisk')
+const title = ref('企业风险')
+const flagMap = new Map().set('enterpriseRisk', '企业风险').set('corporatePublicOpinion', '企业舆情')
 
 const enterpriseRiskComData = ref([])
 const riskLevelData = ref([])
 const riskClassificationData = ref([])
 
 const latestRisksData = ref([])
-const risk = (flag) => {
-  if (flag === clickFlag.value)
-    return
-  clickFlag.value = flag
-}
 
-const getYqjk = async () => {
+const getYqjk = async (flag?) => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    type: flag,
   }
   const res: any = await yqjk(param)
   enterpriseRiskComData.value = res?.filter(e => e['位置'] === '企业风险分布')
@@ -38,6 +36,13 @@ const getYqjk = async () => {
   riskClassificationData.value = res?.filter(e => e['位置'] === '右下')
 }
 
+const risk = (flag) => {
+  if (flag === clickFlag.value)
+    return
+  clickFlag.value = flag
+  title.value = flagMap.get(flag)
+  getYqjk(flagMap.get(flag))
+}
 getYqjk()
 </script>
 
@@ -51,16 +56,19 @@ getYqjk()
         >
           企业风险
         </div>
-        <!-- <div
+        <div
           class="risk-button" :class="clickFlag === 'corporatePublicOpinion' ? 'click-button' : ''"
           @click="risk('corporatePublicOpinion')"
         >
           企业舆情
-        </div> -->
+        </div>
       </div>
 
       <div class="enterprise-risk-box">
-        <enterpriseRiskCom :enterprise-risk-com-prop="enterpriseRiskComData" :risk-level-prop="riskLevelData" />
+        <enterpriseRiskCom
+          :enterprise-risk-com-prop="enterpriseRiskComData" :risk-level-prop="riskLevelData"
+          :title="title"
+        />
       </div>
     </div>
 

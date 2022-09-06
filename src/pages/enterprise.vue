@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-08-19 15:50:58
- * @LastEditTime: 2022-08-27 17:13:45
- * @LastEditors: By
+ * @LastEditTime: 2022-09-06 18:58:13
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\pages\enterprise.vue
+ * @FilePath: \big-screen\src\pages\enterprise.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
@@ -39,7 +39,9 @@ getData()
       <span>{{ EValue }}</span><span>{{ NValue }}</span>
     </div>
     <div class="occ-map" hPE-51>
-      <div class="map" />
+      <div class="map">
+        <enterpriseMap />
+      </div>
       <div class="chart-right">
         <enterpriseProgress :enterprise-progress-prop="enterpriseProgressData" />
       </div>

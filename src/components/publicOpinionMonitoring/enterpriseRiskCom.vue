@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-05 10:04:37
+ * @LastEditTime: 2022-09-06 18:55:04
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
  * @Description:企业风险
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -14,6 +14,7 @@ import riskLevelBg from '~/assets/image/publicOpinionMonitoring/riskLevelBg.png'
 const prop = defineProps({
   enterpriseRiskComProp: Array,
   riskLevelProp: Array,
+  title: String,
 })
 const riskDistribution = ref()
 const input = ref('')
@@ -37,7 +38,7 @@ const riskDistributionOption = ref<any>({
     name: 'a',
     tooltip: { show: false },
     type: 'bar',
-    barWidth: 24.5,
+    barWidth: 20.5,
     itemStyle: {
 
       color: {
@@ -59,7 +60,7 @@ const riskDistributionOption = ref<any>({
     barGap: 0,
   }, {
     type: 'bar',
-    barWidth: 8,
+    barWidth: 15,
     itemStyle: {
       color: {
         type: 'linear',
@@ -78,7 +79,25 @@ const riskDistributionOption = ref<any>({
     },
     barGap: 0,
     data: [],
-  }, {
+  },
+  // {
+  //   name: 'b',
+  //   tooltip: { show: false },
+  //   type: 'pictorialBar',
+  //   itemStyle: {
+  //     borderWidth: 1,
+  //     borderColor: '#0571D5',
+  //     color: '#1779E0',
+  //     // color: 'red',
+  //   },
+  //   symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
+  //   symbolSize: ['30', '12'],
+  //   symbolOffset: ['0', '-11'],
+  //   symbolPosition: 'end',
+  //   data: [],
+  //   z: 3,
+  // },
+  {
     name: 'b',
     tooltip: { show: false },
     type: 'pictorialBar',
@@ -86,14 +105,20 @@ const riskDistributionOption = ref<any>({
       borderWidth: 1,
       borderColor: '#0571D5',
       color: '#1779E0',
+      // color: 'red',
     },
-    symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
-    symbolSize: ['30', '12'],
-    symbolOffset: ['0', '-11'],
+    // symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
+    // symbolSize: ['30', '12'],
+    // symbolOffset: ['0', '-11'],
+    symbol: 'diamond',
+    symbolOffset: [0, '-50%'],
+    symbolSize: [35, 10],
+    // symbolRotate :20,
     symbolPosition: 'end',
     data: [],
     z: 3,
-  }],
+  },
+  ],
 })
 const initRiskDistributionChart = () => {
   const riskDistributionChart = eCharts.init(riskDistribution.value)
@@ -389,13 +414,13 @@ watch(() => prop.riskLevelProp, (val) => {
     </el-input>
 
     <div class="risk-distribution-box">
-      <span class="risk-distribution-title">企业风险分布</span>
+      <span class="risk-distribution-title">{{ prop.title }}分布</span>
       <div ref="riskDistribution" wPE-100 hPE-100 class="risk-distribution" />
     </div>
 
     <div class="Risk-level-box">
       <el-image class="Risk-level-bg" :src="riskLevelBg" fit="fill" />
-      <span class="Risk-level-title">风险级别分布</span>
+      <span class="Risk-level-title">{{ prop.title }}分布</span>
       <div ref="riskRef" wPE-100 hPE-100 />
     </div>
   </div>

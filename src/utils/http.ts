@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-09-05 14:07:43
+ * @LastEditTime: 2022-09-06 17:46:05
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -21,10 +21,15 @@ const config: HttpClientConfig = {
 
 const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
-  if (Number(res.data.state) !== 0)
+  if (Number(res.data.state) !== 0) {
+    const userInfo = useUserStore()
+    userInfo.token = ''
+    userInfo.userCode = ''
+    userInfo.userRole = ''
     ElMessage({ message: res.data.message, type: 'error' })
+  }
 
-  else return res
+  else { return res }
 })
 
 export const post = (url: string, data: RequestParams) => {

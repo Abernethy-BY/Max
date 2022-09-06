@@ -21,7 +21,7 @@ let hoveredIndex: any = ''
 
 // 生成扇形的曲面参数方程
 const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h) => {
-  // 计算
+// 计算
   const midRatio = (startRatio + endRatio) / 2
 
   const startRadian = startRatio * Math.PI * 2
@@ -135,8 +135,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
     tooltip: {
       formatter: (params) => {
         if (params.seriesName !== 'mouseoutSeries')
-          return `${params.seriesName}<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>${option.series[params.seriesIndex].pieData.value}`
-
+          return `${params.seriesName}<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>${option.series[params.seriesIndex].pieData.value}%`
         return ''
       },
     },

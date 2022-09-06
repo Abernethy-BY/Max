@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 17:20:47
- * @LastEditTime: 2022-08-19 17:49:56
- * @LastEditors: By
+ * @LastEditTime: 2022-09-06 16:37:35
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\components\corporatePortrait\economicalOperation.vue
+ * @FilePath: \big-screen\src\components\corporatePortrait\economicalOperation.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script>
@@ -56,7 +56,9 @@ export default {
     <div v-for="(item, index) in economicalOperationList" :key="index" class="economical-operation-item">
       <el-image class="economical-operation-bg" :src="item.bg" fit="fill" />
       <div class="economical-operation-content">
-        <span class="economical-operation-value">{{ item.value }}</span>
+        <span class="economical-operation-value">{{ item.value }}
+          <span class="economical-operation-unit" fs-12 color="#ffffff" fw-400>亿元</span>
+        </span>
         <span class="economical-operation-label">{{ item.label }}</span>
       </div>
       <span class="economical-operation-remark">{{ item.remark }}</span>
