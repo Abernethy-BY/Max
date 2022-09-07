@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 11:07:23
- * @LastEditTime: 2022-08-17 15:15:16
- * @LastEditors: By
+ * @LastEditTime: 2022-09-07 20:32:50
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: layouts
- * @FilePath: \big-screen-vue3\src\layouts\login.vue
+ * @FilePath: \big-screen\src\layouts\login.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 

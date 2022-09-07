@@ -306,6 +306,7 @@ declare global {
   const yqjk: typeof import('./api/api')['yqjk']
   const yqzl: typeof import('./api/api')['yqzl']
   const yzdx: typeof import('./api/api')['yzdx']
+  const zhmm: typeof import('./api/api')['zhmm']
 }
 // for vue template auto import
 import { UnwrapRef } from 'vue'
@@ -616,5 +617,6 @@ declare module '@vue/runtime-core' {
     readonly yqjk: UnwrapRef<typeof import('./api/api')['yqjk']>
     readonly yqzl: UnwrapRef<typeof import('./api/api')['yqzl']>
     readonly yzdx: UnwrapRef<typeof import('./api/api')['yzdx']>
+    readonly zhmm: UnwrapRef<typeof import('./api/api')['zhmm']>
   }
 }

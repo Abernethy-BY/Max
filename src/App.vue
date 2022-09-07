@@ -1,15 +1,20 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 09:51:05
- * @LastEditTime: 2022-08-29 14:01:22
- * @LastEditors: By
+ * @LastEditTime: 2022-09-07 09:39:10
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: app入口
- * @FilePath: \big-screen-vue3\src\App.vue
+ * @FilePath: \big-screen\src\App.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
-<script lang="ts" setup>
-
+<script lang="ts">
+export default defineComponent({
+  setup() {
+    return {
+    }
+  },
+})
 </script>
 
 <template>
@@ -33,9 +38,6 @@ height: 100vh; */
     background-size: 100% 100%; */
 
   @font-face {
-
-    /* font-properties */
-
     font-family: Kaiti SC;
 
     src: url('~/assets/font/FangZhengKaiTiJianTi-1.ttf'),
@@ -43,8 +45,6 @@ height: 100vh; */
       url('~/assets/font/FangZhengKaiTiJianTi-1.ttf'),
 
       url('~/assets/font/FangZhengKaiTiJianTi-1.ttf');
-    /* IE9 */
-
   }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-05 15:41:51
+ * @LastEditTime: 2022-09-07 21:30:38
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description: 登录
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -55,16 +55,6 @@ const phoneLoginRules = ref<FormRules>({
   ],
   verificationCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 })
-// const verificationCodeRule = {
-//   phoneNum: [
-//     { required: true, message: '请输入手机号码', trigger: 'blur' },
-//     { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
-//     {
-//       pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
-//       message: '请输入正确的手机号码',
-//     },
-//   ],
-// }
 
 // const verificationLoginRule = ref(verificationCodeRule)
 // 手机登录表单
@@ -75,7 +65,6 @@ const phoneLoginForm = ref({ phoneNum: '', verificationCode: '' })
  * @return {*}
  */
 const handoffLoginType = (flag: string) => {
-  // debugger
   if (flag === 'sweep') {
     if (accountFlag.value !== 'scan') {
       accountFlag.value = 'scan'
@@ -180,6 +169,96 @@ const getVerificationCode = async () => {
   ElMessage({ message: '验证码已发送', type: 'success' })
 }
 const jumpToEnroll = () => { }
+const forgotPassDom = ref()
+const forgotRules = ref<FormRules>({
+  tel: [
+    { required: true, message: '请输入手机号码', trigger: 'blur' },
+    { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
+    {
+      pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+      message: '请输入正确的手机号码',
+    },
+  ],
+  pass: [
+    { required: true, message: '请输入登录密码', trigger: 'blur' },
+  ],
+  rePass: [
+    { required: true, message: '请确认登录密码', trigger: 'blur' },
+  ],
+  telCode: [
+    { required: true, message: '请输入手机验证码', trigger: 'blur' },
+  ],
+})
+
+const forgotPassForm = ref({
+  userType: '',
+  tel: '',
+  pass: '',
+  rePass: '',
+  telCode: '',
+})
+
+const userTypeOptions = ref<Array<{ value: string; label: string }>>([])
+
+const openForgotPass = () => {
+  accountFlag.value = 'forgotPassword'
+}
+
+const getForgetPassCode = async () => {
+  if (!forgotPassForm.value.tel || forgotPassForm.value.tel === '') {
+    ElMessage({ message: '请输入手机号', type: 'error' })
+    return
+  }
+
+  const submitId = new Date().getTime()
+  const param = {
+    submitid: submitId,
+    usercode: '',
+    sign: md5(`${submitId}123789`),
+    tel: forgotPassForm.value.tel,
+  }
+  await yzdx(param)
+  ElMessage({ message: '验证码已发送', type: 'success' })
+}
+
+const forgotPass = async (formEl: FormInstance | undefined) => {
+  if (!formEl)
+    return
+  await formEl.validate(async (valid, fields) => {
+    if (valid) {
+      const submitId = new Date().getTime()
+      const param = {
+        submitid: '',
+        // usercode: '',
+        sign: md5(`${submitId}123789`),
+        // pass: phoneLoginForm.value.verificationCode,
+        // tel: phoneLoginForm.value.phoneNum,
+        // type: 2,
+        usertype: '',
+        tel: forgotPassForm.value.tel,
+        pass1: forgotPassForm.value.pass,
+        pass2: forgotPassForm.value.rePass,
+        checkcode: forgotPassForm.value.telCode,
+      }
+      await zhmm(param)
+
+      // const temp = res?.[0]
+      // if (res[0]) {
+      //   userInfo.token = temp.token
+      //   userInfo.userCode = temp.usercode
+      //   userInfo.userRole = temp.role
+      //   succeedFlag.value = true
+      // }
+      accountFlag.value = 'account'
+    }
+  })
+}
+
+const telInputFun = (e) => {
+  const temp = e[e.length - 1]
+  if (temp.charCodeAt() < 48 || temp.charCodeAt() > 57)
+    forgotPassForm.value.tel = forgotPassForm.value.tel.substring(0, forgotPassForm.value.tel.length - 1)
+}
 </script>
 
 <template>
@@ -222,7 +301,10 @@ const jumpToEnroll = () => { }
         </el-input>
       </el-form-item>
       <el-form-item mt-25>
-        <span wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p>忘记密码？</span>
+        <span
+          wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
+          @click="openForgotPass"
+        >忘记密码？</span>
       </el-form-item>
       <el-form-item mt-48>
         <el-button class="login-button" type="primary" @click="submitForm(ruleFormRef)">
@@ -230,6 +312,7 @@ const jumpToEnroll = () => { }
         </el-button>
       </el-form-item>
     </el-form>
+
     <!-- 验证登录 -->
     <el-form
       v-else-if="accountFlag === 'verification'" ref="phoneFormRef" :rules="phoneLoginRules"
@@ -257,14 +340,48 @@ const jumpToEnroll = () => { }
         </el-button>
       </el-form-item>
     </el-form>
+
+    <el-form
+      v-else-if="accountFlag === 'forgotPassword'" ref="forgotPassDom" :rules="forgotRules"
+      class="forgot-password-content" :model="forgotPassForm" ml-53 mr-56 label-width="120px"
+    >
+      <el-form-item class="user-type-item" mt-34 prop="userType" label="用户类型">
+        <el-select v-model="forgotPassForm.userType" placeholder="请选择用户类型">
+          <el-option v-for="item in userTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
+        </el-select>
+      </el-form-item>
+      <el-form-item mt-34 prop="tel" label="手机号码">
+        <el-input v-model="forgotPassForm.tel" class="login-input" placeholder="请输入手机号码" @input="telInputFun" />
+      </el-form-item>
+      <el-form-item mt-34 prop="pass" label="登录密码">
+        <el-input v-model="forgotPassForm.pass" class="login-input" placeholder="请输入登录密码" />
+      </el-form-item>
+      <el-form-item mt-34 prop="rePass" label="确认登录密码">
+        <el-input v-model="forgotPassForm.rePass" class="login-input" placeholder="请确认登录密码" />
+      </el-form-item>
+      <el-form-item mt-34 prop="telCode" label="手机验证码" class="phone-verification-code-item">
+        <el-input v-model="forgotPassForm.telCode" class="login-input" placeholder="请输入手机验证码" />
+        <el-button class="send-verification" @click="getForgetPassCode">
+          发送验证码
+        </el-button>
+      </el-form-item>
+    </el-form>
     <!-- 二维码登录 -->
     <!-- <div v-else-if="accountFlag === 'scan'" flex flex-column-center cross-axis-center>
       <div w-243 h-243 bg="#70a1ff">
       </div>
     </div> -->
-    <footer mt-36 h-64 flex cross-axis-center flex-row-between fx-0 position-relative>
+    <footer
+      v-if="accountFlag !== 'forgotPassword'" mt-36 h-64 flex cross-axis-center flex-row-between fx-0
+      position-relative
+    >
       <span ml-53 cursor-p color="#05FFFF" fs-18 @click="handoffLoginType('sweep')">{{ titleObj.footerTitle }}</span>
       <span mr-56 cursor-p color="#05FFFF" fs-18 @click="jumpToEnroll">立即注册</span>
+    </footer>
+    <footer v-else mt-36 h-64 flex cross-axis-center flex-row-center fx-0 position-relative>
+      <el-button class="footer-button" @click="forgotPass(forgotPassDom)">
+        确认
+      </el-button>
     </footer>
 
     <loginSuccessPop :show-flag="succeedFlag" />
@@ -376,5 +493,118 @@ meta:
       }
     }
   }
+}
+
+:deep(.forgot-password-content) {
+  .el-form-item {
+    align-items: center;
+
+    .el-form-item__label {
+      justify-content: flex-start;
+
+      font-size: 12px;
+      font-family: Source Han Sans CN;
+      font-weight: 500;
+      color: #1ADCFF;
+      line-height: 35px;
+
+      &:before {
+        color: #1ADCFF
+      }
+    }
+
+    .el-form-item__content {
+      flex: 1;
+
+      .el-select,
+      .select-trigger,
+      .el-input,
+      .el-input,
+      .el-input__inner {
+        height: 40px;
+        width: 100%;
+      }
+    }
+  }
+
+  .user-type-item {
+
+    .el-input__wrapper {
+      border: 1px solid #1489CC;
+      box-shadow: none;
+      background-color: inherit;
+    }
+
+    .el-input__inner {
+      &::-webkit-input-placeholder {
+        font-size: 16px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #17A1E6;
+      }
+    }
+  }
+
+  .phone-verification-code-item {
+    .el-form-item__content {
+      display: flex;
+      align-items: center;
+
+      .el-input {
+        flex: 1;
+        margin-right: 13px;
+      }
+
+      .el-button {
+        height: 40px;
+        flex: 0 0 80px;
+
+        background: #1ADCFF;
+        border: none;
+
+        span {
+
+          font-size: 11px;
+          font-family: Source Han Sans CN;
+          font-weight: 400;
+          color: #02389B;
+          line-height: 25px;
+        }
+      }
+    }
+  }
+
+}
+
+footer {
+  :deep(.footer-button) {
+    width: 296px;
+    height: 35px;
+    background: #1ADCFF;
+    border-radius: 3px;
+    border: none;
+
+    span {
+
+      font-size: 16px;
+      font-family: Source Han Sans CN;
+      font-weight: 400;
+      color: #02389B;
+      line-height: 25px;
+    }
+  }
+}
+</style>
+
+<style lang="scss">
+.el-select__popper.el-popper {
+
+  background: #1489CC;
+  border: none;
+
+}
+
+.el-select-dropdown__empty {
+  color: white;
 }
 </style>

@@ -1,10 +1,10 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-08-30 20:31:30
- * @LastEditors: By
+ * @LastEditTime: 2022-09-07 20:50:49
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\api\api.ts
+ * @FilePath: \big-screen\src\api\api.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
 // import https from '~/utils/http'
@@ -48,6 +48,5 @@ export const getAdCode = (param: any) => get('https://restapi.amap.com/v3/config
 // 获取地图数据
 export const getMapdata = (param: any) => post('/getmapdata.aspx', param)
 
-// export const getmapdata = (param: any) => post('/yzdx.aspx', param)
-
-// url/yzdx.aspx
+// 找回密码
+export const zhmm = (param: any) => post('/zhmm.aspx', param)

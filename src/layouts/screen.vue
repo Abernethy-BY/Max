@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-05 01:40:08
+ * @LastEditTime: 2022-09-07 20:02:34
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,25 +11,32 @@
 <script lang="ts" setup>
 import areaIcon from '~/assets/image/common/areaIcon.png'
 import timeIcon from '~/assets/image/common/timeIcon.png'
-import overviewIcon from '~/assets/image/common/overviewIcon.png'
-import corporatePortraitIcon from '~/assets/image/common/corporatePortraitIcon.png'
-import projectInvestmentIcon from '~/assets/image/common/projectInvestmentIcon.png'
-import doubleCarbonIcon from '~/assets/image/common/doubleCarbonIcon.png'
-import publicOpinionIcon from '~/assets/image/common/publicOpinionIcon.png'
-import industryAtlasIcon from '~/assets/image/common/industryAtlasIcon.png'
+import chanye from '~/assets/image/common/navBg/chanye.png'
+import chanyeSelect from '~/assets/image/common/navBg/chanyeSelect.png'
+import yuanqu from '~/assets/image/common/navBg/yuanqu.png'
+import yuanquSelect from '~/assets/image/common/navBg/yuanquSelect.png'
+import qiye from '~/assets/image/common/navBg/qiye.png'
+import qiyeSelect from '~/assets/image/common/navBg/qiyeSelect.png'
+import mujun from '~/assets/image/common/navBg/mujun.png'
+import mujunSelect from '~/assets/image/common/navBg/mujunSelect.png'
+import jiance from '~/assets/image/common/navBg/jiance.png'
+import jianceSelect from '~/assets/image/common/navBg/jianceSelect.png'
+import jiankong from '~/assets/image/common/navBg/jiankong.png'
+import jiankongSelect from '~/assets/image/common/navBg/jiankongSelect.png'
 
+// jiankong
 const pageIndex = ref(0)
 const router = useRouter()
 
 const realTime = ref(formatDate(getNowDate(), 'yyyy-MM-dd-cn'))
 
 const tabList = ref([
-  { name: '园区总览', path: '/', bg: overviewIcon },
-  { name: '产业图鉴', path: '/enterprise', bg: industryAtlasIcon },
-  { name: '企业画像', path: '/corporatePortrait', bg: corporatePortraitIcon },
-  { name: '项目投资', path: '', bg: projectInvestmentIcon },
-  { name: '双碳监测', path: '/doubleCarbon', bg: doubleCarbonIcon },
-  { name: '舆情监控', path: '/publicOpinionMonitoring', bg: publicOpinionIcon },
+  { name: '园区总览', path: '/', bg: yuanqu, selectedBg: yuanquSelect },
+  { name: '产业图鉴', path: '/enterprise', bg: chanye, selectedBg: chanyeSelect },
+  { name: '企业画像', path: '/corporatePortrait', bg: qiye, selectedBg: qiyeSelect },
+  { name: '项目投资', path: '', bg: mujun, selectedBg: mujunSelect },
+  { name: '双碳监测', path: '/doubleCarbon', bg: jiance, selectedBg: jianceSelect },
+  { name: '舆情监控', path: '/publicOpinionMonitoring', bg: jiankong, selectedBg: jiankongSelect },
 ])
 
 const jump = (index) => {
@@ -70,7 +77,9 @@ const jumpToLogin = () => {
         v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 hPE-100 mr-18 ml-18 flex cross-axis-center
         :class="pageIndex === index ? 'click' : ''" @click="jump(index)"
       >
-        <el-image class="time-icon" :src="item.bg" fit="fill" />
+        <el-image v-if="pageIndex === index" class="time-icon" :src="item.selectedBg" fit="fill" />
+        <el-image v-else class="time-icon" :src="item.bg" fit="fill" />
+
         <span po-a fs-20 fw-400 color="#2E9EFF" polPE-40 potPE-36>{{ item.name }}</span>
       </div>
     </div>

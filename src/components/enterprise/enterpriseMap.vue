@@ -69,20 +69,16 @@ const initChart = (geojson) => {
 }
 
 const getMap = async (code) => {
-  try {
-    const submitId = new Date().getTime()
-    const param = {
-      submitid: submitId,
-      usercode: userInfo.userCode,
-      sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-      mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
-    }
-    const temp: any = await getMapdata(param)
-    mapArr = temp.features
-    option.geo.label.show = true
-    initChart(temp)
+  const submitId = new Date().getTime()
+  const param = {
+    submitid: submitId,
+    usercode: userInfo.userCode,
+    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
   }
-  catch (error) {
+  const temp: any = await getMapdata(param)
+
+  if (temp.length === 0) {
     const submitId = new Date().getTime()
     const param = {
       submitid: submitId,
@@ -95,6 +91,25 @@ const getMap = async (code) => {
     option.geo.label.show = false
     initChart(temp)
   }
+  else {
+    mapArr = temp.features
+    option.geo.label.show = true
+    initChart(temp)
+  }
+
+  // catch (error) {
+  //   const submitId = new Date().getTime()
+  //   const param = {
+  //     submitid: submitId,
+  //     usercode: userInfo.userCode,
+  //     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+  //     mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
+  //   }
+  //   const temp: any = await getMapdata(param)
+  //   mapArr = temp.features
+  //   option.geo.label.show = false
+  //   initChart(temp)
+  // }
 }
 
 const magnifyMap = () => {
