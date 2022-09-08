@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-07 21:30:38
+ * @LastEditTime: 2022-09-08 11:31:01
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description: 登录
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -228,7 +228,7 @@ const forgotPass = async (formEl: FormInstance | undefined) => {
     if (valid) {
       const submitId = new Date().getTime()
       const param = {
-        submitid: '',
+        submitid: submitId,
         // usercode: '',
         sign: md5(`${submitId}123789`),
         // pass: phoneLoginForm.value.verificationCode,
@@ -241,7 +241,7 @@ const forgotPass = async (formEl: FormInstance | undefined) => {
         checkcode: forgotPassForm.value.telCode,
       }
       await zhmm(param)
-
+      ElMessage({ message: '操作成功', type: 'success' })
       // const temp = res?.[0]
       // if (res[0]) {
       //   userInfo.token = temp.token
