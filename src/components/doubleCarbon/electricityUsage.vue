@@ -1,11 +1,11 @@
 <!--
- * @Author: By
- * @Date: 2022-07-27 14:16:32
- * @LastEditTime: 2022-08-29 19:28:36
- * @LastEditors: By
- * @Description: 园区工业用电情况（单位：万度）
- * @FilePath: \big-screen-vue3\src\components\doubleCarbon\electricityUsage.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-08 11:57:45
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-09-08 21:27:43
+ * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsage.vue
+ * @Description:园区工业用电情况（单位：万度）
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script>
@@ -14,15 +14,6 @@ export default {
   data() {
     return {
       electricityUsageOption: {
-        // legend: {
-        //   show: true,
-        //   left: 'center',
-        //   top: 'bottom',
-        //   width: '50%',
-        //   itemWidth: '300',
-        //   // orient: 'horizontal',
-        //   // data: ['本月', '去年同月', '增长率'],
-        // },
         legend: {
           show: true,
           top: 'bottom',
@@ -32,40 +23,28 @@ export default {
             color: '#E6E6E6',
           },
         },
-        tooltip: { trigger: 'axis' },
-        grid: {
-          left: '3%',
-          right: '4%',
-          top: '20%',
-          bottom: '10%',
-          containLabel: true,
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: { animation: false },
         },
+        grid: { left: '3%', right: '4%', top: '20%', bottom: '10%', containLabel: true },
         xAxis: {
           type: 'category',
           boundaryGap: false,
           data: [],
-          axisLine: { lineStyle: { color: '#FFFFFF' } },
+          axisLine: { lineStyle: { color: '#dcdcdc' } },
+          triggerEvent: true,
         },
         yAxis: {
           type: 'value',
-          axisLine: { lineStyle: { color: '#FFFFFF' } },
+          axisLine: { lineStyle: { color: '#dcdcdc' } },
         },
-        series: [{
-          name: '本月',
-          type: 'line',
-          stack: 'Total',
-          data: [],
-        }, {
-          name: '去年同月',
-          type: 'line',
-          stack: 'Total',
-          data: [],
-        }, {
-          name: '增长率',
-          type: 'line',
-          stack: 'Total',
-          data: [],
-        }],
+        color: ['#60C1FF', '#FFC554', '#FF5F5F'],
+        series: [
+          { name: '本月', type: 'line', stack: 'Total', data: [] },
+          { name: '去年同月', type: 'line', stack: 'Total', data: [] },
+          { name: '增长率', type: 'line', stack: 'Total', data: [] },
+        ],
       },
       electricityUsageChart: null,
     }
@@ -73,19 +52,18 @@ export default {
   watch: { electricityUsageProp() { this.initElectricityUsageChart() } },
   methods: {
     initElectricityUsageChart() {
-      this.initCharts()
+      const temp = eCharts.init(this.$refs.electricityUsageRef)
+      window.addEventListener('resize', () => {
+        this.electricityUsageChart.resize()
+      })
       this.electricityUsageOption.xAxis.data = this.electricityUsageProp.map((e) => { return e['数据'] })
       this.electricityUsageOption.series[0].data = this.electricityUsageProp.map((e) => { return e['数值1'] })
       this.electricityUsageOption.series[1].data = this.electricityUsageProp.map((e) => { return e['数值2'] })
       this.electricityUsageOption.series[2].data = this.electricityUsageProp.map((e) => { return e['图标'] })
-      this.electricityUsageChart.setOption(this.electricityUsageOption)
+      temp.setOption(this.electricityUsageOption)
+      this.electricityUsageChart = temp
     },
-    initCharts() {
-      this.electricityUsageChart = eCharts.init(this.$refs.electricityUsageRef)
-      window.addEventListener('resize', () => {
-        this.electricityUsageChart.resize()
-      })
-    },
+
   },
 
 }

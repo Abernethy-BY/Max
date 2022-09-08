@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-06 20:27:03
+ * @LastEditTime: 2022-09-08 21:35:22
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -19,8 +19,8 @@ const option = {
   geo: {
     map: 'map',
     aspectScale: 0.75, // 长宽比
-    zoom: 1,
-    roam: true,
+    zoom: 1.1,
+    roam: false,
     label: {
       show: true,
       color: 'white',
@@ -158,7 +158,7 @@ onMounted(() => {
   // initMap('430000')
   // initMap('430405')
   // initMap('430000')
-  getMap('430000')
+  getMap('100000')
 })
 </script>
 

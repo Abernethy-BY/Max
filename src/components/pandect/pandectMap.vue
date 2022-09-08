@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-07 19:34:36
+ * @LastEditTime: 2022-09-08 20:39:15
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: http配置
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -20,7 +20,7 @@ const option = {
     map: 'map',
     aspectScale: 0.75, // 长宽比
     zoom: 1,
-    roam: true,
+    roam: false,
     label: {
       show: true,
       color: 'white',
@@ -158,7 +158,7 @@ onMounted(() => {
   // initMap('430000')
   // initMap('430405')
   // initMap('430000')
-  getMap('430000')
+  getMap('100000')
 })
 </script>
 

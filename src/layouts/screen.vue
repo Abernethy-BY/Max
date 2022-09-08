@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-07 20:02:34
+ * @LastEditTime: 2022-09-08 12:19:39
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -97,7 +97,7 @@ const jumpToLogin = () => {
     list-style: none
   }
 
-  background: no-repeat url("~/assets/image/common/background.png");
+  background: no-repeat url("~/assets/image/common/background.jpg");
   background-size: 100% 100%;
 
   header {
@@ -124,6 +124,12 @@ const jumpToLogin = () => {
       left: 0;
       width: 210px;
       height: 59px;
+    }
+
+    .click{
+      span{
+        color: white;
+      }
     }
   }
 

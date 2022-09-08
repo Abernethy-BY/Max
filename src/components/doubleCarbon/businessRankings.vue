@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 11:38:24
- * @LastEditTime: 2022-08-19 19:05:58
- * @LastEditors: By
+ * @LastEditTime: 2022-09-08 20:40:02
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 企业排名组件
- * @FilePath: \big-screen-vue3\src\components\doubleCarbon\businessRankings.vue
+ * @FilePath: \big-screen\src\components\doubleCarbon\businessRankings.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
@@ -36,7 +36,7 @@ export default {
           axisLabel: { color: '#00B8FF', margin: 37 }, // y轴文字配置
           axisLine: { show: false },
         }, {
-          name: '单位（亿元）',
+          name: '单位（万度）',
           axisTick: { show: false },
           axisLabel: { show: false },
           axisLine: { show: false },

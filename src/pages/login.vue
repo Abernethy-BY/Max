@@ -234,7 +234,7 @@ const forgotPass = async (formEl: FormInstance | undefined) => {
         // pass: phoneLoginForm.value.verificationCode,
         // tel: phoneLoginForm.value.phoneNum,
         // type: 2,
-        usertype: '',
+        // usertype: '',
         tel: forgotPassForm.value.tel,
         pass1: forgotPassForm.value.pass,
         pass2: forgotPassForm.value.rePass,
@@ -345,7 +345,7 @@ const telInputFun = (e) => {
       v-else-if="accountFlag === 'forgotPassword'" ref="forgotPassDom" :rules="forgotRules"
       class="forgot-password-content" :model="forgotPassForm" ml-53 mr-56 label-width="120px"
     >
-      <el-form-item class="user-type-item" mt-34 prop="userType" label="用户类型">
+      <el-form-item v-show="false" class="user-type-item" mt-34 prop="userType" label="用户类型">
         <el-select v-model="forgotPassForm.userType" placeholder="请选择用户类型">
           <el-option v-for="item in userTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>

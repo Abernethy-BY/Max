@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-08-27 16:21:43
- * @LastEditors: By
+ * @LastEditTime: 2022-09-08 20:44:53
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\components\corporatePortrait\overviewPage.vue
+ * @FilePath: \big-screen\src\components\corporatePortrait\overviewPage.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script>
@@ -87,7 +87,7 @@ export default {
 
 <template>
   <div class="overview">
-    <el-carousel ref="cardShow" class="overview-top" :autoplay="false" height="100%" arrow="never">
+    <el-carousel ref="cardShow" class="overview-top" :autoplay="true" height="100%" arrow="never">
       <el-carousel-item v-for="item in 4" :key="item">
         <div class="overview-content">
           <div class="overview-content-item">
@@ -112,8 +112,8 @@ export default {
           </div>
         </div>
       </el-carousel-item>
-      <el-image class="left" :src="left" fit="fill" @click="handoffFun('left')" />
-      <el-image class="right" :src="right" fit="fill" @click="handoffFun('right')" />
+      <!-- <el-image class="left" :src="left" fit="fill" @click="handoffFun('left')" />
+      <el-image class="right" :src="right" fit="fill" @click="handoffFun('right')" /> -->
     </el-carousel>
     <div class="overview-bottom">
       <div v-for="(item, index) in subItemizationList" :key="index" class="sub-itemization-row">
@@ -178,6 +178,7 @@ export default {
       background-size: 100% 100%;
       position: relative;
       padding: 66px 28px 40px;
+      // padding: 66px 28px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
