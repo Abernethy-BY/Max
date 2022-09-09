@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-09 19:15:50
+ * @LastEditTime: 2022-09-10 02:20:13
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -157,7 +157,7 @@ onMounted(() => {
     }
     debounce(drillDownFun, 1000, true)
   })
-  getMap('100000')
+  getMap('430000')
 })
 </script>
 
