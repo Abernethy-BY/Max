@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-08 11:31:01
+ * @LastEditTime: 2022-09-09 16:45:29
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description: 登录
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -294,7 +294,7 @@ const telInputFun = (e) => {
         </el-input>
       </el-form-item>
       <el-form-item mt-48 prop="passWord">
-        <el-input v-model="loginForm.passWord" placeholder="请输入用户密码" class="login-input">
+        <el-input v-model="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input">
           <template #prepend>
             <el-image w-26 h-26 :src="passWordIcon" fit="fill" />
           </template>

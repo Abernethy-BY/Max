@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-02 16:05:53
+ * @LastEditTime: 2022-09-09 16:06:05
  * @FilePath: \big-screen\src\components\pandect\income.vue
  * @Description:各产业主营业务收入占比
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -21,7 +21,7 @@ let hoveredIndex: any = ''
 
 // 生成扇形的曲面参数方程
 const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h) => {
-// 计算
+  // 计算
   const midRatio = (startRatio + endRatio) / 2
 
   const startRadian = startRatio * Math.PI * 2
@@ -194,14 +194,16 @@ const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
 watch(() => propObj.incomeProp, () => {
   const initialValue = 0
   const sumWithInitial = propObj.incomeProp?.reduce(
-    (previousValue: any, currentValue: any) => previousValue + Number(currentValue?.['值1']),
+    (previousValue: any, currentValue: any) => previousValue + currentValue?.['值1'] === '' ? 0 : Number(currentValue?.['值1']),
     initialValue,
   )
 
   const temp = propObj.incomeProp?.map((e: any, i) => {
     return {
       name: e?.['数据'],
-      value: Number(new Big(Number(e?.['值1'])).div(sumWithInitial).times(100).toFixed(0)),
+      // value: Number(new Big(Number(e?.['值1'])).div(sumWithInitial).times(100).toFixed(0)),
+      value: sumWithInitial === 0 ? 0 : Number(new Big(Number(e?.['值1'])).div(sumWithInitial).times(100).toFixed(0)),
+
       itemStyle: { color: colorList[i] },
     }
   })

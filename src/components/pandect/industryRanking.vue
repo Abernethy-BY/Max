@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-08-05 18:38:47
- * @LastEditTime: 2022-08-19 20:40:27
- * @LastEditors: By
+ * @LastEditTime: 2022-09-09 16:00:06
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\components\pandect\industryRanking.vue
+ * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script lang="ts" setup>
@@ -35,7 +35,7 @@ const prop = defineProps({
 //   },
 // }
 //
-const industryEankingRef = ref < HTMLElement | null>(null)
+const industryEankingRef = ref<HTMLElement | null>(null)
 const barOption = ref<any>({
   grid: { top: '10%', left: '5%', right: '5%', bottom: '5%', containLabel: true },
   xAxis: {
@@ -56,7 +56,7 @@ const barOption = ref<any>({
     name: '',
     type: 'pictorialBar',
     symbolSize: [10, 25], // 调整截面形状
-    symbolOffset: [-5, 0],
+    symbolOffset: [5, 0],
     z: 120,
     itemStyle: { color: '#B5C334' },
     data: [],
@@ -83,7 +83,7 @@ const barOption = ref<any>({
     name: '',
     type: 'pictorialBar',
     symbolSize: [10, 25], // 调整截面形状
-    symbolOffset: [5, 0],
+    symbolOffset: [-5, 0],
     z: 12,
     symbolPosition: 'end',
     itemStyle: { color: '#00B8FF' },
@@ -100,8 +100,8 @@ const initIndustryEankingRefChart = () => {
   industryEankingRefChart = eCharts.init(industryEankingRef.value!)
   // eleResize.on(industryEankingRefChart, () => { industryEankingRefChart!.resize() })
 
-  const dataTemp: any = prop?.industryRankingProp?.map((e: any) => e['值1'])
-  barOption.value.yAxis.data = prop?.industryRankingProp?.map((e: any) => e['数据'])
+  const dataTemp: any = prop?.industryRankingProp?.map((e: any) => { return e['值1'] === '' ? 0 : e['值1'] })
+  // barOption.value.yAxis.data = prop?.industryRankingProp?.map((e: any) => { return e['数据'] === '' ? 1 : e['数据'] })
   barOption.value.yAxis.data = prop.industryRankingProp?.map((e: any) => e['数据'])
   barOption.value.series[0].data = dataTemp
   barOption.value.series[1].data = dataTemp

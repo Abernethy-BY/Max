@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 17:20:47
- * @LastEditTime: 2022-09-06 16:37:35
+ * @LastEditTime: 2022-09-09 16:49:24
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\economicalOperation.vue
@@ -57,7 +57,7 @@ export default {
       <el-image class="economical-operation-bg" :src="item.bg" fit="fill" />
       <div class="economical-operation-content">
         <span class="economical-operation-value">{{ item.value }}
-          <span class="economical-operation-unit" fs-12 color="#ffffff" fw-400>亿元</span>
+          <span class="economical-operation-unit" fs-12 color="#ffffff" fw-400>万元</span>
         </span>
         <span class="economical-operation-label">{{ item.label }}</span>
       </div>

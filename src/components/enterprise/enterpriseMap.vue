@@ -2,24 +2,24 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-08 21:35:22
+ * @LastEditTime: 2022-09-09 19:15:50
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
+import 'echarts/lib/chart/map'
+import 'echarts/lib/component/geo'
 import type { EChartsType } from 'echarts'
 import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
-
-import 'echarts/lib/chart/map'
-import 'echarts/lib/component/geo'
-
+import fanhui from '~/assets/image/common/navBg/fanhui.png'
+const emit = defineEmits(['refresh'])
 const option = {
   geo: {
     map: 'map',
     aspectScale: 0.75, // 长宽比
-    zoom: 1.1,
+    zoom: 1.2,
     roam: false,
     label: {
       show: true,
@@ -47,28 +47,11 @@ const userInfo = useUserStore()
 
 let mapArr: any = []
 
-const initChart = (geojson) => {
-  eCharts.registerMap('map', geojson)
-  chartDom = eCharts.init(mapRef.value)
-  chartDom?.setOption(option)
-  // consola.info(geojson.features)
-  chartDom?.on('click', (params) => {
-    const drillDownFun = () => {
-      const clickTemp = mapArr?.find((e) => {
-        return e.properties.name === params.name
-      })
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      getMap(clickTemp.properties.adcode)
-    }
-    debounce(drillDownFun, 1000, true)
-  })
-
-  window.addEventListener('resize', () => {
-    chartDom?.resize()
-  })
-}
-
+const last: any = []
+const lastName: any = []
 const getMap = async (code) => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  loading.value = true
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
@@ -89,28 +72,20 @@ const getMap = async (code) => {
     const temp: any = await getMapdata(param)
     mapArr = temp.features
     option.geo.label.show = false
-    initChart(temp)
+    eCharts.registerMap('map', temp)
+    chartDom?.setOption(option)
   }
   else {
     mapArr = temp.features
     option.geo.label.show = true
-    initChart(temp)
+    eCharts.registerMap('map', temp)
+    chartDom?.setOption(option)
   }
-
-  // catch (error) {
-  //   const submitId = new Date().getTime()
-  //   const param = {
-  //     submitid: submitId,
-  //     usercode: userInfo.userCode,
-  //     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-  //     mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
-  //   }
-  //   const temp: any = await getMapdata(param)
-  //   mapArr = temp.features
-  //   option.geo.label.show = false
-  //   initChart(temp)
-  // }
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  loading.value = false
 }
+
+const loading = ref(false)
 
 const magnifyMap = () => {
   option.geo.zoom += 0.1
@@ -154,16 +129,40 @@ const goShrinkMapEnd = () => {
     shrinkMap()
 }
 
+const goLast = () => {
+  if (last.length <= 1) { getMap('100000'); emit('refresh') }
+  else {
+    last.pop()
+    lastName.pop()
+    getMap(last[last.length - 1])
+    emit('refresh', lastName[lastName.length - 1])
+  }
+}
+
 onMounted(() => {
-  // initMap('430000')
-  // initMap('430405')
-  // initMap('430000')
+  chartDom = eCharts.init(mapRef.value)
+  window.addEventListener('resize', () => {
+    chartDom?.resize()
+  })
+  chartDom?.on('click', (params) => {
+    const drillDownFun = () => {
+      const clickTemp = mapArr?.find((e) => {
+        return e.properties.name === params.name
+      })
+
+      getMap(clickTemp.properties.adcode)
+      last.push(clickTemp.properties.adcode)
+      lastName.push(clickTemp.properties.name)
+      emit('refresh', clickTemp.properties.name)
+    }
+    debounce(drillDownFun, 1000, true)
+  })
   getMap('100000')
 })
 </script>
 
 <template>
-  <div wPE-100 hPE-100 po-r>
+  <div v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)" wPE-100 hPE-100 po-r>
     <div ref="mapRef" wPE-100 hPE-100 />
     <div po-a por-0 pob-0 flex flex-column-between>
       <el-image
@@ -171,9 +170,10 @@ onMounted(() => {
         @mouseup.prevent="goMagnifyMapTouchEnd"
       />
       <el-image
-        class="operate-icon" :src="shrink" fit="fill" mt-22
-        @mousedown.prevent="goShrinkMapStart" @mouseup.prevent="goShrinkMapEnd"
+        class="operate-icon" :src="shrink" fit="fill" mt-22 @mousedown.prevent="goShrinkMapStart"
+        @mouseup.prevent="goShrinkMapEnd"
       />
+      <el-image class="operate-icon" mt-22 :src="fanhui" fit="fill" @click="goLast" />
     </div>
   </div>
 </template>

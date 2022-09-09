@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-06 18:55:04
+ * @LastEditTime: 2022-09-09 15:47:13
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
  * @Description:企业风险
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -80,23 +80,6 @@ const riskDistributionOption = ref<any>({
     barGap: 0,
     data: [],
   },
-  // {
-  //   name: 'b',
-  //   tooltip: { show: false },
-  //   type: 'pictorialBar',
-  //   itemStyle: {
-  //     borderWidth: 1,
-  //     borderColor: '#0571D5',
-  //     color: '#1779E0',
-  //     // color: 'red',
-  //   },
-  //   symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
-  //   symbolSize: ['30', '12'],
-  //   symbolOffset: ['0', '-11'],
-  //   symbolPosition: 'end',
-  //   data: [],
-  //   z: 3,
-  // },
   {
     name: 'b',
     tooltip: { show: false },
@@ -105,30 +88,16 @@ const riskDistributionOption = ref<any>({
       borderWidth: 1,
       borderColor: '#0571D5',
       color: '#1779E0',
-      // color: 'red',
     },
-    // symbol: 'path://M 0,0 l 120,0 l -30,60 l -120,0 z',
-    // symbolSize: ['30', '12'],
-    // symbolOffset: ['0', '-11'],
     symbol: 'diamond',
     symbolOffset: [0, '-50%'],
     symbolSize: [35, 10],
-    // symbolRotate :20,
     symbolPosition: 'end',
     data: [],
     z: 3,
   },
   ],
 })
-const initRiskDistributionChart = () => {
-  const riskDistributionChart = eCharts.init(riskDistribution.value)
-  riskDistributionOption.value.xAxis.data = prop.enterpriseRiskComProp?.map((e: any) => e?.['数据'])
-  riskDistributionOption.value.series[0].data = prop.enterpriseRiskComProp?.map((e: any) => e?.['值1'])
-
-  riskDistributionOption.value.series[1].data = prop.enterpriseRiskComProp?.map((e: any) => e?.['值1'])
-  riskDistributionOption.value.series[2].data = prop.enterpriseRiskComProp?.map((e: any) => e?.['值1'])
-  riskDistributionChart.setOption(riskDistributionOption.value)
-}
 
 let hoveredIndex: any = ''
 const riskRef = ref()
@@ -297,14 +266,26 @@ const getPie3D = (pieData, internalDiameterRatio) => {
 
 const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
 
-watch(() => prop.enterpriseRiskComProp, (val) => {
-  initRiskDistributionChart()
-})
+const getYqjk = async (flag?) => {
+  const submitId = new Date().getTime()
+  const userInfo = useUserStore()
+  const param = {
+    submitid: submitId,
+    usercode: userInfo.userCode,
+    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    type: flag,
+    enterprisename: input.value,
+  }
+  const res: any = await yqjk(param)
+  const riskDistributionChart = eCharts.init(riskDistribution.value)
+  riskDistributionOption.value.xAxis.data = res?.filter(e => e['位置'] === '企业风险分布')?.map((e: any) => e?.['数据'])
+  riskDistributionOption.value.series[0].data = res?.filter(e => e['位置'] === '企业风险分布')?.map((e: any) => e?.['值1'])
 
-watch(() => prop.riskLevelProp, (val) => {
-  consola.info(prop.riskLevelProp)
+  riskDistributionOption.value.series[1].data = res?.filter(e => e['位置'] === '企业风险分布')?.map((e: any) => e?.['值1'])
+  riskDistributionOption.value.series[2].data = res?.filter(e => e['位置'] === '企业风险分布')?.map((e: any) => e?.['值1'])
+  riskDistributionChart.setOption(riskDistributionOption.value)
 
-  const temp = prop.riskLevelProp?.map((e: any, i) => {
+  const temp = res?.filter(e => e['位置'] === '风险级别分布')?.map((e: any, i) => {
     return {
       name: e?.['数据'],
       value: Number(new Big(Number(e?.['值1'])).toFixed(0)),
@@ -399,13 +380,15 @@ watch(() => prop.riskLevelProp, (val) => {
     // 使用更新后的 option，渲染图表
     myChart.setOption(option)
   })
-})
+}
+
+getYqjk()
 </script>
 
 <template>
   <div class="enterprise-risk">
     <el-image class="enterprise-risk-bg" :src="enterpriseRiskBg" fit="fill" />
-    <el-input v-model="input" class="enterprise-risk-input" placeholder="全部企业">
+    <el-input v-model="input" class="enterprise-risk-input" placeholder="全部企业" @change="getYqjk">
       <template #suffix>
         <el-icon class="search-icon">
           <i-ep-search />

@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-19 15:50:58
- * @LastEditTime: 2022-09-06 18:58:13
+ * @LastEditTime: 2022-09-09 16:26:54
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\pages\enterprise.vue
@@ -16,12 +16,13 @@ const enterpriseProgressData = ref([])
 const EValue = ref('')
 const NValue = ref('')
 
-const getData = async () => {
+const getData = async (val?) => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    address: val,
   }
   const res: any = await cytj(param)
   subItemizationData.value = res?.filter(e => e?.['位置'] === '下面')
@@ -40,7 +41,7 @@ getData()
     </div>
     <div class="occ-map" hPE-51>
       <div class="map">
-        <enterpriseMap />
+        <enterpriseMap @refresh="getData" />
       </div>
       <div class="chart-right">
         <enterpriseProgress :enterprise-progress-prop="enterpriseProgressData" />

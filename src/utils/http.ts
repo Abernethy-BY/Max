@@ -21,8 +21,8 @@ const config: HttpClientConfig = {
 
 const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
+  const userInfo = useUserStore()
   if (Number(res.data.state) !== 0) {
-    const userInfo = useUserStore()
     userInfo.token = ''
     userInfo.userCode = ''
     userInfo.userRole = ''

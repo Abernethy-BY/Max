@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-29 09:50:40
- * @LastEditTime: 2022-09-05 01:02:19
+ * @LastEditTime: 2022-09-09 16:35:04
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 最新风险
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\newRisk.vue
@@ -14,6 +14,7 @@ import businessInformation from '~/assets/image/publicOpinionMonitoring/business
 import judicialProceedings from '~/assets/image/publicOpinionMonitoring/judicialProceedings.png'
 import operationalRisks from '~/assets/image/publicOpinionMonitoring/operationalRisks.png'
 import newsAndPublic from '~/assets/image/publicOpinionMonitoring/newsAndPublic.png'
+import safety from '~/assets/image/publicOpinionMonitoring/safety.png'
 import compass from '~/assets/image/publicOpinionMonitoring/compass.png'
 import changes from '~/assets/image/publicOpinionMonitoring/changes.png'
 
@@ -36,6 +37,8 @@ const subItemizationRiskList = ref([
   { image: judicialProceedings, value: '', label: '司法诉讼', unit: '条' },
   { image: operationalRisks, value: '', label: '经营风险', unit: '条' },
   { image: newsAndPublic, value: '', label: '新闻舆情', unit: '条' },
+  { image: safety, value: '', label: '安全生产', unit: '条' },
+
 ])
 
 const rowClass = ({ row, rowIndex }) => {
@@ -248,14 +251,18 @@ watch(() => prop.riskClassificationProp, (val) => {
     position: absolute;
     right: 12px;
     bottom: 93px;
+    z-index: 0;
+    display: none;
   }
 
-  :-deep(.changes-bg) {
+  :deep(.changes-bg) {
     position: absolute;
     right: 33px;
     bottom: 10px;
     width: 27px;
     height: 73px;
+    z-index: 0;
+    display: none;
   }
 }
 </style>

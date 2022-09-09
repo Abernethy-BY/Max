@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:36:33
- * @LastEditTime: 2022-08-29 16:42:24
- * @LastEditors: By
+ * @LastEditTime: 2022-09-09 16:22:59
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\pages\index.vue
+ * @FilePath: \big-screen\src\pages\index.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
@@ -16,12 +16,13 @@ const constructionProgressData = ref([])
 const progressData = ref([])
 const incomeData = ref([])
 
-const getYqzl = async () => {
+const getYqzl = async (val?) => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    address: val,
   }
   const res: any = await yqzl(param)
   industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名')
@@ -44,7 +45,7 @@ getYqzl()
       </div>
     </div>
     <div class="pandect-center" wPE-39 hPE-90>
-      <pandectMap />
+      <pandectMap @refresh="getYqzl" />
     </div>
     <div class="pandect-right" wPE-28 hPE-97>
       <constructionProgress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />

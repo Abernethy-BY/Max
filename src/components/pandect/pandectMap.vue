@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-08 20:39:15
+ * @LastEditTime: 2022-09-09 19:10:44
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: http配置
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -15,6 +15,9 @@ import type { EChartsType } from 'echarts'
 import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
 
+import fanhui from '~/assets/image/common/navBg/fanhui.png'
+
+const emit = defineEmits(['refresh'])
 const option = {
   geo: {
     map: 'map',
@@ -47,28 +50,11 @@ const userInfo = useUserStore()
 
 let mapArr: any = []
 
-const initChart = (geojson) => {
-  eCharts.registerMap('map', geojson)
-  chartDom = eCharts.init(mapRef.value)
-  chartDom?.setOption(option)
-  // consola.info(geojson.features)
-  chartDom?.on('click', (params) => {
-    const drillDownFun = () => {
-      const clickTemp = mapArr?.find((e) => {
-        return e.properties.name === params.name
-      })
-      // eslint-disable-next-line @typescript-eslint/no-use-before-define
-      getMap(clickTemp.properties.adcode)
-    }
-    debounce(drillDownFun, 1000, true)
-  })
-
-  window.addEventListener('resize', () => {
-    chartDom?.resize()
-  })
-}
-
+const last: any = []
+const lastName: any = []
 const getMap = async (code) => {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  loading.value = true
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
@@ -89,28 +75,20 @@ const getMap = async (code) => {
     const temp: any = await getMapdata(param)
     mapArr = temp.features
     option.geo.label.show = false
-    initChart(temp)
+    eCharts.registerMap('map', temp)
+    chartDom?.setOption(option)
   }
   else {
     mapArr = temp.features
     option.geo.label.show = true
-    initChart(temp)
+    eCharts.registerMap('map', temp)
+    chartDom?.setOption(option)
   }
-
-  // catch (error) {
-  // const submitId = new Date().getTime()
-  // const param = {
-  //   submitid: submitId,
-  //   usercode: userInfo.userCode,
-  //   sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-  //   mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
-  // }
-  // const temp: any = await getMapdata(param)
-  // mapArr = temp.features
-  // option.geo.label.show = false
-  // initChart(temp)
-  // }
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  loading.value = false
 }
+
+const loading = ref(false)
 
 const magnifyMap = () => {
   option.geo.zoom += 0.1
@@ -154,16 +132,40 @@ const goShrinkMapEnd = () => {
     shrinkMap()
 }
 
+const goLast = () => {
+  if (last.length <= 1) { getMap('100000'); emit('refresh') }
+  else {
+    last.pop()
+    lastName.pop()
+    getMap(last[last.length - 1])
+    emit('refresh', lastName[lastName.length - 1])
+  }
+}
+
 onMounted(() => {
-  // initMap('430000')
-  // initMap('430405')
-  // initMap('430000')
+  chartDom = eCharts.init(mapRef.value)
+  window.addEventListener('resize', () => {
+    chartDom?.resize()
+  })
+  chartDom?.on('click', (params) => {
+    const drillDownFun = () => {
+      const clickTemp = mapArr?.find((e) => {
+        return e.properties.name === params.name
+      })
+
+      getMap(clickTemp.properties.adcode)
+      last.push(clickTemp.properties.adcode)
+      lastName.push(clickTemp.properties.name)
+      emit('refresh', clickTemp.properties.name)
+    }
+    debounce(drillDownFun, 1000, true)
+  })
   getMap('100000')
 })
 </script>
 
 <template>
-  <div class="map-box">
+  <div v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)" class="map-box">
     <div class="coordinate-box" po-r z-10>
       <div class="icon-box">
         <el-image
@@ -174,6 +176,7 @@ onMounted(() => {
           class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
           @mouseup.prevent="goShrinkMapEnd"
         />
+        <el-image class="operate-icon" :src="fanhui" fit="fill" @click="goLast" />
       </div>
       <div class="coordinate-span">
         <!-- <span>N</span>
@@ -202,9 +205,8 @@ onMounted(() => {
     width: 48px;
     height: 48px;
 
-    &:last-child {
-      margin-left: 43px;
-    }
+    margin-left: 20px;
+
   }
 
   .coordinate-span {

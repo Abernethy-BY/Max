@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 17:20:30
- * @LastEditTime: 2022-09-08 15:10:13
+ * @LastEditTime: 2022-09-09 15:27:16
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 舆情监控
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
@@ -13,8 +13,8 @@ const clickFlag = ref('enterpriseRisk')
 const title = ref('企业风险')
 const flagMap = new Map().set('enterpriseRisk', '企业风险').set('corporatePublicOpinion', '企业舆情')
 
-const enterpriseRiskComData = ref([])
-const riskLevelData = ref([])
+// const enterpriseRiskComData = ref([])
+// const riskLevelData = ref([])
 const riskClassificationData = ref([])
 
 const latestRisksData = ref([])
@@ -28,8 +28,8 @@ const getYqjk = async (flag?) => {
     type: flag,
   }
   const res: any = await yqjk(param)
-  enterpriseRiskComData.value = res?.filter(e => e['位置'] === '企业风险分布')
-  riskLevelData.value = res?.filter(e => e['位置'] === '风险级别分布')
+  // enterpriseRiskComData.value = res?.filter(e => e['位置'] === '企业风险分布')
+  // riskLevelData.value = res?.filter(e => e['位置'] === '风险级别分布')
 
   latestRisksData.value = res?.find(e => e['位置'] === '最新风险')
 
@@ -65,10 +65,11 @@ getYqjk()
       </div>
 
       <div class="enterprise-risk-box">
-        <enterpriseRiskCom
+        <!-- <enterpriseRiskCom
           :enterprise-risk-com-prop="enterpriseRiskComData" :risk-level-prop="riskLevelData"
           :title="title"
-        />
+        /> -->
+        <enterpriseRiskCom :title="title" />
       </div>
     </div>
 
