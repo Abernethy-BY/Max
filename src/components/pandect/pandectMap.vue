@@ -43,7 +43,7 @@ const option = {
     regions: [{
       name: '湖南省',
       itemStyle: {
-        areaColor: '#f1c40f',
+        areaColor: 'rgba(241,196,15,.7)',
         color: '#70a1ff',
       },
     }],

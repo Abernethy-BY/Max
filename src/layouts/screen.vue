@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-08 12:19:39
+ * @LastEditTime: 2022-09-12 22:27:28
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -34,7 +34,7 @@ const tabList = ref([
   { name: '园区总览', path: '/', bg: yuanqu, selectedBg: yuanquSelect },
   { name: '产业图鉴', path: '/enterprise', bg: chanye, selectedBg: chanyeSelect },
   { name: '企业画像', path: '/corporatePortrait', bg: qiye, selectedBg: qiyeSelect },
-  { name: '项目投资', path: '', bg: mujun, selectedBg: mujunSelect },
+  { name: '亩均产值', path: '/averageOutput', bg: mujun, selectedBg: mujunSelect },
   { name: '双碳监测', path: '/doubleCarbon', bg: jiance, selectedBg: jianceSelect },
   { name: '舆情监控', path: '/publicOpinionMonitoring', bg: jiankong, selectedBg: jiankongSelect },
 ])
@@ -126,8 +126,8 @@ const jumpToLogin = () => {
       height: 59px;
     }
 
-    .click{
-      span{
+    .click {
+      span {
         color: white;
       }
     }

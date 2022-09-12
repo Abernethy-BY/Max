@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 10:45:51
- * @LastEditTime: 2022-09-02 11:08:36
+ * @LastEditTime: 2022-09-12 22:47:34
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: ,
  * @FilePath: \big-screen\unocss.config.ts
@@ -65,11 +65,19 @@ export default defineConfig({
     [/^fx-(\d+)$/, ([, d]) => ({ 'flex-shrink': `${d}` })],
     ['fw', { 'flex-wrap': 'wrap' }],
     [/^flex-(\d+)$/, ([, d]) => ({ flex: `${d}` })],
+    [/^flex-grow-(\d+)$/, ([, d]) => ({ 'flex-grow': `${d}` })],
+    [/^flex-shrink-(\d+)$/, ([, d]) => ({ 'flex-shrink': `${d}` })],
+    [/^flex-basis-(\d+)$/, ([, d]) => ({ 'flex-basis': `${d}px` })],
+    [/^flex-basis-PE-(\d+)$/, ([, d]) => ({ 'flex-basis': `${d}%` })],
 
     [/^pl-(\d+)$/, ([, d]) => ({ 'padding-left': `${d}px` })],
     [/^pr-(\d+)$/, ([, d]) => ({ 'padding-right': `${d}px` })],
     [/^pt-(\d+)$/, ([, d]) => ({ 'padding-top': `${d}px` })],
     [/^pb-(\d+)$/, ([, d]) => ({ 'padding-bottom': `${d}px` })],
+    [/^plPE-(\d+)$/, ([, d]) => ({ 'padding-left': `${d}%` })],
+    [/^prPE-(\d+)$/, ([, d]) => ({ 'padding-right': `${d}%` })],
+    [/^ptPE-(\d+)$/, ([, d]) => ({ 'padding-top': `${d}%` })],
+    [/^pbPE-(\d+)$/, ([, d]) => ({ 'padding-bottom': `${d}%` })],
     [/^ml-(\d+)$/, ([, d]) => ({ 'margin-left': `${d}px` })],
     [/^mr-(\d+)$/, ([, d]) => ({ 'margin-right': `${d}px` })],
     [/^mt-(\d+)$/, ([, d]) => ({ 'margin-top': `${d}px` })],

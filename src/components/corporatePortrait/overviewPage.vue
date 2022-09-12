@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-09-08 20:44:53
+ * @LastEditTime: 2022-09-12 23:09:56
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\overviewPage.vue
@@ -96,8 +96,8 @@ export default {
               暂无图片
             </div> -->
             <el-image
-              v-for="(item, index) in HighTechEnterpriseList" :key="index" class="overview-content-item-main"
-              :src="item" fit="contain"
+              v-for="(imgItem, imgIndex) in HighTechEnterpriseList" :key="imgIndex" class="overview-content-item-main"
+              :src="imgItem" fit="contain"
             />
           </div>
           <div class="overview-content-item">
@@ -106,14 +106,14 @@ export default {
               暂无图片
             </div> -->
             <el-image
-              v-for="(index, item) in newEnterprisesList" :key="index" class="overview-content-item-main"
-              :src="item" fit="contain"
+              v-for="(imgItem, imgIndex) in newEnterprisesList" :key="imgIndex" class="overview-content-item-main"
+              :src="imgItem" fit="contain"
             />
           </div>
         </div>
       </el-carousel-item>
-      <!-- <el-image class="left" :src="left" fit="fill" @click="handoffFun('left')" />
-      <el-image class="right" :src="right" fit="fill" @click="handoffFun('right')" /> -->
+      <el-image class="left" :src="left" fit="fill" @click="handoffFun('left')" />
+      <el-image class="right" :src="right" fit="fill" @click="handoffFun('right')" />
     </el-carousel>
     <div class="overview-bottom">
       <div v-for="(item, index) in subItemizationList" :key="index" class="sub-itemization-row">
