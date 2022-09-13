@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-13 21:45:20
+ * @LastEditTime: 2022-09-14 00:18:54
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -29,7 +29,7 @@ const pageIndex = ref(0)
 const router = useRouter()
 
 const menuInfo = menuStore()
-const menuMap = new Map().set(3, 'averageOutput')
+const menuMap = new Map().set(3, 'averageOutput').set(5, 'publicOpinionMonitoring')
 
 const realTime = ref(formatDate(getNowDate(), 'yyyy-MM-dd-cn'))
 
@@ -104,6 +104,11 @@ const jumpToLogin = () => {
   &.averageOutput {
 
     background: no-repeat url("~/assets/image/averageOutput/averageOutputBg.png");
+    background-size: 100% 100%;
+  }
+
+  &.publicOpinionMonitoring {
+    background-image: url("~/assets/image/publicOpinionMonitoring/publicOpinionMonitoringBg.png");
     background-size: 100% 100%;
   }
 

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 20:58:59
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-13 22:05:15
+ * @LastEditTime: 2022-09-14 00:14:27
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputLine.vue
  * @Description:亩均产值折线图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -19,7 +19,7 @@ const averageOutputLineRef = ref()
 
 const handoffFun = (val) => { }
 
-const option = {
+const option: any = {
   backgroundColor: 'rgba(10,30,82,0.4)',
   tooltip: { trigger: 'axis' },
   legend: { data: [] },
@@ -28,8 +28,13 @@ const option = {
     type: 'category',
     boundaryGap: false,
     data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    axisLine: { show: true, lineStyle: { color: '#fffff' } },
+    splitLine: { lineStyle: { color: '#6379B7' } },
   },
-  yAxis: { type: 'value' },
+  yAxis: {
+    type: 'value',
+    axisLine: { show: true, lineStyle: { color: 'white' } },
+  },
   series: [],
 }
 
@@ -53,7 +58,6 @@ onMounted(() => {
 
 watch(() => propObj.averageOutputLineProp, () => {
   initChart()
-  consola.info(propObj.averageOutputLineProp)
   option.series = propObj.averageOutputLineProp.map((e) => { return { name: e.数据, type: 'line', stack: 'Total', data: e.数值1.split(',') } })
   option.legend.data = propObj.averageOutputLineProp.map(e => e.数据)
   loadChart()

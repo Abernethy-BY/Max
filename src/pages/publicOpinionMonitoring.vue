@@ -1,11 +1,11 @@
 <!--
- * @Author: By
- * @Date: 2022-07-28 17:20:30
- * @LastEditTime: 2022-09-09 15:27:16
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @Description: 舆情监控
+ * @LastEditTime: 2022-09-14 00:15:39
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Description:舆情监控
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
 const userInfo = useUserStore()
@@ -13,8 +13,6 @@ const clickFlag = ref('enterpriseRisk')
 const title = ref('企业风险')
 const flagMap = new Map().set('enterpriseRisk', '企业风险').set('corporatePublicOpinion', '企业舆情')
 
-// const enterpriseRiskComData = ref([])
-// const riskLevelData = ref([])
 const riskClassificationData = ref([])
 
 const latestRisksData = ref([])
@@ -28,8 +26,6 @@ const getYqjk = async (flag?) => {
     type: flag,
   }
   const res: any = await yqjk(param)
-  // enterpriseRiskComData.value = res?.filter(e => e['位置'] === '企业风险分布')
-  // riskLevelData.value = res?.filter(e => e['位置'] === '风险级别分布')
 
   latestRisksData.value = res?.find(e => e['位置'] === '最新风险')
 
@@ -90,8 +86,8 @@ getYqjk()
   padding-bottom: 47px;
   box-sizing: border-box;
   // src\assets\image\publicOpinionMonitoring\publicOpinionMonitoringBg.png
-  background-image: url("~/assets/image/publicOpinionMonitoring/publicOpinionMonitoringBg.png");
-  background-size: cover;
+  // background-image: url("~/assets/image/publicOpinionMonitoring/publicOpinionMonitoringBg.png");
+  // background-size: cover;
 
   * {
     box-sizing: border-box;
