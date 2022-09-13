@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 16:28:05
- * @LastEditTime: 2022-09-06 16:32:22
+ * @LastEditTime: 2022-09-14 03:26:48
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\enterprise\subItemization.vue
@@ -30,17 +30,18 @@ export default {
       subItemizationList: [[
         { image: RDInvestment, label: '产业总研发投入', value: '', unit: '亿元' },
         { image: investmentTargetsBg, label: '产业招商目标', value: '', unit: '亿元' },
+        { image: achievementRateBg, label: '产业目标达成率', value: '', unit: '%' },
         { image: outputBg, label: '产业总产值', value: '', unit: '亿元' },
-        { image: achievementRateBg, label: '产业目标达成率', value: '', unit: '亿元' },
-        { image: foreignTradeBg, label: '产业内贸与外贸占比', value: '', unit: '亿元' },
-        { image: totalProfitBg, label: '利润总额', value: '', unit: '亿元' },
+        { image: foreignTradeBg, label: '产业内贸与外贸占比', value: '', unit: '%' },
         { image: keyAreasBg, label: '产业全国重点区域', value: '', unit: '亿元' },
-      ], [
-        { image: taxAmountBg, label: '税收额', value: '', unit: '亿元' },
         { image: governmentSubsidiesBg, label: '产业政府补贴', value: '', unit: '亿元' },
-        { image: energyConsumptionBg, label: '能耗', value: '', unit: '万度' },
-        { image: businessIncomeBg, label: '重点企业主营业务收入', value: '', unit: '亿元' },
+
+      ], [
+        { image: totalProfitBg, label: '利润总额', value: '', unit: '亿元' },
+        { image: taxAmountBg, label: '税收额', value: '', unit: '亿元' },
+        { image: energyConsumptionBg, label: '水耗', value: '', unit: '万度' },
         { image: powerConsumptionBg, label: '电耗', value: '', unit: '万度' },
+        { image: businessIncomeBg, label: '重点企业主营业务收入', value: '', unit: '亿元' },
         { image: statisticalEnterprisesBg, label: '纳入统计企业', value: '', unit: '家' },
         { image: averageIndexPerAcreBg, label: '亩均指数', value: '', unit: '' },
       ]],

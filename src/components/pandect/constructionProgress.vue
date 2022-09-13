@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 20:16:31
- * @LastEditTime: 2022-08-27 15:35:19
- * @LastEditors: By
+ * @LastEditTime: 2022-09-14 03:16:19
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 五好园区建设进度
- * @FilePath: \big-screen-vue3\src\components\pandect\constructionProgress.vue
+ * @FilePath: \big-screen\src\components\pandect\constructionProgress.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script>
@@ -31,17 +31,17 @@ export default {
         { label: '规划面积', bg: planArea, value: 0, unit: '亩' },
         { label: '亩均指数', bg: mujunzhishu, value: '0%', unit: '' },
         { label: '高新技术企业', bg: gaoxinjishuqiye, value: 0, unit: '家' },
-        { label: '专精特新企业', bg: zhunjingtexinqiye, value: 0, unit: '家' },
         { label: '工业总产值', bg: gongyezongchanzhi, value: 0, unit: '亿元' },
-        { label: '政府补贴', bg: zhengfubutie, value: 0, unit: '亿元' },
-        { label: '营业收入', bg: yingyeshouru, value: 0, unit: '亿元' },
-        { label: '利润总额', bg: liyunzonge, value: 0, unit: '亿元' },
-        { label: '税收总额', bg: suishouzonge, value: 0, unit: '亿元' },
+        { label: '专精特新企业', bg: zhunjingtexinqiye, value: 0, unit: '家' },
         { label: '工业增长值', bg: industrialGrowth, value: 0, unit: '亿元' },
-        { label: '规上企业从业人数', bg: congyerenshu, value: 0, unit: '人' },
-        { label: '电耗', bg: dianhao, value: 0, unit: '万度' },
-        { label: '能耗', bg: nenghao, value: 0, unit: '万度' },
         { label: '规上企业', bg: guishangqiye, value: 0, unit: '家' },
+        { label: '税收总额', bg: suishouzonge, value: 0, unit: '亿元' },
+        { label: '规上企业从业人数', bg: congyerenshu, value: 0, unit: '人' },
+        { label: '利润总额', bg: liyunzonge, value: 0, unit: '亿元' },
+        { label: '电耗', bg: dianhao, value: 0, unit: '万度' },
+        { label: '营业收入', bg: yingyeshouru, value: 0, unit: '亿元' },
+        { label: '能耗', bg: nenghao, value: 0, unit: '万度' },
+        { label: '政府补贴', bg: zhengfubutie, value: 0, unit: '亿元' },
       ],
       progressValue: '0%',
     }

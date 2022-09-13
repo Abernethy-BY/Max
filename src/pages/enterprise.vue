@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-19 15:50:58
- * @LastEditTime: 2022-09-09 16:26:54
+ * @LastEditTime: 2022-09-14 03:29:05
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\pages\enterprise.vue
@@ -31,7 +31,7 @@ const getData = async (val?) => {
   NValue.value = coordinateTemp?.['值1']
   EValue.value = coordinateTemp?.['值2']
 }
-getData()
+setInterval(() => { getData() }, 5000)
 </script>
 
 <template>

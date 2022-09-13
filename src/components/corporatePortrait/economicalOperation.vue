@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 17:20:47
- * @LastEditTime: 2022-09-09 16:49:24
+ * @LastEditTime: 2022-09-14 03:33:31
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\economicalOperation.vue
@@ -21,13 +21,14 @@ export default {
   data() {
     return {
       economicalOperationList: [
-        { bg: revenue, value: '', label: '主营业务收入', remark: '' },
-        { bg: domesticAndForeignTrade, value: '', label: '内贸与外贸占比', remark: '' },
-        { bg: profit, value: '', label: '利润', remark: '' },
-        { bg: taxation, value: '', label: '税收', remark: '' },
-        { bg: DInvestment, value: '', label: '研发投入', remark: '' },
-        { bg: industrialSales, value: '', label: '工业销售总产值', remark: '' },
-        { bg: totalAssets, value: '', label: '资产总计', remark: '' },
+        { bg: revenue, value: '', label: '主营业务收入', remark: '', unit: '万元' },
+        { bg: domesticAndForeignTrade, value: '', label: '内贸与外贸占比', remark: '', unit: '%' },
+        { bg: profit, value: '', label: '利润', remark: '', unit: '万元' },
+        { bg: taxation, value: '', label: '税收', remark: '', unit: '万元' },
+        { bg: DInvestment, value: '', label: '研发投入', remark: '', unit: '万元' },
+        { bg: industrialSales, value: '', label: '工业销售总产值', remark: '', unit: '万元' },
+        { bg: totalAssets, value: '', label: '资产总计', remark: '', unit: '万元' },
+        { bg: '', value: '', label: '企业目标总额', remark: '', unit: '万元' },
       ],
     }
   },
@@ -57,7 +58,7 @@ export default {
       <el-image class="economical-operation-bg" :src="item.bg" fit="fill" />
       <div class="economical-operation-content">
         <span class="economical-operation-value">{{ item.value }}
-          <span class="economical-operation-unit" fs-12 color="#ffffff" fw-400>万元</span>
+          <span class="economical-operation-unit" fs-12 color="#ffffff" fw-400>{{ item.unit }}</span>
         </span>
         <span class="economical-operation-label">{{ item.label }}</span>
       </div>

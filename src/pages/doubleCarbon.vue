@@ -1,12 +1,13 @@
 <!--
- * @Author: By
- * @Date: 2022-07-25 14:32:45
- * @LastEditTime: 2022-08-19 19:09:16
- * @LastEditors: By
- * @Description: 双碳检测
- * @FilePath: \big-screen-vue3\src\pages\doubleCarbon.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-03 01:56:14
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-09-14 05:00:18
+ * @FilePath: \big-screen\src\pages\doubleCarbon.vue
+ * @Description:双碳检测
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
+
 <script lang="ts" setup>
 const userInfo = useUserStore()
 const businessRankingsData = ref([])
@@ -28,10 +29,9 @@ const getStjc = async () => {
 getStjc()
 </script>
 
-<template>
+<!-- <template>
   <div class="double-carbon-box">
     <div class="left-box">
-      <!-- 公司排名 -->
       <businessRankings :business-rankings-prop="businessRankingsData" />
     </div>
     <div class="right-box">
@@ -44,9 +44,24 @@ getStjc()
       </div>
     </div>
   </div>
+</template> -->
+<template>
+  <div wPE-100 hPE-100 flex flex-column-between pbPE-2>
+    <div flex-basis-PE-58 flex flex-row-between>
+      <div flex-basis-PE-29>
+        <businessRankings :business-rankings-prop="businessRankingsData" />
+      </div>
+      <div flex-basis-PE-69>
+        <electricityUsage :electricity-usage-prop="electricityUsageData" />
+      </div>
+    </div>
+    <div flex-basis-PE-37 hPE-5>
+      <electricityUsedProportion :electricity-used-proportion-prop="electricityUsedProportionData" />
+    </div>
+  </div>
 </template>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 .double-carbon-box {
   width: 100%;
   height: 100%;
@@ -77,4 +92,4 @@ getStjc()
 
   }
 }
-</style>
+</style> -->

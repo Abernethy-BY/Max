@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 11:38:24
- * @LastEditTime: 2022-09-08 20:40:02
+ * @LastEditTime: 2022-09-14 05:09:12
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 企业排名组件
  * @FilePath: \big-screen\src\components\doubleCarbon\businessRankings.vue
@@ -159,7 +159,7 @@ export default {
     color: #FFFFFF;
     // line-height: 45px;
     position: absolute;
-    top: 13px;
+    top: 1%;
   }
 
   .business-rankings {

@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-09-12 23:09:56
+ * @LastEditTime: 2022-09-14 03:34:31
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\overviewPage.vue
@@ -47,6 +47,8 @@ export default {
         { label: '电耗', value: '', image: powerConsumption },
         { label: '能耗', value: '', image: energyConsumption },
         { label: '政府补贴', value: '', image: governmentSubsidies },
+        { label: '企业风险', value: '', image: '' },
+        { label: '企业荣誉', value: '', image: '' },
       ]],
 
       HighTechEnterpriseList: [],
