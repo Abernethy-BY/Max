@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-12 22:27:28
+ * @LastEditTime: 2022-09-13 21:45:20
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -28,7 +28,14 @@ import jiankongSelect from '~/assets/image/common/navBg/jiankongSelect.png'
 const pageIndex = ref(0)
 const router = useRouter()
 
+const menuInfo = menuStore()
+const menuMap = new Map().set(3, 'averageOutput')
+
 const realTime = ref(formatDate(getNowDate(), 'yyyy-MM-dd-cn'))
+
+const weekMap = new Map().set(1, '一').set(2, '二').set(3, '三').set(4, '四').set(5, '五').set(6, '六').set(7, '日')
+
+const nowWeek = ref(`星期${weekMap.get(getNowWeek())}`)
 
 const tabList = ref([
   { name: '园区总览', path: '/', bg: yuanqu, selectedBg: yuanquSelect },
@@ -42,6 +49,8 @@ const tabList = ref([
 const jump = (index) => {
   if (index === pageIndex.value)
     return
+
+  menuInfo.menuIndex = index
   pageIndex.value = index
   router.push({ path: tabList.value[index].path })
 }
@@ -57,7 +66,7 @@ const jumpToLogin = () => {
 </script>
 
 <template>
-  <div class="layout-box" layouts box-center>
+  <div class="layout-box" :class="menuMap.get(menuInfo.menuIndex)" layouts box-center>
     <header hPE-10 flex flex-row-center po-r cross-axis-center pl-21 pr-27 pb-23>
       <div class="area-select-box" po-a pol-21 h-41 flex cross-axis-center>
         <el-image cursor-p class="area-icon" :src="areaIcon" fit="fill" @click="jumpToLogin" />
@@ -66,7 +75,7 @@ const jumpToLogin = () => {
       <span fx-40 fw-800 color="#FFFFFF">麦可思工业大数据中心</span>
       <div class="time-box" po-a por-27 h-41 flex cross-axis-center>
         <div class="time-content" flex flex-column-center cross-axis-end>
-          <span fs-30 color="#FFFFFF">星期三</span>
+          <span fs-30 color="#FFFFFF">{{ nowWeek }}</span>
           <span fs-16 color="#9FDBFD">{{ realTime }}</span>
         </div>
         <el-image class="time-icon" :src="timeIcon" fit="fill" />
@@ -91,6 +100,12 @@ const jumpToLogin = () => {
 
 <style lang="scss" scoped>
 .layout-box {
+
+  &.averageOutput {
+
+    background: no-repeat url("~/assets/image/averageOutput/averageOutputBg.png");
+    background-size: 100% 100%;
+  }
 
   ul,
   li {

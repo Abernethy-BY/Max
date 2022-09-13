@@ -18,28 +18,8 @@ import autoPreFixer from 'autoprefixer'
 import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-import'
 // import { consola } from 'consola'
 
-const loader_pxToRem = pxToRem({
-  // rootValue: 192,
-  // rootValue: 16,
-  rootValue: 37.5,
-  unitPrecision: 2,
-  propList: ['*'],
-  exclude: /(node_module)/,
-  selectorBlackList: [],
-  mediaQuery: true,
-  minPixelValue: 1,
-})
-const loader_autoPreFixer = autoPreFixer({
-  overrideBrowserslist: [
-    'Android 4.1',
-    'iOS 7.1',
-    'Chrome > 31',
-    'ff > 31',
-    'ie >= 8',
-    'last 10 versions',
-  ],
-  grid: true,
-})
+const loader_pxToRem = pxToRem({ rootValue: 37.5, unitPrecision: 2, propList: ['*'], exclude: /(node_module)/, selectorBlackList: [], mediaQuery: true, minPixelValue: 1 })
+const loader_autoPreFixer = autoPreFixer({ overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8', 'last 10 versions'], grid: true })
 
 export default defineConfig({
   resolve: { alias: { '~/': `${path.resolve(__dirname, 'src')}/` } },
@@ -76,7 +56,7 @@ export default defineConfig({
         { 'js-md5': [['default', 'md5']] },
       ],
       dts: 'src/auto-imports.d.ts',
-      dirs: ['src/composables', 'src/store', 'src/utils', 'src/api'],
+      dirs: ['src/composables', 'src/store', 'src/utils', 'src/api', 'src/model'],
       vueTemplate: true,
       resolvers: [IconsResolver({ prefix: 'Icon' }), ElementPlusResolver()],
     }),

@@ -1,20 +1,12 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-09-07 20:50:49
+ * @LastEditTime: 2022-09-13 11:31:45
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
-// import https from '~/utils/http'
-// import type { RootObject } from './model'
-
-// https.request<RootObject>('/json').then((res) => {
-//   console.log(res?.slideshow)
-// })
-// import { post } from '@/router/axios.js'
-
 /** *****
  * @description: 登录
  * @param {*} param 参数
@@ -50,3 +42,9 @@ export const getMapdata = (param: any) => post('/getmapdata.aspx', param)
 
 // 找回密码
 export const zhmm = (param: any) => post('/zhmm.aspx', param)
+
+// 项目投资
+export const xmtz = (param: any) => post('/xmtz.aspx', param)
+// 亩均产值
+export const mjcz = (param: any) => post('/mjcz.aspx', param)
+

@@ -7,6 +7,8 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AverageOutputLine: typeof import('./components/averageOutput/averageOutputLine.vue')['default']
+    AverageOutputSelect: typeof import('./components/averageOutput/averageOutputSelect.vue')['default']
     BusinessElectricityConsumption: typeof import('./components/corporatePortrait/businessElectricityConsumption.vue')['default']
     BusinessRankings: typeof import('./components/doubleCarbon/businessRankings.vue')['default']
     ConstructionProgress: typeof import('./components/pandect/constructionProgress.vue')['default']
@@ -42,6 +44,7 @@ declare module '@vue/runtime-core' {
     NewRisk: typeof import('./components/publicOpinionMonitoring/newRisk.vue')['default']
     OverviewPage: typeof import('./components/corporatePortrait/overviewPage.vue')['default']
     PandectMap: typeof import('./components/pandect/pandectMap.vue')['default']
+    Pie3D: typeof import('./components/common/pie3D.vue')['default']
     ProjectInvestment: typeof import('./components/averageOutput/projectInvestment.vue')['default']
     ProjectInvestmentTable: typeof import('./components/averageOutput/projectInvestmentTable.vue')['default']
     RiskIndex: typeof import('./components/corporatePortrait/riskIndex.vue')['default']

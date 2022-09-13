@@ -1,12 +1,13 @@
 /*
- * @Author: By
- * @Date: 2022-08-18 15:07:25
- * @LastEditTime: 2022-08-30 20:39:54
- * @LastEditors: By
- * @Description:
- * @FilePath: \big-screen-vue3\src\store\useUserStore.ts
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-08 11:57:45
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-09-13 19:23:49
+ * @FilePath: \big-screen\src\store\useUserStore.ts
+ * @Description: userInfo
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
  */
+
 import { acceptHMRUpdate, defineStore } from 'pinia'
 export const useUserStore = defineStore('user', {
   state: () => ({ token: '', userCode: '', userRole: '' }),

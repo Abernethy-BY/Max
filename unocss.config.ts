@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 10:45:51
- * @LastEditTime: 2022-09-12 22:47:34
+ * @LastEditTime: 2022-09-13 20:24:59
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: ,
  * @FilePath: \big-screen\unocss.config.ts
@@ -106,7 +106,6 @@ export default defineConfig({
 
     [/^bw-(\d+)$/, ([, d]) => ({ 'border-width': `${d}px` })],
     [/^bs-(\w+)$/, ([, w]) => ({ 'border-style': `${w}` })],
-
     [/^br-(\d+)$/, ([, d]) => ({ ' border-radius': `${d}px` })],
 
     ['cursor-p', { cursor: 'pointer' }],

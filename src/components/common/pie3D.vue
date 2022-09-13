@@ -1,23 +1,19 @@
 <!--
  * @Author: BY by15242952083@outlook.com
- * @Date: 2022-09-01 16:29:28
+ * @Date: 2022-09-13 11:02:01
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-13 17:16:01
- * @FilePath: \big-screen\src\components\pandect\income.vue
- * @Description:各产业主营业务收入占比
+ * @LastEditTime: 2022-09-13 17:44:51
+ * @FilePath: \big-screen\src\components\common\pie3D.vue
+ * @Description: 3D饼图组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
-
 <script lang="ts" setup>
 import 'echarts/lib/chart/pie'
 import 'echarts-gl'
 import 'echarts/theme/macarons'
-
-const propObj = defineProps({
-  incomeProp: Array,
-})
-const incomeRef = ref()
-let hoveredIndex: any = ''
+const propObj = defineProps({ pieProp: Array, pieTitle: String })
+const pieRef = ref()
+let hoveredIndex: number | string = ''
 
 // 生成扇形的曲面参数方程
 const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h) => {
@@ -141,7 +137,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
     },
     title: {
       show: true,
-      text: '主营业务收入',
+      text: propObj.pieTitle,
       textStyle: {
         color: '#FFFFFF',
         fontSize: 12,
@@ -190,24 +186,14 @@ const getPie3D = (pieData, internalDiameterRatio) => {
   return option
 }
 
-const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
-watch(() => propObj.incomeProp, () => {
-  const initialValue = 0
-  const sumWithInitial = propObj.incomeProp?.reduce(
-    (previousValue: any, currentValue: any) => previousValue + currentValue?.['值1'] === '' ? 0 : Number(currentValue?.['值1']),
-    initialValue,
-  )
+// const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
 
-  const temp = propObj.incomeProp?.map((e: any, i) => {
-    return {
-      name: e?.['数据'],
-      value: sumWithInitial === 0 ? 0 : Number(new Big(Number(e?.['值1'])).div(sumWithInitial).times(100).toFixed(0)),
-
-      itemStyle: { color: colorList[i] },
-    }
+watch(() => propObj.pieProp, () => {
+  const option = getPie3D(propObj.pieProp, 0.59)
+  const myChart = eCharts.init(pieRef.value)
+  window.addEventListener('resize', () => {
+    myChart.resize()
   })
-  const option = getPie3D(temp, 0.59)
-  const myChart = eCharts.init(incomeRef.value)
   myChart.setOption(option)
 
   //  修正取消高亮失败的 bug
@@ -265,7 +251,7 @@ watch(() => propObj.incomeProp, () => {
         option.series[params.seriesIndex!].pieStatus.hovered = isHovered
 
         // 记录上次高亮的扇形对应的系列号 seriesIndex
-        hoveredIndex = params.seriesIndex
+        hoveredIndex = params.seriesIndex!
       }
 
       // 使用更新后的 option，渲染图表
@@ -298,16 +284,5 @@ watch(() => propObj.incomeProp, () => {
 </script>
 
 <template>
-  <div class="income-box" wPE-100 hPE-100 po-r flex flex-row-center>
-    <span fs-16 fw-400 color="#FFFFFF" po-a pot-13>各产业主营业务收入占比 </span>
-    <div ref="incomeRef" wPE-100 hPE-100 class="income-content" />
-  </div>
+  <div ref="pieRef" wPE-100 hPE-100 />
 </template>
-
-<style lang="scss" scoped>
-.income-box {
-  background-image: url("~/assets/image/pandect/incomeBg.png");
-  background-size: 100% 100%;
-}
-</style>
-

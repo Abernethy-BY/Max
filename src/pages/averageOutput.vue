@@ -2,25 +2,65 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-12 23:15:46
+ * @LastEditTime: 2022-09-13 21:58:38
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+const userInfo = useUserStore()
+
+const projectInvestmentData = ref([])
+const employeeRecruitmentData = ref([])
+const projectInvestmentTableData = ref([])
+const industrialProjectsData = ref([])
+const averagePerAcreIndustryData = ref([])
+const averageOutputLineData = ref([])
+const getXmtz = async (val = '企业风险') => {
+  const submitId = new Date().getTime()
+  const param = {
+    submitid: submitId,
+    usercode: userInfo.userCode,
+    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    type: val,
+  }
+  const res: any = await mjcz(param)
+  // consola.info(res)
+  projectInvestmentData.value = res?.filter(e => e?.['位置'] === '亩均项目统计')
+  employeeRecruitmentData.value = res?.filter(e => e?.['位置'] === '员工招聘')
+  const temp = res?.filter(e => e?.['位置'] === '右下')
+  projectInvestmentTableData.value = temp.map((e) => { return { name: e['数据'], investment: e['数值1'] } })
+  industrialProjectsData.value = res?.filter(e => e?.['位置'] === '工业亩均')
+  averagePerAcreIndustryData.value = res?.filter(e => e?.['位置'] === '产业亩均')
+  averageOutputLineData.value = res?.filter(e => e?.['位置'] === '月数据趋势')
+}
+getXmtz()
+
+onUnmounted(() => {
+  const menuInfo = menuStore()
+  menuInfo.menuIndex = 0
+})
+</script>
 
 <template>
   <div class="average-output-box" flex wPE-100 hPE-100 flex-row-between flex-1>
-    <div class="left" />
-    <div class="right" w-416 hPE-100 pbPE-2 flex flex-column-between>
+    <div flex flex-column-between flex-grow-0 flex-shrink-0 flex-basis-PE-75 pbPE-3>
+      <div flex-grow-0 flex-shrink-0 flex-basis-PE-40>
+        <averageOutputSelect :industrial-projects-prop="industrialProjectsData" :average-per-acre-industry-prop="averagePerAcreIndustryData" />
+      </div>
+      <div flex-grow-0 flex-shrink-0 flex-basis-PE-52>
+        <averageOutputLine :average-output-line-prop="averageOutputLineData" />
+      </div>
+    </div>
+    <div w-416 hPE-100 pbPE-2 flex flex-column-between>
       <div flex-grow-0 flex-shrink-0 flex-basis-PE-29>
-        <projectInvestment />
+        <projectInvestment :project-investment-prop="projectInvestmentData" />
       </div>
       <div flex-grow-0 flex-shrink-0 flex-basis-PE-32>
-        <employeeRecruitment />
+        <employeeRecruitment :employee-recruitment-prop="employeeRecruitmentData" />
       </div>
       <div flex-grow-0 flex-shrink-0 flex-basis-PE-35>
-        <projectInvestmentTable />
+        <projectInvestmentTable :project-investment-table-prop="projectInvestmentTableData" />
       </div>
     </div>
   </div>
