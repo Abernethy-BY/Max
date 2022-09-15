@@ -31,6 +31,7 @@ const option: any = {
     axisLine: { show: true, lineStyle: { color: '#fffff' } },
     splitLine: { lineStyle: { color: '#6379B7' } },
   },
+  color: ['#7A79F7', '#60C1FF', '#FFC554', '#FF5F5F'],
   yAxis: {
     type: 'value',
     axisLine: { show: true, lineStyle: { color: 'white' } },

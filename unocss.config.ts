@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 10:45:51
- * @LastEditTime: 2022-09-13 20:24:59
+ * @LastEditTime: 2022-09-14 15:14:45
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: ,
  * @FilePath: \big-screen\unocss.config.ts
@@ -55,13 +55,18 @@ export default defineConfig({
     ['flex-row-between', { 'justify-content': 'space-between' }],
     ['flex-row-center', { 'justify-content': 'center' }],
     ['flex-row-end', { 'justify-content': 'flex-end' }],
+    ['flex-column-start', { 'flex-direction': 'column' }],
     ['flex-column-between', { 'flex-direction': 'column', 'justify-content': 'space-between' }],
     ['flex-column-center', { 'flex-direction': 'column', 'justify-content': 'center' }],
-    ['flex-column-start', { 'flex-direction': 'column' }],
     ['flex-column-end', { 'flex-direction': 'column', 'justify-content': 'space-end' }],
     ['cross-axis-stretch', { 'align-items': 'stretch' }],
     ['cross-axis-center', { 'align-items': 'center' }],
     ['cross-axis-end', { 'align-items': 'flex-end' }],
+    ['elastic-longitudinal-axis-start', { 'align-content': 'flex-start' }],
+    ['elastic-longitudinal-axis-end', { 'align-content': 'flex-end' }],
+    ['elastic-longitudinal-axis-center', { 'align-content': 'center' }],
+    ['elastic-longitudinal-axis-between', { 'align-content': 'space-between;' }],
+    ['elastic-longitudinal-axis-around', { 'align-content': 'space-around;' }],
     [/^fx-(\d+)$/, ([, d]) => ({ 'flex-shrink': `${d}` })],
     ['fw', { 'flex-wrap': 'wrap' }],
     [/^flex-(\d+)$/, ([, d]) => ({ flex: `${d}` })],

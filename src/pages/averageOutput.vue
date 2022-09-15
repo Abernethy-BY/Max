@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-13 21:58:38
+ * @LastEditTime: 2022-09-14 17:27:27
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -28,8 +28,9 @@ const getXmtz = async (val = '企业风险') => {
   // consola.info(res)
   projectInvestmentData.value = res?.filter(e => e?.['位置'] === '亩均项目统计')
   employeeRecruitmentData.value = res?.filter(e => e?.['位置'] === '员工招聘')
-  const temp = res?.filter(e => e?.['位置'] === '右下')
-  projectInvestmentTableData.value = temp.map((e) => { return { name: e['数据'], investment: e['数值1'] } })
+  // const temp = res?.filter(e => e?.['位置'] === '右下')
+  // projectInvestmentTableData.value = temp.map((e) => { return { name: e['数据'], investment: e['数值1'] } })
+  projectInvestmentTableData.value = res?.filter(e => e?.['位置'] === '右下')
   industrialProjectsData.value = res?.filter(e => e?.['位置'] === '工业亩均')
   averagePerAcreIndustryData.value = res?.filter(e => e?.['位置'] === '产业亩均')
   averageOutputLineData.value = res?.filter(e => e?.['位置'] === '月数据趋势')
