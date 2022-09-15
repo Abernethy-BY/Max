@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 20:20:46
+ * @LastEditTime: 2022-09-15 23:32:18
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -24,7 +24,7 @@ const option = {
     aspectScale: 0.75, // 长宽比
     zoom: 1.2,
     roam: false,
-    label: { show: true, color: 'white', fontSize: '0.2rem' },
+    label: { show: true, color: 'white', fontSize: '0.3rem' },
     itemStyle: {
       areaColor: '#35356C',
       borderColor: 'white',
@@ -167,14 +167,14 @@ onMounted(() => {
     }
     debounce(drillDownFun, 1000, true)
   })
-  getMap('100000')
+  getMap('430000')
 })
 </script>
 
 <template>
   <div v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)" class="map-box">
     <div class="coordinate-box" po-r z-10>
-      <div class="icon-box">
+      <div class="icon-box" po-a pob-50>
         <el-image
           class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
           @mouseup.prevent="goMagnifyMapTouchEnd"

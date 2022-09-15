@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-14 05:00:18
+ * @LastEditTime: 2022-09-15 23:15:51
  * @FilePath: \big-screen\src\pages\doubleCarbon.vue
  * @Description:双碳检测
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -29,24 +29,8 @@ const getStjc = async () => {
 getStjc()
 </script>
 
-<!-- <template>
-  <div class="double-carbon-box">
-    <div class="left-box">
-      <businessRankings :business-rankings-prop="businessRankingsData" />
-    </div>
-    <div class="right-box">
-      <div class="electricity-usage-box">
-        <electricityUsage :electricity-usage-prop="electricityUsageData" />
-      </div>
-
-      <div class="electricity-used-proportion-box">
-        <electricityUsedProportion :electricity-used-proportion-prop="electricityUsedProportionData" />
-      </div>
-    </div>
-  </div>
-</template> -->
 <template>
-  <div wPE-100 hPE-100 flex flex-column-between pbPE-2>
+  <div wPE-100 hPE-100 flex flex-column-between pbPE-4>
     <div flex-basis-PE-58 flex flex-row-between>
       <div flex-basis-PE-29>
         <businessRankings :business-rankings-prop="businessRankingsData" />

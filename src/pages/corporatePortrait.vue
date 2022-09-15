@@ -2,7 +2,7 @@
  * @Author: Forrest-Rice by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-02 09:52:04
+ * @LastEditTime: 2022-09-15 23:24:22
  * @FilePath: \big-screen\src\pages\corporatePortrait.vue
  * @Description:
  * Copyright (c) 2022 by Forrest-Rice email: by15242952083@outlook.com, All Rights Reserved.
@@ -19,7 +19,7 @@ const corporateIntellectualPropertyData = ref([])
 const highTechEnterpriseListData = ref([])
 const newEnterprisesListData = ref([])
 const enterpriseAssociationMapData = ref({})
-const enterpriseProductsData = ref({})
+const enterpriseProductsData = ref([])
 
 const getQyhx = async () => {
   const submitid = new Date().getTime()
@@ -41,7 +41,15 @@ const getQyhx = async () => {
   newEnterprisesListData.value = res?.filter(e => e?.['位置'] === '是否专精特新企业')
 
   enterpriseAssociationMapData.value = toRaw(res?.find(e => e?.['位置'] === '企业关联图谱'))
-  enterpriseProductsData.value = res?.find(e => e?.['位置'] === '企业产品')
+  enterpriseProductsData.value = res?.filter(e => e?.['位置'] === '企业产品')
+
+  //   {
+  //     "位置": "企业产品",
+  //     "数据": "图像",
+  //     "值1": "upfile/20220915/8585383928090593608_微信图片_202209151152521.png",
+  //     "值2": "",
+  //     "图标": ""
+  // }
 }
 getQyhx()
 </script>

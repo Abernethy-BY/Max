@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 11:02:01
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-13 17:44:51
+ * @LastEditTime: 2022-09-15 23:47:23
  * @FilePath: \big-screen\src\components\common\pie3D.vue
  * @Description: 3D饼图组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -142,7 +142,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
         color: '#FFFFFF',
         fontSize: 12,
       },
-      top: '20%',
+      top: '25%',
       left: '5%',
     },
     legend: {
@@ -150,12 +150,12 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       data: legendData,
       orient: 'vertical',
       right: '30',
-      top: 'center',
+      height: '100%',
+      top: '30%',
       icon: 'circle',
       itemHeight: 6,
-      textStyle: {
-        color: '#ffffff',
-      },
+      itemGap: 30,
+      textStyle: { color: '#ffffff' },
     },
     xAxis3D: { min: -1, max: 1 },
     yAxis3D: { min: -1, max: 1 },
@@ -165,6 +165,8 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       boxHeight: 3,
       // top: '-20%',
       left: '-15%',
+      top: '10%',
+      bottom: '15%',
       viewControl: {
         alpha: 25,
         rotateSensitivity: 1,

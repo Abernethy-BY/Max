@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-10 02:20:13
+ * @LastEditTime: 2022-09-15 23:07:43
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -14,7 +14,13 @@ import type { EChartsType } from 'echarts'
 import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
 import fanhui from '~/assets/image/common/navBg/fanhui.png'
+import type { InterfaceModel } from '~/model'
+const propObj = withDefaults(defineProps<{ coordinateProp?: InterfaceModel }>(), { coordinateProp: () => { return { 位置: '', 数据: '', 数值1: '', 数值2: '', 图标: '' } } })
+
 const emit = defineEmits(['refresh'])
+
+watch(() => propObj.coordinateProp, () => { consola.info(propObj.coordinateProp) })
+
 const option = {
   geo: {
     map: 'map',
@@ -162,9 +168,12 @@ onMounted(() => {
 </script>
 
 <template>
-  <div v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)" wPE-100 hPE-100 po-r>
+  <div v-loading="loading" class="enterprise-map" element-loading-background="rgba(0, 0, 0, 0)" wPE-100 hPE-100 po-r>
     <div ref="mapRef" wPE-100 hPE-100 />
-    <div po-a por-0 pob-0 flex flex-column-between>
+    <div po-a potPE-0 polPE-0 class="coordinate-data">
+      <span>{{ propObj.coordinateProp.值1 }}</span><span>{{ propObj.coordinateProp.值2 }}</span>
+    </div>
+    <div po-a por-0 pobPE-10 flex flex-column-between>
       <el-image
         class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
         @mouseup.prevent="goMagnifyMapTouchEnd"
@@ -178,3 +187,16 @@ onMounted(() => {
   </div>
 </template>
 
+<style lang="scss" scoped>
+.enterprise-map {
+  .coordinate-data {
+    span {
+      font-size: 16px;
+      font-family: Source Han Sans CN;
+      font-weight: bold;
+      color: #FFFFFF;
+      margin-right: 25px;
+    }
+  }
+}
+</style>

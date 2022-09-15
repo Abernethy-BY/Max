@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:55:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-13 19:14:33
+ * @LastEditTime: 2022-09-16 00:01:40
  * @FilePath: \big-screen\src\components\averageOutput\employeeRecruitment.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -59,8 +59,20 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
       color: #FFFFFF;
       line-height: 18px;
       padding: 5px 0;
+      white-space: pre-wrap;
     }
 
+    &::-webkit-scrollbar {
+      width: 7px;
+      height: 7px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 5px #9b9ba3;
+      background: rgba(152, 155, 163, 0.5);
+      padding-right: 10%;
+    }
   }
 
 }

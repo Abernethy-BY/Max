@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-14 17:27:27
+ * @LastEditTime: 2022-09-15 23:53:56
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -45,7 +45,7 @@ onUnmounted(() => {
 
 <template>
   <div class="average-output-box" flex wPE-100 hPE-100 flex-row-between flex-1>
-    <div flex flex-column-between flex-grow-0 flex-shrink-0 flex-basis-PE-75 pbPE-3>
+    <div flex flex-column-between flex-grow-0 flex-shrink-0 flex-basis-PE-75 pbPE-7>
       <div flex-grow-0 flex-shrink-0 flex-basis-PE-40>
         <averageOutputSelect :industrial-projects-prop="industrialProjectsData" :average-per-acre-industry-prop="averagePerAcreIndustryData" />
       </div>

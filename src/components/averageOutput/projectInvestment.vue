@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:53:31
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-14 15:50:04
+ * @LastEditTime: 2022-09-15 23:41:44
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestment.vue
  * @Description:项目投资额统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

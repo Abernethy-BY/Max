@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-09-14 03:34:31
+ * @LastEditTime: 2022-09-15 23:41:17
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\overviewPage.vue
@@ -23,7 +23,10 @@ import powerConsumption from '~/assets/image/corporatePortrait/overview/powerCon
 import energyConsumption from '~/assets/image/corporatePortrait/overview/energyConsumption.png'
 import governmentSubsidies from '~/assets/image/corporatePortrait/overview/governmentSubsidies.png'
 import spotChecks from '~/assets/image/corporatePortrait/overview/spotChecks.png'
+import qiyefengxianBg from '~/assets/image/corporatePortrait/overview/qiyefengxianBg.png'
+import rongyaoBg from '~/assets/image/corporatePortrait/overview/rongyaoBg.png'
 
+// rongyaoBg
 export default {
   props: ['overviewProp', 'highTechEnterpriseListProp', 'newEnterprisesListProp'],
   data() {
@@ -47,8 +50,8 @@ export default {
         { label: '电耗', value: '', image: powerConsumption },
         { label: '能耗', value: '', image: energyConsumption },
         { label: '政府补贴', value: '', image: governmentSubsidies },
-        { label: '企业风险', value: '', image: '' },
-        { label: '企业荣誉', value: '', image: '' },
+        { label: '企业风险', value: '', image: qiyefengxianBg },
+        { label: '企业荣誉', value: '', image: rongyaoBg },
       ]],
 
       HighTechEnterpriseList: [],
@@ -98,8 +101,8 @@ export default {
               暂无图片
             </div> -->
             <el-image
-              v-for="(imgItem, imgIndex) in HighTechEnterpriseList" :key="imgIndex" class="overview-content-item-main"
-              :src="imgItem" fit="contain"
+              v-for="(imgItem, imgIndex) in HighTechEnterpriseList" :key="imgIndex"
+              class="overview-content-item-main" :src="imgItem" fit="contain"
             />
           </div>
           <div class="overview-content-item">
@@ -108,8 +111,8 @@ export default {
               暂无图片
             </div> -->
             <el-image
-              v-for="(imgItem, imgIndex) in newEnterprisesList" :key="imgIndex" class="overview-content-item-main"
-              :src="imgItem" fit="contain"
+              v-for="(imgItem, imgIndex) in newEnterprisesList" :key="imgIndex"
+              class="overview-content-item-main" :src="imgItem" fit="contain"
             />
           </div>
         </div>
@@ -120,8 +123,8 @@ export default {
     <div class="overview-bottom">
       <div v-for="(item, index) in subItemizationList" :key="index" class="sub-itemization-row">
         <div
-          v-for="(subItemizationItem, subItemizationIndex) in item" :key="subItemizationIndex" class="sub-itemization-col"
-          :span="4"
+          v-for="(subItemizationItem, subItemizationIndex) in item" :key="subItemizationIndex"
+          class="sub-itemization-col" :span="4"
         >
           <el-image class="sub-itemization-image" :src="subItemizationItem.image" fit="fill" />
           <div class="sub-itemization-main">
