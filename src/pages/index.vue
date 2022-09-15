@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:36:33
- * @LastEditTime: 2022-09-13 21:15:45
+ * @LastEditTime: 2022-09-15 20:18:26
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\pages\index.vue
@@ -44,7 +44,7 @@ getYqzl()
         <income :income-prop="incomeData" />
       </div>
     </div>
-    <div class="pandect-center" wPE-39 hPE-90>
+    <div class="pandect-center" wPE-45 hPE-100>
       <pandectMap @refresh="getYqzl" />
     </div>
     <div class="pandect-right" wPE-28 hPE-97>

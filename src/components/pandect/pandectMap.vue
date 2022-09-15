@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-14 03:23:09
+ * @LastEditTime: 2022-09-15 20:20:46
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -22,7 +22,7 @@ const option = {
   geo: {
     map: 'map',
     aspectScale: 0.75, // 长宽比
-    zoom: 1,
+    zoom: 1.2,
     roam: false,
     label: { show: true, color: 'white', fontSize: '0.2rem' },
     itemStyle: {
@@ -80,7 +80,7 @@ const getMap = async (code) => {
     const temp: any = await getMapdata(param)
     mapArr = temp.features
     option.geo.label.show = false
-    option.geo.zoom = 1
+    option.geo.zoom = 1.2
     eCharts.registerMap('map', temp)
     chartDom?.setOption(option)
   }
@@ -88,7 +88,7 @@ const getMap = async (code) => {
     mapArr = temp.features
     option.geo.label.show = true
     eCharts.registerMap('map', temp)
-    option.geo.zoom = 1
+    option.geo.zoom = 1.2
     chartDom?.setOption(option)
   }
   // eslint-disable-next-line @typescript-eslint/no-use-before-define

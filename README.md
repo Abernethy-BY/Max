@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-08-17 11:45:45
- * @LastEditTime: 2022-08-19 18:57:30
- * @LastEditors: By
+ * @LastEditTime: 2022-09-15 20:06:08
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 
- * @FilePath: \big-screen-vue3\README.md
+ * @FilePath: \big-screen\README.md
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 # TODO unoCss --- padding margin color background border-color
@@ -28,3 +28,6 @@ Passive Event Listeners：就是告诉前页面内的事件监听器内部是否
 
 2.main.js中加入：import 'default-passive-events'
 ```
+
+
+<!-- NODE_TLS_REJECT_UNAUTHORIZED -->
