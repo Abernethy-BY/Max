@@ -2,16 +2,15 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-14 00:15:39
+ * @LastEditTime: 2022-09-16 10:41:40
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
  * @Description:舆情监控
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
 const userInfo = useUserStore()
-const clickFlag = ref('enterpriseRisk')
-const title = ref('企业风险')
-const flagMap = new Map().set('enterpriseRisk', '企业风险').set('corporatePublicOpinion', '企业舆情')
+// const clickFlag = ref('enterpriseRisk')
+// const flagMap = new Map().set('enterpriseRisk', '企业风险').set('corporatePublicOpinion', '企业舆情')
 
 const riskClassificationData = ref([])
 
@@ -32,18 +31,18 @@ const getYqjk = async (flag?) => {
   riskClassificationData.value = res?.filter(e => e['位置'] === '右下')
 }
 
-const risk = (flag) => {
-  if (flag === clickFlag.value)
-    return
-  clickFlag.value = flag
-  title.value = flagMap.get(flag)
-  getYqjk(flagMap.get(flag))
-}
+// const risk = (flag) => {
+//   if (flag === clickFlag.value)
+//     return
+//   clickFlag.value = flag
+//   title.value = flagMap.get(flag)
+//   getYqjk(flagMap.get(flag))
+// }
 getYqjk()
 </script>
 
 <template>
-  <div class="public-opinion-monitoring-box">
+  <!-- <div class="public-opinion-monitoring-box">
     <div class="company-box">
       <div class="button-box">
         <div
@@ -61,16 +60,29 @@ getYqjk()
       </div>
 
       <div class="enterprise-risk-box">
-        <!-- <enterpriseRiskCom
-          :enterprise-risk-com-prop="enterpriseRiskComData" :risk-level-prop="riskLevelData"
-          :title="title"
-        /> -->
+
         <enterpriseRiskCom :title="title" />
       </div>
     </div>
 
-    <!-- 最新风险 -->
     <div class="new-risk-box">
+      <newRisk :latest-risks-prop="latestRisksData" :risk-classification-prop="riskClassificationData" />
+    </div>
+  </div> -->
+
+  <!-- <enterpriseRiskCom
+          :enterprise-risk-com-prop="enterpriseRiskComData" :risk-level-prop="riskLevelData"
+          :title="title"
+        /> -->
+
+  <div wPE-100 hPE-100 flex flex-row-between pbPE-3>
+    <div flex-shrink-0 flex-basis-0 flex-basis-PE-24>
+      <enterpriseRiskCom title="企业风险" />
+    </div>
+    <div flex-shrink-0 flex-basis-0 flex-basis-PE-24>
+      <enterpriseRiskCom title="企业舆情" />
+    </div>
+    <div flex-shrink-0 flex-basis-0 flex-basis-PE-25>
       <newRisk :latest-risks-prop="latestRisksData" :risk-classification-prop="riskClassificationData" />
     </div>
   </div>

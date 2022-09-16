@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-05 18:38:47
- * @LastEditTime: 2022-09-09 16:00:06
+ * @LastEditTime: 2022-09-16 11:31:46
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
@@ -37,13 +37,42 @@ const prop = defineProps({
 //
 const industryEankingRef = ref<HTMLElement | null>(null)
 const barOption = ref<any>({
-  grid: { top: '10%', left: '5%', right: '5%', bottom: '5%', containLabel: true },
+  grid: { top: '10%', left: '5%', right: '15%', bottom: '5%', containLabel: true },
   xAxis: {
     show: false,
     max(value) {
       return value.max
     },
   },
+  dataZoom: [
+    {
+      type: 'slider',
+      show: true, // 隐藏或显示（true）组件
+      backgroundColor: 'rgb(19, 63, 100)', // 组件的背景颜色。
+      fillerColor: 'rgb(16, 171, 198)', // 选中范围的填充颜色。
+      borderColor: 'rgb(19, 63, 100)', // 边框颜色
+      showDetail: false, // 是否显示detail，即拖拽时候显示详细数值信息
+      startValue: 0, // 数据窗口范围的起始数值
+      endValue: 5, // 数据窗口范围的结束数值（一页显示多少条数据）
+      yAxisIndex: [0, 1], // 控制哪个轴，如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。此处控制第二根轴
+      filterMode: 'empty',
+      width: 8, // 滚动条高度
+      height: '80%', // 滚动条显示位置
+      right: 2, // 距离右边
+      handleSize: 0, // 控制手柄的尺寸
+      zoomLoxk: true, // 是否锁定选择区域（或叫做数据窗口）的大小
+      top: 'middle',
+    },
+    {
+      // 没有下面这块的话，只能拖动滚动条，鼠标滚轮在区域内不能控制外部滚动条
+      type: 'inside',
+      yAxisIndex: [0, 1], // 控制哪个轴，如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。此处控制第二根轴
+      zoomOnMouseWheel: false, // 滚轮是否触发缩放
+      moveOnMouseMove: true, // 鼠标移动能否触发平移
+      moveOnMouseWheel: true, // 鼠标滚轮能否触发平移
+    },
+  ],
+
   yAxis: {
     type: 'category',
     inverse: true,
@@ -91,10 +120,29 @@ const barOption = ref<any>({
   }],
 })
 
+// const timeOut = null
+
+// const autoMove = () => {
+//   //this.dataList.seriesData为柱形图数据3
+//   timeOut = setInterval(() => {
+//     // clearInterval(this.timeOut)
+//     // 每次向后滚动一个，最后一个从头开始。
+//     // if(this.stopMove){ return }
+//     if (Number(barOption.value.dataZoom[0].endValue) === this.dataList.seriesData.length - 1) {
+//       this.option.dataZoom[0].endValue = this.end;
+//       this.option.dataZoom[0].startValue = 0;
+//     } else {
+//       this.option.dataZoom[0].endValue = this.option.dataZoom[0].endValue + 1;
+//       this.option.dataZoom[0].startValue = this.option.dataZoom[0].startValue + 1;
+//     }
+//     this.chart.setOption(this.option)
+//   }, 3000);
+// },
+
 /**
- * @description: 生成图表
- * @return {*}
- */
+   * @description: 生成图表
+   * @return {*}
+   */
 let industryEankingRefChart: EChartsType | null = null
 const initIndustryEankingRefChart = () => {
   industryEankingRefChart = eCharts.init(industryEankingRef.value!)

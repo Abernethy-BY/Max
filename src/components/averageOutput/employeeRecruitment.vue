@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:55:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 00:01:40
+ * @LastEditTime: 2022-09-16 11:07:15
  * @FilePath: \big-screen\src\components\averageOutput\employeeRecruitment.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -22,8 +22,8 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
         v-for="(item, index) in propObj.employeeRecruitmentProp" :key="index" class="employee-recruitment-item" flex
         flex-column-start
       >
-        <span class="employee-recruitment-title">{{ item['数据'] }}</span>
-        <span class="employee-recruitment-text">{{ item['数值1'] }}</span>
+        <span class="employee-recruitment-title noticeImg ">{{ item['数据'] }}</span>
+        <span class="employee-recruitment-text noticeImg ">{{ item['数值1'] }}</span>
       </div>
     </div>
   </div>
@@ -33,6 +33,7 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
 .employee-recruitment-box {
   background-image: url("~/assets/image/averageOutput/employeeRecruitment.png");
   background-size: 100% 100%;
+  padding-top: 15%;
 
   .title {
     font-size: 18px;
@@ -43,6 +44,8 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
 
   .employee-recruitment-content {
     overflow-y: auto;
+    position: relative;
+    display: flex;
 
     .employee-recruitment-title {
       font-size: 18px;
@@ -65,6 +68,7 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
     &::-webkit-scrollbar {
       width: 7px;
       height: 7px;
+      display: none;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -72,6 +76,81 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
       -webkit-box-shadow: inset 0 0 5px #9b9ba3;
       background: rgba(152, 155, 163, 0.5);
       padding-right: 10%;
+    }
+  }
+
+  .employee-recruitment-item {
+    position: absolute;
+
+    &:nth-child(1) {
+      animation: anim1 10s linear infinite;
+    }
+
+    &:nth-child(2) {
+      animation: anim2 10s linear infinite;
+    }
+  }
+
+  @keyframes anim1 {
+    0% {
+      top: 0;
+      opacity: 1
+    }
+
+    45% {
+      top: 0;
+      opacity: 1
+    }
+
+    50% {
+      top: -100%;
+      opacity: 0
+    }
+
+    51% {
+      top: 100%;
+      opacity: 0
+    }
+
+    95% {
+      top: 100%;
+      opacity: 1
+    }
+
+    96% {
+      opacity: 1
+    }
+
+    100% {
+      top: 0;
+      opacity: 1
+    }
+  }
+
+  @keyframes anim2 {
+    0% {
+      top: 100%;
+      opacity: 0
+    }
+
+    45% {
+      top: 100%;
+      opacity: 0
+    }
+
+    50% {
+      top: 0;
+      opacity: 1
+    }
+
+    95% {
+      top: 0;
+      opacity: 1
+    }
+
+    100% {
+      top: -100%;
+      opacity: 0
     }
   }
 

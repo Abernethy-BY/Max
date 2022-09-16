@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:16:38
+ * @LastEditTime: 2022-09-16 11:32:29
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestmentTable.vue
  * @Description:项目投资统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -23,7 +23,7 @@ const list = ref<Array<{ label: string; bg: any; value: string | number; unit: s
 ])
 watch(() => propObj.projectInvestmentTableProp, () => {
   consola.info(propObj.projectInvestmentTableProp)
-  propObj.projectInvestmentTableProp.forEach((element) => {
+  propObj.projectInvestmentTableProp.forEach((element: any) => {
     const temp = list.value.find(e => e.label === element.数据)
     if (temp)
       temp.value = element.数值1.substring(0, element.数值1.length - 4)

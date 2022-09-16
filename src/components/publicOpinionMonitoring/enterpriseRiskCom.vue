@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-09 15:47:13
+ * @LastEditTime: 2022-09-16 10:41:09
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
  * @Description:企业风险
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -266,14 +266,14 @@ const getPie3D = (pieData, internalDiameterRatio) => {
 
 const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
 
-const getYqjk = async (flag?) => {
+const getYqjk = async () => {
   const submitId = new Date().getTime()
   const userInfo = useUserStore()
   const param = {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-    type: flag,
+    type: prop.title,
     enterprisename: input.value,
   }
   const res: any = await yqjk(param)

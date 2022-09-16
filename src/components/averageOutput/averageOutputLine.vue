@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 20:58:59
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:20:16
+ * @LastEditTime: 2022-09-16 11:32:13
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputLine.vue
  * @Description:亩均产值折线图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -59,7 +59,7 @@ onMounted(() => {
 
 watch(() => propObj.averageOutputLineProp, () => {
   initChart()
-  option.series = propObj.averageOutputLineProp.map((e) => { return { name: e.数据, type: 'line', stack: 'Total', data: e?.数值1.split(',') } })
+  option.series = propObj.averageOutputLineProp.map((e: any) => { return { name: e.数据, type: 'line', stack: 'Total', data: e.数值1.split(',') } })
   option.legend.data = propObj.averageOutputLineProp.map(e => e.数据)
   loadChart()
 })

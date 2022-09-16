@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 16:36:33
- * @LastEditTime: 2022-09-15 23:14:21
+ * @LastEditTime: 2022-09-16 12:09:05
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\pages\index.vue
@@ -16,13 +16,13 @@ const constructionProgressData = ref([])
 const progressData = ref([])
 const incomeData = ref([])
 
-const getYqzl = async (val?) => {
+const getYqzl = async (val = '湖南') => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-    address: '湖南省',
+    address: val,
   }
   const res: any = await yqzl(param)
   industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名')

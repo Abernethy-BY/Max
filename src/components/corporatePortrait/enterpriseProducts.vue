@@ -2,32 +2,28 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:25:02
+ * @LastEditTime: 2022-09-16 11:15:25
  * @FilePath: \big-screen\src\components\corporatePortrait\enterpriseProducts.vue
  * @Description:企业产品
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
-const propObj = defineProps({
-  enterpriseProductsProp: Array,
-})
-// const imageList = ref([])
-// watch(() => propObj.enterpriseProductsProp, () => {
-//   consola.info(propObj.enterpriseProductsProp)
-//   imageList.value = propObj.enterpriseProductsProp?.['值1']
-// })
+const propObj = defineProps(['enterpriseProductsProp'])
+const imgRef = ref()
+
+const errorFun = (index, e) => { imgRef.value[index].style.display = 'none' }
 </script>
 
 <template>
   <div class="enterprise-products">
     <span class="enterprise-products-title">企业产品</span>
     <div class="enterprise-products-content">
-      <!-- <div v-for="(item, index) in imageList" :key="index" class="image">
-        <el-image style="width: 100%; height: 100%" :src="item" fit="contain" />
-      </div> -->
-      <div v-for="(item, index) in propObj.enterpriseProductsProp" :key="index" class="image">
-        <el-image style="width: 100%; height: 100%" :src="item.值1" fit="contain" />
+      <div v-for="(item, index) in propObj.enterpriseProductsProp" ref="imgRef" :key="index" class="image">
+        <el-image
+          style="width: 100%; height: 100%" :src="item.值1" fit="contain"
+          @error="(err) => errorFun(index, err)"
+        />
       </div>
     </div>
   </div>
