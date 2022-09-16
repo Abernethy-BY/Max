@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 17:20:47
- * @LastEditTime: 2022-09-14 03:33:31
+ * @LastEditTime: 2022-09-16 13:56:53
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\economicalOperation.vue
@@ -15,7 +15,8 @@ import taxation from '~/assets/image/corporatePortrait/economicalOperation/taxat
 import DInvestment from '~/assets/image/corporatePortrait/economicalOperation/R&DInvestment.png'
 import industrialSales from '~/assets/image/corporatePortrait/economicalOperation/industrialSales.png'
 import totalAssets from '~/assets/image/corporatePortrait/economicalOperation/totalAssets.png'
-
+import zichanzongjiBg from '~/assets/image/corporatePortrait/economicalOperation/zichanzongjiBg.png'
+// zichanzongjiBg
 export default {
   props: ['economicalOperationProp'],
   data() {
@@ -28,7 +29,7 @@ export default {
         { bg: DInvestment, value: '', label: '研发投入', remark: '', unit: '万元' },
         { bg: industrialSales, value: '', label: '工业销售总产值', remark: '', unit: '万元' },
         { bg: totalAssets, value: '', label: '资产总计', remark: '', unit: '万元' },
-        { bg: '', value: '', label: '企业目标总额', remark: '', unit: '万元' },
+        { bg: zichanzongjiBg, value: '', label: '企业目标总额', remark: '', unit: '万元' },
       ],
     }
   },

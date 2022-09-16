@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:55:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 11:07:15
+ * @LastEditTime: 2022-09-16 17:36:29
  * @FilePath: \big-screen\src\components\averageOutput\employeeRecruitment.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -89,49 +89,34 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
     &:nth-child(2) {
       animation: anim2 10s linear infinite;
     }
+    &:nth-child(3) {
+      animation: anim2 10s linear infinite;
+    }
+    &:nth-child(4) {
+      animation: anim2 10s linear infinite;
+    }
   }
 
   @keyframes anim1 {
-    0% {
-      top: 0;
-      opacity: 1
-    }
+    0% {      top: 0;      opacity: 1    }
 
-    45% {
-      top: 0;
-      opacity: 1
-    }
+    45% {      top: 0;      opacity: 1    }
 
-    50% {
-      top: -100%;
-      opacity: 0
-    }
+    50% {      top: -100%;      opacity: 0    }
 
-    51% {
-      top: 100%;
-      opacity: 0
-    }
+    51% {      top: 100%;      opacity: 0    }
 
-    95% {
-      top: 100%;
-      opacity: 1
-    }
+    95% {      top: 100%;      opacity: 1    }
 
-    96% {
-      opacity: 1
-    }
+    96% {      opacity: 1    }
 
-    100% {
-      top: 0;
-      opacity: 1
-    }
+    100% {      top: 0;      opacity: 1    }
   }
 
   @keyframes anim2 {
     0% {
       top: 100%;
-      opacity: 0
-    }
+      opacity: 0    }
 
     45% {
       top: 100%;

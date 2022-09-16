@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:53:56
+ * @LastEditTime: 2022-09-16 17:34:27
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -27,7 +27,7 @@ const getXmtz = async (val = '企业风险') => {
   const res: any = await mjcz(param)
   // consola.info(res)
   projectInvestmentData.value = res?.filter(e => e?.['位置'] === '亩均项目统计')
-  employeeRecruitmentData.value = res?.filter(e => e?.['位置'] === '员工招聘')
+  employeeRecruitmentData.value = res?.filter(e => e?.['位置'] === '员工招聘').concat(res?.filter(e => e?.['位置'] === '员工招聘'))
   // const temp = res?.filter(e => e?.['位置'] === '右下')
   // projectInvestmentTableData.value = temp.map((e) => { return { name: e['数据'], investment: e['数值1'] } })
   projectInvestmentTableData.value = res?.filter(e => e?.['位置'] === '右下')

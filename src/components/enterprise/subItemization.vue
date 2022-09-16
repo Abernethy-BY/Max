@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 16:28:05
- * @LastEditTime: 2022-09-14 03:26:48
+ * @LastEditTime: 2022-09-16 17:09:59
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\enterprise\subItemization.vue
@@ -40,7 +40,7 @@ export default {
         { image: totalProfitBg, label: '利润总额', value: '', unit: '亿元' },
         { image: taxAmountBg, label: '税收额', value: '', unit: '亿元' },
         { image: energyConsumptionBg, label: '水耗', value: '', unit: '万度' },
-        { image: powerConsumptionBg, label: '电耗', value: '', unit: '万度' },
+        { image: powerConsumptionBg, label: '电耗', value: '', unit: '亿度' },
         { image: businessIncomeBg, label: '重点企业主营业务收入', value: '', unit: '亿元' },
         { image: statisticalEnterprisesBg, label: '纳入统计企业', value: '', unit: '家' },
         { image: averageIndexPerAcreBg, label: '亩均指数', value: '', unit: '' },

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 10:41:09
+ * @LastEditTime: 2022-09-16 17:28:47
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
  * @Description:企业风险
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -120,7 +120,7 @@ const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h
   k = typeof k !== 'undefined' ? k : 1 / 3
 
   // 计算选中效果分别在 x 轴、y 轴方向上的位移（未选中，则位移均为 0）
-  const offsetX = isSelected ? Math.cos(midRadian) * 0.1 : 0
+  const offsetX = isSelected ? Math.cos(midRadian) * 0.01 : 0
   const offsetY = isSelected ? Math.sin(midRadian) * 0.1 : 0
 
   // 计算高亮效果的放大比例（未高亮，则比例为 1）
@@ -242,7 +242,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       show: false,
       boxHeight: 3,
       // top: '-20%',
-      left: '-15%',
+      left: '-10%',
       viewControl: {
         alpha: 25,
         rotateSensitivity: 1,

@@ -129,6 +129,7 @@ watch(() => prop.riskClassificationProp, (val) => {
 
     :deep(.new-risk-table-main) {
       width: 100%;
+      height: 88%;
 
       background-color: rgba(0, 0, 0, 0);
 

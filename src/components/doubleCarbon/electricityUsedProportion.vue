@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 14:35:26
- * @LastEditTime: 2022-09-14 05:07:07
+ * @LastEditTime: 2022-09-16 13:59:12
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 园区各产业单月用电量及占比（单位：万度） 模块
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsedProportion.vue
@@ -15,7 +15,8 @@ import shengwudayaofang from '~/assets/image/doubleCarbon/shengwudayaofang.png'
 import xianjinshebei from '~/assets/image/doubleCarbon/xianjinshebei.png'
 import newEnergy from '~/assets/image/doubleCarbon/newEnergy.png'
 import other from '~/assets/image/doubleCarbon/other.png'
-
+import gongchengjixieBg from '~/assets/image/doubleCarbon/gongchengjixieBg.png'
+// gongchengjixieBg
 export default {
   props: ['electricityUsedProportionProp'],
   data() {
@@ -26,7 +27,7 @@ export default {
         { label: '生物医药大药房', icon: shengwudayaofang, value: '', proportion: '' },
         { label: '先进设备制造', icon: xianjinshebei, value: '', proportion: '' },
         { label: '新能源材料', icon: newEnergy, value: '', proportion: '' },
-        { label: '工程机械', icon: '', value: '', proportion: '' },
+        { label: '工程机械', icon: gongchengjixieBg, value: '', proportion: '' },
         { label: '其他', icon: other, value: '', proportion: '' },
       ],
     }
@@ -115,7 +116,7 @@ export default {
     justify-content: space-between;
     flex: 0 0 160px;
 
-   :deep(.electricity-used-proportion-content-item-icon)  {
+    :deep(.electricity-used-proportion-content-item-icon) {
       width: 100%;
       height: auto;
     }

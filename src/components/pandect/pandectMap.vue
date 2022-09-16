@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:32:18
+ * @LastEditTime: 2022-09-16 17:09:01
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -140,7 +140,7 @@ const goShrinkMapEnd = () => {
 }
 
 const goLast = () => {
-  if (last.length <= 1) { getMap('100000'); emit('refresh') }
+  if (last.length <= 1) { getMap('430000'); emit('refresh') }
   else {
     last.pop()
     lastName.pop()
