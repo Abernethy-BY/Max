@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-06-16 10:00:26
- * @LastEditTime: 2022-09-05 15:23:52
+ * @LastEditTime: 2022-09-16 22:59:28
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\main.ts
@@ -16,6 +16,10 @@ import 'normalize.css/normalize.css'
 import '@unocss/reset/tailwind.css'
 import 'nprogress/nprogress.css'
 import 'uno.css'
+import 'swiper/css'
+
+import 'swiper/css/effect-cube'
+import 'swiper/css/pagination'
 setDomFontSize()
 const routes = setupLayouts(generatedRoutes)
 

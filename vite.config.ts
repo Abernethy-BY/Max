@@ -15,6 +15,8 @@ import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import pxToRem from 'postcss-pxtorem'
 import autoPreFixer from 'autoprefixer'
+// import swiper from 'swiper'
+// import anime from 'animejs'
 import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-import'
 // import { consola } from 'consola'
 
@@ -54,6 +56,7 @@ export default defineConfig({
         { 'd3-geo': [['*', 'd3']] },
         { '@amap/amap-jsapi-loader': [['default', 'AMapLoader']] },
         { 'js-md5': [['default', 'md5']] },
+        { anime: [['default', 'anime']] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: ['src/composables', 'src/store', 'src/utils', 'src/api', 'src/model'],

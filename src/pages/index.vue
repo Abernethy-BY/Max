@@ -1,11 +1,11 @@
 <!--
- * @Author: By
- * @Date: 2022-08-13 16:36:33
- * @LastEditTime: 2022-09-16 12:09:05
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @Description:
+ * @LastEditTime: 2022-09-16 20:38:30
  * @FilePath: \big-screen\src\pages\index.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Description:首页
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>

@@ -12,6 +12,7 @@ declare global {
   const Big: typeof import('big.js')['default']
   const EffectScope: typeof import('vue')['EffectScope']
   const HttpClient: typeof import('axios-mapper')['default']
+  const anime: typeof import('anime')['default']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
   const axios: typeof import('axios')['default']
@@ -337,6 +338,7 @@ declare module '@vue/runtime-core' {
     readonly Big: UnwrapRef<typeof import('big.js')['default']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly HttpClient: UnwrapRef<typeof import('axios-mapper')['default']>
+    readonly anime: UnwrapRef<typeof import('anime')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
     readonly axios: UnwrapRef<typeof import('axios')['default']>

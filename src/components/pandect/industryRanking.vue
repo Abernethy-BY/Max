@@ -1,12 +1,13 @@
 <!--
- * @Author: By
- * @Date: 2022-08-05 18:38:47
- * @LastEditTime: 2022-09-16 17:02:13
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @Description:
+ * @LastEditTime: 2022-09-16 20:42:26
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Description: 首页柱状图
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
+
 <script lang="ts" setup>
 import type { EChartsType } from 'echarts'
 
@@ -63,7 +64,7 @@ const barOption = ref<any>({
   series: [{ // 柱底圆片
     name: '',
     type: 'pictorialBar',
-    symbolSize: [10, 25], // 调整截面形状
+    symbolSize: [10, 20], // 调整截面形状
     symbolOffset: [5, 0],
     z: 120,
     itemStyle: { color: '#B5C334' },
@@ -71,7 +72,7 @@ const barOption = ref<any>({
   }, { // 柱体
     name: '',
     type: 'bar',
-    barWidth: 25,
+    barWidth: 20,
     barGap: '0%',
     itemStyle: { color: '#B5C334', opacity: 0.7 },
     showBackground: true,
@@ -81,7 +82,7 @@ const barOption = ref<any>({
   }, { // 柱顶圆片
     name: '',
     type: 'pictorialBar',
-    symbolSize: [10, 25], // 调整截面形状
+    symbolSize: [10, 20], // 调整截面形状
     symbolOffset: [5, 0],
     z: 12,
     symbolPosition: 'end',
@@ -90,7 +91,7 @@ const barOption = ref<any>({
   }, { // 结束圆片
     name: '',
     type: 'pictorialBar',
-    symbolSize: [10, 25], // 调整截面形状
+    symbolSize: [10, 20], // 调整截面形状
     symbolOffset: [-5, 0],
     z: 12,
     symbolPosition: 'end',
@@ -152,7 +153,6 @@ const initIndustryEankingRefChart = () => {
       consola.info(intervalYTemp)
       consola.start(intervalNum)
 
-      // consola.info(intervalNum + 1)
       barOption.value.yAxis.data = intervalYTemp
       industryEankingRefChart?.setOption(barOption.value)
     }, 5000)
