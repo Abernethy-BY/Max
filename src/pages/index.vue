@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 15:05:18
+ * @LastEditTime: 2022-09-17 17:57:20
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -16,7 +16,7 @@ const constructionProgressData = ref([])
 const progressData = ref([])
 const incomeData = ref([])
 
-const getYqzl = async (val = '湖南') => {
+const getYqzl = async (val?) => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,

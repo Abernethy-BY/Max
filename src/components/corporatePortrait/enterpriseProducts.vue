@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 17:04:02
+ * @LastEditTime: 2022-09-17 18:03:37
  * @FilePath: \big-screen\src\components\corporatePortrait\enterpriseProducts.vue
  * @Description:企业产品
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -41,7 +41,7 @@ const errorFun = (index, e) => { imgRef.value[index].style.display = 'none' }
         />
       </div>
     </div> -->
-    <el-carousel class="carousel" type="card" indicator-position="none" arrow="never" height="150px" :autoplay="true">
+    <el-carousel class="carousel" type="card" indicator-position="none" arrow="never" :autoplay="true">
       <el-carousel-item v-for="(item, index) in propObj.enterpriseProductsProp" ref="imgRef" :key="index">
         <!-- <h3 class="small justify-center" text="2xl">
           {{ item }}
@@ -89,6 +89,9 @@ const errorFun = (index, e) => { imgRef.value[index].style.display = 'none' }
       background: rgba(255, 255, 255, 0);
     }
 
+    .el-carousel__container{
+      height: 120px;
+    }
     .el-carousel__mask {
       background: rgba(255, 255, 255, 0);
 
