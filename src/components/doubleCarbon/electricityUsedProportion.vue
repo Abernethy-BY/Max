@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 14:35:26
- * @LastEditTime: 2022-09-16 13:59:12
+ * @LastEditTime: 2022-09-17 17:04:59
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 园区各产业单月用电量及占比（单位：万度） 模块
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsedProportion.vue
@@ -10,25 +10,27 @@
 
 <script>
 import electricityUsedProportionBg from '~/assets/image/doubleCarbon/electricityUsedProportion.png'
-import dianzixinxi from '~/assets/image/doubleCarbon/dianzixinxi.png'
-import shengwudayaofang from '~/assets/image/doubleCarbon/shengwudayaofang.png'
-import xianjinshebei from '~/assets/image/doubleCarbon/xianjinshebei.png'
-import newEnergy from '~/assets/image/doubleCarbon/newEnergy.png'
-import other from '~/assets/image/doubleCarbon/other.png'
-import gongchengjixieBg from '~/assets/image/doubleCarbon/gongchengjixieBg.png'
-// gongchengjixieBg
+import electronicInformationIndustryBg from '~/assets/image/doubleCarbon/electronicInformationIndustryBg.png'
+import pharmacyBg from '~/assets/image/doubleCarbon/pharmacyBg.png'
+import equipmentBg from '~/assets/image/doubleCarbon/equipmentBg.png'
+import newEnergyBg from '~/assets/image/doubleCarbon/newEnergyBg.png'
+import constructionMachineryBg from '~/assets/image/doubleCarbon/constructionMachineryBg.png'
+import otherBg from '~/assets/image/doubleCarbon/otherBg.png'
+// import gongchengjixieBg from '~/assets/image/doubleCarbon/gongchengjixieBg.png'
+// newEnergy
+// constructionMachineryBg
 export default {
   props: ['electricityUsedProportionProp'],
   data() {
     return {
       electricityUsedProportionBg,
       electricityUsedProportionList: [
-        { label: '电子信息', icon: dianzixinxi, value: '', proportion: '' },
-        { label: '生物医药大药房', icon: shengwudayaofang, value: '', proportion: '' },
-        { label: '先进设备制造', icon: xianjinshebei, value: '', proportion: '' },
-        { label: '新能源材料', icon: newEnergy, value: '', proportion: '' },
-        { label: '工程机械', icon: gongchengjixieBg, value: '', proportion: '' },
-        { label: '其他', icon: other, value: '', proportion: '' },
+        { label: '电子信息', icon: electronicInformationIndustryBg, value: '', proportion: '' },
+        { label: '生物医药大药房', icon: pharmacyBg, value: '', proportion: '' },
+        { label: '先进设备制造', icon: equipmentBg, value: '', proportion: '' },
+        { label: '新能源材料', icon: newEnergyBg, value: '', proportion: '' },
+        { label: '工程机械', icon: constructionMachineryBg, value: '', proportion: '' },
+        { label: '其他', icon: otherBg, value: '', proportion: '' },
       ],
     }
   },
@@ -45,7 +47,7 @@ export default {
       })
     },
   },
-
+  // electronicInformationIndustryBg
 }
 </script>
 

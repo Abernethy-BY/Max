@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:00:54
+ * @LastEditTime: 2022-09-17 17:17:53
  * @FilePath: \big-screen\src\pages\enterprise.vue
  * @Description:产业图鉴
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -17,7 +17,7 @@ const subItemizationData = ref([])
 const enterpriseProgressData = ref([])
 const coordinateData = ref<InterfaceModel>()
 
-const getData = async (val?) => {
+const getData = async (val = '湖南省') => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,

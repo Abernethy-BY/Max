@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 11:02:01
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:47:23
+ * @LastEditTime: 2022-09-17 11:44:00
  * @FilePath: \big-screen\src\components\common\pie3D.vue
  * @Description: 3D饼图组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -173,7 +173,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
         zoomSensitivity: 0,
         panSensitivity: 0,
         autoRotate: false,
-        distance: 150,
+        distance: 180,
       },
       // 后处理特效可以为画面添加高光、景深、环境光遮蔽（SSAO）、调色等效果。可以让整个画面更富有质感。
       postEffect: {

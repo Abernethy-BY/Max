@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 20:42:26
+ * @LastEditTime: 2022-09-17 16:37:37
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * @Description: 首页柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -24,34 +24,6 @@ const barOption = ref<any>({
       return value.max
     },
   },
-  // dataZoom: [
-  //   {
-  //     type: 'slider',
-  //     show: true, // 隐藏或显示（true）组件
-  //     backgroundColor: 'rgb(19, 63, 100)', // 组件的背景颜色。
-  //     fillerColor: 'rgb(16, 171, 198)', // 选中范围的填充颜色。
-  //     borderColor: 'rgb(19, 63, 100)', // 边框颜色
-  //     showDetail: false, // 是否显示detail，即拖拽时候显示详细数值信息
-  //     startValue: 0, // 数据窗口范围的起始数值
-  //     endValue: 5, // 数据窗口范围的结束数值（一页显示多少条数据）
-  //     yAxisIndex: [0, 1], // 控制哪个轴，如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。此处控制第二根轴
-  //     filterMode: 'empty',
-  //     width: 8, // 滚动条高度
-  //     height: '80%', // 滚动条显示位置
-  //     right: 2, // 距离右边
-  //     handleSize: 0, // 控制手柄的尺寸
-  //     zoomLoxk: true, // 是否锁定选择区域（或叫做数据窗口）的大小
-  //     top: 'middle',
-  //   },
-  //   {
-  //     // 没有下面这块的话，只能拖动滚动条，鼠标滚轮在区域内不能控制外部滚动条
-  //     type: 'inside',
-  //     yAxisIndex: [0, 1], // 控制哪个轴，如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。此处控制第二根轴
-  //     zoomOnMouseWheel: false, // 滚轮是否触发缩放
-  //     moveOnMouseMove: true, // 鼠标移动能否触发平移
-  //     moveOnMouseWheel: true, // 鼠标滚轮能否触发平移
-  //   },
-  // ],
 
   yAxis: {
     type: 'category',
@@ -61,6 +33,32 @@ const barOption = ref<any>({
     axisLabel: { color: '#00B8FF', margin: 14 }, // y轴文字配置
     axisLine: { show: false },
   },
+  dataZoom: [{
+    type: 'slider',
+    show: false, // 隐藏或显示（true）组件
+    backgroundColor: 'rgb(19, 63, 100)', // 组件的背景颜色。
+    fillerColor: 'rgb(16, 171, 198)', // 选中范围的填充颜色。
+    borderColor: 'rgb(19, 63, 100)', // 边框颜色
+    showDetail: false, // 是否显示detail，即拖拽时候显示详细数值信息
+    startValue: 0, // 数据窗口范围的起始数值
+    endValue: 10, // 数据窗口范围的结束数值（一页显示多少条数据）
+    yAxisIndex: [0, 1], // 控制哪个轴，如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。此处控制第二根轴
+    filterMode: 'empty',
+    width: 8, // 滚动条高度
+    height: '80%', // 滚动条显示位置
+    right: 10, // 距离右边
+    handleSize: 0, // 控制手柄的尺寸
+    zoomLoxk: true, // 是否锁定选择区域（或叫做数据窗口）的大小
+    top: 'middle',
+  },
+  {
+    // 没有下面这块的话，只能拖动滚动条，鼠标滚轮在区域内不能控制外部滚动条
+    type: 'inside',
+    yAxisIndex: [0, 1], // 控制哪个轴，如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。此处控制第二根轴
+    zoomOnMouseWheel: false, // 滚轮是否触发缩放
+    moveOnMouseMove: true, // 鼠标移动能否触发平移
+    moveOnMouseWheel: true, // 鼠标滚轮能否触发平移
+  }],
   series: [{ // 柱底圆片
     name: '',
     type: 'pictorialBar',
@@ -125,38 +123,49 @@ const initIndustryEankingRefChart = () => {
   barOption.value.series[3].data = maximumList
 
   const pollingYTemp = prop.industryRankingProp?.map((e: any) => e['数据']) || []
-
-  const temp = new Big(pollingYTemp.length)
-  let pollingMax = temp.div(10).toFixed(0)
-  if (temp.mod(10) > 0)
-    pollingMax += 1
-
-  let intervalNum = 0
-
-  if (pollingYTemp.length <= 10) {
-    barOption.value.yAxis.data = pollingYTemp
+  const yAxisLengthTemp = pollingYTemp.length
+  barOption.value.yAxis.data = pollingYTemp
+  industryEankingRefChart?.setOption(barOption.value)
+  YInterval = setInterval(() => {
+    // 每次向后滚动一个，最后一个从头开始。
+    if (barOption.value.dataZoom[0].endValue === yAxisLengthTemp) {
+      barOption.value.dataZoom[0].endValue = 10
+      barOption.value.dataZoom[0].startValue = 0
+    }
+    else {
+      barOption.value.dataZoom[0].endValue = barOption.value.dataZoom[0].endValue + 1
+      barOption.value.dataZoom[0].startValue = barOption.value.dataZoom[0].startValue + 1
+    }
     industryEankingRefChart?.setOption(barOption.value)
-  }
-  else {
-    const intervalYTemp = pollingYTemp.slice(intervalNum, 10)
-    barOption.value.yAxis.data = intervalYTemp
-    industryEankingRefChart?.setOption(barOption.value)
-    YInterval = setInterval(() => {
-      if (intervalNum === Number(pollingMax) - 1)
-        intervalNum = 0
-      else
-        intervalNum++
+  }, 2000)
 
-      consola.start(typeof pollingMax)
-      consola.start(intervalNum)
-      const intervalYTemp = pollingYTemp.slice(intervalNum * 10, 10 * (new Big(intervalNum).plus(1)))
-      consola.info(intervalYTemp)
-      consola.start(intervalNum)
+  // const temp = new Big(pollingYTemp.length)
+  // let pollingMax = temp.div(10).toFixed(0)
+  // if (temp.mod(10) > 0)
+  //   pollingMax += 1
 
-      barOption.value.yAxis.data = intervalYTemp
-      industryEankingRefChart?.setOption(barOption.value)
-    }, 5000)
-  }
+  // let intervalNum = 0
+  // if (pollingYTemp.length <= 10) {
+  //   barOption.value.yAxis.data = pollingYTemp
+  //   industryEankingRefChart?.setOption(barOption.value)
+  // }
+  // else {
+  //   const intervalYTemp = pollingYTemp.slice(intervalNum, 10)
+  //   barOption.value.yAxis.data = intervalYTemp
+  //   industryEankingRefChart?.setOption(barOption.value)
+
+  //   YInterval = setInterval(() => {
+  //     if (intervalNum === Number(pollingMax) - 1)
+  //       intervalNum = 0
+  //     else
+  //       intervalNum++
+
+  //     const intervalYTemp = pollingYTemp.slice(intervalNum * 10, 10 * (new Big(intervalNum).plus(1)))
+
+  //     barOption.value.yAxis.data = intervalYTemp
+  //     industryEankingRefChart?.setOption(barOption.value)
+  //   }, 5000)
+  // }
 }
 
 watch(() => prop.industryRankingProp, (val) => {

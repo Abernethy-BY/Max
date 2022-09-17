@@ -1,14 +1,13 @@
 <!--
  * @Author: By
  * @Date: 2022-08-09 18:54:19
- * @LastEditTime: 2022-08-19 19:37:17
- * @LastEditors: By
+ * @LastEditTime: 2022-09-17 16:50:29
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\components\enterprise\enterpriseProgress.vue
+ * @FilePath: \big-screen\src\components\enterprise\enterpriseProgress.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script>
-import Big from 'big.js'
 export default {
   props: ['enterpriseProgressProp'],
   data() {
@@ -131,12 +130,18 @@ export default {
       const valueTemp = this.enterpriseProgressProp?.map(e => e?.['值1'])
       this.barOption.series.forEach((element, index) => {
         if (index === this.barOption.series.length - 1) {
-          const maximum = new Big(valueTemp.sort((a, b) => b['值1'] - a['值1'])[valueTemp.length - 1]).times(1.5).toFixed(0)
-          for (let index = 0; index < valueTemp.length; index++) element.data.push(maximum)
+          const temp = valueTemp.sort((a, b) => b['值1'] - a['值1'])[valueTemp.length - 1]
+          if (temp === '') {
+            const maximum = 0
+            for (let index = 0; index < valueTemp.length; index++) element.data.push(maximum)
+          }
+          else {
+            const maximum = new Big(temp).times(1.5).toFixed(0)
+            for (let index = 0; index < valueTemp.length; index++) element.data.push(maximum)
+          }
         }
-        else {
-          element.data = valueTemp
-        }
+
+        else { element.data = valueTemp }
       })
       enterpriseProgressChart.setOption(this.barOption)
       window.addEventListener('resize', () => {

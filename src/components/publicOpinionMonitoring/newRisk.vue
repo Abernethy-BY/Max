@@ -9,6 +9,7 @@
 -->
 
 <script lang="ts" setup>
+import { Vue3SeamlessScroll } from 'vue3-seamless-scroll'
 import businessesNumber from '~/assets/image/publicOpinionMonitoring/businessesNumber.png'
 import businessInformation from '~/assets/image/publicOpinionMonitoring/businessInformation.png'
 import judicialProceedings from '~/assets/image/publicOpinionMonitoring/judicialProceedings.png'
@@ -41,16 +42,9 @@ const subItemizationRiskList = ref([
 
 ])
 
-const rowClass = ({ row, rowIndex }) => {
-  if (rowIndex % 2 === 0)
-    return 'odd'
-
-  else
-    return 'even'
-}
-
 watch(() => prop.latestRisksProp, (val) => {
   tableData.value = prop.latestRisksProp?.['数值1']
+  consola.info(tableData.value)
 })
 
 watch(() => prop.riskClassificationProp, (val) => {
@@ -66,9 +60,37 @@ watch(() => prop.riskClassificationProp, (val) => {
   <div class="new-risk">
     <div class="new-risk-table">
       <span class="new-risk-table-title">最新风险</span>
-      <el-table class="new-risk-table-main" :data="tableData" :row-class-name="rowClass">
+      <!-- <el-table class="new-risk-table-main" :data="tableData" :row-class-name="rowClass">
         <el-table-column v-for="(item, index) in headerList" :key="index" :prop="item.prop" :label="item.label" />
-      </el-table>
+      </el-table> -->
+
+      <div class="table-header" flex h-38 pl-14 pr-14>
+        <span
+          v-for="(item, index) in headerList" :key="index" class="header-span" flex-shrink-0 flex-basis-PE-25
+          flex-basis-0 flex flex-row-between cross-axis-center v-text="item.label"
+        />
+      </div>
+
+      <Vue3SeamlessScroll :list="tableData" class="scroll">
+        <div v-for="(item, index) in tableData" :key="index" class="item" flex h-38 pl-14 pr-14>
+          <span
+            class="employee-recruitment-span " flex-shrink-0 flex-basis-PE-25 flex-basis-0 flex flex-row-between
+            cross-axis-center
+          >{{ item['变更日期'] }}</span>
+          <span
+            class="employee-recruitment-span " flex-shrink-0 flex-basis-PE-25 flex-basis-0 flex flex-row-between
+            cross-axis-center
+          >{{ item['企业名称'] }}</span>
+          <span
+            class="employee-recruitment-span " flex-shrink-0 flex-basis-PE-25 flex-basis-0 flex flex-row-between
+            cross-axis-center
+          >{{ item['风险类型'] }}</span>
+          <span
+            class="employee-recruitment-span " flex-shrink-0 flex-basis-PE-25 flex-basis-0 flex flex-row-between
+            cross-axis-center
+          >{{ item['风险级别'] }}</span>
+        </div>
+      </Vue3SeamlessScroll>
     </div>
     <div class="sub-itemization-risk-box">
       <div v-for="(item, index) in subItemizationRiskList" :key="index" class="sub-itemization-risk-item">
@@ -90,7 +112,8 @@ watch(() => prop.riskClassificationProp, (val) => {
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  // justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   position: relative;
   box-sizing: border-box;
@@ -124,6 +147,42 @@ watch(() => prop.riskClassificationProp, (val) => {
       font-size: 16px;
       font-family: Kaiti SC;
       font-weight: 900;
+      color: #FFFFFF;
+    }
+
+    .table-header {
+      background-color: #0C2155;
+    }
+
+    .scroll {
+      width: 100%;
+      height: 330px;
+      // flex: 0;
+      // margin: 100px auto;
+      overflow: hidden;
+    }
+
+    .item {
+      &:nth-child(even) {
+        background-color: #0C2155;
+      }
+
+      &:nth-child(odd) {
+        background-color: #163366;
+      }
+    }
+
+    .header-span {
+      font-size: .40rem;
+      font-family: Source Han Sans CN;
+      font-weight: 400;
+      color: #39C7EC;
+    }
+
+    .employee-recruitment-span {
+      font-size: .32rem;
+      font-family: Source Han Sans CN;
+      font-weight: 400;
       color: #FFFFFF;
     }
 
@@ -198,7 +257,7 @@ watch(() => prop.riskClassificationProp, (val) => {
   .sub-itemization-risk-box {
     width: 100%;
     height: 271px;
-    margin-top: 28px;
+    // margin-top: 15%;
 
     display: flex;
     flex-wrap: wrap;

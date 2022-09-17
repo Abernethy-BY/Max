@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:15:51
+ * @LastEditTime: 2022-09-17 14:42:59
  * @FilePath: \big-screen\src\pages\doubleCarbon.vue
  * @Description:双碳检测
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -45,35 +45,3 @@ getStjc()
   </div>
 </template>
 
-<!-- <style lang="scss" scoped>
-.double-carbon-box {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-
-  .left-box {
-    width: 537px;
-    height: 75%;
-  }
-
-  .right-box {
-    height: 100%;
-    width: 1271px;
-    display: flex;
-    flex-direction: column;
-
-    .electricity-usage-box {
-      width: 100%;
-      height: 57%;
-    }
-
-    .electricity-used-proportion-box {
-      width: 100%;
-      height: 36%;
-    }
-
-  }
-}
-</style> -->

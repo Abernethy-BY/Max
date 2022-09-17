@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 17:34:04
+ * @LastEditTime: 2022-09-17 11:36:54
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
  * @Description:舆情监控
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -64,10 +64,6 @@ getYqjk()
   align-items: center;
   padding-bottom: 47px;
   box-sizing: border-box;
-  // src\assets\image\publicOpinionMonitoring\publicOpinionMonitoringBg.png
-  // background-image: url("~/assets/image/publicOpinionMonitoring/publicOpinionMonitoringBg.png");
-  // background-size: cover;
-
   * {
     box-sizing: border-box;
   }

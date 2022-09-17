@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 20:38:30
+ * @LastEditTime: 2022-09-17 15:05:18
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -25,7 +25,7 @@ const getYqzl = async (val = '湖南') => {
     address: val,
   }
   const res: any = await yqzl(param)
-  industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名')
+  industryRankingData.value = res?.filter(e => e['位置'] === 'top10产业排名').concat(res?.filter(e => e['位置'] === 'top10产业排名'))
   constructionProgressData.value = res?.filter(e => e['位置'] === '右下')
   progressData.value = res?.find(e => e['位置'] === '五好园区建设进度')
   incomeData.value = res?.filter(e => e['位置'] === '各产业主营业务收入占比')
