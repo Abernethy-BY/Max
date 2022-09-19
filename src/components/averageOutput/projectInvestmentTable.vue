@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 11:32:29
+ * @LastEditTime: 2022-09-19 20:04:52
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestmentTable.vue
  * @Description:项目投资统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -22,7 +22,6 @@ const list = ref<Array<{ label: string; bg: any; value: string | number; unit: s
   { label: '重点企业税收', bg: keyCorporateTaxationBg, value: 0, unit: 'm²/元' },
 ])
 watch(() => propObj.projectInvestmentTableProp, () => {
-  consola.info(propObj.projectInvestmentTableProp)
   propObj.projectInvestmentTableProp.forEach((element: any) => {
     const temp = list.value.find(e => e.label === element.数据)
     if (temp)

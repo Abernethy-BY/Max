@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 20:16:31
- * @LastEditTime: 2022-09-14 03:16:19
+ * @LastEditTime: 2022-09-19 17:05:25
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 五好园区建设进度
  * @FilePath: \big-screen\src\components\pandect\constructionProgress.vue
@@ -210,7 +210,7 @@ export default {
         justify-content: center;
 
         .data {
-          font-size: 26px;
+          font-size: 20px;
           font-family: Source Han Sans CN;
           font-weight: 500;
           color: #f8b62d;

@@ -44,7 +44,6 @@ const subItemizationRiskList = ref([
 
 watch(() => prop.latestRisksProp, (val) => {
   tableData.value = prop.latestRisksProp?.['数值1']
-  consola.info(tableData.value)
 })
 
 watch(() => prop.riskClassificationProp, (val) => {

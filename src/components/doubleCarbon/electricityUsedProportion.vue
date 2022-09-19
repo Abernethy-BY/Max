@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 14:35:26
- * @LastEditTime: 2022-09-17 17:04:59
+ * @LastEditTime: 2022-09-19 21:35:14
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 园区各产业单月用电量及占比（单位：万度） 模块
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsedProportion.vue
@@ -28,7 +28,7 @@ export default {
         { label: '电子信息', icon: electronicInformationIndustryBg, value: '', proportion: '' },
         { label: '生物医药大药房', icon: pharmacyBg, value: '', proportion: '' },
         { label: '先进设备制造', icon: equipmentBg, value: '', proportion: '' },
-        { label: '新能源材料', icon: newEnergyBg, value: '', proportion: '' },
+        { label: '新能源新材料', icon: newEnergyBg, value: '', proportion: '' },
         { label: '工程机械', icon: constructionMachineryBg, value: '', proportion: '' },
         { label: '其他', icon: otherBg, value: '', proportion: '' },
       ],

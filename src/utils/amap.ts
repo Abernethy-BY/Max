@@ -16,8 +16,6 @@
 // })
 // import { type UserModule } from '~/types'
 // export const install: UserModule = ({ app }) => {
-//   consola.warn(app)
-//   consola.warn(VueAMap)
 //   app.use(VueAMap)
 //   VueAMap.initAMapApiLoader({
 //     key: 'd46cf5068a9a22141e1a3719fbcf65f5',

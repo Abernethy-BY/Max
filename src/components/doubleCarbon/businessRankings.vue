@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-15 20:02:08
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 15:51:57
+ * @LastEditTime: 2022-09-19 21:33:41
  * @FilePath: \big-screen\src\components\doubleCarbon\businessRankings.vue
  * @Description:企业排名组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -50,7 +50,7 @@ const option: any = {
     borderColor: 'rgb(19, 63, 100)', // 边框颜色
     showDetail: false, // 是否显示detail，即拖拽时候显示详细数值信息
     startValue: 0, // 数据窗口范围的起始数值
-    endValue: 8, // 数据窗口范围的结束数值（一页显示多少条数据）
+    endValue: 9, // 数据窗口范围的结束数值（一页显示多少条数据）
     yAxisIndex: [0, 1], // 控制哪个轴，如果是 number 表示控制一个轴，如果是 Array 表示控制多个轴。此处控制第二根轴
     filterMode: 'empty',
     width: 8, // 滚动条高度
@@ -71,14 +71,14 @@ const option: any = {
   series: [{ // 柱底圆片
     name: '',
     type: 'pictorialBar',
-    symbolSize: [10, 25], // 调整截面形状
+    symbolSize: [10, 20], // 调整截面形状
     symbolOffset: [-5, 0],
     itemStyle: { color: '#FFC2A7' },
     data: [],
   }, { // 柱体
     name: '',
     type: 'bar',
-    barWidth: 25,
+    barWidth: 20,
     barGap: '0%',
     itemStyle: {
       color: {
@@ -115,7 +115,7 @@ const option: any = {
   }, { // 柱顶圆片
     name: '',
     type: 'pictorialBar',
-    symbolSize: [10, 25], // 调整截面形状
+    symbolSize: [10, 20], // 调整截面形状
     symbolOffset: [5, 0],
     symbolPosition: 'end',
     itemStyle: { color: '#E9B500' },
@@ -123,7 +123,7 @@ const option: any = {
   }, { // 结束圆片
     name: '',
     type: 'pictorialBar',
-    symbolSize: [10, 25], // 调整截面形状
+    symbolSize: [10, 20], // 调整截面形状
     symbolOffset: [5, 0],
     symbolPosition: 'end',
     itemStyle: { color: '#7DFBBD' },
@@ -158,12 +158,12 @@ watch(() => propObj.businessRankingsProp, () => {
 
   const yAxisTemp = sortTemp.map((e) => { return e?.['数据'] }) || []
 
-  const yAxisLengthTemp = new Big(yAxisTemp.length)
+  // const yAxisLengthTemp = new Big(yAxisTemp.length)
   option.yAxis[0].data = yAxisTemp
   myChart?.setOption(option)
 
   setInterval(() => {
-    if (option.dataZoom[0].endValue === yAxisLengthTemp) {
+    if (option.dataZoom[0].endValue === yAxisTemp.length) {
       option.dataZoom[0].endValue = 8
       option.dataZoom[0].startValue = 0
     }

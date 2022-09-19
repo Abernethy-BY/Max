@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 17:16:55
+ * @LastEditTime: 2022-09-19 20:03:14
  * @FilePath: \big-screen\src\components\pandect\income.vue
  * @Description:各产业主营业务收入占比
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -45,9 +45,17 @@ const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h
 
   // 返回曲面参数方程
   return {
-    u: { min: -Math.PI, max: Math.PI * 3, step: Math.PI / 32 },
+    u: {
+      min: -Math.PI,
+      max: Math.PI * 3,
+      step: Math.PI / 32,
+    },
 
-    v: { min: 0, max: Math.PI * 2, step: Math.PI / 20 },
+    v: {
+      min: 0,
+      max: Math.PI * 2,
+      step: Math.PI / 20,
+    },
 
     x(u, v) {
       if (u < startRadian)
@@ -90,7 +98,10 @@ const getPie3D = (pieData, internalDiameterRatio) => {
   let startValue = 0
   let endValue = 0
   const legendData: any = []
-  const k = typeof internalDiameterRatio !== 'undefined' ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio) : 1 / 3
+  const k
+    = typeof internalDiameterRatio !== 'undefined'
+      ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio)
+      : 1 / 3
 
   // 为每一个饼图数据，生成一个 series-surface 配置
   for (let i = 0; i < pieData.length; i += 1) {
@@ -100,9 +111,15 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       name: typeof pieData[i].name === 'undefined' ? `series${i}` : pieData[i].name,
       type: 'surface',
       parametric: true,
-      wireframe: { show: false },
+      wireframe: {
+        show: false,
+      },
       pieData: pieData[i],
-      pieStatus: { selected: false, hovered: false, k },
+      pieStatus: {
+        selected: false,
+        hovered: false,
+        k,
+      },
     }
 
     if (typeof pieData[i].itemStyle !== 'undefined') {
@@ -111,7 +128,9 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       // eslint-disable-next-line no-unused-expressions
       typeof pieData[i].itemStyle.color !== 'undefined' ? (itemStyle.color = pieData[i].itemStyle.color) : null
       // eslint-disable-next-line no-unused-expressions
-      typeof pieData[i].itemStyle.opacity !== 'undefined' ? (itemStyle.opacity = pieData[i].itemStyle.opacity) : null
+      typeof pieData[i].itemStyle.opacity !== 'undefined'
+        ? (itemStyle.opacity = pieData[i].itemStyle.opacity)
+        : null
 
       seriesItem.itemStyle = itemStyle
     }
@@ -119,13 +138,24 @@ const getPie3D = (pieData, internalDiameterRatio) => {
   }
   // 使用上一次遍历时，计算出的数据和 sumValue，调用 getParametricEquation 函数，
   // 向每个 series-surface 传入不同的参数方程 series-surface.parametricEquation，也就是实现每一个扇形。
+
   for (let i = 0; i < series.length; i += 1) {
     endValue = startValue + series[i].pieData.value
 
     series[i].pieData.startRatio = startValue / sumValue
     series[i].pieData.endRatio = endValue / sumValue
-    series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value === series[0].pieData.value ? 35 : 10)
+    series[i].parametricEquation = getParametricEquation(
+      series[i].pieData.startRatio,
+      series[i].pieData.endRatio,
+      false,
+      false,
+      k,
+      // 我这里做了一个处理，使除了第一个之外的值都是10
+      series[i].pieData.value === series[0].pieData.value ? 35 : 10,
+    )
+
     startValue = endValue
+
     legendData.push(series[i].name)
   }
 
@@ -166,7 +196,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
     zAxis3D: { min: -1, max: 1 },
     grid3D: {
       show: false,
-      boxHeight: 3,
+      boxHeight: 5,
       // top: '-20%',
       left: '-15%',
       viewControl: {

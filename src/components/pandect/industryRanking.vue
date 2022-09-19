@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 16:37:37
+ * @LastEditTime: 2022-09-19 21:31:44
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * @Description: 首页柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -59,43 +59,76 @@ const barOption = ref<any>({
     moveOnMouseMove: true, // 鼠标移动能否触发平移
     moveOnMouseWheel: true, // 鼠标滚轮能否触发平移
   }],
-  series: [{ // 柱底圆片
-    name: '',
-    type: 'pictorialBar',
-    symbolSize: [10, 20], // 调整截面形状
-    symbolOffset: [5, 0],
-    z: 120,
-    itemStyle: { color: '#B5C334' },
-    data: [],
-  }, { // 柱体
-    name: '',
-    type: 'bar',
-    barWidth: 20,
-    barGap: '0%',
-    itemStyle: { color: '#B5C334', opacity: 0.7 },
-    showBackground: true,
-    backgroundStyle: { color: 'rgba(255,251,129,0.9000) ' },
-    data: [],
-    label: { show: false },
-  }, { // 柱顶圆片
-    name: '',
-    type: 'pictorialBar',
-    symbolSize: [10, 20], // 调整截面形状
-    symbolOffset: [5, 0],
-    z: 12,
-    symbolPosition: 'end',
-    itemStyle: { color: '#00B8FF' },
-    data: [],
-  }, { // 结束圆片
-    name: '',
-    type: 'pictorialBar',
-    symbolSize: [10, 20], // 调整截面形状
-    symbolOffset: [-5, 0],
-    z: 12,
-    symbolPosition: 'end',
-    itemStyle: { color: '#00B8FF' },
-    data: [],
-  }],
+  series: [
+    { // 柱底圆片
+      name: '',
+      type: 'pictorialBar',
+      symbolSize: [10, 20], // 调整截面形状
+      symbolOffset: [-5, 0],
+      z: 120,
+      itemStyle: { color: '#FFC2A7' },
+      data: [],
+    },
+    {
+      name: '柱体',
+      type: 'bar',
+      barWidth: 20,
+      barGap: '0%',
+      itemStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [{
+            offset: 0, color: '#F4A746', // 0% 处的颜色
+          }, {
+            offset: 1, color: '#FFFB81', // 100% 处的颜色
+          }],
+          global: false,
+        },
+      },
+      showBackground: true,
+      backgroundStyle: {
+        color: {
+          type: 'linear',
+          x: 0,
+          y: 0,
+          x2: 0,
+          y2: 1,
+          colorStops: [{
+            offset: 0, color: '#39ED6D', // 0% 处的颜色
+          }, {
+            offset: 1, color: '#7DFBBD', // 100% 处的颜色
+          }],
+          global: false,
+        },
+      },
+      data: [],
+      label: { show: false },
+    },
+    { // 柱顶圆片
+      name: '',
+      type: 'pictorialBar',
+      symbolSize: [10, 20], // 调整截面形状
+      symbolOffset: [5, 0],
+      z: 12,
+      symbolPosition: 'end',
+      itemStyle: { color: '#E9B500' },
+      data: [],
+    },
+    {
+      name: '结束圆片',
+      type: 'pictorialBar',
+      symbolSize: [10, 20], // 调整截面形状
+      symbolOffset: [5, 0],
+      z: 12,
+      symbolPosition: 'end',
+      itemStyle: { color: '#00B8FF' },
+      data: [],
+    },
+  ],
 })
 
 let industryEankingRefChart: EChartsType | null = null
@@ -116,11 +149,17 @@ const initIndustryEankingRefChart = () => {
   barOption.value.series[0].data = dataTemp
   barOption.value.series[1].data = dataTemp
   barOption.value.series[2].data = dataTemp
-  const maximum = new Big(dataTemp?.sort((a, b) => b['值1'] - a['值1'])[dataTemp.length - 1]).times(1.5).toFixed(0) as number
-  const maximumList: Array<number> = []
+
+  // const maximum = new Big(dataTemp?.sort((a, b) => a['值1'] - b['值1'])[dataTemp.length - 1]).times(1.5).toFixed(0)
+
+  const maximum = Math.max(...dataTemp)
+  const maximumList: Array<number | { type: string }> = []
   for (let index = 0; index < dataTemp.length; index++)
     maximumList.push(maximum)
+
+  // maximumList.push(maximum)
   barOption.value.series[3].data = maximumList
+  // barOption.value.series[4].data = maximumList
 
   const pollingYTemp = prop.industryRankingProp?.map((e: any) => e['数据']) || []
   const yAxisLengthTemp = pollingYTemp.length
@@ -138,34 +177,6 @@ const initIndustryEankingRefChart = () => {
     }
     industryEankingRefChart?.setOption(barOption.value)
   }, 2000)
-
-  // const temp = new Big(pollingYTemp.length)
-  // let pollingMax = temp.div(10).toFixed(0)
-  // if (temp.mod(10) > 0)
-  //   pollingMax += 1
-
-  // let intervalNum = 0
-  // if (pollingYTemp.length <= 10) {
-  //   barOption.value.yAxis.data = pollingYTemp
-  //   industryEankingRefChart?.setOption(barOption.value)
-  // }
-  // else {
-  //   const intervalYTemp = pollingYTemp.slice(intervalNum, 10)
-  //   barOption.value.yAxis.data = intervalYTemp
-  //   industryEankingRefChart?.setOption(barOption.value)
-
-  //   YInterval = setInterval(() => {
-  //     if (intervalNum === Number(pollingMax) - 1)
-  //       intervalNum = 0
-  //     else
-  //       intervalNum++
-
-  //     const intervalYTemp = pollingYTemp.slice(intervalNum * 10, 10 * (new Big(intervalNum).plus(1)))
-
-  //     barOption.value.yAxis.data = intervalYTemp
-  //     industryEankingRefChart?.setOption(barOption.value)
-  //   }, 5000)
-  // }
 }
 
 watch(() => prop.industryRankingProp, (val) => {
@@ -180,7 +191,7 @@ onMounted(() => {
 
 <template>
   <div class="industry-ranking-box">
-    <span class="industry-ranking-title">TOP10产业排名</span>
+    <span class="industry-ranking-title">产业排名</span>
     <div ref="industryEankingRef" class="industry-ranking-contain" />
   </div>
 </template>

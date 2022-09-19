@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:07:43
+ * @LastEditTime: 2022-09-19 17:09:13
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -77,13 +77,11 @@ const getMap = async (code) => {
     }
     const temp: any = await getMapdata(param)
     mapArr = temp.features
-    option.geo.label.show = false
     eCharts.registerMap('map', temp)
     chartDom?.setOption(option)
   }
   else {
     mapArr = temp.features
-    option.geo.label.show = true
     eCharts.registerMap('map', temp)
     chartDom?.setOption(option)
   }
@@ -136,7 +134,7 @@ const goShrinkMapEnd = () => {
 }
 
 const goLast = () => {
-  if (last.length <= 1) { getMap('100000'); emit('refresh') }
+  if (last.length <= 1) { getMap('430000'); emit('refresh') }
   else {
     last.pop()
     lastName.pop()
@@ -174,14 +172,10 @@ onMounted(() => {
       <span>{{ propObj.coordinateProp.值1 }}</span><span>{{ propObj.coordinateProp.值2 }}</span>
     </div>
     <div po-a por-0 pobPE-10 flex flex-column-between>
-      <el-image
-        class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
-        @mouseup.prevent="goMagnifyMapTouchEnd"
-      />
-      <el-image
-        class="operate-icon" :src="shrink" fit="fill" mt-22 @mousedown.prevent="goShrinkMapStart"
-        @mouseup.prevent="goShrinkMapEnd"
-      />
+      <el-image class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
+        @mouseup.prevent="goMagnifyMapTouchEnd" />
+      <el-image class="operate-icon" :src="shrink" fit="fill" mt-22 @mousedown.prevent="goShrinkMapStart"
+        @mouseup.prevent="goShrinkMapEnd" />
       <el-image class="operate-icon" mt-22 :src="fanhui" fit="fill" @click="goLast" />
     </div>
   </div>

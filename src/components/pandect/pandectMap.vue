@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 17:09:01
+ * @LastEditTime: 2022-09-19 21:23:06
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -32,18 +32,18 @@ const option = {
       shadowOffsetX: 10,
       shadowOffsetY: 11,
     },
-    emphasis: {
-      itemStyle: { areaColor: '#3A50AB' },
-      borderWidth: 0,
-      label: { show: true, color: '#2ACFF6' },
-    },
-    regions: [{
-      name: '湖南省',
-      itemStyle: {
-        areaColor: 'rgba(241,196,15,.7)',
-        color: '#70a1ff',
-      },
-    }],
+    // emphasis: {
+    //   // itemStyle: { areaColor: '#3A50AB' },
+    //   borderWidth: 0,
+    //   label: { show: true, color: '#2ACFF6' },
+    // },
+    // regions: [{
+    //   name: '湖南省',
+    //   itemStyle: {
+    //     areaColor: 'rgba(241,196,15,.7)',
+    //     color: '#70a1ff',
+    //   },
+    // }],
 
   },
   series: [],
@@ -79,14 +79,14 @@ const getMap = async (code) => {
     }
     const temp: any = await getMapdata(param)
     mapArr = temp.features
-    option.geo.label.show = false
+    // option.geo.label.show = false
     option.geo.zoom = 1.2
     eCharts.registerMap('map', temp)
     chartDom?.setOption(option)
   }
   else {
     mapArr = temp.features
-    option.geo.label.show = true
+    // option.geo.label.show = true
     eCharts.registerMap('map', temp)
     option.geo.zoom = 1.2
     chartDom?.setOption(option)

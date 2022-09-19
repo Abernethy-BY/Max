@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 10:04:58
+ * @LastEditTime: 2022-09-19 17:01:16
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -54,10 +54,10 @@ onUnmounted(() => {
       <div flex-grow-0 flex-shrink-0 flex-basis-PE-29>
         <projectInvestment :project-investment-prop="projectInvestmentData" />
       </div>
-      <div flex-grow-0 flex-shrink-0 flex-basis-PE-32>
+      <div flex-grow-0 flex-shrink-0 flex-basis-PE-35>
         <employeeRecruitment :employee-recruitment-prop="employeeRecruitmentData" />
       </div>
-      <div flex-grow-0 flex-shrink-0 flex-basis-PE-35>
+      <div flex-grow-0 flex-shrink-0 flex-basis-PE-30>
         <projectInvestmentTable :project-investment-table-prop="projectInvestmentTableData" />
       </div>
     </div>
