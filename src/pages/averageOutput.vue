@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-19 17:01:16
+ * @LastEditTime: 2022-09-20 20:02:33
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -15,14 +15,14 @@ const employeeRecruitmentData = ref([])
 const projectInvestmentTableData = ref([])
 const industrialProjectsData = ref([])
 const averagePerAcreIndustryData = ref([])
-const averageOutputLineData = ref([])
-const getXmtz = async (val = '企业风险') => {
+// const averageOutputLineData = ref([])
+const getXmtz = async () => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
     usercode: userInfo.userCode,
     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-    type: val,
+    type: '',
   }
   const res: any = await mjcz(param)
   projectInvestmentData.value = res?.filter(e => e?.['位置'] === '亩均项目统计')
@@ -30,7 +30,7 @@ const getXmtz = async (val = '企业风险') => {
   projectInvestmentTableData.value = res?.filter(e => e?.['位置'] === '右下')
   industrialProjectsData.value = res?.filter(e => e?.['位置'] === '工业亩均')
   averagePerAcreIndustryData.value = res?.filter(e => e?.['位置'] === '产业亩均')
-  averageOutputLineData.value = res?.filter(e => e?.['位置'] === '月数据趋势')
+  // averageOutputLineData.value = res?.filter(e => e?.['位置'] === '月数据趋势')
 }
 getXmtz()
 
@@ -42,12 +42,18 @@ onUnmounted(() => {
 
 <template>
   <div class="average-output-box" flex wPE-100 hPE-100 flex-row-between flex-1>
-    <div flex flex-column-between flex-grow-0 flex-shrink-0 flex-basis-PE-75 pbPE-7>
-      <div flex-grow-0 flex-shrink-0 flex-basis-PE-40>
-        <averageOutputSelect :industrial-projects-prop="industrialProjectsData" :average-per-acre-industry-prop="averagePerAcreIndustryData" />
+    <div flex flex-column-between flex-grow-0 flex-shrink-0 flex-basis-PE-75 pbPE-3>
+      <!-- <div flex-grow-0 flex-shrink-0 flex-basis-PE-30>
+        <averageOutputSelect
+          :industrial-projects-prop="industrialProjectsData"
+          :average-per-acre-industry-prop="averagePerAcreIndustryData"
+        />
+      </div> -->
+      <div flex-grow-0 flex-shrink-0 flex-basis-PE-45>
+        <averageOutputLine title="工业项目" />
       </div>
-      <div flex-grow-0 flex-shrink-0 flex-basis-PE-52>
-        <averageOutputLine :average-output-line-prop="averageOutputLineData" />
+      <div flex-grow-0 flex-shrink-0 flex-basis-PE-45>
+        <averageOutputLine title="产业项目" />
       </div>
     </div>
     <div w-416 hPE-100 pbPE-2 flex flex-column-between>

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-19 20:04:55
+ * @LastEditTime: 2022-09-20 19:03:53
  * @FilePath: \big-screen\src\components\corporatePortrait\enterpriseProducts.vue
  * @Description:企业产品
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,11 +11,13 @@
 <script lang="ts" setup>
 // import { Carousel3d, Slide } from 'vue-carousel-3d'
 import { Swiper, SwiperSlide } from 'swiper/vue'
-import 'swiper/css'
+import { Autoplay } from 'swiper'
+
 const propObj = defineProps(['enterpriseProductsProp'])
 const imgRef = ref()
 
 const errorFun = (index, e) => { imgRef.value[index].style.display = 'none' }
+const modules = [Autoplay]
 </script>
 
 <template>
@@ -31,7 +33,10 @@ const errorFun = (index, e) => { imgRef.value[index].style.display = 'none' }
         />
       </el-carousel-item>
     </el-carousel> -->
-    <Swiper class="swiper-content" :slides-per-view="3" :space-between="50" :loop="true" :autoplay="true">
+    <Swiper
+      class="swiper-content" :slides-per-view="5" :space-between="50" :loop="true" :observer="true"
+      :observe-parents="true" :autoplay="{ delay: 2500, disableOnInteraction: false }" :modules="modules"
+    >
       <SwiperSlide v-for="(item, index) in propObj.enterpriseProductsProp" ref="imgRef" :key="index">
         <el-image
           style="width: 100%; height: 100%" :src="item.值1" fit="contain"

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-09-06 17:46:05
+ * @LastEditTime: 2022-09-20 19:13:42
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -22,7 +22,10 @@ const config: HttpClientConfig = {
 const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
   const userInfo = useUserStore()
-  if (Number(res.data.state) !== 0) {
+  if (Number(res.data.state) !== 0 && Number(res.data.state) !== 5) {
+    ElMessage({ message: res.data.message, type: 'error' })
+  }
+  else if (Number(res.data.state) === 3) {
     userInfo.token = ''
     userInfo.userCode = ''
     userInfo.userRole = ''

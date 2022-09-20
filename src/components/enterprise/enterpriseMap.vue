@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-19 17:09:13
+ * @LastEditTime: 2022-09-20 20:16:44
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -19,7 +19,7 @@ const propObj = withDefaults(defineProps<{ coordinateProp?: InterfaceModel }>(),
 
 const emit = defineEmits(['refresh'])
 
-watch(() => propObj.coordinateProp, () => { consola.info(propObj.coordinateProp) })
+// watch(() => propObj.coordinateProp, () => { consola.info(propObj.coordinateProp) })
 
 const option = {
   geo: {
@@ -52,10 +52,9 @@ const mapRef = ref()
 const userInfo = useUserStore()
 
 let mapArr: any = []
-
-const last: any = []
-const lastName: any = []
-const getMap = async (code) => {
+let last: any = []
+let lastName: any = []
+const getMap = async (code, name = '湖南省', flag) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   loading.value = true
   const submitId = new Date().getTime()
@@ -77,18 +76,27 @@ const getMap = async (code) => {
     }
     const temp: any = await getMapdata(param)
     mapArr = temp.features
+    // option.geo.label.show = false
+    option.geo.zoom = 1.2
     eCharts.registerMap('map', temp)
     chartDom?.setOption(option)
   }
   else {
     mapArr = temp.features
+    // option.geo.label.show = true
     eCharts.registerMap('map', temp)
+    option.geo.zoom = 1.2
     chartDom?.setOption(option)
   }
+
+  if (flag === 'next') {
+    last.push(code)
+    lastName.push(name)
+  }
+  emit('refresh', name)
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   loading.value = false
 }
-
 const loading = ref(false)
 
 const magnifyMap = () => {
@@ -134,11 +142,16 @@ const goShrinkMapEnd = () => {
 }
 
 const goLast = () => {
-  if (last.length <= 1) { getMap('430000'); emit('refresh') }
+  if (last.length <= 1) {
+    getMap('430000', undefined, 'goBack')
+    emit('refresh')
+    last = []
+    lastName = []
+  }
   else {
     last.pop()
     lastName.pop()
-    getMap(last[last.length - 1])
+    getMap(last[last.length - 1], undefined, 'goBack')
     emit('refresh', lastName[lastName.length - 1])
   }
 }
@@ -154,14 +167,11 @@ onMounted(() => {
         return e.properties.name === params.name
       })
 
-      getMap(clickTemp.properties.adcode)
-      last.push(clickTemp.properties.adcode)
-      lastName.push(clickTemp.properties.name)
-      emit('refresh', clickTemp.properties.name)
+      getMap(clickTemp.properties.adcode, clickTemp.properties.name, 'next')
     }
     debounce(drillDownFun, 1000, true)
   })
-  getMap('430000')
+  getMap('430000', undefined, 'next')
 })
 </script>
 
@@ -172,10 +182,14 @@ onMounted(() => {
       <span>{{ propObj.coordinateProp.值1 }}</span><span>{{ propObj.coordinateProp.值2 }}</span>
     </div>
     <div po-a por-0 pobPE-10 flex flex-column-between>
-      <el-image class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
-        @mouseup.prevent="goMagnifyMapTouchEnd" />
-      <el-image class="operate-icon" :src="shrink" fit="fill" mt-22 @mousedown.prevent="goShrinkMapStart"
-        @mouseup.prevent="goShrinkMapEnd" />
+      <el-image
+        class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
+        @mouseup.prevent="goMagnifyMapTouchEnd"
+      />
+      <el-image
+        class="operate-icon" :src="shrink" fit="fill" mt-22 @mousedown.prevent="goShrinkMapStart"
+        @mouseup.prevent="goShrinkMapEnd"
+      />
       <el-image class="operate-icon" mt-22 :src="fanhui" fit="fill" @click="goLast" />
     </div>
   </div>

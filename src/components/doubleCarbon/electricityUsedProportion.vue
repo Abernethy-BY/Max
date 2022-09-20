@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 14:35:26
- * @LastEditTime: 2022-09-19 21:35:14
+ * @LastEditTime: 2022-09-20 17:12:56
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 园区各产业单月用电量及占比（单位：万度） 模块
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsedProportion.vue
@@ -119,7 +119,7 @@ export default {
     flex: 0 0 160px;
 
     :deep(.electricity-used-proportion-content-item-icon) {
-      width: 100%;
+      width: 70%;
       height: auto;
     }
 

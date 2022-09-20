@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-19 21:23:06
+ * @LastEditTime: 2022-09-20 19:32:30
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -32,21 +32,36 @@ const option = {
       shadowOffsetX: 10,
       shadowOffsetY: 11,
     },
-    // emphasis: {
-    //   // itemStyle: { areaColor: '#3A50AB' },
-    //   borderWidth: 0,
-    //   label: { show: true, color: '#2ACFF6' },
-    // },
+    emphasis: {
+      // disabled: true,
+      // focus: 'self',
+      itemStyle: { areaColor: 'rgba(58,80,171,0.5)' },
+      borderWidth: 0,
+      label: { show: true, color: '#2ACFF6' },
+    },
+    select: {
+      itemStyle: { shadowColor: 'rgba(53,53,108,1)' },
+    },
     // regions: [{
-    //   name: '湖南省',
+    //   name: '嘉德工业园',
     //   itemStyle: {
     //     areaColor: 'rgba(241,196,15,.7)',
     //     color: '#70a1ff',
     //   },
+    //   zlevel: 10,
     // }],
 
   },
-  series: [],
+  // series: [{
+  //   name: '园区',
+  //   type: 'map',
+  //   geoIndex: 0,
+  //   data: {
+  //     name: '嘉德工业园',
+  //     value: 0,
+  //   },
+  //   zlevel: 10,
+  // }],
 }
 
 let chartDom: EChartsType | null = null
@@ -55,9 +70,9 @@ const userInfo = useUserStore()
 
 let mapArr: any = []
 
-const last: any = []
-const lastName: any = []
-const getMap = async (code) => {
+let last: any = []
+let lastName: any = []
+const getMap = async (code, name = '湖南省', flag) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   loading.value = true
   const submitId = new Date().getTime()
@@ -91,6 +106,12 @@ const getMap = async (code) => {
     option.geo.zoom = 1.2
     chartDom?.setOption(option)
   }
+
+  if (flag === 'next') {
+    last.push(code)
+    lastName.push(name)
+  }
+  emit('refresh', name)
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   loading.value = false
 }
@@ -140,11 +161,16 @@ const goShrinkMapEnd = () => {
 }
 
 const goLast = () => {
-  if (last.length <= 1) { getMap('430000'); emit('refresh') }
+  if (last.length <= 1) {
+    getMap('430000', undefined, 'goBack')
+    emit('refresh')
+    last = []
+    lastName = []
+  }
   else {
     last.pop()
     lastName.pop()
-    getMap(last[last.length - 1])
+    getMap(last[last.length - 1], undefined, 'goBack')
     emit('refresh', lastName[lastName.length - 1])
   }
 }
@@ -160,14 +186,11 @@ onMounted(() => {
         return e.properties.name === params.name
       })
 
-      getMap(clickTemp.properties.adcode)
-      last.push(clickTemp.properties.adcode)
-      lastName.push(clickTemp.properties.name)
-      emit('refresh', clickTemp.properties.name)
+      getMap(clickTemp.properties.adcode, clickTemp.properties.name, 'next')
     }
     debounce(drillDownFun, 1000, true)
   })
-  getMap('430000')
+  getMap('430000', undefined, 'next')
 })
 </script>
 

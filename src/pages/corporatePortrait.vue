@@ -2,7 +2,7 @@
  * @Author: Forrest-Rice by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-16 10:45:37
+ * @LastEditTime: 2022-09-20 19:39:31
  * @FilePath: \big-screen\src\pages\corporatePortrait.vue
  * @Description:
  * Copyright (c) 2022 by Forrest-Rice email: by15242952083@outlook.com, All Rights Reserved.
@@ -38,7 +38,7 @@ const getQyhx = async () => {
   riskIndexData.value = res?.filter(e => e?.['位置'] === '风险指数')
   corporateIntellectualPropertyData.value = res?.filter(e => e?.['位置'] === '企业知识产权')
   highTechEnterpriseListData.value = res?.filter(e => e?.['位置'] === '是否高新技术企业')
-  newEnterprisesListData.value = res?.filter(e => e?.['位置'] === '是否专精特新企业')
+  newEnterprisesListData.value = res?.filter(e => e?.['位置'] === '专精特新企业')
 
   enterpriseAssociationMapData.value = toRaw(res?.find(e => e?.['位置'] === '企业关联图谱'))
   enterpriseProductsData.value = res?.filter(e => e?.['位置'] === '企业产品')

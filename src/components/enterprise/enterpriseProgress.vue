@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-09 18:54:19
- * @LastEditTime: 2022-09-17 16:50:29
+ * @LastEditTime: 2022-09-20 20:15:34
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\enterprise\enterpriseProgress.vue
@@ -131,9 +131,9 @@ export default {
       this.barOption.series.forEach((element, index) => {
         if (index === this.barOption.series.length - 1) {
           const temp = valueTemp.sort((a, b) => b['值1'] - a['值1'])[valueTemp.length - 1]
-          if (temp === '') {
-            const maximum = 0
-            for (let index = 0; index < valueTemp.length; index++) element.data.push(maximum)
+          if (!temp) {
+            // const maximum = 0
+            // for (let index = 0; index < valueTemp.length; index++) element.data.push(maximum)
           }
           else {
             const maximum = new Big(temp).times(1.5).toFixed(0)

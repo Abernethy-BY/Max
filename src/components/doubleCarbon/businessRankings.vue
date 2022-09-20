@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-15 20:02:08
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-19 21:33:41
+ * @LastEditTime: 2022-09-20 19:58:15
  * @FilePath: \big-screen\src\components\doubleCarbon\businessRankings.vue
  * @Description:企业排名组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -145,20 +145,22 @@ watch(() => propObj.businessRankingsProp, () => {
   initChart()
 
   const temp = propObj.businessRankingsProp
+  // 排序
   const sortTemp = temp.sort((a, b) => Number(b.数值1) - Number(a.数值1))
 
-  const dataTemp = sortTemp.map((e) => { return e?.['数值1'] })
-  const maximum = new Big(dataTemp.sort((a: any, b: any) => b['值1'] - a['值1'])[dataTemp.length - 1]).times(1.5).toFixed(0)
-  option.series.forEach((element, index) => {
-    if (index === option.series.length - 1)
-      for (let index = 0; index < dataTemp.length; index++) element.data.push(maximum)
-    else
-      element.data = dataTemp
-  })
+  const dataTemp: any = sortTemp.map((e) => { return e?.['数值1'] })
+  option.series[0].data = dataTemp
+  option.series[1].data = dataTemp
+  option.series[2].data = dataTemp
+  const maximum = Math.max(...dataTemp)
 
+  const maximumList: Array<number | { type: string }> = []
+  for (let index = 0; index < dataTemp.length; index++)
+    maximumList.push(maximum)
+
+  option.series[3].data = maximumList
   const yAxisTemp = sortTemp.map((e) => { return e?.['数据'] }) || []
 
-  // const yAxisLengthTemp = new Big(yAxisTemp.length)
   option.yAxis[0].data = yAxisTemp
   myChart?.setOption(option)
 
