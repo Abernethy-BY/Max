@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-19 21:31:44
+ * @LastEditTime: 2022-09-21 09:37:56
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * @Description: 首页柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -150,16 +150,13 @@ const initIndustryEankingRefChart = () => {
   barOption.value.series[1].data = dataTemp
   barOption.value.series[2].data = dataTemp
 
-  // const maximum = new Big(dataTemp?.sort((a, b) => a['值1'] - b['值1'])[dataTemp.length - 1]).times(1.5).toFixed(0)
-
+  consola.info(dataTemp)
   const maximum = Math.max(...dataTemp)
   const maximumList: Array<number | { type: string }> = []
   for (let index = 0; index < dataTemp.length; index++)
     maximumList.push(maximum)
 
-  // maximumList.push(maximum)
   barOption.value.series[3].data = maximumList
-  // barOption.value.series[4].data = maximumList
 
   const pollingYTemp = prop.industryRankingProp?.map((e: any) => e['数据']) || []
   const yAxisLengthTemp = pollingYTemp.length
