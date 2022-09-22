@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-21 09:37:56
+ * @LastEditTime: 2022-09-22 15:03:24
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * @Description: 首页柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -64,7 +64,7 @@ const barOption = ref<any>({
       name: '',
       type: 'pictorialBar',
       symbolSize: [10, 20], // 调整截面形状
-      symbolOffset: [-5, 0],
+
       z: 120,
       itemStyle: { color: '#FFC2A7' },
       data: [],
@@ -146,11 +146,12 @@ const initIndustryEankingRefChart = () => {
   initChart()
 
   const dataTemp: any = prop?.industryRankingProp?.map((e: any) => { return e['值1'] === '' ? 0 : e['值1'] })
-  barOption.value.series[0].data = dataTemp
+
+  barOption.value.series[0].data = dataTemp.map((e) => { return { value: e, symbolOffset: e === 0 || !e ? [5, 0] : [-5, 0] } })
+
   barOption.value.series[1].data = dataTemp
   barOption.value.series[2].data = dataTemp
 
-  consola.info(dataTemp)
   const maximum = Math.max(...dataTemp)
   const maximumList: Array<number | { type: string }> = []
   for (let index = 0; index < dataTemp.length; index++)

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-08 21:27:43
+ * @LastEditTime: 2022-09-22 14:39:08
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsage.vue
  * @Description:园区工业用电情况（单位：万度）
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -41,9 +41,9 @@ export default {
         },
         color: ['#60C1FF', '#FFC554', '#FF5F5F'],
         series: [
-          { name: '本月', type: 'line', stack: 'Total', data: [] },
-          { name: '去年同月', type: 'line', stack: 'Total', data: [] },
-          { name: '增长率', type: 'line', stack: 'Total', data: [] },
+          { name: '本月', type: 'line', data: [] },
+          { name: '去年同月', type: 'line', data: [] },
+          { name: '增长率', type: 'line', data: [] },
         ],
       },
       electricityUsageChart: null,
@@ -57,9 +57,10 @@ export default {
         this.electricityUsageChart.resize()
       })
       this.electricityUsageOption.xAxis.data = this.electricityUsageProp.map((e) => { return e['数据'] })
-      this.electricityUsageOption.series[0].data = this.electricityUsageProp.map((e) => { return e['数值1'] })
-      this.electricityUsageOption.series[1].data = this.electricityUsageProp.map((e) => { return e['数值2'] })
-      this.electricityUsageOption.series[2].data = this.electricityUsageProp.map((e) => { return e['图标'] })
+      this.electricityUsageOption.series[0].data = this.electricityUsageProp.map((e) => { return Number(e['数值1']) })
+      this.electricityUsageOption.series[1].data = this.electricityUsageProp.map((e) => { return Number(e['数值2']) })
+      this.electricityUsageOption.series[2].data = this.electricityUsageProp.map((e) => { return Number(e['图标']) })
+      consola.info(this.electricityUsageOption)
       temp.setOption(this.electricityUsageOption)
       this.electricityUsageChart = temp
     },
