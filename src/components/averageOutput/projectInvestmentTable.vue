@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-20 16:56:42
+ * @LastEditTime: 2022-09-22 19:30:41
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestmentTable.vue
  * @Description:项目投资统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -16,10 +16,10 @@ import type { InterfaceModel } from '~/model'
 const propObj = withDefaults(defineProps<{ projectInvestmentTableProp?: Array<InterfaceModel> }>(), { projectInvestmentTableProp: () => [] })
 
 const list = ref<Array<{ label: string; bg: any; value: string | number; unit: string }>>([
-  { label: '园区GDF', bg: gdpBg, value: 0, unit: 'm²/元' },
-  { label: '园区税收', bg: parkTaxationBg, value: 0, unit: 'm²/元' },
-  { label: '园区重点企业税收', bg: keyIndustriesBg, value: 0, unit: 'm²/元' },
-  { label: '重点企业税收', bg: keyCorporateTaxationBg, value: 0, unit: 'm²/元' },
+  { label: '园区GDP', bg: gdpBg, value: 0, unit: '亿元/km²' },
+  { label: '园区税收', bg: parkTaxationBg, value: 0, unit: '亿元/km²' },
+  { label: '园区重点企业税收', bg: keyIndustriesBg, value: 0, unit: '亿元/km²' },
+  { label: '重点企业税收', bg: keyCorporateTaxationBg, value: 0, unit: '亿元/km²' },
 ])
 watch(() => propObj.projectInvestmentTableProp, () => {
   propObj.projectInvestmentTableProp.forEach((element: any) => {

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 20:58:59
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-20 20:02:04
+ * @LastEditTime: 2022-09-22 19:29:07
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputLine.vue
  * @Description:亩均产值折线图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -60,9 +60,16 @@ const initChart = async () => {
     }
     const res: any = await mjcz(param)
 
-    const temp = res?.filter(e => e?.['位置'] === '月数据趋势')
+    // const temp = res?.filter(e => e?.['位置'] === '月数据趋势')
+    let temp: any = []
 
-    option.series = temp.map((e: any) => { return { name: e.数据, type: 'line', stack: 'Total', data: e.数值1.split(',') } })
+    if (propObj.title === '工业项目')
+      temp = res?.filter(e => e?.['位置'] === '工业项目月数据趋势')
+
+    else
+      temp = res?.filter(e => e?.['位置'] === '产业项目月数据趋势')
+
+    option.series = temp.map((e: any) => { return { name: e.数据, type: 'line', data: propObj.title === '工业项目' ? e.数值1.split('，') : e.数值1.split(',') } })
     option.legend.data = temp.map(e => e.数据)
     myChart?.setOption(option)
   }
@@ -71,13 +78,6 @@ const initChart = async () => {
 onMounted(() => {
   initChart()
 })
-
-// watch(() => propObj.averageOutputLineProp, () => {
-//   initChart()
-//   option.series = propObj.averageOutputLineProp.map((e: any) => { return { name: e.数据, type: 'line', stack: 'Total', data: e.数值1.split(',') } })
-//   option.legend.data = propObj.averageOutputLineProp.map(e => e.数据)
-//   loadChart()
-// })
 </script>
 
 <template>
