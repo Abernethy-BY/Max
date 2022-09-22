@@ -56,7 +56,7 @@ export default defineConfig({
         { 'd3-geo': [['*', 'd3']] },
         { '@amap/amap-jsapi-loader': [['default', 'AMapLoader']] },
         { 'js-md5': [['default', 'md5']] },
-        { anime: [['default', 'anime']] },
+        { animejs: [['default', 'anime']] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: ['src/composables', 'src/store', 'src/utils', 'src/api', 'src/model'],
