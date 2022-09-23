@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-20 20:16:44
+ * @LastEditTime: 2022-09-23 17:09:38
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -18,8 +18,6 @@ import type { InterfaceModel } from '~/model'
 const propObj = withDefaults(defineProps<{ coordinateProp?: InterfaceModel }>(), { coordinateProp: () => { return { 位置: '', 数据: '', 数值1: '', 数值2: '', 图标: '' } } })
 
 const emit = defineEmits(['refresh'])
-
-// watch(() => propObj.coordinateProp, () => { consola.info(propObj.coordinateProp) })
 
 const option = {
   geo: {
@@ -76,14 +74,12 @@ const getMap = async (code, name = '湖南省', flag) => {
     }
     const temp: any = await getMapdata(param)
     mapArr = temp.features
-    // option.geo.label.show = false
     option.geo.zoom = 1.2
     eCharts.registerMap('map', temp)
     chartDom?.setOption(option)
   }
   else {
     mapArr = temp.features
-    // option.geo.label.show = true
     eCharts.registerMap('map', temp)
     option.geo.zoom = 1.2
     chartDom?.setOption(option)

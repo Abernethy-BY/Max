@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 14:35:26
- * @LastEditTime: 2022-09-20 17:12:56
+ * @LastEditTime: 2022-09-23 17:09:22
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 园区各产业单月用电量及占比（单位：万度） 模块
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsedProportion.vue
@@ -16,9 +16,6 @@ import equipmentBg from '~/assets/image/doubleCarbon/equipmentBg.png'
 import newEnergyBg from '~/assets/image/doubleCarbon/newEnergyBg.png'
 import constructionMachineryBg from '~/assets/image/doubleCarbon/constructionMachineryBg.png'
 import otherBg from '~/assets/image/doubleCarbon/otherBg.png'
-// import gongchengjixieBg from '~/assets/image/doubleCarbon/gongchengjixieBg.png'
-// newEnergy
-// constructionMachineryBg
 export default {
   props: ['electricityUsedProportionProp'],
   data() {
@@ -47,7 +44,6 @@ export default {
       })
     },
   },
-  // electronicInformationIndustryBg
 }
 </script>
 
@@ -98,7 +94,6 @@ export default {
     position: absolute;
     top: 12px;
     left: 30px;
-    // line-height: 107px;
   }
 
   .electricity-used-proportion-content {
@@ -129,7 +124,6 @@ export default {
       font-family: Source Han Sans CN;
       font-weight: bold;
       color: #9FDBFD;
-      // line-height: 24px;
     }
   }
 }

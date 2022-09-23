@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:55:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 11:45:07
+ * @LastEditTime: 2022-09-23 17:07:24
  * @FilePath: \big-screen\src\components\averageOutput\employeeRecruitment.vue
  * @Description: 招聘信息
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -43,8 +43,6 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
   .scroll {
     width: 415px;
     height: 200px;
-    // flex: 0;
-    // margin: 100px auto;
     overflow: hidden;
   }
 
@@ -56,7 +54,6 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
 
   .employee-recruitment-title {
     font-size: 18px;
-    // font-size: 18px;
     font-family: Source Han Sans CN;
     font-weight: 500;
     color: #1ADCFF;
@@ -65,7 +62,6 @@ const propObj = withDefaults(defineProps<{ employeeRecruitmentProp?: Array<Inter
 
   .employee-recruitment-text {
     font-size: 12px;
-    // font-size: 22px;
     font-family: Source Han Sans CN;
     font-weight: 400;
     color: #FFFFFF;

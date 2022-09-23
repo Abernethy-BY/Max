@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 14:16:30
- * @LastEditTime: 2022-09-15 23:41:17
+ * @LastEditTime: 2022-09-23 17:08:32
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\overviewPage.vue
@@ -26,12 +26,10 @@ import spotChecks from '~/assets/image/corporatePortrait/overview/spotChecks.png
 import qiyefengxianBg from '~/assets/image/corporatePortrait/overview/qiyefengxianBg.png'
 import rongyaoBg from '~/assets/image/corporatePortrait/overview/rongyaoBg.png'
 
-// rongyaoBg
 export default {
   props: ['overviewProp', 'highTechEnterpriseListProp', 'newEnterprisesListProp'],
   data() {
     return {
-      // ~/assets/image/corporatePortrait/subItemization/subItemizationBg.png
       left,
       right,
       subItemizationList: [[
@@ -97,9 +95,6 @@ export default {
         <div class="overview-content">
           <div class="overview-content-item">
             <span class="overview-content-item-title">高新技术企业</span>
-            <!-- <div class="overview-content-item-main" v-for="(item, index) in HighTechEnterpriseList" :key="index">
-              暂无图片
-            </div> -->
             <el-image
               v-for="(imgItem, imgIndex) in HighTechEnterpriseList" :key="imgIndex"
               class="overview-content-item-main" :src="imgItem" fit="contain"
@@ -107,9 +102,6 @@ export default {
           </div>
           <div class="overview-content-item">
             <span class="overview-content-item-title">专精特新企业</span>
-            <!-- <div class="overview-content-item-main" v-for="(item, index) in 3" :key="index">
-              暂无图片
-            </div> -->
             <el-image
               v-for="(imgItem, imgIndex) in newEnterprisesList" :key="imgIndex"
               class="overview-content-item-main" :src="imgItem" fit="contain"
@@ -183,7 +175,6 @@ export default {
       background-size: 100% 100%;
       position: relative;
       padding: 66px 28px 40px;
-      // padding: 66px 28px 40px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -204,7 +195,6 @@ export default {
         display: flex;
         justify-content: center;
         align-items: center;
-        // background-color: #0645b9;
         background-color: white;
 
         font-size: 14px;

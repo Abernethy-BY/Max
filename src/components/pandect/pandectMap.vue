@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-20 19:32:30
+ * @LastEditTime: 2022-09-23 17:10:36
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -33,8 +33,6 @@ const option = {
       shadowOffsetY: 11,
     },
     emphasis: {
-      // disabled: true,
-      // focus: 'self',
       itemStyle: { areaColor: 'rgba(58,80,171,0.5)' },
       borderWidth: 0,
       label: { show: true, color: '#2ACFF6' },
@@ -42,26 +40,7 @@ const option = {
     select: {
       itemStyle: { shadowColor: 'rgba(53,53,108,1)' },
     },
-    // regions: [{
-    //   name: '嘉德工业园',
-    //   itemStyle: {
-    //     areaColor: 'rgba(241,196,15,.7)',
-    //     color: '#70a1ff',
-    //   },
-    //   zlevel: 10,
-    // }],
-
   },
-  // series: [{
-  //   name: '园区',
-  //   type: 'map',
-  //   geoIndex: 0,
-  //   data: {
-  //     name: '嘉德工业园',
-  //     value: 0,
-  //   },
-  //   zlevel: 10,
-  // }],
 }
 
 let chartDom: EChartsType | null = null

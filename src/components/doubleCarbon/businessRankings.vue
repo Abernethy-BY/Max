@@ -200,7 +200,6 @@ watch(() => propObj.businessRankingsProp, () => {
     font-family: Source Han Sans CN;
     font-weight: 400;
     color: #FFFFFF;
-    // line-height: 45px;
     position: absolute;
     top: 1%;
   }

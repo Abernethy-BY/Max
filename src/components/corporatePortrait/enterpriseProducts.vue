@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-22 20:05:34
+ * @LastEditTime: 2022-09-23 17:08:16
  * @FilePath: \big-screen\src\components\corporatePortrait\enterpriseProducts.vue
  * @Description:企业产品
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -22,7 +22,6 @@ const modules = [Autoplay]
 
 <template>
   <div class="enterprise-products">
-    <!--  -->
     <span class="enterprise-products-title">企业产品</span>
 
     <Swiper
@@ -45,7 +44,6 @@ const modules = [Autoplay]
   height: 100%;
   position: relative;
   background-image: url("~/assets/image/corporatePortrait/enterpriseProducts/enterpriseProductsBg.png");
-  // background-size: cover;
   background-size: 100% 100%;
   padding: 74px 24px 10px;
 
@@ -65,24 +63,6 @@ const modules = [Autoplay]
     color: #FFFFFF;
   }
 
-  // :deep(.carousel) {
-  //   width: 100%;
-
-  //   .el-carousel__item {
-  //     min-width: 155px;
-  //     background: rgba(255, 255, 255, 0);
-  //   }
-
-  //   .el-carousel__container {
-  //     height: 120px;
-  //   }
-
-  //   .el-carousel__mask {
-  //     background: rgba(255, 255, 255, 0);
-
-  //   }
-
-  // }
   .swiper-content {
     width: 100%;
   }

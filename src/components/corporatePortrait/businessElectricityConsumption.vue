@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 19:29:16
- * @LastEditTime: 2022-08-30 19:45:12
- * @LastEditors: By
+ * @LastEditTime: 2022-09-23 17:07:49
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 企业工业用电量（单位：万度）
- * @FilePath: \big-screen-vue3\src\components\corporatePortrait\businessElectricityConsumption.vue
+ * @FilePath: \big-screen\src\components\corporatePortrait\businessElectricityConsumption.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script>
@@ -49,7 +49,6 @@ export default {
           barGap: '0%',
           itemStyle: { color: '#B5C334', opacity: 0.7 },
           showBackground: false,
-          // backgroundStyle: { color: 'rgba(255,251,129,0.9000) ' },
           data: [],
           label: { show: false },
         }, { // 柱顶圆片
@@ -109,7 +108,6 @@ export default {
   width: 100%;
   height: 100%;
   background-image: url("~/assets/image/corporatePortrait/businessElectricityConsumption/businessElectricityConsumptionBg.png");
-  // background-size: cover;
   background-size: 100% 100%;
   position: relative;
 

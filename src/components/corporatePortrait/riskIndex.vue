@@ -1,15 +1,14 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 09:41:12
- * @LastEditTime: 2022-08-19 18:35:17
- * @LastEditors: By
+ * @LastEditTime: 2022-09-23 17:09:01
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 风险指数
- * @FilePath: \big-screen-vue3\src\components\corporatePortrait\riskIndex.vue
+ * @FilePath: \big-screen\src\components\corporatePortrait\riskIndex.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 
 <script>
-// import EleResize from '@/util/esresize'
 export default {
   props: ['riskIndexProp'],
   data() {
@@ -87,7 +86,6 @@ export default {
   padding-top: 11%;
 
   background-image: url("~/assets/image/corporatePortrait/riskIndex/riskIndex.png");
-  // background-size: cover;
   background-size: 100% 100%;
 
   .risk-index-title {

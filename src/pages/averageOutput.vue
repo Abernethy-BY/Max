@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-20 20:02:33
+ * @LastEditTime: 2022-09-23 17:06:42
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -15,7 +15,6 @@ const employeeRecruitmentData = ref([])
 const projectInvestmentTableData = ref([])
 const industrialProjectsData = ref([])
 const averagePerAcreIndustryData = ref([])
-// const averageOutputLineData = ref([])
 const getXmtz = async () => {
   const submitId = new Date().getTime()
   const param = {
@@ -30,7 +29,6 @@ const getXmtz = async () => {
   projectInvestmentTableData.value = res?.filter(e => e?.['位置'] === '右下')
   industrialProjectsData.value = res?.filter(e => e?.['位置'] === '工业亩均')
   averagePerAcreIndustryData.value = res?.filter(e => e?.['位置'] === '产业亩均')
-  // averageOutputLineData.value = res?.filter(e => e?.['位置'] === '月数据趋势')
 }
 getXmtz()
 
@@ -43,12 +41,6 @@ onUnmounted(() => {
 <template>
   <div class="average-output-box" flex wPE-100 hPE-100 flex-row-between flex-1>
     <div flex flex-column-between flex-grow-0 flex-shrink-0 flex-basis-PE-75 pbPE-3>
-      <!-- <div flex-grow-0 flex-shrink-0 flex-basis-PE-30>
-        <averageOutputSelect
-          :industrial-projects-prop="industrialProjectsData"
-          :average-per-acre-industry-prop="averagePerAcreIndustryData"
-        />
-      </div> -->
       <div flex-grow-0 flex-shrink-0 flex-basis-PE-45>
         <averageOutputLine title="工业项目" />
       </div>

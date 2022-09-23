@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-27 17:20:47
- * @LastEditTime: 2022-09-16 13:56:53
+ * @LastEditTime: 2022-09-23 17:08:02
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\corporatePortrait\economicalOperation.vue
@@ -16,7 +16,6 @@ import DInvestment from '~/assets/image/corporatePortrait/economicalOperation/R&
 import industrialSales from '~/assets/image/corporatePortrait/economicalOperation/industrialSales.png'
 import totalAssets from '~/assets/image/corporatePortrait/economicalOperation/totalAssets.png'
 import zichanzongjiBg from '~/assets/image/corporatePortrait/economicalOperation/zichanzongjiBg.png'
-// zichanzongjiBg
 export default {
   props: ['economicalOperationProp'],
   data() {
@@ -74,7 +73,6 @@ export default {
   height: 100%;
   background-image: url("~/assets/image/corporatePortrait/economicalOperation/economicalOperationBg.png");
 
-  // background-size: cover;
   background-size: 100% 100%;
   position: relative;
   padding: 65px 15px 21px 15px;

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-22 16:22:41
+ * @LastEditTime: 2022-09-23 17:09:54
  * @FilePath: \big-screen\src\components\enterprise\enterpriseProgress.vue
  * @Description:产业图鉴柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,7 +11,6 @@
 <script lang="ts" setup>
 import type { EChartsType } from 'echarts'
 
-// enterpriseProgressProp
 const prop = defineProps({ enterpriseProgressProp: Array })
 
 const barOption: any = {

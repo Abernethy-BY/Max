@@ -127,14 +127,6 @@ watch(() => prop.riskClassificationProp, (val) => {
     background-image: url("~/assets/image/publicOpinionMonitoring/newRiskTableBg.png");
     background-size: 100% 100%;
 
-    // ::v-deep .new-risk-table-bg {
-    //   width: 100%;
-    //   height: 51.5%;
-    //   position: absolute;
-    //   top: 0;
-    //   left: 0;
-    // }
-
     .new-risk-table-title {
       display: flex;
       width: 100%;

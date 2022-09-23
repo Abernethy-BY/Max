@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 11:36:54
+ * @LastEditTime: 2022-09-23 17:11:37
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
  * @Description:舆情监控
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -31,13 +31,6 @@ const getYqjk = async (flag?) => {
   riskClassificationData.value = res?.filter(e => e['位置'] === '右下')
 }
 
-// const risk = (flag) => {
-//   if (flag === clickFlag.value)
-//     return
-//   clickFlag.value = flag
-//   title.value = flagMap.get(flag)
-//   getYqjk(flagMap.get(flag))
-// }
 getYqjk()
 </script>
 

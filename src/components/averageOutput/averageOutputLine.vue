@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 20:58:59
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-22 19:29:07
+ * @LastEditTime: 2022-09-23 17:06:58
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputLine.vue
  * @Description:亩均产值折线图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -10,15 +10,10 @@
 
 <script lang="ts" setup>
 import type { EChartsType } from 'echarts'
-// import left from '~/assets/image/common/left.png'
-// import right from '~/assets/image/common/right.png'
-// import type { InterfaceModel } from '~/model'
 const propObj = withDefaults(defineProps<{ title?: string }>(), { title: '' })
 
 const averageOutputLineRef = ref()
 const userInfo = useUserStore()
-
-// const handoffFun = (val) => { }
 
 const option: any = {
   backgroundColor: 'rgba(10,30,82,0.4)',
@@ -60,7 +55,6 @@ const initChart = async () => {
     }
     const res: any = await mjcz(param)
 
-    // const temp = res?.filter(e => e?.['位置'] === '月数据趋势')
     let temp: any = []
 
     if (propObj.title === '工业项目')
@@ -84,10 +78,6 @@ onMounted(() => {
   <div class="average-output-line-box" wPE-100 hPE-100 po-r>
     <div wPE-100 class="title-box" po-a flex flex-row-between>
       <span class="title">{{ propObj.title }}月数据趋势</span>
-      <!-- <div class="button-box">
-        <el-image class="handoff-icon" :src="left" fit="cover" @click="handoffFun('left')" />
-        <el-image class="handoff-icon" :src="right" fit="cover" @click="handoffFun('right')" />
-      </div> -->
     </div>
     <div ref="averageOutputLineRef" wPE-100 hPE-100 />
   </div>

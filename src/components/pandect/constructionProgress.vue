@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-08 20:16:31
- * @LastEditTime: 2022-09-19 17:05:25
+ * @LastEditTime: 2022-09-23 17:10:05
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 五好园区建设进度
  * @FilePath: \big-screen\src\components\pandect\constructionProgress.vue
@@ -104,7 +104,6 @@ export default {
 
   .progress-bar-box {
     width: 100%;
-    // height: 25px;
     position: relative;
     display: flex;
     align-items: center;
@@ -173,7 +172,6 @@ export default {
 
     .data-overview-item {
       width: 235px;
-      // height: 83px;
       margin: 11px 19px;
       position: relative;
 
@@ -206,7 +204,6 @@ export default {
         height: 100%;
         display: flex;
         flex-direction: column;
-        // align-items: center;
         justify-content: center;
 
         .data {
@@ -214,7 +211,6 @@ export default {
           font-family: Source Han Sans CN;
           font-weight: 500;
           color: #f8b62d;
-          // line-height: 24px;
         }
 
         .data-unit {
@@ -225,7 +221,6 @@ export default {
         }
 
         .data-title {
-          // margin-top: 8px;
           font-size: 14px;
           font-family: Source Han Sans CN;
           font-weight: 400;
