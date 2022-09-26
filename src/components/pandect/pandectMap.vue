@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-23 17:10:36
+ * @LastEditTime: 2022-09-26 20:14:52
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -49,8 +49,8 @@ const userInfo = useUserStore()
 
 let mapArr: any = []
 
-let last: any = []
-let lastName: any = []
+const last: any = ref([])
+const lastName: any = ref([])
 const getMap = async (code, name = '湖南省', flag) => {
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
   loading.value = true
@@ -87,8 +87,8 @@ const getMap = async (code, name = '湖南省', flag) => {
   }
 
   if (flag === 'next') {
-    last.push(code)
-    lastName.push(name)
+    last.value.push(code)
+    lastName.value.push(name)
   }
   emit('refresh', name)
   // eslint-disable-next-line @typescript-eslint/no-use-before-define
@@ -140,17 +140,17 @@ const goShrinkMapEnd = () => {
 }
 
 const goLast = () => {
-  if (last.length <= 1) {
+  if (last.value.length <= 1) {
     getMap('430000', undefined, 'goBack')
-    emit('refresh')
-    last = []
-    lastName = []
+    // emit('refresh')
+    last.value = []
+    lastName.value = []
   }
   else {
-    last.pop()
-    lastName.pop()
-    getMap(last[last.length - 1], undefined, 'goBack')
-    emit('refresh', lastName[lastName.length - 1])
+    last.value.pop()
+    lastName.value.pop()
+    getMap(last.value[last.value.length - 1], lastName.value[lastName.value.length - 1], 'goBack')
+    // emit('refresh', lastName.value[lastName.value.length - 1])
   }
 }
 

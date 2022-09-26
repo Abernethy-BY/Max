@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-23 17:09:38
+ * @LastEditTime: 2022-09-26 20:18:19
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -140,15 +140,14 @@ const goShrinkMapEnd = () => {
 const goLast = () => {
   if (last.length <= 1) {
     getMap('430000', undefined, 'goBack')
-    emit('refresh')
     last = []
     lastName = []
   }
   else {
     last.pop()
     lastName.pop()
-    getMap(last[last.length - 1], undefined, 'goBack')
-    emit('refresh', lastName[lastName.length - 1])
+    getMap(last[last.length - 1], lastName[lastName.length - 1], 'goBack')
+    // emit('refresh', lastName[lastName.length - 1])
   }
 }
 

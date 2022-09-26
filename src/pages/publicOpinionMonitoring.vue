@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-23 17:11:37
+ * @LastEditTime: 2022-09-26 21:59:29
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
  * @Description:舆情监控
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -16,6 +16,12 @@ const riskClassificationData = ref([])
 
 const latestRisksData = ref([])
 
+const enterpriseRiskLineData = ref([])
+const enterpriseRiskPieData = ref([])
+
+const CorporatePublicOpinionLineData = ref([])
+const corporatePublicOpinionPieData = ref([])
+
 const getYqjk = async (flag?) => {
   const submitId = new Date().getTime()
   const param = {
@@ -27,7 +33,10 @@ const getYqjk = async (flag?) => {
   const res: any = await yqjk(param)
 
   latestRisksData.value = res?.find(e => e['位置'] === '最新风险')
-
+  enterpriseRiskLineData.value = res?.filter(e => e['位置'] === '企业风险分布')
+  enterpriseRiskPieData.value = res?.filter(e => e['位置'] === '风险级别分布')
+  CorporatePublicOpinionLineData.value = res?.filter(e => e['位置'] === '企业舆情分布')
+  corporatePublicOpinionPieData.value = res?.filter(e => e['位置'] === '舆情级别分布')
   riskClassificationData.value = res?.filter(e => e['位置'] === '右下')
 }
 
@@ -37,10 +46,13 @@ getYqjk()
 <template>
   <div wPE-100 hPE-100 flex flex-row-between pbPE-3>
     <div flex-shrink-0 flex-basis-0 flex-basis-PE-24>
-      <enterpriseRiskCom title="企业风险" />
+      <enterpriseRiskCom
+        title="企业风险" :enterprise-risk-com-line-prop="enterpriseRiskLineData"
+        :pie-prop="enterpriseRiskPieData"
+      />
     </div>
     <div flex-shrink-0 flex-basis-0 flex-basis-PE-24>
-      <enterpriseRiskCom title="企业舆情" />
+      <enterpriseRiskCom title="企业舆情" :enterprise-risk-com-line-prop="CorporatePublicOpinionLineData" :pie-prop="corporatePublicOpinionPieData" />
     </div>
     <div flex-shrink-0 flex-basis-0 flex-basis-PE-25>
       <newRisk :latest-risks-prop="latestRisksData" :risk-classification-prop="riskClassificationData" />
@@ -57,6 +69,7 @@ getYqjk()
   align-items: center;
   padding-bottom: 47px;
   box-sizing: border-box;
+
   * {
     box-sizing: border-box;
   }

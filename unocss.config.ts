@@ -1,12 +1,3 @@
-/*
- * @Author: By
- * @Date: 2022-08-13 10:45:51
- * @LastEditTime: 2022-09-14 15:14:45
- * @LastEditors: BY by15242952083@outlook.com
- * @Description: ,
- * @FilePath: \big-screen\unocss.config.ts
- * 可以输入预定的版权声明、个性签名、空行等
- */
 import {
   defineConfig,
   presetAttributify,
