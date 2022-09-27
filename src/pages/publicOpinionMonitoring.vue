@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-26 21:59:29
+ * @LastEditTime: 2022-09-27 10:35:00
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
  * @Description:舆情监控
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -48,11 +48,14 @@ getYqjk()
     <div flex-shrink-0 flex-basis-0 flex-basis-PE-24>
       <enterpriseRiskCom
         title="企业风险" :enterprise-risk-com-line-prop="enterpriseRiskLineData"
-        :pie-prop="enterpriseRiskPieData"
+        :pie-prop="enterpriseRiskPieData" @editConfirm="getYqjk"
       />
     </div>
     <div flex-shrink-0 flex-basis-0 flex-basis-PE-24>
-      <enterpriseRiskCom title="企业舆情" :enterprise-risk-com-line-prop="CorporatePublicOpinionLineData" :pie-prop="corporatePublicOpinionPieData" />
+      <enterpriseRiskCom
+        title="企业舆情" :enterprise-risk-com-line-prop="CorporatePublicOpinionLineData"
+        :pie-prop="corporatePublicOpinionPieData" @editConfirm="getYqjk"
+      />
     </div>
     <div flex-shrink-0 flex-basis-0 flex-basis-PE-25>
       <newRisk :latest-risks-prop="latestRisksData" :risk-classification-prop="riskClassificationData" />

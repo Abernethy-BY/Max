@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-26 22:00:19
+ * @LastEditTime: 2022-09-27 10:35:21
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
  * @Description: 舆情监控模块
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,6 +11,7 @@
 import type { EChartsOption, EChartsType } from 'echarts'
 
 const prop = defineProps({ title: String, enterpriseRiskComLineProp: Array, pieProp: Array })
+const emit = defineEmits(['editConfirm'])
 /**
  * @description: 搜索输入框
  */
@@ -123,7 +124,6 @@ const initChart = () => {
  * @return {*}
  */
 watch(() => prop.enterpriseRiskComLineProp, () => {
-  consola.info(prop.enterpriseRiskComLineProp)
   initChart()
 
   riskDistributionOption.xAxis.data = prop.enterpriseRiskComLineProp?.map((e: any) => e?.['数据'])
@@ -134,7 +134,7 @@ watch(() => prop.enterpriseRiskComLineProp, () => {
   riskDistributionChart?.setOption(riskDistributionOption)
 })
 
-const getYqjk = (val) => { }
+const getYqjk = (val) => { emit('editConfirm', val) }
 
 /**
  * @description: 3D饼图节点
@@ -328,6 +328,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       textStyle: {
         color: '#ffffff',
       },
+      selectedMode: false,
     },
     xAxis3D: { min: -1, max: 1 },
     yAxis3D: { min: -1, max: 1 },
@@ -366,16 +367,37 @@ watch(() => prop.pieProp, () => {
     window.addEventListener('resize', () => { riskChart?.resize() })
   }
 
-  const option = getPie3D(
-    [
-      { name: 'cc', value: 47, itemStyle: { color: '#f77b66' } },
-      { name: 'aa', value: 44, itemStyle: { color: '#3edce0' } },
-      { name: 'bb', value: 32, itemStyle: { color: '#f94e76' } },
-      { name: 'ee', value: 16, itemStyle: { color: '#018ef1' } },
-      { name: 'dd', value: 23, itemStyle: { color: '#9e60f9' } },
-    ],
-    0.59,
-  )
+  consola.info(prop.pieProp)
+
+  //   {
+  //     "位置": "舆情级别分布",
+  //     "数据": "良好信息",
+  //     "值1": "90",
+  //     "值2": "",
+  //     "图标": ""
+  // }
+  const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
+
+  const temp = prop?.pieProp?.map((e: any, i: any) => {
+    return {
+      name: e.数据,
+      value: Number(e.值1),
+      itemStyle: { color: colorList[i] },
+    }
+  })
+
+  const option = getPie3D(temp, 0.59)
+
+  // const option = getPie3D(
+  //   [
+  //     { name: 'cc', value: 47, itemStyle: { color: '#f77b66' } },
+  //     { name: 'aa', value: 44, itemStyle: { color: '#3edce0' } },
+  //     { name: 'bb', value: 32, itemStyle: { color: '#f94e76' } },
+  //     { name: 'ee', value: 16, itemStyle: { color: '#018ef1' } },
+  //     { name: 'dd', value: 23, itemStyle: { color: '#9e60f9' } },
+  //   ],
+  //   0.59,
+  // )
 
   riskChart.setOption(option)
 

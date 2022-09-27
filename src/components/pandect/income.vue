@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-19 20:03:14
+ * @LastEditTime: 2022-09-27 10:30:04
  * @FilePath: \big-screen\src\components\pandect\income.vue
  * @Description:各产业主营业务收入占比
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -190,6 +190,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       textStyle: {
         color: '#ffffff',
       },
+      selectedMode: false,
     },
     xAxis3D: { min: -1, max: 1 },
     yAxis3D: { min: -1, max: 1 },
@@ -222,10 +223,9 @@ const getPie3D = (pieData, internalDiameterRatio) => {
 
 const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
 watch(() => propObj.incomeProp, () => {
-  const initialValue = 0
   const sumWithInitial = propObj.incomeProp?.reduce(
-    (previousValue: any, currentValue: any) => previousValue + currentValue?.['值1'] === '' ? 0 : Number(currentValue?.['值1']),
-    initialValue,
+    (previousValue: any, currentValue: any) => previousValue + (currentValue?.['值1'] === '' ? 0 : Number(currentValue?.['值1'])),
+    0,
   )
 
   const temp = propObj.incomeProp?.map((e: any, i) => {

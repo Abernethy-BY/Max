@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-26 20:14:52
+ * @LastEditTime: 2022-09-27 18:53:51
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 首页地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -24,7 +24,15 @@ const option = {
     aspectScale: 0.75, // 长宽比
     zoom: 1.2,
     roam: false,
-    label: { show: true, color: 'white', fontSize: '0.3rem' },
+    label: {
+      show: true,
+      color: 'white',
+      fontSize: '0.3rem',
+      // position: 'insideTop',
+      // padding: [4, 4],
+      // distanca: 30,
+      distance: 5,
+    },
     itemStyle: {
       areaColor: '#35356C',
       borderColor: 'white',
@@ -40,6 +48,19 @@ const option = {
     select: {
       itemStyle: { shadowColor: 'rgba(53,53,108,1)' },
     },
+  },
+  series: {
+    geoIndex: 0,
+    labelLayout: () => {
+      return {
+        // eslint-disable-next-line @typescript-eslint/no-use-before-define
+        x: (chartDom?.getWidth() || 0) - 100,
+        moveOverlap: 'shiftY',
+      }
+    },
+    data: [],
+    nameProperty: 'map',
+    nameMap: 'map',
   },
 }
 
@@ -72,6 +93,12 @@ const getMap = async (code, name = '湖南省', flag) => {
       mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
     }
     const temp: any = await getMapdata(param)
+    consola.info(temp)
+    temp.features.forEach((element) => {
+      // if (element.properties.name === '嘉德工业园')
+      //   element.properties.cp = [112.549248, 37.857014]
+    })
+
     mapArr = temp.features
     // option.geo.label.show = false
     option.geo.zoom = 1.2
