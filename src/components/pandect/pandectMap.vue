@@ -1,270 +1,158 @@
 <!--
  * @Author: BY by15242952083@outlook.com
- * @Date: 2022-09-01 16:29:28
+ * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-27 18:53:51
+ * @LastEditTime: 2022-09-28 22:11:34
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
- * @Description: 首页地图
+ * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
-
 <script lang="ts" setup>
 import 'echarts/lib/chart/map'
 import 'echarts/lib/component/geo'
 import type { EChartsType } from 'echarts'
-import shrink from '~/assets/image/pandect/shrink.png'
-import magnify from '~/assets/image/pandect/magnify.png'
+/**
+ * @description: amap
+ * @return {*}
+ */
 
-import fanhui from '~/assets/image/common/navBg/fanhui.png'
+import { shallowRef } from '@vue/reactivity'
+import { ElMessage } from 'element-plus'
 
-const emit = defineEmits(['refresh'])
+let myChart: EChartsType | null = null
+
 const option = {
-  geo: {
-    map: 'map',
-    aspectScale: 0.75, // 长宽比
-    zoom: 1.2,
-    roam: false,
-    label: {
-      show: true,
-      color: 'white',
-      fontSize: '0.3rem',
-      // position: 'insideTop',
-      // padding: [4, 4],
-      // distanca: 30,
-      distance: 5,
-    },
-    itemStyle: {
-      areaColor: '#35356C',
-      borderColor: 'white',
-      shadowColor: 'rgba(53,53,108,.5)',
-      shadowOffsetX: 10,
-      shadowOffsetY: 11,
-    },
-    emphasis: {
-      itemStyle: { areaColor: 'rgba(58,80,171,0.5)' },
-      borderWidth: 0,
-      label: { show: true, color: '#2ACFF6' },
-    },
-    select: {
-      itemStyle: { shadowColor: 'rgba(53,53,108,1)' },
-    },
+  tooltip: {
+    trigger: 'item',
+    formatter: '{b}<br/>{c} (p / km2)',
   },
-  series: {
-    geoIndex: 0,
-    labelLayout: () => {
-      return {
-        // eslint-disable-next-line @typescript-eslint/no-use-before-define
-        x: (chartDom?.getWidth() || 0) - 100,
-        moveOverlap: 'shiftY',
-      }
+  // visualMap: {
+  //   min: 800,
+  //   max: 50000,
+  //   text: ['High', 'Low'],
+  //   realtime: false,
+  //   calculable: true,
+  //   inRange: {
+  //     color: ['lightskyblue', 'yellow', 'orangered'],
+  //   },
+  // },
+  // geo: {
+  //   map: 'map',
+  //   aspectScale: 0.75, // 长宽比
+  //   zoom: 1.2,
+  //   roam: false,
+  //   label: {
+  //     show: true,
+  //     color: 'white',
+  //     fontSize: '0.3rem',
+  //     // position: 'insideTop',
+  //     // padding: [4, 4],
+  //     // distanca: 30,
+  //     distance: 5,
+  //   },
+  //   itemStyle: {
+  //     areaColor: '#35356C',
+  //     borderColor: 'white',
+  //     shadowColor: 'rgba(53,53,108,.5)',
+  //     shadowOffsetX: 10,
+  //     shadowOffsetY: 11,
+  //   },
+  //   emphasis: {
+  //     itemStyle: { areaColor: 'rgba(58,80,171,0.5)' },
+  //     borderWidth: 0,
+  //     label: { show: true, color: '#2ACFF6' },
+  //   },
+  //   select: {
+  //     itemStyle: { shadowColor: 'rgba(53,53,108,1)' },
+  //   },
+  // },
+  series: [
+    {
+      type: 'map',
+      map: 'map',
+      label: { show: true },
+      // labelLayout: {
+      //   moveOverlap: 'shiftX',
+      //   align: 'left',
+      //   verticalAlign: 'top',
+      // },
+      labelLine: {
+        show: true,
+        length2: 5,
+        lineStyle: {
+          color: '#bbb',
+        },
+      },
+      labelLayout() {
+        return {
+          x: (myChart?.getWidth() || 100) - 100,
+          moveOverlap: 'shiftY',
+        }
+      },
     },
-    data: [],
-    nameProperty: 'map',
-    nameMap: 'map',
-  },
+  ],
+  regions: [
+    {
+      name: '海南省',
+      itemStyle: { normal: { opacity: 0 } },
+      label: { show: false },
+    },
+  ],
+
 }
 
-let chartDom: EChartsType | null = null
+const loading = ref<boolean>(false)
+
+/**
+ * @description: 地图节点
+ */
 const mapRef = ref()
-const userInfo = useUserStore()
 
-let mapArr: any = []
+const map = shallowRef(null)
 
-const last: any = ref([])
-const lastName: any = ref([])
-const getMap = async (code, name = '湖南省', flag) => {
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  loading.value = true
-  const submitId = new Date().getTime()
-  const param = {
-    submitid: submitId,
-    usercode: userInfo.userCode,
-    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-    mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
-  }
-  const temp: any = await getMapdata(param)
+//
 
-  if (temp.length === 0) {
-    const submitId = new Date().getTime()
-    const param = {
-      submitid: submitId,
-      usercode: userInfo.userCode,
-      sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-      mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
-    }
-    const temp: any = await getMapdata(param)
-    consola.info(temp)
-    temp.features.forEach((element) => {
-      // if (element.properties.name === '嘉德工业园')
-      //   element.properties.cp = [112.549248, 37.857014]
+const aMapParam = {
+  key: 'a9618a7db350f35205fe226cd22b6868',
+  version: '2.0',
+  plugins: ['geo/DistrictExplorer'],
+  Loca: { version: '2.0.0' },
+  AMapUI: { plugins: ['geo/DistrictExplorer'] },
+}
+const initMap = () => {
+  AMapLoader.load(aMapParam).then(() => {
+    AMapUI.loadUI(['geo/DistrictExplorer'], (DistrictExplorer) => {
+      const districtExplorer = new DistrictExplorer()
+      districtExplorer.loadAreaNode(100000, (error, areaNode) => {
+        if (error) { console.error(error); return }
+        const Json = areaNode.getSubFeatures()
+        consola.info(Json)
+
+        myChart?.hideLoading()
+        eCharts.registerMap('map', { type: 'FeatureCollection', features: Json })
+
+        myChart?.setOption(option)
+      })
     })
-
-    mapArr = temp.features
-    // option.geo.label.show = false
-    option.geo.zoom = 1.2
-    eCharts.registerMap('map', temp)
-    chartDom?.setOption(option)
-  }
-  else {
-    mapArr = temp.features
-    // option.geo.label.show = true
-    eCharts.registerMap('map', temp)
-    option.geo.zoom = 1.2
-    chartDom?.setOption(option)
-  }
-
-  if (flag === 'next') {
-    last.value.push(code)
-    lastName.value.push(name)
-  }
-  emit('refresh', name)
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  loading.value = false
-}
-
-const loading = ref(false)
-
-const magnifyMap = () => {
-  option.geo.zoom += 0.1
-  chartDom?.setOption(option)
-}
-
-const shrinkMap = () => {
-  if (option.geo.zoom < 0.4) {
-    option.geo.zoom = 0.4
-    return
-  }
-  else {
-    option.geo.zoom -= 0.1
-  }
-
-  chartDom?.setOption(option)
-}
-
-let timeOutEvent: NodeJS.Timeout | number = 0
-
-const goMagnifyMapStart = () => {
-  clearInterval(timeOutEvent)
-  timeOutEvent = setInterval(() => { magnifyMap() }, 600)
-}
-
-const goMagnifyMapTouchEnd = () => {
-  clearInterval(timeOutEvent)
-  if (timeOutEvent !== 0)
-    magnifyMap()
-}
-
-let shrinkTimeOut: NodeJS.Timeout | number = 0
-const goShrinkMapStart = () => {
-  clearInterval(shrinkTimeOut)
-  shrinkTimeOut = setInterval(() => { shrinkMap() }, 600)
-}
-
-const goShrinkMapEnd = () => {
-  clearInterval(shrinkTimeOut)
-  if (shrinkTimeOut !== 0)
-    shrinkMap()
-}
-
-const goLast = () => {
-  if (last.value.length <= 1) {
-    getMap('430000', undefined, 'goBack')
-    // emit('refresh')
-    last.value = []
-    lastName.value = []
-  }
-  else {
-    last.value.pop()
-    lastName.value.pop()
-    getMap(last.value[last.value.length - 1], lastName.value[lastName.value.length - 1], 'goBack')
-    // emit('refresh', lastName.value[lastName.value.length - 1])
-  }
+  }).catch((e) => {
+    consola.error(e)
+    ElMessage({ message: `高德地图错误:${e}`, type: 'error' })
+  })
 }
 
 onMounted(() => {
-  chartDom = eCharts.init(mapRef.value)
-  window.addEventListener('resize', () => {
-    chartDom?.resize()
-  })
-  chartDom?.on('click', (params) => {
-    const drillDownFun = () => {
-      const clickTemp = mapArr?.find((e) => {
-        return e.properties.name === params.name
-      })
-
-      getMap(clickTemp.properties.adcode, clickTemp.properties.name, 'next')
-    }
-    debounce(drillDownFun, 1000, true)
-  })
-  getMap('430000', undefined, 'next')
+  myChart = eCharts.init(mapRef.value)
+  myChart.showLoading()
+  initMap()
 })
 </script>
 
 <template>
-  <div v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)" class="map-box">
-    <div class="coordinate-box" po-r z-10>
-      <div class="icon-box" po-a pob-50>
-        <el-image
-          class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
-          @mouseup.prevent="goMagnifyMapTouchEnd"
-        />
-        <el-image
-          class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
-          @mouseup.prevent="goShrinkMapEnd"
-        />
-        <el-image class="operate-icon" :src="fanhui" fit="fill" @click="goLast" />
-      </div>
-      <div class="coordinate-span">
-        <!-- <span>N</span>
-        <span>E</span> -->
-      </div>
-    </div>
-    <div id="mapRef" ref="mapRef" class="pandect-map" />
+  <div v-loading="loading" wPE-100 hPE-100 element-loading-background="rgba(0, 0, 0, 0)" class="map-box">
+    <div id="mapRef" ref="mapRef" wPE-100 hPE-100 />
   </div>
 </template>
 
-<style lang="scss" scoped>
-.map-box {
-  width: 100%;
-  height: 100%;
-  position: relative;
+<style>
 
-  .coordinate-box {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-  }
-
-  :deep(.operate-icon) {
-    width: 48px;
-    height: 48px;
-
-    margin-left: 20px;
-
-  }
-
-  .coordinate-span {
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    ;
-
-    span {
-      font-size: 16px;
-      font-family: Source Han Sans CN;
-      font-weight: 500;
-      color: #FFFFFF;
-      line-height: 16px;
-      text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.58);
-
-    }
-  }
-
-  .pandect-map {
-    width: 100%;
-    height: 100%;
-  }
-}
 </style>

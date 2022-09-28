@@ -1,10 +1,10 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 11:12:28
- * @LastEditTime: 2022-08-13 16:48:25
- * @LastEditors: By
+ * @LastEditTime: 2022-09-28 21:38:18
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 
- * @FilePath: \big-screen-vue3\src\shims.d.ts
+ * @FilePath: \big-screen\src\shims.d.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
 declare interface Window {
@@ -25,6 +25,8 @@ declare module '*.vue' {
 }
 
 declare module 'postcss-pxtorem' {
-  const content:any
+  const content: any
   export default content
 }
+
+declare let AMapUI: any

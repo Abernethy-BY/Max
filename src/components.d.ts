@@ -7,12 +7,13 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    2: typeof import('./components/pandect/pandectMap copy 2.vue')['default']
     AverageOutputLine: typeof import('./components/averageOutput/averageOutputLine.vue')['default']
     AverageOutputSelect: typeof import('./components/averageOutput/averageOutputSelect.vue')['default']
     BusinessElectricityConsumption: typeof import('./components/corporatePortrait/businessElectricityConsumption.vue')['default']
     BusinessRankings: typeof import('./components/doubleCarbon/businessRankings.vue')['default']
     ConstructionProgress: typeof import('./components/pandect/constructionProgress.vue')['default']
-    copy: typeof import('./components/publicOpinionMonitoring/enterpriseRiskCom copy.vue')['default']
+    copy: typeof import('./components/pandect/pandectMap copy.vue')['default']
     CorporateIntellectualProperty: typeof import('./components/corporatePortrait/corporateIntellectualProperty.vue')['default']
     EconomicalOperation: typeof import('./components/corporatePortrait/economicalOperation.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -41,6 +42,8 @@ declare module '@vue/runtime-core' {
     NewRisk: typeof import('./components/publicOpinionMonitoring/newRisk.vue')['default']
     OverviewPage: typeof import('./components/corporatePortrait/overviewPage.vue')['default']
     PandectMap: typeof import('./components/pandect/pandectMap.vue')['default']
+    'PandectMap copy 2': typeof import('./components/pandect/pandectMap copy 2.vue')['default']
+    PandectMapCopy: typeof import('./components/pandect/pandectMapCopy.vue')['default']
     Pie3D: typeof import('./components/common/pie3D.vue')['default']
     ProjectInvestment: typeof import('./components/averageOutput/projectInvestment.vue')['default']
     ProjectInvestmentTable: typeof import('./components/averageOutput/projectInvestmentTable.vue')['default']
