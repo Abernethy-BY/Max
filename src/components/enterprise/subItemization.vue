@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-07-28 16:28:05
- * @LastEditTime: 2022-09-16 17:09:59
+ * @LastEditTime: 2022-09-29 19:41:23
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\components\enterprise\subItemization.vue
@@ -43,7 +43,7 @@ export default {
         { image: powerConsumptionBg, label: '电耗', value: '', unit: '亿度' },
         { image: businessIncomeBg, label: '重点企业主营业务收入', value: '', unit: '亿元' },
         { image: statisticalEnterprisesBg, label: '纳入统计企业', value: '', unit: '家' },
-        { image: averageIndexPerAcreBg, label: '亩均指数', value: '', unit: '' },
+        { image: averageIndexPerAcreBg, label: '亩均指数', value: '', unit: '%' },
       ]],
     }
   },

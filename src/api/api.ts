@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-09-13 11:31:45
+ * @LastEditTime: 2022-09-29 18:25:17
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
@@ -35,7 +35,8 @@ export const yqjk = (param: any) => post('/yqjk.aspx', param)
 export const yzdx = (param: any) => post('/fsdx.aspx', param)
 
 // 获取地区adcode
-export const getAdCode = (param: any) => get('https://restapi.amap.com/v3/config/district', param)
+// export const getAdCode = (param: any) => get('https://restapi.amap.com/v3/config/district', param)
+export const getAdCode = (param: any) => get('https://restapi.amap.com/v3/geocode/geo', param)
 
 // 获取地图数据
 export const getMapdata = (param: any) => post('/getmapdata.aspx', param)
