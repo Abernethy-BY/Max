@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-28 22:11:34
+ * @LastEditTime: 2022-09-29 18:03:10
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -16,7 +16,6 @@ import type { EChartsType } from 'echarts'
  * @return {*}
  */
 
-import { shallowRef } from '@vue/reactivity'
 import { ElMessage } from 'element-plus'
 
 let myChart: EChartsType | null = null
@@ -24,71 +23,41 @@ let myChart: EChartsType | null = null
 const option = {
   tooltip: {
     trigger: 'item',
-    formatter: '{b}<br/>{c} (p / km2)',
+    formatter: param => param.name,
   },
-  // visualMap: {
-  //   min: 800,
-  //   max: 50000,
-  //   text: ['High', 'Low'],
-  //   realtime: false,
-  //   calculable: true,
-  //   inRange: {
-  //     color: ['lightskyblue', 'yellow', 'orangered'],
-  //   },
-  // },
-  // geo: {
-  //   map: 'map',
-  //   aspectScale: 0.75, // 长宽比
-  //   zoom: 1.2,
-  //   roam: false,
-  //   label: {
-  //     show: true,
-  //     color: 'white',
-  //     fontSize: '0.3rem',
-  //     // position: 'insideTop',
-  //     // padding: [4, 4],
-  //     // distanca: 30,
-  //     distance: 5,
-  //   },
-  //   itemStyle: {
-  //     areaColor: '#35356C',
-  //     borderColor: 'white',
-  //     shadowColor: 'rgba(53,53,108,.5)',
-  //     shadowOffsetX: 10,
-  //     shadowOffsetY: 11,
-  //   },
-  //   emphasis: {
-  //     itemStyle: { areaColor: 'rgba(58,80,171,0.5)' },
-  //     borderWidth: 0,
-  //     label: { show: true, color: '#2ACFF6' },
-  //   },
-  //   select: {
-  //     itemStyle: { shadowColor: 'rgba(53,53,108,1)' },
-  //   },
-  // },
   series: [
     {
       type: 'map',
       map: 'map',
-      label: { show: true },
-      // labelLayout: {
-      //   moveOverlap: 'shiftX',
-      //   align: 'left',
-      //   verticalAlign: 'top',
-      // },
+      label: {
+        show: true,
+        color: '#fff',
+        padding: [10, 0, 10, 0],
+        height: 20,
+        formatter: '{b}\n',
+      },
       labelLine: {
         show: true,
         length2: 5,
-        lineStyle: {
-          color: '#bbb',
-        },
+        smooth: true,
+        lineStyle: { color: '#bbb' },
       },
       labelLayout() {
         return {
           x: (myChart?.getWidth() || 100) - 100,
           moveOverlap: 'shiftY',
+          fontSize: '0.29rem',
         }
       },
+      itemStyle: {
+        areaColor: '#35356C',
+        borderColor: 'white',
+        shadowColor: 'rgba(53,53,108,0)',
+        shadowOffsetX: 10,
+        shadowOffsetY: 11,
+      },
+      emphasis: { label: { color: '#eccc68' } },
+      select: { label: { color: '#eccc68' } },
     },
   ],
   regions: [
@@ -101,17 +70,14 @@ const option = {
 
 }
 
-const loading = ref<boolean>(false)
-
 /**
  * @description: 地图节点
  */
 const mapRef = ref()
 
-const map = shallowRef(null)
-
-//
-
+/**
+ * @description: 高德参数
+ */
 const aMapParam = {
   key: 'a9618a7db350f35205fe226cd22b6868',
   version: '2.0',
@@ -119,14 +85,67 @@ const aMapParam = {
   Loca: { version: '2.0.0' },
   AMapUI: { plugins: ['geo/DistrictExplorer'] },
 }
+
+/**
+ * @description: loading参数
+ * @return {*}
+ */
+const loadingParam = {
+  text: '加载中',
+  color: '#c23531',
+  textColor: 'white',
+  fontSize: 30,
+  maskColor: 'rgba(30,7,114,.5)',
+  zlevel: 0,
+}
+
+const disposeParamFun = val => `${Object.keys(val).map(e => `${e}=${val[e]}`).join('&')}cef67f7186b4debe1f9dd24dec1141a4`
+
+/**
+ * @description: 地图点击事件
+ * @param {*} params 点击数据
+ */
+const mapClickFun = async (params) => {
+  // consola.info(params)
+  const param = {
+    key: '79848c3f3fbd1e9321efb5408c3c4a31',
+    // address: encodeURI(params.name),
+    // address: encodeURI(params.name),
+    // address: JSON.stringify(params.name),
+    address: params.name,
+  }
+  const sig = md5(disposeParamFun(param))
+
+  // encodeURIComponent()
+
+  consola.info(param)
+  // param.address = encodeURI(param.address)
+  consola.info(param)
+  consola.info(disposeParamFun(param))
+  const res = await getAdCode({ ...param, sig })
+
+  consola.info(res)
+  // const drillDownFun = () => {
+  //   const clickTemp = mapArr?.find((e) => {
+  //     return e.properties.name === params.name
+  //   })
+
+  //   getMap(clickTemp.properties.adcode, clickTemp.properties.name, 'next')
+  // }
+  // debounce(drillDownFun, 1000, true)
+}
+
+/**
+ * @description: 初始化地图方法
+ * @return {*}
+ */
 const initMap = () => {
   AMapLoader.load(aMapParam).then(() => {
     AMapUI.loadUI(['geo/DistrictExplorer'], (DistrictExplorer) => {
       const districtExplorer = new DistrictExplorer()
-      districtExplorer.loadAreaNode(100000, (error, areaNode) => {
+      districtExplorer.loadAreaNode(430000, (error, areaNode) => {
         if (error) { console.error(error); return }
         const Json = areaNode.getSubFeatures()
-        consola.info(Json)
 
         myChart?.hideLoading()
         eCharts.registerMap('map', { type: 'FeatureCollection', features: Json })
@@ -142,13 +161,14 @@ const initMap = () => {
 
 onMounted(() => {
   myChart = eCharts.init(mapRef.value)
-  myChart.showLoading()
+  myChart.showLoading(loadingParam)
+  myChart?.on('click', mapClickFun)
   initMap()
 })
 </script>
 
 <template>
-  <div v-loading="loading" wPE-100 hPE-100 element-loading-background="rgba(0, 0, 0, 0)" class="map-box">
+  <div wPE-100 hPE-100 class="map-box">
     <div id="mapRef" ref="mapRef" wPE-100 hPE-100 />
   </div>
 </template>

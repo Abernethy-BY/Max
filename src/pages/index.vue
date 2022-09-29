@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-26 20:16:24
+ * @LastEditTime: 2022-09-29 16:38:05
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

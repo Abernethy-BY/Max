@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-14 01:54:03
+ * @LastEditTime: 2022-09-29 16:39:05
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -92,7 +92,7 @@ const jumpToLogin = () => {
         <span po-a fs-20 fw-400 color="#2E9EFF" polPE-40 potPE-36>{{ item.name }}</span>
       </div>
     </div>
-    <main hPE-80 wPE-100 mt-31 flex-1 pl-34 pr-34>
+    <main hPE-80 wPE-100 mt-20 flex-1 pl-34 pr-34>
       <RouterView />
     </main>
   </div>

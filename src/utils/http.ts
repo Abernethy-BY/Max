@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-09-20 19:13:42
+ * @LastEditTime: 2022-09-29 18:02:41
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -15,8 +15,12 @@ import type { meeting } from '~/model'
 
 const config: HttpClientConfig = {
   baseURL: 'http://47.107.96.124:8034',
-  // headers: { 'Content-Type': 'application/json;charset=UTF-8' },
-  headers: {},
+  headers: {
+    'Content-Type': 'application/json;charset=UTF-8',
+    'Accept': 'application/json;charset=UTF-8',
+  },
+
+  // headers: {},
 }
 
 const https = new HttpClient(config)
