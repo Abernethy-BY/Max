@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-30 14:13:52
+ * @LastEditTime: 2022-09-30 14:23:29
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -60,7 +60,7 @@ const option = {
         return {
           x: (myChart?.getWidth() || 100) - 100,
           moveOverlap: 'shiftY',
-          fontSize: '0.29rem',
+          fontSize: '0.4rem',
         }
       },
       itemStyle: {

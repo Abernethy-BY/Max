@@ -7,7 +7,6 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
-    2: typeof import('./components/pandect/pandectMap copy 2.vue')['default']
     AverageOutputLine: typeof import('./components/averageOutput/averageOutputLine.vue')['default']
     AverageOutputSelect: typeof import('./components/averageOutput/averageOutputSelect.vue')['default']
     BusinessElectricityConsumption: typeof import('./components/corporatePortrait/businessElectricityConsumption.vue')['default']
