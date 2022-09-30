@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-29 19:40:02
+ * @LastEditTime: 2022-09-30 14:13:52
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -71,7 +71,7 @@ const option = {
         shadowOffsetY: 11,
       },
       emphasis: { label: { color: '#eccc68' } },
-      select: { label: { color: '#eccc68' } },
+      select: { disabled: true, label: { color: '#eccc68' } },
     },
   ],
   // regions: [
