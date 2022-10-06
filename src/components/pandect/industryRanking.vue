@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-29 19:38:44
+ * @LastEditTime: 2022-10-06 18:20:51
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * @Description: 首页柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -178,7 +178,6 @@ const initIndustryEankingRefChart = () => {
 }
 
 watch(() => prop.industryRankingProp, (val) => {
-  consola.info(prop.industryRankingProp)
   clearInterval(YInterval)
   initIndustryEankingRefChart()
 })

@@ -93,7 +93,6 @@ const getMap = async (code, name = '湖南省', flag) => {
       mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
     }
     const temp: any = await getMapdata(param)
-    consola.info(temp)
     temp.features.forEach((element) => {
       // if (element.properties.name === '嘉德工业园')
       //   element.properties.cp = [112.549248, 37.857014]
@@ -107,7 +106,6 @@ const getMap = async (code, name = '湖南省', flag) => {
   }
   else {
     mapArr = temp.features
-    consola.info(temp)
     // option.geo.label.show = true
     eCharts.registerMap('map', temp)
     option.geo.zoom = 1.2

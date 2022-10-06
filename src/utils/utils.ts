@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-05 15:17:08
+ * @LastEditTime: 2022-10-06 21:31:44
  * @FilePath: \big-screen\src\utils\utils.ts
  * @Description: 工具类
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -346,5 +346,50 @@ export const debounce = (func, wait = 500, immediate = false) => {
     timeout = setTimeout(() => {
       typeof func === 'function' && func()
     }, wait)
+  }
+}
+
+/**
+ * @description: 地图配置项生成方法
+ * @param {*} val 地图名称
+ * @param {*} zlevel 地图层级
+ * @param {*} chart 图表节点
+ * @return {*}
+ */
+export const seriesOption = (val, zlevel, chart, zoom) => {
+  return {
+    type: 'map',
+    map: val,
+    zoom,
+    zlevel,
+    label: {
+      show: true,
+      color: '#fff',
+      padding: [10, 0, 10, 0],
+      height: 20,
+      formatter: '{b}\n',
+    },
+    labelLine: {
+      show: true,
+      length2: 5,
+      smooth: true,
+      lineStyle: { color: '#bbb' },
+    },
+    labelLayout() {
+      return {
+        x: (chart?.getWidth() || 100) - 100,
+        moveOverlap: 'shiftY',
+        fontSize: '0.4rem',
+      }
+    },
+    itemStyle: {
+      areaColor: '#35356C',
+      borderColor: 'white',
+      shadowColor: 'rgba(53,53,108,.5)',
+      shadowOffsetX: 10,
+      shadowOffsetY: 11,
+    },
+    emphasis: { label: { color: '#1e90ff' }, itemStyle: { areaColor: '#1e90ff' } },
+    select: { disabled: true, label: { color: '#eccc68' } },
   }
 }

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-27 10:35:21
+ * @LastEditTime: 2022-10-06 18:20:57
  * @FilePath: \big-screen\src\components\publicOpinionMonitoring\enterpriseRiskCom.vue
  * @Description: 舆情监控模块
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -367,15 +367,6 @@ watch(() => prop.pieProp, () => {
     window.addEventListener('resize', () => { riskChart?.resize() })
   }
 
-  consola.info(prop.pieProp)
-
-  //   {
-  //     "位置": "舆情级别分布",
-  //     "数据": "良好信息",
-  //     "值1": "90",
-  //     "值2": "",
-  //     "图标": ""
-  // }
   const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
 
   const temp = prop?.pieProp?.map((e: any, i: any) => {

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-22 14:39:08
+ * @LastEditTime: 2022-10-06 18:20:43
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsage.vue
  * @Description:园区工业用电情况（单位：万度）
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -60,7 +60,6 @@ export default {
       this.electricityUsageOption.series[0].data = this.electricityUsageProp.map((e) => { return Number(e['数值1']) })
       this.electricityUsageOption.series[1].data = this.electricityUsageProp.map((e) => { return Number(e['数值2']) })
       this.electricityUsageOption.series[2].data = this.electricityUsageProp.map((e) => { return Number(e['图标']) })
-      consola.info(this.electricityUsageOption)
       temp.setOption(this.electricityUsageOption)
       this.electricityUsageChart = temp
     },

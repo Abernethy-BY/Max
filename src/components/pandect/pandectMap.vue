@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-30 17:40:45
+ * @LastEditTime: 2022-10-06 21:31:55
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -33,64 +33,9 @@ let myChart: EChartsType | null = null
  * @description: 地图操作历史
  */
 const mapOperateHistory: any = []
-const option = {
-  tooltip: {
-    trigger: 'item',
-    formatter: param => param.name,
-  },
-  series: [
-    {
-      geoIndex: 0,
-      type: 'map',
-      map: 'map',
-      zoom: 1.2,
-      label: {
-        show: true,
-        color: '#fff',
-        padding: [10, 0, 10, 0],
-        height: 20,
-        formatter: '{b}\n',
-      },
-      labelLine: {
-        show: true,
-        length2: 5,
-        smooth: true,
-        lineStyle: { color: '#bbb' },
-      },
-      labelLayout() {
-        return {
-          x: (myChart?.getWidth() || 100) - 100,
-          moveOverlap: 'shiftY',
-          fontSize: '0.4rem',
-        }
-      },
-      itemStyle: {
-        areaColor: '#35356C',
-        borderColor: 'white',
-        shadowColor: 'rgba(53,53,108,.5)',
-        shadowOffsetX: 10,
-        shadowOffsetY: 11,
-      },
-      emphasis: { disabled: true, label: { color: '#1e90ff' }, itemStyle: { areaColor: '#1e90ff' } },
-      select: { disabled: true, label: { color: '#eccc68' } },
-    },
-  ],
-  // regions: [
-  //   {
-  //     name: '嘉德工业园',
-  //     // itemStyle: { normal: { opacity: 0 } },
-  //     label: { show: false },
-  //     zlevel: 30,
-  //     itemStyle: {
-  //       areaColor: 'red',
-  //       borderColor: 'white',
-  //       shadowColor: 'rgba(53,53,108,0)',
-  //       shadowOffsetX: 10,
-  //       shadowOffsetY: 11,
-  //     },
-  //   },
-  // ],
-
+const option: any = {
+  tooltip: { trigger: 'item', formatter: param => param.name },
+  series: [],
 }
 
 /**
@@ -140,7 +85,7 @@ const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
       districtExplorer.loadAreaNode(val, async (error, areaNode) => {
         if (error) {
           console.error(error)
-          ElMessage({ message: `地图服务器错误:${error}`, type: 'error' })
+          ElMessage({ message: '地图服务器错误', type: 'error' })
           return
         }
         const Json = areaNode.getSubFeatures()
@@ -155,10 +100,19 @@ const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
             mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${val}.json`,
           }
           const temp: any = await getMapdata(param)
-          eCharts.registerMap('map', temp)
+          // const arrTemp = temp.features.map((e, i) => { return { type: 'FeatureCollection', features: e, name: `map${i}` } })
+          const arrTemp: any = []
+          temp.features.forEach((element, index) => {
+            eCharts.registerMap(`map${index}`, { type: 'FeatureCollection', features: [element] })
+            arrTemp.push(seriesOption(`map${index}`, index + 1, myChart, index === 0 ? 1 : 0.1))
+          })
+          option.series = arrTemp
+          // consola.info(arrTemp)
+          // eCharts.registerMap('map', temp)
         }
         else {
           eCharts.registerMap('map', { type: 'FeatureCollection', features: Json })
+          option.series = [seriesOption('map', 1, myChart, 1)]
         }
 
         if (flag === 'drillDown')
@@ -166,11 +120,11 @@ const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
 
         emit('refresh', areaName)
         myChart?.hideLoading()
-
+        consola.info(option)
         myChart?.setOption(option)
       })
     })
-  })
+  }).catch(() => { ElMessage({ message: '地图服务器错误:', type: 'error' }) })
 }
 /**
  * @description: 地图点击事件
