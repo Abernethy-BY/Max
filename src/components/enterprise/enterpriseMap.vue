@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-26 20:18:19
+ * @LastEditTime: 2022-10-07 23:06:07
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,6 +11,7 @@
 import 'echarts/lib/chart/map'
 import 'echarts/lib/component/geo'
 import type { EChartsType } from 'echarts'
+import { ElMessage } from 'element-plus'
 import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
 import fanhui from '~/assets/image/common/navBg/fanhui.png'
@@ -19,159 +20,218 @@ const propObj = withDefaults(defineProps<{ coordinateProp?: InterfaceModel }>(),
 
 const emit = defineEmits(['refresh'])
 
-const option = {
-  geo: {
-    map: 'map',
-    aspectScale: 0.75, // 长宽比
-    zoom: 1.2,
-    roam: false,
-    label: {
-      show: true,
-      color: 'white',
-    },
-    itemStyle: {
-      areaColor: '#35356C',
-      borderColor: 'white',
-      shadowColor: 'rgba(53,53,108,.5)',
-      shadowOffsetX: 10,
-      shadowOffsetY: 11,
-    },
-    emphasis: {
-      itemStyle: { areaColor: '#3A50AB' },
-      borderWidth: 0,
-      label: { show: true, color: '#2ACFF6' },
-    },
-  },
+/**
+ * @description: 地图操作历史
+ */
+const mapOperateHistory: any = []
+
+/**
+ * @description: 地图配置
+ * @return {*}
+ */
+const option: any = {
+  tooltip: { trigger: 'item', formatter: param => param.name },
   series: [],
 }
 
-let chartDom: EChartsType | null = null
+/**
+ * @description: 地图节点
+ */
+let myChart: EChartsType | null = null
+
+/**
+ * @description: 根节点
+ * @return {*}
+ */
 const mapRef = ref()
-const userInfo = useUserStore()
 
-let mapArr: any = []
-let last: any = []
-let lastName: any = []
-const getMap = async (code, name = '湖南省', flag) => {
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  loading.value = true
-  const submitId = new Date().getTime()
-  const param = {
-    submitid: submitId,
-    usercode: userInfo.userCode,
-    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-    mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}_full.json`,
-  }
-  const temp: any = await getMapdata(param)
-
-  if (temp.length === 0) {
-    const submitId = new Date().getTime()
-    const param = {
-      submitid: submitId,
-      usercode: userInfo.userCode,
-      sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-      mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${code}.json`,
-    }
-    const temp: any = await getMapdata(param)
-    mapArr = temp.features
-    option.geo.zoom = 1.2
-    eCharts.registerMap('map', temp)
-    chartDom?.setOption(option)
-  }
-  else {
-    mapArr = temp.features
-    eCharts.registerMap('map', temp)
-    option.geo.zoom = 1.2
-    chartDom?.setOption(option)
-  }
-
-  if (flag === 'next') {
-    last.push(code)
-    lastName.push(name)
-  }
-  emit('refresh', name)
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  loading.value = false
+/**
+ * @description: 高德参数
+ */
+const aMapParam = {
+  key: 'a9618a7db350f35205fe226cd22b6868',
+  version: '2.0',
+  plugins: ['geo/DistrictExplorer'],
+  Loca: { version: '2.0.0' },
+  AMapUI: { plugins: ['geo/DistrictExplorer'] },
 }
-const loading = ref(false)
 
+/**
+ * @description: loading参数
+ * @return {*}
+ */
+const loadingParam = {
+  text: '加载中',
+  color: '#c23531',
+  textColor: 'white',
+  fontSize: 30,
+  maskColor: 'rgba(30,7,114,.0)',
+  zlevel: 0,
+}
+
+/**
+ * @description: 接口参数处理方法
+ * @param {*} val 接口参数
+ * @return {*}
+ */
+const disposeParamFun = val => `${Object.keys(val).map(e => `${e}=${val[e]}`).join('&')}cef67f7186b4debe1f9dd24dec1141a4`
+
+/**
+ * @description: 初始化地图方法
+ * @return {*}
+ */
+const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
+  AMapLoader.load(aMapParam).then(() => {
+    AMapUI.loadUI(['geo/DistrictExplorer'], (DistrictExplorer) => {
+      const districtExplorer = new DistrictExplorer()
+      districtExplorer.loadAreaNode(val, async (error, areaNode) => {
+        if (error) {
+          console.error(error)
+          ElMessage({ message: '地图服务器错误，请刷新重试', type: 'error' })
+          return
+        }
+        const Json = areaNode.getSubFeatures()
+
+        if (Json.length === 0) {
+          const userInfo = useUserStore()
+          const submitId = new Date().getTime()
+          const param = {
+            submitid: submitId,
+            usercode: userInfo.userCode,
+            sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+            mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${val}.json`,
+          }
+          const temp: any = await getMapdata(param)
+          const arrTemp: any = []
+          disposeGeoJson(temp).features.forEach((element, index) => {
+            eCharts.registerMap(`map${index}`, { type: 'FeatureCollection', features: [element] })
+            arrTemp.push(seriesOption(`map${index}`, index + 1, myChart, index === 0 ? 1 : 0.1))
+          })
+          option.series = arrTemp
+        }
+        else {
+          eCharts.registerMap('map', { type: 'FeatureCollection', features: Json })
+          option.series = [seriesOption('map', 1, myChart, 1)]
+        }
+
+        if (flag === 'drillDown')
+          mapOperateHistory.push({ adCode: val, areaName })
+
+        emit('refresh', areaName)
+        myChart?.hideLoading()
+        myChart?.setOption(option)
+      })
+    })
+  }).catch(() => { ElMessage({ message: '地图服务器错误，请刷新重试', type: 'error' }) })
+}
+
+/**
+ * @description: 地图点击事件
+ * @param {*} params 点击数据
+ */
+const mapClickFun = (params) => {
+  // 地图下钻方法
+  const drillDownFun = async () => {
+    const param = { address: params.name, key: '79848c3f3fbd1e9321efb5408c3c4a31' }
+    const sig = md5(disposeParamFun(param))
+    const res: any = await getAdCode({ ...param, sig })
+    myChart?.showLoading(loadingParam)
+    initMap(res[0].adcode, params.name)
+  }
+
+  // 防抖
+  debounce(drillDownFun, 1000, true)
+}
+
+/**
+ * @description: 地图放大方法
+ * @return {*}
+ */
 const magnifyMap = () => {
-  option.geo.zoom += 0.1
-  chartDom?.setOption(option)
+  option.series[0].zoom += 0.1
+  myChart?.setOption(option)
 }
 
+/**
+ * @description: 地图缩小方法
+ * @return {*}
+ */
 const shrinkMap = () => {
-  if (option.geo.zoom < 0.4) {
-    option.geo.zoom = 0.4
-    return
-  }
-  else {
-    option.geo.zoom -= 0.1
-  }
+  if (option.series[0].zoom < 0.4) { option.series[0].zoom = 0.4; return }
+  else { option.series[0].zoom -= 0.1 }
 
-  chartDom?.setOption(option)
+  myChart?.setOption(option)
 }
 
+/**
+ * @description: 地图放大倍数定时器
+ */
 let timeOutEvent: NodeJS.Timeout | number = 0
 
+/**
+ * @description: 鼠标按下地图放大按钮
+ * @return {*}
+ */
 const goMagnifyMapStart = () => {
   clearInterval(timeOutEvent)
   timeOutEvent = setInterval(() => { magnifyMap() }, 600)
 }
 
+/**
+ * @description: 鼠标抬起地图放大按钮
+ * @return {*}
+ */
 const goMagnifyMapTouchEnd = () => {
   clearInterval(timeOutEvent)
   if (timeOutEvent !== 0)
     magnifyMap()
 }
 
+/**
+ * @description: 地图缩小定时器
+ */
 let shrinkTimeOut: NodeJS.Timeout | number = 0
+/**
+ * @description: 鼠标按下地图缩小按钮
+ * @return {*}
+ */
 const goShrinkMapStart = () => {
   clearInterval(shrinkTimeOut)
   shrinkTimeOut = setInterval(() => { shrinkMap() }, 600)
 }
-
+/**
+ * @description:鼠标抬起地图缩小按钮
+ * @return {*}
+ */
 const goShrinkMapEnd = () => {
   clearInterval(shrinkTimeOut)
   if (shrinkTimeOut !== 0)
     shrinkMap()
 }
 
+/**
+ * @description: 地图回退方法
+ * @return {*}
+ */
 const goLast = () => {
-  if (last.length <= 1) {
-    getMap('430000', undefined, 'goBack')
-    last = []
-    lastName = []
-  }
-  else {
-    last.pop()
-    lastName.pop()
-    getMap(last[last.length - 1], lastName[lastName.length - 1], 'goBack')
-    // emit('refresh', lastName[lastName.length - 1])
-  }
+  if (mapOperateHistory.length > 1)
+    mapOperateHistory.pop()
+  const temp = mapOperateHistory[mapOperateHistory.length - 1]
+  myChart?.showLoading(loadingParam)
+  initMap(temp.adCode, temp.areaName, 'goBack')
 }
 
 onMounted(() => {
-  chartDom = eCharts.init(mapRef.value)
-  window.addEventListener('resize', () => {
-    chartDom?.resize()
-  })
-  chartDom?.on('click', (params) => {
-    const drillDownFun = () => {
-      const clickTemp = mapArr?.find((e) => {
-        return e.properties.name === params.name
-      })
-
-      getMap(clickTemp.properties.adcode, clickTemp.properties.name, 'next')
-    }
-    debounce(drillDownFun, 1000, true)
-  })
-  getMap('430000', undefined, 'next')
+  myChart = eCharts.init(mapRef.value)
+  window.addEventListener('resize', () => { myChart?.resize() })
+  myChart.showLoading(loadingParam)
+  myChart?.on('click', mapClickFun)
+  initMap()
 })
 </script>
 
 <template>
-  <div v-loading="loading" class="enterprise-map" element-loading-background="rgba(0, 0, 0, 0)" wPE-100 hPE-100 po-r>
+  <div class="enterprise-map" wPE-100 hPE-100 po-r>
     <div ref="mapRef" wPE-100 hPE-100 />
     <div po-a potPE-0 polPE-0 class="coordinate-data">
       <span>{{ propObj.coordinateProp.值1 }}</span><span>{{ propObj.coordinateProp.值2 }}</span>

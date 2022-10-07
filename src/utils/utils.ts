@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-06 21:31:44
+ * @LastEditTime: 2022-10-07 20:59:03
  * @FilePath: \big-screen\src\utils\utils.ts
  * @Description: 工具类
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -392,4 +392,19 @@ export const seriesOption = (val, zlevel, chart, zoom) => {
     emphasis: { label: { color: '#1e90ff' }, itemStyle: { areaColor: '#1e90ff' } },
     select: { disabled: true, label: { color: '#eccc68' } },
   }
+}
+
+/**
+ * @description: 地图数据处理方法
+ * @param {*} val 地图数据
+ * @return {*}
+ */
+export const disposeGeoJson = (val) => {
+  const temp = clone(val)
+  temp.features[0].properties.childrenNum = null
+  temp.features[0].geometry.coordinates.forEach((element, index) => {
+    if (index !== 0)
+      element.splice(0, element.length)
+  })
+  return temp
 }

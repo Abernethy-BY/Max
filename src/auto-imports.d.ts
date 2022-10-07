@@ -45,6 +45,7 @@ declare global {
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const del: typeof import('./utils/http')['del']
+  const disposeGeoJson: typeof import('./utils/utils')['disposeGeoJson']
   const eCharts: typeof import('echarts')
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
@@ -372,6 +373,7 @@ declare module '@vue/runtime-core' {
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly del: UnwrapRef<typeof import('./utils/http')['del']>
+    readonly disposeGeoJson: UnwrapRef<typeof import('./utils/utils')['disposeGeoJson']>
     readonly eCharts: UnwrapRef<typeof import('echarts')>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>

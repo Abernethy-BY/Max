@@ -29,4 +29,9 @@ declare module 'postcss-pxtorem' {
   export default content
 }
 
+declare module 'virtual:pwa-register' {
+  const content: any
+  export default content
+}
+
 declare let AMapUI: any

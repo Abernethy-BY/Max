@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-06 21:31:55
+ * @LastEditTime: 2022-10-07 23:05:47
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,10 +11,6 @@
 import 'echarts/lib/chart/map'
 import 'echarts/lib/component/geo'
 import type { EChartsType } from 'echarts'
-/**
- * @description: amap
- * @return {*}
- */
 
 import { ElMessage } from 'element-plus'
 import shrink from '~/assets/image/pandect/shrink.png'
@@ -33,6 +29,10 @@ let myChart: EChartsType | null = null
  * @description: 地图操作历史
  */
 const mapOperateHistory: any = []
+
+/**
+ * @description: 地图配置
+ */
 const option: any = {
   tooltip: { trigger: 'item', formatter: param => param.name },
   series: [],
@@ -85,7 +85,7 @@ const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
       districtExplorer.loadAreaNode(val, async (error, areaNode) => {
         if (error) {
           console.error(error)
-          ElMessage({ message: '地图服务器错误', type: 'error' })
+          ElMessage({ message: '地图服务器错误，请刷新重试', type: 'error' })
           return
         }
         const Json = areaNode.getSubFeatures()
@@ -100,15 +100,12 @@ const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
             mapurl: `https://geo.datav.aliyun.com/areas_v3/bound/${val}.json`,
           }
           const temp: any = await getMapdata(param)
-          // const arrTemp = temp.features.map((e, i) => { return { type: 'FeatureCollection', features: e, name: `map${i}` } })
           const arrTemp: any = []
-          temp.features.forEach((element, index) => {
+          disposeGeoJson(temp).features.forEach((element, index) => {
             eCharts.registerMap(`map${index}`, { type: 'FeatureCollection', features: [element] })
             arrTemp.push(seriesOption(`map${index}`, index + 1, myChart, index === 0 ? 1 : 0.1))
           })
           option.series = arrTemp
-          // consola.info(arrTemp)
-          // eCharts.registerMap('map', temp)
         }
         else {
           eCharts.registerMap('map', { type: 'FeatureCollection', features: Json })
@@ -120,12 +117,12 @@ const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
 
         emit('refresh', areaName)
         myChart?.hideLoading()
-        consola.info(option)
         myChart?.setOption(option)
       })
     })
-  }).catch(() => { ElMessage({ message: '地图服务器错误:', type: 'error' }) })
+  }).catch(() => { ElMessage({ message: '地图服务器错误，请刷新重试', type: 'error' }) })
 }
+
 /**
  * @description: 地图点击事件
  * @param {*} params 点击数据
@@ -224,6 +221,7 @@ const goLast = () => {
 
 onMounted(() => {
   myChart = eCharts.init(mapRef.value)
+  window.addEventListener('resize', () => { myChart?.resize() })
   myChart.showLoading(loadingParam)
   myChart?.on('click', mapClickFun)
   initMap()

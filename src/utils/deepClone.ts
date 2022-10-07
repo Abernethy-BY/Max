@@ -47,9 +47,11 @@ function cloneFunction(func) {
     if (body) {
       if (param) {
         const paramArr = param[0].split(',')
+        // eslint-disable-next-line no-new-func
         return new Function(...paramArr, body[0])
       }
       else {
+        // eslint-disable-next-line no-new-func
         return new Function(body[0])
       }
     }
@@ -58,6 +60,7 @@ function cloneFunction(func) {
     }
   }
   else {
+    // eslint-disable-next-line no-eval
     return eval(funcString)
   }
 }
@@ -130,7 +133,7 @@ export function clone(target, map = new WeakMap()) {
   }
 
   // 克隆函数
-  if (type == funcTag)
+  if (type === funcTag)
     return cloneFunction(target)
 
   const keys = type === arrayTag ? undefined : Object.keys(target)
