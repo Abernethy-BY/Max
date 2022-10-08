@@ -40,7 +40,6 @@ declare module '@vue/runtime-core' {
     NewRisk: typeof import('./components/publicOpinionMonitoring/newRisk.vue')['default']
     OverviewPage: typeof import('./components/corporatePortrait/overviewPage.vue')['default']
     PandectMap: typeof import('./components/pandect/pandectMap.vue')['default']
-    'PandectMap copy 2': typeof import('./components/pandect/pandectMap copy 2.vue')['default']
     Pie3D: typeof import('./components/common/pie3D.vue')['default']
     ProjectInvestment: typeof import('./components/averageOutput/projectInvestment.vue')['default']
     ProjectInvestmentTable: typeof import('./components/averageOutput/projectInvestmentTable.vue')['default']

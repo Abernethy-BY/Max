@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-07 23:05:47
+ * @LastEditTime: 2022-10-08 10:05:48
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -133,6 +133,9 @@ const mapClickFun = (params) => {
     const param = { address: params.name, key: '79848c3f3fbd1e9321efb5408c3c4a31' }
     const sig = md5(disposeParamFun(param))
     const res: any = await getAdCode({ ...param, sig })
+    myChart?.dispose()
+    myChart = eCharts.init(mapRef.value)
+    myChart?.on('click', mapClickFun)
     myChart?.showLoading(loadingParam)
     initMap(res[0].adcode, params.name)
   }
@@ -215,6 +218,9 @@ const goLast = () => {
   if (mapOperateHistory.length > 1)
     mapOperateHistory.pop()
   const temp = mapOperateHistory[mapOperateHistory.length - 1]
+  myChart?.dispose()
+  myChart = eCharts.init(mapRef.value)
+  myChart?.on('click', mapClickFun)
   myChart?.showLoading(loadingParam)
   initMap(temp.adCode, temp.areaName, 'goBack')
 }
