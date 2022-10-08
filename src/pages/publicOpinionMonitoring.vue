@@ -2,15 +2,13 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-27 10:35:00
+ * @LastEditTime: 2022-10-08 17:37:47
  * @FilePath: \big-screen\src\pages\publicOpinionMonitoring.vue
  * @Description:舆情监控
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
 const userInfo = useUserStore()
-// const clickFlag = ref('enterpriseRisk')
-// const flagMap = new Map().set('enterpriseRisk', '企业风险').set('corporatePublicOpinion', '企业舆情')
 
 const riskClassificationData = ref([])
 

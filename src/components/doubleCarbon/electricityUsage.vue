@@ -45,6 +45,7 @@ export default {
           { name: '去年同月', type: 'line', data: [] },
           { name: '增长率', type: 'line', data: [] },
         ],
+        animationDuration: 3000,
       },
       electricityUsageChart: null,
     }

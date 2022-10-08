@@ -59,9 +59,6 @@ watch(() => prop.riskClassificationProp, (val) => {
   <div class="new-risk">
     <div class="new-risk-table">
       <span class="new-risk-table-title">最新风险</span>
-      <!-- <el-table class="new-risk-table-main" :data="tableData" :row-class-name="rowClass">
-        <el-table-column v-for="(item, index) in headerList" :key="index" :prop="item.prop" :label="item.label" />
-      </el-table> -->
 
       <div class="table-header" flex h-38 pl-14 pr-14>
         <span
@@ -123,7 +120,7 @@ watch(() => prop.riskClassificationProp, (val) => {
 
   .new-risk-table {
     width: 100%;
-    height: 51.5%;
+    // height: 55%;
     background-image: url("~/assets/image/publicOpinionMonitoring/newRiskTableBg.png");
     background-size: 100% 100%;
 
@@ -147,7 +144,7 @@ watch(() => prop.riskClassificationProp, (val) => {
 
     .scroll {
       width: 100%;
-      height: 330px;
+      height: 39vh;
       // flex: 0;
       // margin: 100px auto;
       overflow: hidden;
@@ -247,7 +244,7 @@ watch(() => prop.riskClassificationProp, (val) => {
 
   .sub-itemization-risk-box {
     width: 100%;
-    height: 271px;
+    height: 25vh;
     // margin-top: 15%;
 
     display: flex;

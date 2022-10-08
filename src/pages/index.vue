@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-29 19:38:17
+ * @LastEditTime: 2022-10-08 17:30:47
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -47,7 +47,7 @@ getYqzl()
     <div class="pandect-center" wPE-45 hPE-100>
       <pandectMap @refresh="getYqzl" />
     </div>
-    <div class="pandect-right" wPE-28 hPE-97>
+    <div class="pandect-right" wPE-28 hPE-94>
       <constructionProgress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />
     </div>
   </div>

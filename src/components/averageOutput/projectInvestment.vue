@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:53:31
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-15 23:41:44
+ * @LastEditTime: 2022-10-08 17:36:25
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestment.vue
  * @Description:项目投资额统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -33,7 +33,7 @@ watch(() => propObj.projectInvestmentProp, () => {
 
 <template>
   <div class="project-investment-box" po-r wPE-100 hPE-100>
-    <span po-a pot-14 pol-19 class="title">项目投资额统计</span>
+    <span po-a pot-10 pol-19 class="title">项目投资额统计</span>
     <pie3D :pie-prop="pieData" pie-title="项目数据统计" />
   </div>
 </template>

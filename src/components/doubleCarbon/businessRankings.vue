@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-15 20:02:08
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-20 19:58:15
+ * @LastEditTime: 2022-10-08 17:45:12
  * @FilePath: \big-screen\src\components\doubleCarbon\businessRankings.vue
  * @Description:企业排名组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -174,7 +174,7 @@ watch(() => propObj.businessRankingsProp, () => {
       option.dataZoom[0].startValue = option.dataZoom[0].startValue + 1
     }
     myChart?.setOption(option)
-  }, 2000)
+  }, 1000)
 })
 </script>
 

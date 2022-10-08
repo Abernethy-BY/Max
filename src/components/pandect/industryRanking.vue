@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-06 18:20:51
+ * @LastEditTime: 2022-10-08 17:31:43
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * @Description: 首页柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -174,7 +174,7 @@ const initIndustryEankingRefChart = () => {
       barOption.value.dataZoom[0].startValue = barOption.value.dataZoom[0].startValue + 1
     }
     industryEankingRefChart?.setOption(barOption.value)
-  }, 2000)
+  }, 1000)
 }
 
 watch(() => prop.industryRankingProp, (val) => {
