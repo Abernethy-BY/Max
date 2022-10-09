@@ -1,4 +1,13 @@
-<script lang="ts" setup>
+<!--
+ * @Author: By
+ * @Date: 2022-07-28 14:16:30
+ * @LastEditTime: 2022-09-23 17:08:32
+ * @LastEditors: BY by15242952083@outlook.com
+ * @Description:
+ * @FilePath: \big-screen\src\components\corporatePortrait\overviewPage.vue
+ * 可以输入预定的版权声明、个性签名、空行等
+-->
+<script>
 import left from '~/assets/image/corporatePortrait/overview/left.png'
 import right from '~/assets/image/corporatePortrait/overview/right.png'
 import importAndExportCreditImage from '~/assets/image/corporatePortrait/overview/importAndExportCreditImage.png'
@@ -17,65 +26,70 @@ import spotChecks from '~/assets/image/corporatePortrait/overview/spotChecks.png
 import qiyefengxianBg from '~/assets/image/corporatePortrait/overview/qiyefengxianBg.png'
 import rongyaoBg from '~/assets/image/corporatePortrait/overview/rongyaoBg.png'
 
-const propObj = defineProps({ overviewProp: Array, highTechEnterpriseListProp: Array, newEnterprisesListProp: Array })
+export default {
+  props: ['overviewProp', 'highTechEnterpriseListProp', 'newEnterprisesListProp'],
+  data() {
+    return {
+      left,
+      right,
+      subItemizationList: [[
+        { label: '进出口信用', value: '', image: importAndExportCreditImage },
+        { label: '融资需求', value: '', image: financingNeeds },
+        { label: '控股企业', value: '', image: holdingCompany },
+        { label: '行政许可', value: '', image: administrativeLicensing },
+        { label: '法律诉讼', value: '', image: legalProceedings },
+      ], [
+        { label: '地块公示', value: '', image: plotPublicity },
+        { label: '购地信息', value: '', image: landPurchaseInformation },
+        { label: '抽查检查', value: '', image: spotChecks },
+        { label: '新闻舆情', value: '', image: newsAndPublicOpinion },
+        { label: '企业年报', value: '', image: corporateAnnualReport },
+      ], [
+        { label: '电耗', value: '', image: powerConsumption },
+        { label: '能耗', value: '', image: energyConsumption },
+        { label: '政府补贴', value: '', image: governmentSubsidies },
+        { label: '企业风险', value: '', image: qiyefengxianBg },
+        { label: '企业荣誉', value: '', image: rongyaoBg },
+      ]],
 
-const cardShow = ref()
+      HighTechEnterpriseList: [],
+      newEnterprisesList: [],
+    }
+  },
+  watch: {
+    overviewProp: { handler() { this.getList() }, deep: true },
 
-const span = ref()
+    highTechEnterpriseListProp: {
+      handler() { this.initBanner() }, deep: true,
+    },
+  },
+  mounted() { },
+  methods: {
+    handoffFun(flag) {
+      if (flag === 'left')
+        this.$refs.cardShow.next()
+      else this.$refs.cardShow.prev()
+    },
 
-const HighTechEnterpriseList = ref<any>([])
-const newEnterprisesList = ref<any>([])
-
-const handoffFun = (flag) => {
-  if (flag === 'left')
-    cardShow.value.next()
-  else cardShow.value.prev()
+    getList() {
+      this.overviewProp.forEach((propElement) => {
+        this.subItemizationList.forEach((childElement) => {
+          const temp = childElement.find(e => e.label === propElement['数据'])
+          if (temp)
+            temp.value = propElement['值1']
+        })
+      })
+    },
+    initBanner() {
+      this.HighTechEnterpriseList = this.highTechEnterpriseListProp.map(e => e['值1'])
+      this.newEnterprisesList = this.newEnterprisesListProp.map(e => e['值1'])
+    },
+  },
 }
-
-const subItemizationList = ref([
-  { label: '进出口信用', value: '', image: importAndExportCreditImage },
-  { label: '融资需求', value: '', image: financingNeeds },
-  { label: '控股企业', value: '', image: holdingCompany },
-  { label: '行政许可', value: '', image: administrativeLicensing },
-  { label: '法律诉讼', value: '', image: legalProceedings },
-
-  { label: '地块公示', value: '', image: plotPublicity },
-  { label: '购地信息', value: '', image: landPurchaseInformation },
-  { label: '抽查检查', value: '', image: spotChecks },
-  { label: '新闻舆情', value: '', image: newsAndPublicOpinion },
-  { label: '企业年报', value: '', image: corporateAnnualReport },
-
-  { label: '电耗', value: '', image: powerConsumption },
-  { label: '能耗', value: '', image: energyConsumption },
-  { label: '政府补贴', value: '', image: governmentSubsidies },
-  { label: '企业风险', value: '', image: qiyefengxianBg },
-  { label: '企业荣誉', value: '', image: rongyaoBg },
-])
-
-watch(() => propObj.highTechEnterpriseListProp, () => {
-  HighTechEnterpriseList.value = propObj.highTechEnterpriseListProp?.map((e: any) => e['值1'])
-})
-
-watch(() => propObj.newEnterprisesListProp, () => {
-  newEnterprisesList.value = propObj.newEnterprisesListProp?.map((e: any) => e['值1'])
-})
-
-watch(() => propObj.overviewProp, () => {
-  subItemizationList.value.forEach((element, index) => {
-    const temp = propObj.overviewProp?.find((e: any) => element.label === e['数据'])
-    anime({
-      targets: span.value[index],
-      innerHTML: [0, temp?.['值1']],
-      easing: 'linear',
-      round: 10,
-      duration: 3000,
-    })
-  })
-})
 </script>
 
 <template>
-  <div class="overview" wPE-100 hPE-100 flex flex-column-between>
+  <div class="overview">
     <el-carousel ref="cardShow" class="overview-top" :autoplay="true" height="100%" arrow="never">
       <el-carousel-item v-for="item in 4" :key="item">
         <div class="overview-content">
@@ -98,20 +112,21 @@ watch(() => propObj.overviewProp, () => {
       <el-image class="left" :src="left" fit="fill" @click="handoffFun('left')" />
       <el-image class="right" :src="right" fit="fill" @click="handoffFun('right')" />
     </el-carousel>
-
-    <div wPE-100 hPE-55 flex fw flex-row-between elastic-longitudinal-axis-between>
-      <div
-        v-for="(item, index) in subItemizationList" :key="index" wPE-19 hPE-30 flex flex-row-between
-        cross-axis-center
-      >
-        <el-image class="sub-itemization-image" :src="item.image" fit="fill" />
-        <div class="sub-itemization-main">
-          <span ref="span" class="sub-itemization-value">{{
-            item.value
-          }}</span>
-          <span class="sub-itemization-label">{{
-            item.label
-          }}</span>
+    <div class="overview-bottom">
+      <div v-for="(item, index) in subItemizationList" :key="index" class="sub-itemization-row">
+        <div
+          v-for="(subItemizationItem, subItemizationIndex) in item" :key="subItemizationIndex"
+          class="sub-itemization-col" :span="4"
+        >
+          <el-image class="sub-itemization-image" :src="subItemizationItem.image" fit="fill" />
+          <div class="sub-itemization-main">
+            <span class="sub-itemization-value">{{
+              subItemizationItem.value
+            }}</span>
+            <span class="sub-itemization-label">{{
+              subItemizationItem.label
+            }}</span>
+          </div>
         </div>
       </div>
     </div>
@@ -120,6 +135,16 @@ watch(() => propObj.overviewProp, () => {
 
 <style lang="scss" scoped>
 .overview {
+  * {
+    box-sizing: border-box;
+  }
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
   :deep(.overview-top) {
     width: 100%;
     height: 42%;
@@ -204,39 +229,68 @@ watch(() => propObj.overviewProp, () => {
     }
   }
 
-  .sub-itemization-image {
-    width: 74px;
-    height: 71px;
-  }
-
-  .sub-itemization-main {
+  .overview-bottom {
+    width: 100%;
+    height: calc(53% - 30px);
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    flex: 1;
 
-    .sub-itemization-value {
-      font-size: 24px;
-      font-family: Source Han Sans CN;
-      font-weight: 400;
-      color: #ffffff;
-      text-shadow: 0px 0px 8px rgba(0, 32, 109, 0.57);
-
-      background: linear-gradient(0deg,
-          #08fbb6 0.146484375%,
-          #bafeff 99.31640625%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+    .sub-itemization-row {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
     }
 
-    .sub-itemization-label {
-      font-size: 14px;
-      font-family: Source Han Sans CN;
-      font-weight: 400;
-      color: #ffffff;
+    .sub-itemization-col {
+      width: 155px;
+      height: 67px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-left: 53px;
+
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+
+    .sub-itemization-image {
+      width: 74px;
+      height: 71px;
+    }
+
+    .sub-itemization-main {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      flex: 1;
+
+      .sub-itemization-value {
+        font-size: 24px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #ffffff;
+        text-shadow: 0px 0px 8px rgba(0, 32, 109, 0.57);
+
+        background: linear-gradient(0deg,
+            #08fbb6 0.146484375%,
+            #bafeff 99.31640625%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .sub-itemization-label {
+        font-size: 14px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #ffffff;
+      }
     }
   }
-
 }
 </style>

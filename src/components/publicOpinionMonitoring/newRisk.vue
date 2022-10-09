@@ -26,6 +26,8 @@ const prop = defineProps({
 
 const tableData = ref<any>([])
 
+const span = ref()
+
 const headerList = ([
   { label: '变动日期', prop: '变更日期' },
   { label: '企业名称', prop: '企业名称' },
@@ -49,8 +51,16 @@ watch(() => prop.latestRisksProp, (val) => {
 watch(() => prop.riskClassificationProp, (val) => {
   prop.riskClassificationProp?.forEach((e: any, i) => {
     const temp = subItemizationRiskList.value.find(childElement => childElement.label === e?.['数据'])
-    if (temp)
-      temp.value = e?.['值1']
+    if (temp) {
+      anime({
+        targets: span.value[i],
+        innerHTML: [0, e?.['值1']],
+        easing: 'linear',
+        round: 10,
+        duration: 3000,
+      })
+    }
+    // temp.value = e?.['值1']
   })
 })
 </script>
@@ -90,11 +100,14 @@ watch(() => prop.riskClassificationProp, (val) => {
     </div>
     <div class="sub-itemization-risk-box">
       <div v-for="(item, index) in subItemizationRiskList" :key="index" class="sub-itemization-risk-item">
-        <el-image class="sub-itemization-risk-item-bg" :src="item.image" fit="fill" /><span
-          class="sub-itemization-risk-item-value"
-        >{{ item.value }}<span class="sub-itemization-risk-item-unit">{{
-          item.unit
-        }}</span></span><span class="sub-itemization-risk-item-label">{{ item.label }}</span>
+        <el-image class="sub-itemization-risk-item-bg" :src="item.image" fit="fill" />
+        <span ref="span" class="sub-itemization-risk-item-value">
+          <!-- {{ item.value }} -->
+          <span class="sub-itemization-risk-item-unit">{{
+            item.unit
+          }}
+          </span>
+        </span><span class="sub-itemization-risk-item-label">{{ item.label }}</span>
       </div>
     </div>
     <el-image class="compass-bg" :src="compass" fit="fill" />

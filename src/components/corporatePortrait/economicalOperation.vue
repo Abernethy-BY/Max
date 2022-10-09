@@ -1,13 +1,13 @@
 <!--
- * @Author: By
- * @Date: 2022-07-27 17:20:47
- * @LastEditTime: 2022-09-23 17:08:02
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @Description:
+ * @LastEditTime: 2022-10-09 17:41:12
  * @FilePath: \big-screen\src\components\corporatePortrait\economicalOperation.vue
- * 可以输入预定的版权声明、个性签名、空行等
+ * @Description:
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
-<script>
+<script lang="ts" setup>
 import revenue from '~/assets/image/corporatePortrait/economicalOperation/revenue.png'
 import domesticAndForeignTrade from '~/assets/image/corporatePortrait/economicalOperation/domesticAndForeignTrade.png'
 import profit from '~/assets/image/corporatePortrait/economicalOperation/profit.png'
@@ -16,39 +16,32 @@ import DInvestment from '~/assets/image/corporatePortrait/economicalOperation/R&
 import industrialSales from '~/assets/image/corporatePortrait/economicalOperation/industrialSales.png'
 import totalAssets from '~/assets/image/corporatePortrait/economicalOperation/totalAssets.png'
 import zichanzongjiBg from '~/assets/image/corporatePortrait/economicalOperation/zichanzongjiBg.png'
-export default {
-  props: ['economicalOperationProp'],
-  data() {
-    return {
-      economicalOperationList: [
-        { bg: revenue, value: '', label: '主营业务收入', remark: '', unit: '万元' },
-        { bg: domesticAndForeignTrade, value: '', label: '内贸与外贸占比', remark: '', unit: '%' },
-        { bg: profit, value: '', label: '利润', remark: '', unit: '万元' },
-        { bg: taxation, value: '', label: '税收', remark: '', unit: '万元' },
-        { bg: DInvestment, value: '', label: '研发投入', remark: '', unit: '万元' },
-        { bg: industrialSales, value: '', label: '工业销售总产值', remark: '', unit: '万元' },
-        { bg: totalAssets, value: '', label: '资产总计', remark: '', unit: '万元' },
-        { bg: zichanzongjiBg, value: '', label: '企业目标总额', remark: '', unit: '万元' },
-      ],
-    }
-  },
-  watch: {
-    economicalOperationProp: {
-      handler() {
-        this.getData()
-      },
-      deep: true,
-    },
-  },
-  methods: {
-    getData() {
-      this.economicalOperationProp.forEach((propElement) => {
-        this.economicalOperationList.find(listElement => listElement.label === propElement?.['数据']).value = propElement['值1']
-        this.economicalOperationList.find(listElement => listElement.label === propElement?.['数据']).remark = propElement['值2']
-      })
-    },
-  },
-}
+const propObj = defineProps({ economicalOperationProp: Array })
+const span = ref()
+const economicalOperationList = ref([
+  { bg: revenue, value: '', label: '主营业务收入', remark: '', unit: '万元' },
+  { bg: domesticAndForeignTrade, value: '', label: '内贸与外贸占比', remark: '', unit: '%' },
+  { bg: profit, value: '', label: '利润', remark: '', unit: '万元' },
+  { bg: taxation, value: '', label: '税收', remark: '', unit: '万元' },
+  { bg: DInvestment, value: '', label: '研发投入', remark: '', unit: '万元' },
+  { bg: industrialSales, value: '', label: '工业销售总产值', remark: '', unit: '万元' },
+  { bg: totalAssets, value: '', label: '资产总计', remark: '', unit: '万元' },
+  { bg: zichanzongjiBg, value: '', label: '企业目标总额', remark: '', unit: '万元' },
+])
+
+watch(() => propObj.economicalOperationProp, () => {
+  economicalOperationList.value.forEach((element, index) => {
+    const temp = propObj.economicalOperationProp?.find(e => e?.['数据'] === element.label)
+    anime({
+      targets: span.value[index],
+      innerHTML: [0, temp?.['值1']],
+      easing: 'linear',
+      round: 10,
+      duration: 3000,
+    })
+    element.remark = propObj.economicalOperationProp?.find(e => e?.['数据'] === element.label)?.['值2']
+  })
+})
 </script>
 
 <template>
@@ -57,12 +50,12 @@ export default {
     <div v-for="(item, index) in economicalOperationList" :key="index" class="economical-operation-item">
       <el-image class="economical-operation-bg" :src="item.bg" fit="fill" />
       <div class="economical-operation-content">
-        <span class="economical-operation-value">{{ item.value }}
+        <span ref="span" class="economical-operation-value">{{ item.value }}
           <span class="economical-operation-unit" fs-12 color="#ffffff" fw-400>{{ item.unit }}</span>
         </span>
         <span class="economical-operation-label">{{ item.label }}</span>
       </div>
-      <span class="economical-operation-remark">{{ item.remark }}</span>
+      <span ref="remark" class="economical-operation-remark">{{ item.remark }}</span>
     </div>
   </div>
 </template>

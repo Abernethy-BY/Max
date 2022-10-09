@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-29 16:39:05
+ * @LastEditTime: 2022-10-09 18:18:03
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -33,7 +33,7 @@ const menuMap = new Map().set(3, 'averageOutput').set(5, 'publicOpinionMonitorin
 
 const realTime = ref(formatDate(getNowDate(), 'yyyy-MM-dd-cn'))
 
-const weekMap = new Map().set(1, '一').set(2, '二').set(3, '三').set(4, '四').set(5, '五').set(6, '六').set(7, '日')
+const weekMap = new Map().set(1, '一').set(2, '二').set(3, '三').set(4, '四').set(5, '五').set(6, '六').set(0, '日')
 
 const nowWeek = ref(`星期${weekMap.get(getNowWeek())}`)
 

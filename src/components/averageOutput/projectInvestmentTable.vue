@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-22 19:30:41
+ * @LastEditTime: 2022-10-09 19:35:03
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestmentTable.vue
  * @Description:项目投资统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -15,6 +15,7 @@ import keyCorporateTaxationBg from '~/assets/image/averageOutput/keyCorporateTax
 import type { InterfaceModel } from '~/model'
 const propObj = withDefaults(defineProps<{ projectInvestmentTableProp?: Array<InterfaceModel> }>(), { projectInvestmentTableProp: () => [] })
 
+const span = ref()
 const list = ref<Array<{ label: string; bg: any; value: string | number; unit: string }>>([
   { label: '园区GDP', bg: gdpBg, value: 0, unit: '亿元/km²' },
   { label: '园区税收', bg: parkTaxationBg, value: 0, unit: '亿元/km²' },
@@ -22,10 +23,18 @@ const list = ref<Array<{ label: string; bg: any; value: string | number; unit: s
   { label: '重点企业税收', bg: keyCorporateTaxationBg, value: 0, unit: '亿元/km²' },
 ])
 watch(() => propObj.projectInvestmentTableProp, () => {
-  propObj.projectInvestmentTableProp.forEach((element: any) => {
-    const temp = list.value.find(e => e.label === element.数据)
-    if (temp)
-      temp.value = element.数值1.substring(0, element.数值1.length - 4)
+  list.value.forEach((element, index) => {
+    const temp = propObj.projectInvestmentTableProp.find(e => element.label === e.数据)
+    if (temp) {
+      const maxTemp = temp?.数值1?.substring(0, temp?.数值1.length - 4)
+      anime({
+        targets: span.value[index],
+        innerHTML: [0, maxTemp],
+        easing: 'linear',
+        round: 10,
+        duration: 3000,
+      })
+    }
   })
 })
 </script>
@@ -34,7 +43,10 @@ watch(() => propObj.projectInvestmentTableProp, () => {
   <div class="project-investment-table-box" wPE-100 hPE-100 flex fw flex-row-between elastic-longitudinal-axis-start>
     <div v-for="(item, index) in list" :key="index" h-78 flex-basis-PE-48 mtPE-4 po-r flex flex-column-center plPE-17>
       <el-image class="item-bg" :src="item.bg" fit="cover" />
-      <span class="value">{{ item.value }} <span class="unit">{{ item.unit }}</span></span>
+      <span class="value">
+        <span ref="span" />
+        <span class="unit">{{ item.unit }}</span>
+      </span>
       <span class="label"> {{ item.label }}</span>
     </div>
   </div>
