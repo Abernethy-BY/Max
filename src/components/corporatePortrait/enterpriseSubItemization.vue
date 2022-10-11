@@ -15,9 +15,9 @@ export default {
   data() {
     return {
       averageList: [
-        { label: '亩均产值', value: '', ref: 'averageOutputRef' },
-        { label: '亩均利润', value: '', ref: 'averageProfitRef' },
-        { label: '亩均税收', value: '', ref: 'averageTaxRef' },
+        { label: '亩均产值', value: '', ref: 'averageOutputRef', ranking: '' },
+        { label: '亩均利润', value: '', ref: 'averageProfitRef', ranking: '' },
+        { label: '亩均税收', value: '', ref: 'averageTaxRef', ranking: '' },
       ],
 
       averageOption: {
@@ -53,7 +53,7 @@ export default {
           axisLabel: { show: false },
           pointer: { show: false }, // 不显示仪表盘指针
           detail: {
-            show: true,
+            show: false,
             color: '#00FFFF',
             fontSize: 16,
             lineHeight: 22,
@@ -105,23 +105,27 @@ export default {
       this.initCharts()
       const averageOutputTemp = clone(this.averageOption)
       averageOutputTemp.series.data = this.subItemizationProp.find(e => e?.['数据'] === '亩均产值')['值1']
-      const averageOutputDetailTemp = this.subItemizationProp.find(e => e?.['数据'] === '亩均产值')['值2']
+      const averageOutputDetailTemp = this.subItemizationProp.find(e => e?.['数据'] === '亩均产值')['值2'].slice(2)
       averageOutputTemp.series.detail.formatter = () => { return averageOutputDetailTemp }
+      anime({ targets: this.$refs.rankingRef[0], innerHTML: [0, averageOutputDetailTemp], easing: 'linear', round: 10, duration: 3000 })
       this.averageOutputChart.setOption(averageOutputTemp)
       this.averageList.find(e => e.label === '亩均产值').value = this.subItemizationProp.find(e => e?.['数据'] === '亩均产值')['值1']
 
       const averageProfitTemp = clone(this.averageOption)
       averageProfitTemp.series.data = this.subItemizationProp.find(e => e?.['数据'] === '亩均利润')['值1']
-      const averageProfitDetailTemp = this.subItemizationProp.find(e => e?.['数据'] === '亩均利润')['值2']
+      const averageProfitDetailTemp = this.subItemizationProp.find(e => e?.['数据'] === '亩均利润')['值2'].slice(2)
       averageProfitTemp.series.detail.formatter = () => { return averageProfitDetailTemp }
       this.averageProfitChart.setOption(averageProfitTemp)
+      anime({ targets: this.$refs.rankingRef[1], innerHTML: [0, averageProfitDetailTemp], easing: 'linear', round: 10, duration: 3000 })
       this.averageList.find(e => e.label === '亩均利润').value = this.subItemizationProp.find(e => e?.['数据'] === '亩均利润')['值1']
-
       const averageTaxChartTemp = clone(this.averageOption)
       averageTaxChartTemp.series.data = this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值1']
-      const averageTaxChartDetailTemp = this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值2']
+      const averageTaxChartDetailTemp = this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值2'].slice(2)
       averageTaxChartTemp.series.detail.formatter = () => { return averageTaxChartDetailTemp }
+      anime({ targets: this.$refs.rankingRef[2], innerHTML: [0, averageTaxChartDetailTemp], easing: 'linear', round: 10, duration: 3000 })
+
       this.averageTaxChart.setOption(averageTaxChartTemp)
+
       this.averageList.find(e => e.label === '亩均税收').value = this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值1']
     },
     initCharts() {
@@ -144,7 +148,13 @@ export default {
     <span class="sub-itemization-title">亩均效益总览（万元）</span>
     <div class="average-box">
       <div v-for="(item, index) in averageList" :key="index" class="average">
-        <div :ref="item.ref" class="average-main" />
+        <div class="average-main" po-r flex>
+          <div :ref="item.ref" wPE-100 hPE-100 />
+          <span po-a class="ranking-span">
+            <span wPE-50 flex flex-row-end>排名</span>
+            <span ref="rankingRef" wPE-50 />
+          </span>
+        </div>
         <span class="average-value">{{ item.value }}</span>
         <span class="average-label">{{ item.label }}</span>
       </div>
@@ -160,6 +170,19 @@ export default {
   background-size: 100% 100%;
   position: relative;
   padding: 60px 31px 22px;
+
+  .ranking-span {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-family: Source Han Sans CN;
+    font-weight: 400;
+    color: #00FFFF;
+    line-height: 48px;
+  }
 
   .sub-itemization-title {
     font-size: 18px;
@@ -200,6 +223,8 @@ export default {
     .average-main {
       width: 83px;
       height: 83px;
+      justify-content: center;
+      align-items: center;
     }
 
     .average-value {

@@ -68,7 +68,7 @@ watch(() => propObj.overviewProp, () => {
       innerHTML: [0, temp?.['值1']],
       easing: 'linear',
       round: 10,
-      duration: 3000,
+      duration: 6000,
     })
   })
 })

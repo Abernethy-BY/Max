@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-02 14:13:48
+ * @LastEditTime: 2022-10-11 14:04:46
  * @FilePath: \big-screen\src\components\corporatePortrait\corporateIntellectualProperty.vue
  * @Description:企业知识产权  (智能制造 、R&D研发经费)
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -17,6 +17,7 @@ const propObj = defineProps({
 
 const domArr = ref<any>([])
 const chartRef = ref()
+const chartLabel = ref()
 
 const generalOption = {
   tooltip: { show: false, formatter: '{a} <br/>{b} : {c}%' },
@@ -53,7 +54,7 @@ const generalOption = {
     axisLabel: { show: false },
     pointer: { show: false },
     detail: {
-      show: true,
+      show: false,
       color: '#00FFFF',
       fontSize: 16,
       lineHeight: 22,
@@ -76,6 +77,7 @@ watch(() => propObj.corporateIntellectualPropertyProp, () => {
       const chartTemp: EChartsType = eCharts.init(chartRef.value[index])
       const elementOption = clone(generalOption)
       elementOption.graphic.style.text = element['数据']
+      anime({ targets: chartLabel.value[index], innerHTML: [0, element['值1']], easing: 'linear', round: 10, duration: 3000 })
       elementOption.series.data[0] = Number(element['值1'])
       chartTemp.setOption(elementOption)
       window.addEventListener('resize', () => {
@@ -91,10 +93,10 @@ watch(() => propObj.corporateIntellectualPropertyProp, () => {
     <span po-a pot-14 pol-16 fs-18 fw-900 color="#ffffff" class="corporate-intellectual-property-title">企业知识产权 (智能制造
       、R&D研发经费) </span>
     <div class="chart-box" flex hPE-82 wPE-100 fw>
-      <div
-        v-for="(item) in domArr" :key="item" ref="chartRef" wPE-30 hPE-40
-        class="corporate-intellectual-property-item"
-      />
+      <div v-for="(item) in domArr" :key="item" flex po-r flex-row-center cross-axis-center wPE-30 hPE-40 class="corporate-intellectual-property-item">
+        <div ref="chartRef" wPE-100 hPE-100 />
+        <span ref="chartLabel" po-a class="chart-label" />
+      </div>
     </div>
   </div>
 </template>
@@ -107,6 +109,18 @@ watch(() => propObj.corporateIntellectualPropertyProp, () => {
   .corporate-intellectual-property-item {
     flex: 0 0 28%;
     margin: 10px 10px 10px 10px;
+  }
+
+  .chart-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 12px;
+    font-family: Source Han Sans CN;
+    font-weight: 500;
+    color: #FF9745;
   }
 }
 </style>

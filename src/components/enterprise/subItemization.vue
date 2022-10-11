@@ -39,12 +39,24 @@ watch(() => propObj.subItemizationProp, () => {
   subItemizationList.value.forEach((element, index) => {
     propObj?.subItemizationProp?.forEach((propElement: any) => {
       if (element.label === propElement['数据']) {
+        let temp = 3000
+        if (index <= 2)
+          temp = 3000
+
+        else if (index > 2 && index <= 6)
+          temp = 5000
+
+        else if (index > 6 && index <= 9)
+          temp = 6000
+        else
+          temp = 7000
+
         anime({
           targets: span.value[index],
           innerHTML: [0, propElement['值1']],
           easing: 'linear',
           round: 10,
-          duration: 3000,
+          duration: temp,
         })
       }
     })

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-10 14:29:06
+ * @LastEditTime: 2022-10-11 10:54:52
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestmentTable.vue
  * @Description:项目投资统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -32,7 +32,7 @@ watch(() => propObj.projectInvestmentTableProp, () => {
         innerHTML: [0, maxTemp],
         easing: 'linear',
         round: 10,
-        duration: 3000,
+        duration: 5000,
       })
     }
   })

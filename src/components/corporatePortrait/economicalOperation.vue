@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-09 17:41:12
+ * @LastEditTime: 2022-10-11 10:50:27
  * @FilePath: \big-screen\src\components\corporatePortrait\economicalOperation.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -37,7 +37,7 @@ watch(() => propObj.economicalOperationProp, () => {
       innerHTML: [0, temp?.['值1']],
       easing: 'linear',
       round: 10,
-      duration: 3000,
+      duration: 5000,
     })
     element.remark = propObj.economicalOperationProp?.find(e => e?.['数据'] === element.label)?.['值2']
   })

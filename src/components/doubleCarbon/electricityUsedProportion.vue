@@ -24,13 +24,20 @@ watch(() => propObj.electricityUsedProportionProp, () => {
   consola.info(propObj.electricityUsedProportionProp)
   electricityUsedProportionList.value.forEach((element, index) => {
     const temp = propObj.electricityUsedProportionProp?.find(e => element.label === e?.['数据'])
+    let timeTemp = 5000
+    if (index <= 2)
+      timeTemp = 5000
+
+    else
+      timeTemp = 6000
+
     if (temp) {
       anime({
         targets: span.value[index],
         innerHTML: [0, temp['数值1']],
         easing: 'linear',
         round: 10,
-        duration: 3000,
+        duration: timeTemp,
       })
       // element.value = element['数值1']
       element.proportion = temp['数值2']

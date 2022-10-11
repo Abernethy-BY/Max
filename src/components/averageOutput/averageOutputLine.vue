@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 20:58:59
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-08 17:48:26
+ * @LastEditTime: 2022-10-11 10:54:16
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputLine.vue
  * @Description:亩均产值折线图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -31,7 +31,7 @@ const option: any = {
     axisLine: { show: true, lineStyle: { color: '#fffff' } },
     splitLine: { lineStyle: { color: '#6379B7' } },
   },
-  color: ['#7A79F7', '#60C1FF', '#FFC554', '#FF5F5F'],
+  color: ['#ff4757', '#eccc68'],
   yAxis: {
     type: 'value',
     axisLine: { show: true, lineStyle: { color: 'white' } },

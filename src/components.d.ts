@@ -12,7 +12,6 @@ declare module '@vue/runtime-core' {
     BusinessElectricityConsumption: typeof import('./components/corporatePortrait/businessElectricityConsumption.vue')['default']
     BusinessRankings: typeof import('./components/doubleCarbon/businessRankings.vue')['default']
     ConstructionProgress: typeof import('./components/pandect/constructionProgress.vue')['default']
-    copy: typeof import('./components/corporatePortrait/overviewPage copy.vue')['default']
     CorporateIntellectualProperty: typeof import('./components/corporatePortrait/corporateIntellectualProperty.vue')['default']
     EconomicalOperation: typeof import('./components/corporatePortrait/economicalOperation.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
