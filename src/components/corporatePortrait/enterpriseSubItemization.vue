@@ -110,6 +110,7 @@ export default {
       anime({ targets: this.$refs.rankingRef[0], innerHTML: [0, averageOutputDetailTemp], easing: 'linear', round: 10, duration: 3000 })
       this.averageOutputChart.setOption(averageOutputTemp)
       this.averageList.find(e => e.label === '亩均产值').value = this.subItemizationProp.find(e => e?.['数据'] === '亩均产值')['值1']
+      anime({ targets: this.$refs.valueRef[0], innerHTML: [0, this.subItemizationProp.find(e => e?.['数据'] === '亩均产值')['值1']], easing: 'linear', round: 10, duration: 3000 })
 
       const averageProfitTemp = clone(this.averageOption)
       averageProfitTemp.series.data = this.subItemizationProp.find(e => e?.['数据'] === '亩均利润')['值1']
@@ -118,15 +119,16 @@ export default {
       this.averageProfitChart.setOption(averageProfitTemp)
       anime({ targets: this.$refs.rankingRef[1], innerHTML: [0, averageProfitDetailTemp], easing: 'linear', round: 10, duration: 3000 })
       this.averageList.find(e => e.label === '亩均利润').value = this.subItemizationProp.find(e => e?.['数据'] === '亩均利润')['值1']
+      anime({ targets: this.$refs.valueRef[1], innerHTML: [0, this.subItemizationProp.find(e => e?.['数据'] === '亩均利润')['值1']], easing: 'linear', round: 10, duration: 3000 })
+
       const averageTaxChartTemp = clone(this.averageOption)
       averageTaxChartTemp.series.data = this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值1']
       const averageTaxChartDetailTemp = this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值2'].slice(2)
       averageTaxChartTemp.series.detail.formatter = () => { return averageTaxChartDetailTemp }
       anime({ targets: this.$refs.rankingRef[2], innerHTML: [0, averageTaxChartDetailTemp], easing: 'linear', round: 10, duration: 3000 })
-
       this.averageTaxChart.setOption(averageTaxChartTemp)
-
       this.averageList.find(e => e.label === '亩均税收').value = this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值1']
+      anime({ targets: this.$refs.valueRef[2], innerHTML: [0, this.subItemizationProp.find(e => e?.['数据'] === '亩均税收')['值1']], easing: 'linear', round: 10, duration: 3000 })
     },
     initCharts() {
       this.averageOutputChart = eCharts.init(this.$refs.averageOutputRef[0])
@@ -155,7 +157,9 @@ export default {
             <span ref="rankingRef" wPE-50 />
           </span>
         </div>
-        <span class="average-value">{{ item.value }}</span>
+        <span ref="valueRef" class="average-value">
+          <!-- {{ item.value }} -->
+        </span>
         <span class="average-label">{{ item.label }}</span>
       </div>
     </div>
