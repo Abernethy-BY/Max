@@ -41,9 +41,9 @@ export default {
         },
         color: ['#60C1FF', '#FFC554', '#FF5F5F'],
         series: [
-          { name: '本月', type: 'line', data: [] },
-          { name: '去年同月', type: 'line', data: [] },
-          { name: '增长率', type: 'line', data: [] },
+          { name: '本月', type: 'line', data: [], lineStyle: { width: 4, cap: 'round' } },
+          { name: '去年同月', type: 'line', data: [], lineStyle: { width: 4, cap: 'round' } },
+          { name: '增长率', type: 'line', data: [], lineStyle: { width: 4, cap: 'round' } },
         ],
         animationDuration: 3000,
       },
