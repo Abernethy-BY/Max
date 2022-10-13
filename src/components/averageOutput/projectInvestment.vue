@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:53:31
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-08 17:36:25
+ * @LastEditTime: 2022-10-13 18:13:54
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestment.vue
  * @Description:项目投资额统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -16,8 +16,7 @@ const propObj = defineProps({
 const pieData = ref<Array<{ name: string; value: string | number; itemStyle: {} }>>([])
 const colorList = ['#5CD1C6', '#1C72F1', '#605CFC', '#7A79F7']
 watch(() => propObj.projectInvestmentProp, () => {
-  const sumWithInitial = propObj.projectInvestmentProp?.reduce((previousValue: any, currentValue: any) => previousValue + currentValue?.['数值1'] === '' ? 0 : Number(currentValue?.['数值1']), 0)
-
+  const sumWithInitial = propObj.projectInvestmentProp?.reduce((previousValue: any, currentValue: any) => previousValue + (currentValue?.['数值1'] === '' ? 0 : Number(currentValue?.['数值1'])), 0)
   const temp = propObj.projectInvestmentProp?.map((e, i) => {
     return {
       name: e?.['数据'] as string,

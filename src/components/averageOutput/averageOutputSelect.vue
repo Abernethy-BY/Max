@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 19:44:07
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-13 20:52:10
+ * @LastEditTime: 2022-10-13 18:30:01
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputSelect.vue
  * @Description: 亩均产值选择器
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

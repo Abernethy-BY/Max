@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 20:58:59
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-12 20:24:39
+ * @LastEditTime: 2022-10-13 18:17:59
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputLine.vue
  * @Description:亩均产值折线图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -69,7 +69,8 @@ const initChart = async () => {
         name: e.数据,
         type: 'line',
         data: propObj.title === '工业项目' ? e.数值1.split('，') : e.数值1.split(','),
-        lineStyle: { width: 4, cap: 'round' },
+        lineStyle: { width: 3, cap: 'round' },
+        smooth: true,
 
       }
     })

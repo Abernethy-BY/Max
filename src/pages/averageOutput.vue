@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:27:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-23 17:06:42
+ * @LastEditTime: 2022-10-13 18:11:13
  * @FilePath: \big-screen\src\pages\averageOutput.vue
  * @Description: 亩均产值
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -13,8 +13,6 @@ const userInfo = useUserStore()
 const projectInvestmentData = ref([])
 const employeeRecruitmentData = ref([])
 const projectInvestmentTableData = ref([])
-const industrialProjectsData = ref([])
-const averagePerAcreIndustryData = ref([])
 const getXmtz = async () => {
   const submitId = new Date().getTime()
   const param = {
@@ -27,8 +25,6 @@ const getXmtz = async () => {
   projectInvestmentData.value = res?.filter(e => e?.['位置'] === '亩均项目统计')
   employeeRecruitmentData.value = res?.filter(e => e?.['位置'] === '员工招聘')
   projectInvestmentTableData.value = res?.filter(e => e?.['位置'] === '右下')
-  industrialProjectsData.value = res?.filter(e => e?.['位置'] === '工业亩均')
-  averagePerAcreIndustryData.value = res?.filter(e => e?.['位置'] === '产业亩均')
 }
 getXmtz()
 

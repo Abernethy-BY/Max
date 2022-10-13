@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-06 18:20:43
+ * @LastEditTime: 2022-10-13 18:19:11
  * @FilePath: \big-screen\src\components\doubleCarbon\electricityUsage.vue
  * @Description:园区工业用电情况（单位：万度）
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -41,9 +41,9 @@ export default {
         },
         color: ['#60C1FF', '#FFC554', '#FF5F5F'],
         series: [
-          { name: '本月', type: 'line', data: [], lineStyle: { width: 4, cap: 'round' } },
-          { name: '去年同月', type: 'line', data: [], lineStyle: { width: 4, cap: 'round' } },
-          { name: '增长率', type: 'line', data: [], lineStyle: { width: 4, cap: 'round' } },
+          { name: '本月', type: 'line', data: [], lineStyle: { width: 3, cap: 'round' }, smooth: true },
+          { name: '去年同月', type: 'line', data: [], lineStyle: { width: 3, cap: 'round' }, smooth: true },
+          { name: '增长率', type: 'line', data: [], lineStyle: { width: 3, cap: 'round' }, smooth: true },
         ],
         animationDuration: 3000,
       },

@@ -21,7 +21,6 @@ const electricityUsedProportionList = ref([
 ])
 
 watch(() => propObj.electricityUsedProportionProp, () => {
-  consola.info(propObj.electricityUsedProportionProp)
   electricityUsedProportionList.value.forEach((element, index) => {
     const temp = propObj.electricityUsedProportionProp?.find(e => element.label === e?.['数据'])
     let timeTemp = 5000

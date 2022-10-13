@@ -49,10 +49,32 @@ watch(() => prop.latestRisksProp, (val) => {
 })
 
 watch(() => prop.riskClassificationProp, (val) => {
-  prop.riskClassificationProp?.forEach((e: any, i) => {
-    const temp = subItemizationRiskList.value.find(childElement => childElement.label === e?.['数据'])
+  // prop.riskClassificationProp?.forEach((e: any, i) => {
+  //   const temp = subItemizationRiskList.value.find(childElement => childElement.label === e?.['数据'])
+  //   let timeTemp = 5000
+  //   if (i % 2 === 0)
+  //     timeTemp = 5000
+
+  //   else
+  //     timeTemp = 6000
+
+  //   if (temp) {
+  //     consola.info(temp)
+  //     anime({
+  //       targets: span.value[i],
+  //       innerHTML: [0, e?.['值1']],
+  //       easing: 'linear',
+  //       round: 10,
+  //       duration: timeTemp,
+  //     })
+  //   }
+  //   // temp.value = e?.['值1']
+  // })
+
+  subItemizationRiskList.value.forEach((element, index) => {
+    const temp = prop.riskClassificationProp?.find(e => e?.['数据'] === element.label)
     let timeTemp = 5000
-    if (i % 2 === 0)
+    if (index % 2 === 0)
       timeTemp = 5000
 
     else
@@ -60,14 +82,13 @@ watch(() => prop.riskClassificationProp, (val) => {
 
     if (temp) {
       anime({
-        targets: span.value[i],
-        innerHTML: [0, e?.['值1']],
+        targets: span.value[index],
+        innerHTML: [0, temp?.['值1']],
         easing: 'linear',
         round: 10,
         duration: timeTemp,
       })
     }
-    // temp.value = e?.['值1']
   })
 })
 </script>
