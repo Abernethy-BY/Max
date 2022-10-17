@@ -1,10 +1,10 @@
 <!--
  * @Author: By
  * @Date: 2022-08-18 14:41:40
- * @LastEditTime: 2022-08-19 09:59:54
- * @LastEditors: By
+ * @LastEditTime: 2022-10-17 10:24:02
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description: 登录成功弹窗
- * @FilePath: \big-screen-vue3\src\components\loginSuccessPop.vue
+ * @FilePath: \big-screen\src\components\loginSuccessPop.vue
  * 可以输入预定的版权声明、个性签名、空行等
 -->
 <script lang="ts" setup>

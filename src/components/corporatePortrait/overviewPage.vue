@@ -165,7 +165,7 @@ watch(() => propObj.overviewProp, () => {
       }
 
       .overview-content-item-main {
-        width: 100px;
+        width: 30%;
         height: 100px;
         display: flex;
         justify-content: center;

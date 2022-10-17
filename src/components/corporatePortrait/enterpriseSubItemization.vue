@@ -208,7 +208,7 @@ export default {
   }
 
   .average {
-    margin: 0 22px;
+    // margin: 0 22px;
     width: 83px;
     height: 100%;
     display: flex;
@@ -216,13 +216,13 @@ export default {
     justify-content: space-between;
     align-items: center;
 
-    &:first-child {
-      margin-left: 0;
-    }
+    // &:first-child {
+    //   margin-left: 0;
+    // }
 
-    &:last-child {
-      margin-right: 0;
-    }
+    // &:last-child {
+    //   margin-right: 0;
+    // }
 
     .average-main {
       width: 83px;
