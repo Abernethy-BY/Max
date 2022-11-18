@@ -48,6 +48,7 @@ export default defineConfig({
     ['flex-row-end', { 'justify-content': 'flex-end' }],
     ['flex-column-start', { 'flex-direction': 'column' }],
     ['flex-column-between', { 'flex-direction': 'column', 'justify-content': 'space-between' }],
+    ['flex-column-around', { 'flex-direction': 'column', 'justify-content': 'space-around' }],
     ['flex-column-center', { 'flex-direction': 'column', 'justify-content': 'center' }],
     ['flex-column-end', { 'flex-direction': 'column', 'justify-content': 'space-end' }],
     ['cross-axis-stretch', { 'align-items': 'stretch' }],
@@ -106,6 +107,23 @@ export default defineConfig({
 
     ['cursor-p', { cursor: 'pointer' }],
 
+    [/^padding-(\w+)-(\w+)?-?(\w+)?-?(\w+)?$/, ([, t, r, b, l]) => {
+      const effectiveArr = [t, r, b, l].filter(e => e)
+      const numReg = /^((?![A-Za-z]).)*$/
+      const paddingList = effectiveArr.map(e => numReg.test(e) ? `${e}%` : e)
+
+      return effectiveArr.length === 0 ? { padding: '0px' } : { padding: paddingList.join(' ') }
+    }],
+    [/^h-calc-(\w+)-(\w+)$/, ([, a, b]) => {
+      const numReg = /^((?![A-Za-z]).)*$/
+      const heightArr = [a, b].map(e => numReg.test(e) ? `${e}%` : e)
+      return { height: `calc(${heightArr[0]} - ${heightArr[1]})` }
+    }],
+    [/^po-(t|l|b|r+)-(.+)$/, ([, a, b]) => {
+      const numReg = /^((?![A-Za-z]).)*$/
+      const directionMap = new Map().set('t', 'top').set('b', 'bottom').set('r', 'right').set('l', 'left')
+      return numReg.test(b) ? { [directionMap.get(a)]: `${b}%` } : { [directionMap.get(a)]: b }
+    }],
   ],
   transformers: [
     transformerDirectives(),

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:20:19
- * @LastEditTime: 2022-09-15 23:00:29
+ * @LastEditTime: 2022-11-18 18:54:19
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 类型集合
  * @FilePath: \big-screen\src\model\index.ts

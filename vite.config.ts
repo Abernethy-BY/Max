@@ -124,7 +124,9 @@ export default defineConfig({
   },
 
   css: {
-    preprocessorOptions: {},
+    preprocessorOptions: {
+      scss: { additionalData: '@import \'~/assets/scss/mixin.scss\';' },
+    },
     postcss: {
       plugins: [loader_pxToRem, loader_autoPreFixer],
     },
