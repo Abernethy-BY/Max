@@ -59,7 +59,7 @@ export default defineConfig({
         { animejs: [['default', 'anime']] },
       ],
       dts: 'src/auto-imports.d.ts',
-      dirs: ['src/composables', 'src/store', 'src/utils', 'src/api', 'src/model'],
+      dirs: ['src/composables', 'src/store', 'src/utils', 'src/api', 'src/model', 'src/components'],
       vueTemplate: true,
       resolvers: [IconsResolver({ prefix: 'Icon' }), ElementPlusResolver()],
     }),

@@ -4,6 +4,7 @@ import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
 const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
+const popShowFlag = ref<boolean>(false)
 /**
  * @description: 表单节点
  */
@@ -58,6 +59,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.token = temp.token
         userInfo.userCode = temp.usercode
         userInfo.userRole = temp.role
+        popShowFlag.value = true
       }
     }
   })
@@ -82,10 +84,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         </el-input>
       </el-form-item>
       <el-form-item mt-25>
-        <span
-          wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
-          @click="openForgotPass"
-        >忘记密码？</span>
+        <span wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
+          @click="openForgotPass">忘记密码？</span>
       </el-form-item>
       <el-form-item mt-48>
         <el-button class="login-button" type="primary" @click="submitForm(ruleFormRef)">
@@ -93,6 +93,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         </el-button>
       </el-form-item>
     </el-form>
+
+    <login-success :show-flag="popShowFlag" />
   </div>
 </template>
 

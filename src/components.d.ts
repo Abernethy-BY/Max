@@ -13,6 +13,7 @@ declare module '@vue/runtime-core' {
     BusinessRankings: typeof import('./components/doubleCarbon/businessRankings.vue')['default']
     ConstructionProgress: typeof import('./components/pandect/constructionProgress.vue')['default']
     copy: typeof import('./components/corporatePortrait/overviewPage copy.vue')['default']
+    Copy: typeof import('./components/dialog/loginSuccess Copy.vue')['default']
     CorporateIntellectualProperty: typeof import('./components/corporatePortrait/corporateIntellectualProperty.vue')['default']
     EconomicalOperation: typeof import('./components/corporatePortrait/economicalOperation.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
@@ -38,6 +39,8 @@ declare module '@vue/runtime-core' {
     IEpSearch: typeof import('~icons/ep/search')['default']
     Income: typeof import('./components/pandect/income.vue')['default']
     IndustryRanking: typeof import('./components/pandect/industryRanking.vue')['default']
+    LoginSuccess: typeof import('./components/dialog/loginSuccess.vue')['default']
+    LoginSuccessCopy: typeof import('./components/dialog/loginSuccess.vue')['default']
     LoginSuccessPop: typeof import('./components/loginSuccessPop.vue')['default']
     NewRisk: typeof import('./components/publicOpinionMonitoring/newRisk.vue')['default']
     OverviewPage: typeof import('./components/corporatePortrait/overviewPage.vue')['default']
@@ -51,5 +54,6 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SubItemization: typeof import('./components/enterprise/subItemization.vue')['default']
+    SubmissionSuccessful: typeof import('./components/dialog/submissionSuccessful.vue')['default']
   }
 }

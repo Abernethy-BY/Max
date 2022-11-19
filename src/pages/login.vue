@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-18 21:31:13
+ * @LastEditTime: 2022-11-19 15:02:56
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -45,14 +45,15 @@ const closeForgotPass = () => {
     class="login-form" bg="#023CA7" flex flex-column-around cross-axis-stretch w-552 po-a po-t-17.5 por-344 potPE-17
     h-579 pt-47 pb-17
   >
+    <!-- 密码登录标头 -->
     <header v-if="loginFag === 'PASS_LOGIN'" flex cross-axis-center flex-row-between ml-53 mr-56>
       <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFag).mainTitle }}</span>
-      <!-- <div class="handoff-login-type" cursor-p @click="handoffLoginType('manual')"> -->
       <div cursor-p flex cross-axis-center>
         <span fs-18 lh-42 color="#05FFFF">{{ loginSpan.get(loginFag).subTitle }}</span>
         <el-image class="handoff-icon" :src="handoffIcon" fit="fill" />
       </div>
     </header>
+    <!-- 忘记密码标头 -->
     <header v-if="loginFag === 'FORGOT_PASS'" po-r flex cross-axis-center flex-row-between ml-53 mr-56>
       <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFag).mainTitle }}</span>
       <el-image class="return-icon" :src="returnIcon" fit="fill" @click="closeForgotPass" />
@@ -62,6 +63,7 @@ const closeForgotPass = () => {
       <div v-if="loginFag === 'PASS_LOGIN'" wPE-100 hPE-100>
         <pass-login @open-find-pass="openFindPass" />
       </div>
+      <!-- 忘记密码 -->
       <div v-else-if="loginFag === 'FORGOT_PASS'" wPE-100 hPE-100>
         <forgot-pass />
       </div>

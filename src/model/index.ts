@@ -28,3 +28,8 @@ export interface meeting { any: any }
 export interface InterfaceModel { '位置': string; '数据': string; '数值1'?: string; '数值2'?: string; '图标': string; '值1'?: string; '值2'?: string }
 
 export interface TableModel { [key: string]: string | number }
+
+export interface MESSAGE_MODEL {
+  onCancel: Function
+  onConfirm: Function
+}
