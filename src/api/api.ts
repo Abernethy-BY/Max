@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-09-29 18:25:17
+ * @LastEditTime: 2022-11-21 19:45:07
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
@@ -49,3 +49,5 @@ export const xmtz = (param: any) => post('/xmtz.aspx', param)
 // 亩均产值
 export const mjcz = (param: any) => post('/mjcz.aspx', param)
 
+// 注册
+export const zcyh = (param: any) => post('/zcyh.aspx', param)

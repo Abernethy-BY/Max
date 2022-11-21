@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
+    ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElectricityUsage: typeof import('./components/doubleCarbon/electricityUsage.vue')['default']
     ElectricityUsedProportion: typeof import('./components/doubleCarbon/electricityUsedProportion.vue')['default']
     ElForm: typeof import('element-plus/es')['ElForm']
@@ -29,6 +30,7 @@ declare module '@vue/runtime-core' {
     ElOption: typeof import('element-plus/es')['ElOption']
     ElSelect: typeof import('element-plus/es')['ElSelect']
     EmployeeRecruitment: typeof import('./components/averageOutput/employeeRecruitment.vue')['default']
+    EnterInformation: typeof import('./components/login/enterInformation.vue')['default']
     EnterpriseAssociationMap: typeof import('./components/corporatePortrait/enterpriseAssociationMap.vue')['default']
     EnterpriseMap: typeof import('./components/enterprise/enterpriseMap.vue')['default']
     EnterpriseProducts: typeof import('./components/corporatePortrait/enterpriseProducts.vue')['default']
@@ -53,6 +55,7 @@ declare module '@vue/runtime-core' {
     RiskIndex: typeof import('./components/corporatePortrait/riskIndex.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SignUp: typeof import('./components/login/signUp.vue')['default']
     SubItemization: typeof import('./components/enterprise/subItemization.vue')['default']
     SubmissionSuccessful: typeof import('./components/dialog/submissionSuccessful.vue')['default']
   }

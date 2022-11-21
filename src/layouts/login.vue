@@ -1,7 +1,7 @@
 <!--
  * @Author: By
  * @Date: 2022-08-13 11:07:23
- * @LastEditTime: 2022-09-07 20:32:50
+ * @LastEditTime: 2022-11-21 20:52:20
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: layouts
  * @FilePath: \big-screen\src\layouts\login.vue
@@ -11,7 +11,7 @@
 <script lang="ts" setup></script>
 
 <template>
-  <div class="login-layouts" layouts>
+  <div class="login-layouts" po-r layouts flex flex-row-center cross-axis-center>
     <RouterView />
   </div>
 </template>

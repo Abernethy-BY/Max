@@ -11,6 +11,7 @@ declare global {
   const AMapLoader: typeof import('@amap/amap-jsapi-loader')['default']
   const Big: typeof import('big.js')['default']
   const EffectScope: typeof import('vue')['EffectScope']
+  const ElMessage: typeof import('element-plus/es')['ElMessage']
   const HttpClient: typeof import('axios-mapper')['default']
   const anime: typeof import('animejs')['default']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -328,6 +329,7 @@ declare global {
   const yqjk: typeof import('./api/api')['yqjk']
   const yqzl: typeof import('./api/api')['yqzl']
   const yzdx: typeof import('./api/api')['yzdx']
+  const zcyh: typeof import('./api/api')['zcyh']
   const zhmm: typeof import('./api/api')['zhmm']
 }
 // for vue template auto import
@@ -344,6 +346,7 @@ declare module 'vue' {
     readonly AMapLoader: UnwrapRef<typeof import('@amap/amap-jsapi-loader')['default']>
     readonly Big: UnwrapRef<typeof import('big.js')['default']>
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
+    readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly HttpClient: UnwrapRef<typeof import('axios-mapper')['default']>
     readonly anime: UnwrapRef<typeof import('animejs')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
@@ -661,6 +664,7 @@ declare module 'vue' {
     readonly yqjk: UnwrapRef<typeof import('./api/api')['yqjk']>
     readonly yqzl: UnwrapRef<typeof import('./api/api')['yqzl']>
     readonly yzdx: UnwrapRef<typeof import('./api/api')['yzdx']>
+    readonly zcyh: UnwrapRef<typeof import('./api/api')['zcyh']>
     readonly zhmm: UnwrapRef<typeof import('./api/api')['zhmm']>
   }
 }

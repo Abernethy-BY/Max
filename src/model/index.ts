@@ -33,3 +33,8 @@ export interface MESSAGE_MODEL {
   onCancel: Function
   onConfirm: Function
 }
+
+export interface SELECT_OPTION_MODEL {
+  value: string | number
+  label: string | number
+}
