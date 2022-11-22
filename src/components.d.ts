@@ -19,6 +19,7 @@ declare module '@vue/runtime-core' {
     ElButton: typeof import('element-plus/es')['ElButton']
     ElCarousel: typeof import('element-plus/es')['ElCarousel']
     ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
+    ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElectricityUsage: typeof import('./components/doubleCarbon/electricityUsage.vue')['default']
     ElectricityUsedProportion: typeof import('./components/doubleCarbon/electricityUsedProportion.vue')['default']
@@ -56,6 +57,7 @@ declare module '@vue/runtime-core' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SignUp: typeof import('./components/login/signUp.vue')['default']
+    SmsLogin: typeof import('./components/login/smsLogin.vue')['default']
     SubItemization: typeof import('./components/enterprise/subItemization.vue')['default']
     SubmissionSuccessful: typeof import('./components/dialog/submissionSuccessful.vue')['default']
   }

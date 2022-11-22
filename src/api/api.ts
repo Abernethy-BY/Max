@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-11-21 19:45:07
+ * @LastEditTime: 2022-11-22 13:50:54
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
@@ -51,3 +51,8 @@ export const mjcz = (param: any) => post('/mjcz.aspx', param)
 
 // 注册
 export const zcyh = (param: any) => post('/zcyh.aspx', param)
+
+// 获取行政区划
+export const district = (param: any) => gaoDeWebApi('https://restapi.amap.com/v3/config/district', param)
+
+// https://restapi.amap.com/v3/config/district

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-21 20:22:22
+ * @LastEditTime: 2022-11-22 21:13:27
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -23,6 +23,7 @@ const loginSpan = new Map()
   .set('PASS_LOGIN', { mainTitle: '账号密码登录', subTitle: '短信快捷登录' })
   .set('FORGOT_PASS', { mainTitle: '找回密码', subTitle: '' })
   .set('SIGN_UP', { mainTitle: '注册', subTitle: '' })
+  .set('SMS_LOGIN', { mainTitle: '短信快捷登录', subTitle: '账号密码登录' })
 
 /**
  * @description: 打开找回密码
@@ -49,6 +50,17 @@ const openSignUp = () => {
 }
 
 /**
+ * @description: 弹出短信登录弹窗
+ * @return {*}
+ */
+const jumpFun = () => {
+  if (loginFag.value === 'SMS_LOGIN')
+    loginFag.value = 'PASS_LOGIN'
+
+  else if (loginFag.value === 'PASS_LOGIN')
+    loginFag.value = 'SMS_LOGIN'
+}
+/**
  * @description: 用户协议选项
  */
 const agreementFlag = ref<boolean>(false)
@@ -57,10 +69,6 @@ const agreementFlag = ref<boolean>(false)
  * @description: 录入信息表单节点
  */
 const enterInformationRef = ref()
-
-onMounted(() => {
-  enterInformationRef.value.openPop()
-})
 
 /**
  * @description: 弹出信息录入弹窗
@@ -77,9 +85,9 @@ const openEnterInformation = () => {
     h-579 pt-47 pb-17
   >
     <!-- 密码登录标头 -->
-    <header v-if="loginFag === 'PASS_LOGIN'" flex cross-axis-center flex-row-between ml-53 mr-56>
+    <header v-if="loginFag === 'PASS_LOGIN' || loginFag === 'SMS_LOGIN'" flex cross-axis-center flex-row-between ml-53 mr-56>
       <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFag).mainTitle }}</span>
-      <div cursor-p flex cross-axis-center>
+      <div cursor-p flex cross-axis-center @click="jumpFun">
         <span fs-18 lh-42 color="#05FFFF">{{ loginSpan.get(loginFag).subTitle }}</span>
         <el-image class="handoff-icon" :src="handoffIcon" fit="fill" />
       </div>
@@ -105,8 +113,12 @@ const openEnterInformation = () => {
       <div v-else-if="loginFag === 'SIGN_UP'" wPE-100 hPE-100 @openEnterInformation="openEnterInformation">
         <sign-up />
       </div>
+      <!-- 短信登录 -->
+      <div v-else-if="loginFag === 'SMS_LOGIN'" wPE-100 hPE-100>
+        <sms-login />
+      </div>
     </main>
-    <footer v-if="loginFag === 'PASS_LOGIN'" ml-53 mr-56 flex flex-row-between cross-axis-center>
+    <footer v-if="loginFag === 'PASS_LOGIN' || loginFag === 'SMS_LOGIN'" ml-53 mr-56 flex flex-row-between cross-axis-center>
       <span cursor-p color="#05FFFF" fs-18>扫一扫登录</span>
       <span cursor-p color="#05FFFF" fs-18 @click="openSignUp"> 立即注册</span>
     </footer>
@@ -119,6 +131,7 @@ const openEnterInformation = () => {
       </span>
     </footer>
   </div>
+  <!-- 信息录入弹窗 -->
   <enter-information ref="enterInformationRef" />
 </template>
 

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-06-16 10:00:26
- * @LastEditTime: 2022-09-20 18:56:05
+ * @LastEditTime: 2022-11-22 20:06:45
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\main.ts
@@ -19,6 +19,8 @@ import 'uno.css'
 
 import 'swiper/css'
 import 'swiper/css/autoplay'
+
+import './assets/css/main.css'
 
 setDomFontSize()
 const routes = setupLayouts(generatedRoutes)

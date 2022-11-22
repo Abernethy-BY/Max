@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-21 20:20:25
+ * @LastEditTime: 2022-11-22 21:03:50
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -61,18 +61,27 @@ const signUp = async (formEl: FormInstance | undefined) => {
     return
   await formEl.validate(async (valid, fields) => {
     if (valid) {
-      const submitId = new Date().getTime()
-      const param = {
-        usertype: signUpForm.value.userType,
-        submitid: submitId,
-        sign: md5(`${submitId}123789`),
-        tel: signUpForm.value.tel,
-        pass: signUpForm.value.pass,
-        checkcode: signUpForm.value.telCode,
+      try {
+        const submitId = new Date().getTime()
+        const param = {
+          usertype: signUpForm.value.userType,
+          submitid: submitId,
+          sign: md5(`${submitId}123789`),
+          tel: signUpForm.value.tel,
+          pass: signUpForm.value.pass,
+          checkcode: signUpForm.value.telCode,
+        }
+
+        const zcyhFun = async () => {
+          await zcyh(param)
+          emit('openEnterInformation')
+        }
+        debounce(zcyhFun, 500, false, [])
       }
-      await zcyh(param)
-      // ElMessage({ message: '成功', type: 'success' })
-      emit('openEnterInformation')
+      catch (error) {
+        consola.fatal(error)
+        ElMessage({ message: error, type: 'error' })
+      }
     }
   })
 }
@@ -106,8 +115,12 @@ const signUpCode = async () => {
       sign: md5(`${submitId}123789`),
       tel: signUpForm.value.tel,
     }
-    await yzdx(param)
-    ElMessage({ message: '验证码已发送', type: 'success' })
+
+    const yzdxFun = async () => {
+      await yzdx(param)
+      ElMessage({ message: '验证码已发送', type: 'success' })
+    }
+    debounce(yzdxFun, 500, false, [])
   }
   catch (error) {
     consola.fatal(error)
@@ -131,7 +144,7 @@ const signUpCode = async () => {
         <el-input v-model="signUpForm.tel" class="login-input" placeholder="请输入手机号码" @input="telInputFun" />
       </el-form-item>
       <el-form-item mt-34 prop="pass" label="登录密码">
-        <el-input v-model="signUpForm.pass" class="login-input" placeholder="请输入登录密码" />
+        <el-input v-model="signUpForm.pass" type="password" class="login-input" placeholder="请输入登录密码" />
       </el-form-item>
       <el-form-item mt-34 prop="telCode" label="手机验证码" class="phone-verification-code-item">
         <el-input v-model="signUpForm.telCode" class="login-input" placeholder="请输入手机验证码" />

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-09-29 18:35:00
+ * @LastEditTime: 2022-11-22 13:50:37
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -43,22 +43,38 @@ https.httpClient.interceptors.response.use((res) => {
 
 export const post = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.POST, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
+    https.request<meeting>(url, Method.POST, data).then((response: any) => {
+      resolve(response.data)
+    }, (err: any) => { reject(err) })
   })
 }
 
 export const get = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.GET, data).then((response: any) => { resolve(response.geocodes) }, (err: any) => { reject(err) })
+    https.request<meeting>(url, Method.GET, data).then((response: any) => {
+      resolve(response.data)
+    }, (err: any) => { reject(err) })
   })
 }
 export const put = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.PUT, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
+    https.request<meeting>(url, Method.PUT, data).then((response: any) => {
+      resolve(response.data)
+    }, (err: any) => { reject(err) })
   })
 }
 export const del = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.DELETE, data).then((response: any) => { resolve(response.data) }, (err: any) => { reject(err) })
+    https.request<meeting>(url, Method.DELETE, data).then((response: any) => {
+      resolve(response.data)
+    }, (err: any) => { reject(err) })
+  })
+}
+
+export const gaoDeWebApi = (url: string, data: RequestParams) => {
+  return new Promise((resolve, reject) => {
+    https.request<meeting>(url, Method.GET, data).then((response: any) => {
+      resolve(response)
+    }, (err: any) => { reject(err) })
   })
 }

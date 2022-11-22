@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-06 18:58:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-12 17:36:53
+ * @LastEditTime: 2022-11-22 11:36:53
  * @FilePath: \big-screen\src\components\enterprise\enterpriseMap.vue
  * @Description: 产业图鉴地图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -16,7 +16,9 @@ import shrink from '~/assets/image/pandect/shrink.png'
 import magnify from '~/assets/image/pandect/magnify.png'
 import fanhui from '~/assets/image/common/navBg/fanhui.png'
 import type { InterfaceModel } from '~/model'
-const propObj = withDefaults(defineProps<{ coordinateProp?: InterfaceModel }>(), { coordinateProp: () => { return { 位置: '', 数据: '', 数值1: '', 数值2: '', 图标: '' } } })
+const propObj = withDefaults(defineProps<{ coordinateProp?: InterfaceModel }>(), {
+  coordinateProp: () => { return { 位置: '', 数据: '', 数值1: '', 数值2: '', 图标: '' } },
+})
 
 const emit = defineEmits(['refresh'])
 
@@ -160,7 +162,10 @@ const magnifyMap = () => {
  * @return {*}
  */
 const shrinkMap = () => {
-  if (option.series[0].zoom < 0.4) { option.series[0].zoom = 0.4; return }
+  if (option.series[0].zoom < 0.4) {
+    option.series[0].zoom = 0.4
+    return
+  }
   else { option.series[0].zoom -= 0.1 }
 
   myChart?.setOption(option)
@@ -177,7 +182,9 @@ let timeOutEvent: NodeJS.Timeout | number = 0
  */
 const goMagnifyMapStart = () => {
   clearInterval(timeOutEvent)
-  timeOutEvent = setInterval(() => { magnifyMap() }, 600)
+  timeOutEvent = setInterval(() => {
+    magnifyMap()
+  }, 600)
 }
 
 /**
@@ -200,7 +207,9 @@ let shrinkTimeOut: NodeJS.Timeout | number = 0
  */
 const goShrinkMapStart = () => {
   clearInterval(shrinkTimeOut)
-  shrinkTimeOut = setInterval(() => { shrinkMap() }, 600)
+  shrinkTimeOut = setInterval(() => {
+    shrinkMap()
+  }, 600)
 }
 /**
  * @description:鼠标抬起地图缩小按钮
@@ -229,7 +238,9 @@ const goLast = () => {
 
 onMounted(() => {
   myChart = eCharts.init(mapRef.value)
-  window.addEventListener('resize', () => { myChart?.resize() })
+  window.addEventListener('resize', () => {
+    myChart?.resize()
+  })
   myChart.showLoading(loadingParam)
   myChart?.on('click', mapClickFun)
   initMap()

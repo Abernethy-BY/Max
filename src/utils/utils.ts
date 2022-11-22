@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-13 09:45:27
+ * @LastEditTime: 2022-11-22 21:00:46
  * @FilePath: \big-screen\src\utils\utils.ts
  * @Description: 工具类
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -75,17 +75,29 @@ export const formatDate = (date, pattern?) => {
   if (ss < 10)
     clock += '0'
   clock += ss
-  if (isNull(pattern) || pattern === dateTypes.yyyy_MM_dd_HH_mm_ss) { return clock }
+  if (isNull(pattern) || pattern === dateTypes.yyyy_MM_dd_HH_mm_ss) {
+    return clock
+  }
 
-  else if (pattern === dateTypes.yyyy_MM_dd) { return clock.substring(0, 10) }
+  else if (pattern === dateTypes.yyyy_MM_dd) {
+    return clock.substring(0, 10)
+  }
 
-  else if (pattern === dateTypes.HH_mm_ss) { return clock.substring(11) }
+  else if (pattern === dateTypes.HH_mm_ss) {
+    return clock.substring(11)
+  }
 
-  else if (pattern === dateTypes.yyyy_MM_dd_1) { return clock.substring(0, 10).replace(/-/g, '/') }
+  else if (pattern === dateTypes.yyyy_MM_dd_1) {
+    return clock.substring(0, 10).replace(/-/g, '/')
+  }
 
-  else if (pattern === dateTypes.yyyyMMdd) { return clock.substring(0, 10).replace(/-/g, '') }
+  else if (pattern === dateTypes.yyyyMMdd) {
+    return clock.substring(0, 10).replace(/-/g, '')
+  }
 
-  else if (pattern === dateTypes.yyyy_MM_dd_HH_mm) { return clock.substring(0, 16) }
+  else if (pattern === dateTypes.yyyy_MM_dd_HH_mm) {
+    return clock.substring(0, 16)
+  }
 
   else if (pattern === dateTypes.yyyy_MM_dd_cn) {
     const temp = clock.substring(0, 10).split('-')
@@ -316,37 +328,6 @@ export const getYearLastDay = (year, pattern = 'yyyy-MM-dd') => {
   lastDay.setDate(0)
   lastDay.setMonth(-1)
   return formatDate(lastDay, pattern)
-}
-
-// 防抖
-let timeout: ReturnType<typeof setTimeout> | null = null
-/**
-* 防抖原理：一定时间内，只有最后一次操作，再过wait毫秒后才执行函数
-*
-* @param {Function} func 要执行的回调函数
-* @param {Number} wait 延时的时间
-* @param {Boolean} immediate 是否立即执行
-* @return null
-*/
-export const debounce = (func, wait = 500, immediate = false) => {
-  // 清除定时器
-  if (timeout !== null)
-    clearTimeout(timeout)
-  // 立即执行，此类情况一般用不到
-  if (immediate) {
-    const callNow = !timeout
-    timeout = setTimeout(() => {
-      timeout = null
-    }, wait)
-    if (callNow)
-      typeof func === 'function' && func()
-  }
-  else {
-    // 设置定时器，当最后一次操作后，timeout不会再被清除，所以在延时wait毫秒后执行func回调方法
-    timeout = setTimeout(() => {
-      typeof func === 'function' && func()
-    }, wait)
-  }
 }
 
 /**

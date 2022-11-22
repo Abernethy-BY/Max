@@ -1,0 +1,96 @@
+:deep(.enter-information-form) {
+  .el-form-item {
+    align-items: center;
+  }
+
+
+
+  // background: red;
+  .el-form-item__label {
+    width: 79px;
+    height: 18px;
+    font-size: 18px;
+    font-family: Source Han Sans CN;
+    font-weight: 500;
+    color: #1ADCFF;
+    line-height: 20px;
+    padding-left: 67px;
+    position: relative;
+
+    &:before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #1ADCFF;
+      transform: rotate(45deg);
+      position: absolute;
+      top: 4px;
+      left: 47px;
+    }
+  }
+
+  .el-form-item__content {
+    height: 38px;
+    
+
+    .remark-box {
+      margin-left: 137px;
+      display: flex;
+      align-items: center;
+
+      .remark-icon {
+        width: 23px;
+        height: 23px;
+      }
+
+      .form-remark {
+        font-size: 16px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #1ADCFF;
+        line-height: 20px;
+        margin-left: 13px;
+
+      }
+    }
+
+
+
+    .el-input {
+      height: 100%;
+      width: 288px;
+      border: 1px solid #1ADCFF;
+    }
+
+    .el-input__wrapper {
+      padding: 0;
+      border-radius: 0px;
+      background-color: inherit;
+      box-shadow: none;
+    }
+
+    .el-input__inner {
+      font-size: 18px;
+      font-family: Source Han Sans CN;
+      font-weight: 500;
+      color: #1ADCFF;
+      line-height: 20px;
+      padding-left: 11px;
+
+      &::-webkit-input-placeholder {
+        font-size: 14px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: rgba(26, 220, 255, 0.5);
+        // color: red;
+        // line-height: 20px;
+        padding-left: 11px;
+      }
+    }
+    .el-input__suffix{
+      margin-right: 20px;
+    }
+  }
+}
+
+

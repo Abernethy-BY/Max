@@ -1,0 +1,34 @@
+.enter-information-pop{
+  background: rgba(2, 56, 152, .9) !important;
+  border:1px solid #1A8BFF !important;
+  
+}
+.enter-information-pop .el-cascader-node__label{
+  color:#1ADCFF;
+}
+
+
+.el-cascader-node:not(.is-disabled):focus, .el-cascader-node:not(.is-disabled):hover
+
+.enter-information-pop .el-cascader-node:not(.is-disabled):focus,
+.enter-information-pop .el-cascader-node:not(.is-disabled):hover{
+  background:rgba(2, 56, 152, 1) !important;
+}
+
+.enter-information-pop .el-cascader-node:not(.is-disabled):hover span,
+.enter-information-pop .el-cascader-node:not(.is-disabled):hover span{
+  color:white !important;
+}
+
+.enter-information-pop .in-active-path .el-cascader-node__label{
+  color:white !important;
+}
+
+.enter-information-pop .el-popper__arrow:before{
+  display:none;
+}
+
+.el-message .el-icon{
+    width: 16PX !important;
+    height: 16PX !important;  
+}

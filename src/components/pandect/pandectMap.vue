@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-08 10:05:48
+ * @LastEditTime: 2022-11-22 13:51:15
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -158,7 +158,10 @@ const magnifyMap = () => {
  * @return {*}
  */
 const shrinkMap = () => {
-  if (option.series[0].zoom < 0.4) { option.series[0].zoom = 0.4; return }
+  if (option.series[0].zoom < 0.4) {
+    option.series[0].zoom = 0.4
+    return
+  }
   else { option.series[0].zoom -= 0.1 }
 
   myChart?.setOption(option)
@@ -175,7 +178,9 @@ let timeOutEvent: NodeJS.Timeout | number = 0
  */
 const goMagnifyMapStart = () => {
   clearInterval(timeOutEvent)
-  timeOutEvent = setInterval(() => { magnifyMap() }, 600)
+  timeOutEvent = setInterval(() => {
+    magnifyMap()
+  }, 600)
 }
 
 /**
@@ -198,7 +203,9 @@ let shrinkTimeOut: NodeJS.Timeout | number = 0
  */
 const goShrinkMapStart = () => {
   clearInterval(shrinkTimeOut)
-  shrinkTimeOut = setInterval(() => { shrinkMap() }, 600)
+  shrinkTimeOut = setInterval(() => {
+    shrinkMap()
+  }, 600)
 }
 /**
  * @description:鼠标抬起地图缩小按钮
@@ -227,7 +234,9 @@ const goLast = () => {
 
 onMounted(() => {
   myChart = eCharts.init(mapRef.value)
-  window.addEventListener('resize', () => { myChart?.resize() })
+  window.addEventListener('resize', () => {
+    myChart?.resize()
+  })
   myChart.showLoading(loadingParam)
   myChart?.on('click', mapClickFun)
   initMap()

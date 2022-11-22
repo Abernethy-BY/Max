@@ -40,18 +40,20 @@ declare global {
   const cytj: typeof import('./api/api')['cytj']
   const d3: typeof import('d3-geo')
   const dateTypes: typeof import('./utils/utils')['dateTypes']
-  const debounce: typeof import('./utils/utils')['debounce']
+  const debounce: typeof import('./utils/debounce')['debounce']
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
   const del: typeof import('./utils/http')['del']
   const disposeGeoJson: typeof import('./utils/utils')['disposeGeoJson']
+  const district: typeof import('./api/api')['district']
   const eCharts: typeof import('echarts')
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const formatDate: typeof import('./utils/utils')['formatDate']
+  const gaoDeWebApi: typeof import('./utils/http')['gaoDeWebApi']
   const get: typeof import('./utils/http')['get']
   const getAdCode: typeof import('./api/api')['getAdCode']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
@@ -375,18 +377,20 @@ declare module 'vue' {
     readonly cytj: UnwrapRef<typeof import('./api/api')['cytj']>
     readonly d3: UnwrapRef<typeof import('d3-geo')>
     readonly dateTypes: UnwrapRef<typeof import('./utils/utils')['dateTypes']>
-    readonly debounce: UnwrapRef<typeof import('./utils/utils')['debounce']>
+    readonly debounce: UnwrapRef<typeof import('./utils/debounce')['debounce']>
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
     readonly del: UnwrapRef<typeof import('./utils/http')['del']>
     readonly disposeGeoJson: UnwrapRef<typeof import('./utils/utils')['disposeGeoJson']>
+    readonly district: UnwrapRef<typeof import('./api/api')['district']>
     readonly eCharts: UnwrapRef<typeof import('echarts')>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly formatDate: UnwrapRef<typeof import('./utils/utils')['formatDate']>
+    readonly gaoDeWebApi: UnwrapRef<typeof import('./utils/http')['gaoDeWebApi']>
     readonly get: UnwrapRef<typeof import('./utils/http')['get']>
     readonly getAdCode: UnwrapRef<typeof import('./api/api')['getAdCode']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
