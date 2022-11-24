@@ -4,7 +4,9 @@ import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
 const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
-const popShowFlag = ref<boolean>(false)
+const router = useRouter()
+
+// const popShowFlag = ref<boolean>(false)
 /**
  * @description: 表单节点
  */
@@ -33,6 +35,11 @@ const openForgotPass = () => {
 }
 
 /**
+ * @description: 弹窗节点
+ */
+const operateDialogRef = ref()
+
+/**
  * @description: 登录方法
  * @param {*} formEl 表单节点
  * @return {*}
@@ -59,10 +66,18 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.token = temp.token
         userInfo.userCode = temp.usercode
         userInfo.userRole = temp.role
-        popShowFlag.value = true
+        operateDialogRef.value.openDialog()
       }
     }
   })
+}
+
+/**
+ * @description: 弹窗关闭回调
+ * @return {*}
+ */
+const dialogCloseFun = () => {
+  router.push({ path: '/' })
 }
 </script>
 
@@ -72,20 +87,22 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       <el-form-item mt-48 prop="userName">
         <el-input v-model="loginForm.userName" class="login-input" placeholder="请输入用户名">
           <template #prepend>
-            <el-image w-26 h-26 :src="userNameIcon" fit="fill" />
+            <el-image w-26px h-26px :src="userNameIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>
       <el-form-item mt-48 prop="passWord">
         <el-input v-model="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input">
           <template #prepend>
-            <el-image w-26 h-26 :src="passWordIcon" fit="fill" />
+            <el-image w-26px h-26px :src="passWordIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>
       <el-form-item mt-25>
-        <span wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
-          @click="openForgotPass">忘记密码？</span>
+        <span
+          wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
+          @click="openForgotPass"
+        >忘记密码？</span>
       </el-form-item>
       <el-form-item mt-48>
         <el-button class="login-button" type="primary" @click="submitForm(ruleFormRef)">
@@ -94,7 +111,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       </el-form-item>
     </el-form>
 
-    <login-success :show-flag="popShowFlag" />
+    <!-- <login-success :show-flag="popShowFlag" /> -->
+    <operate-dialog ref="operateDialogRef" type="LOGIN" :close="dialogCloseFun" />
   </div>
 </template>
 

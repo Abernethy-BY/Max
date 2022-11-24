@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:56:20
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-22 20:54:15
+ * @LastEditTime: 2022-11-24 19:42:41
  * @FilePath: \big-screen\src\components\login\enterInformation.vue
  * @Description:信息录入
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,6 +11,8 @@
 import closeIcon from '~/assets/image/login/closeIcon.png'
 import headerBg from '~/assets/image/login/headerBg.png'
 import prompt from '~/assets/image/login/prompt.png'
+
+const emit = defineEmits(['openPassLogin'])
 
 /**
  * @description: 弹窗弹出标识
@@ -133,6 +135,11 @@ const props = {
 }
 
 /**
+ * @description: 注册成功弹窗标识
+ */
+const operateDialogRef = ref()
+
+/**
  * @description: 下一步方法
  * @return {*}
  */
@@ -152,10 +159,20 @@ const nextFun = () => {
     })
     if (formNullFlag)
       throw new Error('未填必须项')
+
+    operateDialogRef.value.openDialog()
   }
   catch (error) {
     consola.fatal(error)
   }
+}
+
+/**
+ * @description: 关闭弹窗回调方法
+ * @return {*}
+ */
+const closeOperateDialogFun = () => {
+  emit('openPassLogin')
 }
 
 /**
@@ -275,27 +292,6 @@ const closePop = () => {
             <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>
           </div>
         </el-form-item>
-        <!-- <el-form-item label="用户名：">
-          <el-input v-model="enterInformationForm.Username" placeholder="请输入用户名" />
-          <div v-show="UsernameShowFlag" class="remark-box">
-            <el-image class="remark-icon" :src="prompt" fit="cover" />
-            <span class="form-remark">请输入用户名</span>
-          </div>
-        </el-form-item> -->
-        <!-- <el-form-item label="密码：">
-          <el-input v-model="enterInformationForm.pass" placeholder="请输入密码" />
-          <div class="remark-box">
-            <el-image class="remark-icon" :src="prompt" fit="cover" />
-            <span class="form-remark">请输入密码</span>
-          </div>
-        </el-form-item>
-        <el-form-item label="密码确认：">
-          <el-input v-model="enterInformationForm.rePass" placeholder="请再次输入密码" />
-          <div class="remark-box">
-            <el-image class="remark-icon" :src="prompt" fit="cover" />
-            <span class="form-remark">请再次输入密码</span>
-          </div>
-        </el-form-item> -->
       </el-form>
     </main>
     <footer wPE-100 h-32 mt-34 flex flex-row-center mb-31>
@@ -303,6 +299,7 @@ const closePop = () => {
         下一步
       </el-button>
     </footer>
+    <operate-dialog ref="operateDialogRef" type="SIGN_UP" :close="closeOperateDialogFun" />
   </div>
 </template>
 

@@ -2,9 +2,9 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-19 16:25:38
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-19 16:38:46
+ * @LastEditTime: 2022-11-24 16:09:19
  * @FilePath: \big-screen\src\components\dialog\submissionSuccessful.vue
- * @Description: 调教成功弹窗
+ * @Description: 提交成功弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>

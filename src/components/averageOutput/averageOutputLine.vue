@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 20:58:59
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-14 16:01:41
+ * @LastEditTime: 2022-11-24 15:21:36
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputLine.vue
  * @Description:亩均产值折线图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -46,7 +46,9 @@ let myChart: EChartsType | null = null
 const initChart = async () => {
   if (!myChart) {
     myChart = eCharts.init(averageOutputLineRef.value)
-    window.addEventListener('resize', () => { myChart?.resize() })
+    window.addEventListener('resize', () => {
+      myChart?.resize()
+    })
 
     const submitId = new Date().getTime()
     const param = {

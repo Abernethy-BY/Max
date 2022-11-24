@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-22 13:51:15
+ * @LastEditTime: 2022-11-24 14:32:45
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -19,6 +19,16 @@ import magnify from '~/assets/image/pandect/magnify.png'
 import fanhui from '~/assets/image/common/navBg/fanhui.png'
 
 const emit = defineEmits(['refresh'])
+const userInfo = useUserStore()
+
+/**
+ * @description: 园区图片节点
+ */
+const parkImageRef = ref()
+/**
+ * @description: 园区标识
+ */
+const parkFlag = ref<boolean>()
 
 /**
  * @description: 地图节点
@@ -124,24 +134,49 @@ const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
 }
 
 /**
+ * @description: 园区图片
+ */
+const parkImage = ref('')
+/**
  * @description: 地图点击事件
  * @param {*} params 点击数据
  */
 const mapClickFun = (params) => {
-  // 地图下钻方法
-  const drillDownFun = async () => {
-    const param = { address: params.name, key: '79848c3f3fbd1e9321efb5408c3c4a31' }
-    const sig = md5(disposeParamFun(param))
-    const res: any = await getAdCode({ ...param, sig })
-    myChart?.dispose()
-    myChart = eCharts.init(mapRef.value)
-    myChart?.on('click', mapClickFun)
-    myChart?.showLoading(loadingParam)
-    initMap(res[0].adcode, params.name)
+  try {
+    const temp = params.name?.includes('园')
+    // 地图下钻方法
+    const drillDownFun = async () => {
+      if (temp) {
+        myChart?.dispose()
+        const submitId = new Date().getTime()
+        const getimgParam = {
+          submitid: submitId,
+          usercode: userInfo.userCode,
+          sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+          address: params.name,
+        }
+        const getimgRes: any = await getimg(getimgParam)
+        parkImage.value = getimgRes[0] ? getimgRes[0].imgurl : ''
+      }
+      else {
+        myChart?.dispose()
+        myChart = eCharts.init(mapRef.value)
+        myChart?.on('click', mapClickFun)
+        myChart?.showLoading(loadingParam)
+        const param = { address: params.name, key: '79848c3f3fbd1e9321efb5408c3c4a31' }
+        const sig = md5(disposeParamFun(param))
+        const res: any = await getAdCode({ ...param, sig })
+        initMap(res?.geocodes?.[0].adcode, params.name)
+      }
+      parkFlag.value = temp
+    }
+    // 防抖
+    debounce(drillDownFun, 1000, true)
   }
-
-  // 防抖
-  debounce(drillDownFun, 1000, true)
+  catch (error) {
+    consola.fatal(error)
+    ElMessage({ message: error, type: 'error' })
+  }
 }
 
 /**
@@ -225,11 +260,14 @@ const goLast = () => {
   if (mapOperateHistory.length > 1)
     mapOperateHistory.pop()
   const temp = mapOperateHistory[mapOperateHistory.length - 1]
+  parkFlag.value = false
   myChart?.dispose()
-  myChart = eCharts.init(mapRef.value)
-  myChart?.on('click', mapClickFun)
-  myChart?.showLoading(loadingParam)
-  initMap(temp.adCode, temp.areaName, 'goBack')
+  nextTick(() => {
+    myChart = eCharts.init(mapRef.value)
+    myChart?.on('click', mapClickFun)
+    myChart?.showLoading(loadingParam)
+    initMap(temp.adCode, temp.areaName, 'goBack')
+  })
 }
 
 onMounted(() => {
@@ -241,6 +279,28 @@ onMounted(() => {
   myChart?.on('click', mapClickFun)
   initMap()
 })
+
+watch(() => parkFlag.value, () => {
+  consola.info(['地图类型更改', parkFlag.value])
+})
+
+/**
+ * @description: 图片加载失败方法
+ * @param {*} e 触发事件
+ * @return {*}
+ */
+const errorFun = (e) => {
+  parkImageRef.value.$el.style.display = 'none'
+}
+
+/**
+ * @description: 图品加载成功方法
+ * @param {*} e 触发事件
+ * @return {*}
+ */
+const loadFun = (e) => {
+  parkImageRef.value.$el.style.display = 'inline-block'
+}
 </script>
 
 <template>
@@ -262,7 +322,11 @@ onMounted(() => {
         <span>E</span> -->
       </div>
     </div>
-    <div id="mapRef" ref="mapRef" wPE-100 hPE-100 />
+    <div v-if="!parkFlag" id="map" ref="mapRef" wPE-100 hPE-100 />
+    <el-image
+      v-else ref="parkImageRef" :src="parkImage" class="park-image" fit="cover" @error="(err) => errorFun(err)"
+      @load="(err) => loadFun(err)"
+    />
   </div>
 </template>
 
@@ -308,6 +372,11 @@ onMounted(() => {
   .pandect-map {
     width: 100%;
     height: 100%;
+  }
+
+  :deep(.park-image) {
+    width: 100%;
+    height: 97%;
   }
 }
 </style>

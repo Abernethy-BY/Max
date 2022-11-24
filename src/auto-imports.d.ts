@@ -73,6 +73,7 @@ declare global {
   const getTimeDifference: typeof import('./utils/utils')['getTimeDifference']
   const getYear: typeof import('./utils/utils')['getYear']
   const getYearLastDay: typeof import('./utils/utils')['getYearLastDay']
+  const getimg: typeof import('./api/api')['getimg']
   const h: typeof import('vue')['h']
   const hexMD5: typeof import('./utils/md5')['hexMD5']
   const hexMD5w: typeof import('./utils/md5')['hexMD5w']
@@ -85,6 +86,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
+  const loginWxBack: typeof import('./api/api')['loginWxBack']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const md5: typeof import('js-md5')['default']
@@ -410,6 +412,7 @@ declare module 'vue' {
     readonly getTimeDifference: UnwrapRef<typeof import('./utils/utils')['getTimeDifference']>
     readonly getYear: UnwrapRef<typeof import('./utils/utils')['getYear']>
     readonly getYearLastDay: UnwrapRef<typeof import('./utils/utils')['getYearLastDay']>
+    readonly getimg: UnwrapRef<typeof import('./api/api')['getimg']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hexMD5: UnwrapRef<typeof import('./utils/md5')['hexMD5']>
     readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>
@@ -422,6 +425,7 @@ declare module 'vue' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
+    readonly loginWxBack: UnwrapRef<typeof import('./api/api')['loginWxBack']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly md5: UnwrapRef<typeof import('js-md5')['default']>

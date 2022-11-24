@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-09 17:25:16
+ * @LastEditTime: 2022-11-24 16:17:33
  * @FilePath: \big-screen\src\components\pandect\constructionProgress.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -89,7 +89,7 @@ watch(() => propObj.constructionProgressProp, () => {
       <div class="progress-main" h-25 bg="#00b5fd" po-r>
         <div hPE-100 po-a pot-0 pol-0 class="progress" :style="`width:${progressValue}`" />
       </div>
-      <span w-55 hPE-100 po-a por-0 pot-0 flex flex-row-center cross-axis-center flex-1 class="progress-value">{{
+      <span w-55px hPE-100 po-a por-0 pot-0 flex flex-row-center cross-axis-center flex-1 class="progress-value">{{
         progressValue }}</span>
     </div>
     <div mt-47 wPE-100 hPE-90 flex-1 flex fw po-r>

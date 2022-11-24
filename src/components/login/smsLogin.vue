@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-22 21:08:12
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-22 21:24:37
+ * @LastEditTime: 2022-11-24 16:17:27
  * @FilePath: \big-screen\src\components\login\smsLogin.vue
  * @Description: 验证码登录方法
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -120,7 +120,7 @@ const phoneLogin = async (formEl: FormInstance | undefined) => {
       <el-form-item mt-34 prop="userName">
         <el-input v-model="phoneLoginForm.phoneNum" class="login-input" placeholder="请输入手机号" @input="phoneInputFun">
           <template #prepend>
-            <el-image w-26 h-26 :src="phoneInputIcon" fit="fill" />
+            <el-image w-26px h-26px :src="phoneInputIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>

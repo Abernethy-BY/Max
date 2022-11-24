@@ -33,24 +33,37 @@ export default defineConfig({
   rules: [
     ['-I', { '': '!important' }],
     [/^z-(\d+)$/, ([, d]) => ({ 'z-index': `${d}` })],
-    [/^w-(\d+)$/, ([, d]) => ({ width: `${d}px` })],
-    [/^h-(\d+)$/, ([, d]) => ({ height: `${d}px` })],
     [/^wPE-(\d+)$/, ([, d]) => ({ width: `${d}%` })],
     [/^hPE-(\d+)$/, ([, d]) => ({ height: `${d}%` })],
+    [/^h-calc-(\w+)-(\w+)$/, ([, a, b]) => {
+      const numReg = /^((?![A-Za-z]).)*$/
+      const heightArr = [a, b].map(e => numReg.test(e) ? `${e}%` : e)
+      return { height: `calc(${heightArr[0]} - ${heightArr[1]})` }
+    }],
+    [/^h-(.+)$/, ([, a]) => {
+      const numReg = /^((?![A-Za-z]).)*$/
+      const h = numReg.test(a) ? `${a}%` : a
+      return { height: h }
+    }],
+    [/^w-(.+)$/, ([, a]) => {
+      const numReg = /^((?![A-Za-z]).)*$/
+      const w = numReg.test(a) ? `${a}%` : a
+      return { width: w }
+    }],
 
     ['layouts', { width: '100vw', height: '100vh' }],
     ['box-until', { width: '100%', height: '100%' }],
     ['box-center', { 'display': 'flex', 'flex-direction': 'column', 'flex': '1', 'position': 'relative' }],
 
     ['flex', { display: 'flex' }],
-    ['flex-row-between', { 'justify-content': 'space-between' }],
-    ['flex-row-center', { 'justify-content': 'center' }],
-    ['flex-row-end', { 'justify-content': 'flex-end' }],
-    ['flex-column-start', { 'flex-direction': 'column' }],
-    ['flex-column-between', { 'flex-direction': 'column', 'justify-content': 'space-between' }],
-    ['flex-column-around', { 'flex-direction': 'column', 'justify-content': 'space-around' }],
-    ['flex-column-center', { 'flex-direction': 'column', 'justify-content': 'center' }],
-    ['flex-column-end', { 'flex-direction': 'column', 'justify-content': 'space-end' }],
+    ['flex-row-between', { 'display': 'flex', 'justify-content': 'space-between' }],
+    ['flex-row-center', { 'display': 'flex', 'justify-content': 'center' }],
+    ['flex-row-end', { 'display': 'flex', 'justify-content': 'flex-end' }],
+    ['flex-column-start', { 'display': 'flex', 'flex-direction': 'column' }],
+    ['flex-column-between', { 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'space-between' }],
+    ['flex-column-around', { 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'space-around' }],
+    ['flex-column-center', { 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'center' }],
+    ['flex-column-end', { 'display': 'flex', 'flex-direction': 'column', 'justify-content': 'space-end' }],
     ['cross-axis-stretch', { 'align-items': 'stretch' }],
     ['cross-axis-center', { 'align-items': 'center' }],
     ['cross-axis-end', { 'align-items': 'flex-end' }],
@@ -92,6 +105,7 @@ export default defineConfig({
     [/^position-(\w+)$/, ([, w]) => ({ position: `${w}` })],
     ['po-r', { position: 'relative' }],
     ['po-a', { position: 'absolute' }],
+    ['po-f', { position: 'fixed' }],
     [/^pot-(\d+)$/, ([, d]) => ({ top: `${d}px` })],
     [/^pob-(\d+)$/, ([, d]) => ({ bottom: `${d}px` })],
     [/^pol-(\d+)$/, ([, d]) => ({ left: `${d}px` })],
@@ -114,11 +128,7 @@ export default defineConfig({
 
       return effectiveArr.length === 0 ? { padding: '0px' } : { padding: paddingList.join(' ') }
     }],
-    [/^h-calc-(\w+)-(\w+)$/, ([, a, b]) => {
-      const numReg = /^((?![A-Za-z]).)*$/
-      const heightArr = [a, b].map(e => numReg.test(e) ? `${e}%` : e)
-      return { height: `calc(${heightArr[0]} - ${heightArr[1]})` }
-    }],
+
     [/^po-(t|l|b|r+)-(.+)$/, ([, a, b]) => {
       const numReg = /^((?![A-Za-z]).)*$/
       const directionMap = new Map().set('t', 'top').set('b', 'bottom').set('r', 'right').set('l', 'left')

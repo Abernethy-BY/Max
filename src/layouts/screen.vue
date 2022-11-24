@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-09 18:18:03
+ * @LastEditTime: 2022-11-24 16:17:43
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -83,7 +83,7 @@ const jumpToLogin = () => {
     </header>
     <div class="tab-Wrap" wPE-100 hPE-6 flex flex-row-center cross-axis-center mt-19>
       <div
-        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210 hPE-100 mr-18 ml-18 flex cross-axis-center
+        v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210px hPE-100 mr-18 ml-18 flex cross-axis-center
         :class="pageIndex === index ? 'click' : ''" @click="jump(index)"
       >
         <el-image v-if="pageIndex === index" class="time-icon" :src="item.selectedBg" fit="fill" />

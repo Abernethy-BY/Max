@@ -2,8 +2,8 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-18 19:16:08
- * @FilePath: \big-screen\src\pages\login.vue
+ * @LastEditTime: 2022-11-24 16:18:04
+ * @FilePath: \big-screen\src\pages\loginCopy.vue
  * @Description: 登录
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
@@ -267,8 +267,8 @@ const enrollForm = ref({
 
 <template>
   <div
-    class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552 position-absolute pot-255
-    por-344 h-579
+    class="login-form" bg="#023CA7" flex flex-column-between cross-axis-stretch pt-47 w-552px position-absolute pot-255
+    por-344 h-579px
   >
     <!-- 二维码登录头 -->
     <header v-if="accountFlag === 'scan'" flex cross-axis-center flex-row-center ml-53 mr-56>
@@ -293,14 +293,14 @@ const enrollForm = ref({
       <el-form-item mt-48 prop="userName">
         <el-input v-model="loginForm.userName" class="login-input" placeholder="请输入用户名">
           <template #prepend>
-            <el-image w-26 h-26 :src="userNameIcon" fit="fill" />
+            <el-image w-26px h-26px :src="userNameIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>
       <el-form-item mt-48 prop="passWord">
         <el-input v-model="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input">
           <template #prepend>
-            <el-image w-26 h-26 :src="passWordIcon" fit="fill" />
+            <el-image w-26px h-26px :src="passWordIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>
@@ -328,7 +328,7 @@ const enrollForm = ref({
       <el-form-item mt-34 prop="userName">
         <el-input v-model="phoneLoginForm.phoneNum" class="login-input" placeholder="请输入手机号" @input="phoneInputFun">
           <template #prepend>
-            <el-image w-26 h-26 :src="phoneInputIcon" fit="fill" />
+            <el-image w-26px h-26px :src="phoneInputIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>

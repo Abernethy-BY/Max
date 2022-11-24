@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 19:44:07
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-13 18:30:01
+ * @LastEditTime: 2022-11-24 16:16:33
  * @FilePath: \big-screen\src\components\averageOutput\averageOutputSelect.vue
  * @Description: 亩均产值选择器
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -24,7 +24,7 @@ const clickSelectFun = (val) => {
 
 <template>
   <div wPE-100 hPE-100 class="average-output-select-box" flex>
-    <div class="select-box" :class="selectBoxIndex === 0 ? 'selectBox' : 'notSelectBox'" w-159 h-52 po-r>
+    <div class="select-box" :class="selectBoxIndex === 0 ? 'selectBox' : 'notSelectBox'" w-159px h-52px po-r>
       <span wPE-100 hPE-100 class="select-title" @click="clickSelectFun(0)">工业项目</span>
       <el-image class="triangle" :src="triangleImage" fit="cover" />
       <div v-if="selectBoxIndex === 0" style="background:rgba(30,84,242,0.4);" mt-5 wPE-100 br-7>
@@ -36,7 +36,7 @@ const clickSelectFun = (val) => {
         </div>
       </div>
     </div>
-    <div class="select-box" :class="selectBoxIndex === 1 ? 'selectBox' : 'notSelectBox'" w-159 h-52 po-r mlPE-5>
+    <div class="select-box" :class="selectBoxIndex === 1 ? 'selectBox' : 'notSelectBox'" w-159px h-52px po-r mlPE-5>
       <span wPE-100 hPE-100 class="select-title" @click="clickSelectFun(1)">产业项目</span>
       <el-image class="triangle" :src="triangleImage" fit="cover" />
       <div v-if="selectBoxIndex !== 0" style="background:rgba(30,84,242,0.4);" mt-5 wPE-100 br-7>

@@ -1,34 +1,51 @@
-.enter-information-pop{
-  background: rgba(2, 56, 152, .9) !important;
-  border:1px solid #1A8BFF !important;
-  
+.enter-information-pop {
+  background: rgba(2, 56, 152, 0.9) !important;
+  border: 1px solid #1a8bff !important;
 }
-.enter-information-pop .el-cascader-node__label{
-  color:#1ADCFF;
+.enter-information-pop .el-cascader-node__label {
+  color: #1adcff;
 }
 
-
-.el-cascader-node:not(.is-disabled):focus, .el-cascader-node:not(.is-disabled):hover
-
-.enter-information-pop .el-cascader-node:not(.is-disabled):focus,
-.enter-information-pop .el-cascader-node:not(.is-disabled):hover{
-  background:rgba(2, 56, 152, 1) !important;
+.el-cascader-node:not(.is-disabled):focus,
+.el-cascader-node:not(.is-disabled):hover
+  .enter-information-pop
+  .el-cascader-node:not(.is-disabled):focus,
+.enter-information-pop .el-cascader-node:not(.is-disabled):hover {
+  background: rgba(2, 56, 152, 1) !important;
 }
 
 .enter-information-pop .el-cascader-node:not(.is-disabled):hover span,
-.enter-information-pop .el-cascader-node:not(.is-disabled):hover span{
-  color:white !important;
+.enter-information-pop .el-cascader-node:not(.is-disabled):hover span {
+  color: white !important;
 }
 
-.enter-information-pop .in-active-path .el-cascader-node__label{
-  color:white !important;
+.enter-information-pop .in-active-path .el-cascader-node__label {
+  color: white !important;
 }
 
-.enter-information-pop .el-popper__arrow:before{
-  display:none;
+.enter-information-pop .el-popper__arrow:before {
+  display: none;
 }
 
-.el-message .el-icon{
-    width: 16PX !important;
-    height: 16PX !important;  
+.el-message .el-icon {
+  width: 16px !important;
+  height: 16px !important;
+}
+
+.role-popper {
+  background: rgba(2, 56, 152, 0.9) !important;
+  border: 1px solid #1a8bff !important;
+}
+
+.role-popper .el-select-dropdown__item span {
+  color: #1adcff !important;
+}
+.role-popper .hover,
+.role-popper .selected {
+  background: rgba(2, 56, 152, 1) !important;
+}
+
+.role-popper .hover span,
+.role-popper .selected span {
+  color: #ffffff !important;
 }

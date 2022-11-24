@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-22 21:03:50
+ * @LastEditTime: 2022-11-24 16:03:32
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,8 +11,8 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import type { SELECT_OPTION_MODEL } from '~/model'
 
-const emit = defineEmits(['openEnterInformation'])
-
+const propObj = withDefaults(defineProps<{ agreementFlag: boolean }>(), { agreementFlag: false })
+const emit = defineEmits(['openEnterInformation', 'errorAgreement'])
 /**
  * @description: 注册表单检验规则
  * @return {*}
@@ -28,6 +28,7 @@ const signUpRules = ref<FormRules>({
   ],
   pass: [{ required: true, message: '请输入登录密码', trigger: 'blur' }],
   telCode: [{ required: true, message: '请输入手机验证码', trigger: 'blur' }],
+  userType: [{ required: true, message: '请选择角色', trigger: 'blur' }],
 })
 
 /**
@@ -43,7 +44,13 @@ const signUpForm = ref({
 /**
  * @description: 用户选择器配置项
  */
-const userTypeOptions = ref<Array<SELECT_OPTION_MODEL>>([])
+const userTypeOptions = ref<Array<SELECT_OPTION_MODEL>>([
+  { label: '工信厅', value: '工信厅' },
+  { label: '工信局', value: '工信局' },
+  { label: '工信园区管委会管理员厅', value: '园区管委会管理员' },
+  { label: '园区专员', value: '园区专员' },
+  { label: '企业', value: '企业' },
+])
 
 /**
  * @description: 注册表单节点
@@ -59,9 +66,14 @@ const signUpPassRef = ref<FormInstance>()
 const signUp = async (formEl: FormInstance | undefined) => {
   if (!formEl)
     return
+
   await formEl.validate(async (valid, fields) => {
     if (valid) {
       try {
+        if (!propObj.agreementFlag) {
+          emit('errorAgreement')
+          return
+        }
         const submitId = new Date().getTime()
         const param = {
           usertype: signUpForm.value.userType,
@@ -136,7 +148,7 @@ const signUpCode = async () => {
       label-width="120px"
     >
       <el-form-item class="user-type-item" mt-34 prop="userType" label="用户类型">
-        <el-select v-model="signUpForm.userType" placeholder="请选择用户类型">
+        <el-select v-model="signUpForm.userType" class="login-input" popper-class="role-popper" placeholder="请选择用户类型">
           <el-option v-for="item in userTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
@@ -194,6 +206,12 @@ const signUpCode = async () => {
           width: 100%;
         }
       }
+
+      .el-select {
+        .el-input__wrapper {
+          border: none;
+        }
+      }
     }
 
     .user-type-item {
@@ -205,6 +223,7 @@ const signUpCode = async () => {
       }
 
       .el-input__inner {
+
         &::-webkit-input-placeholder {
           font-size: 16px;
           font-family: Source Han Sans CN;
