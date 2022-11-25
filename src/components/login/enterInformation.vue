@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:56:20
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-24 19:42:41
+ * @LastEditTime: 2022-11-25 15:03:14
  * @FilePath: \big-screen\src\components\login\enterInformation.vue
  * @Description:信息录入
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -89,14 +89,19 @@ defineExpose({ openPop })
  * @description: 表单对象
  */
 const enterInformationForm = ref({
-  province: [],
-  businessName: '',
-  registeredAddress: '',
-  officePhone: '',
-  creditCode: '',
-  contact: '',
-  phoneNumber: '',
-  Mailbox: '',
+  provinceArr: [],
+  unitname: '',
+  unitaddr: '',
+  unittel: '',
+  unittax: '',
+  linkman: '',
+  linkmantel: '',
+  email: '',
+  province: '',
+  city: '',
+  county: '',
+  submitid: '',
+  sign: '',
   // Username: '',
   // pass: '',
   // rePass: '',
@@ -143,7 +148,7 @@ const operateDialogRef = ref()
  * @description: 下一步方法
  * @return {*}
  */
-const nextFun = () => {
+const nextFun = async () => {
   try {
     let formNullFlag = false
     Object.keys(enterInformationForm.value).forEach((element, index) => {
@@ -159,6 +164,11 @@ const nextFun = () => {
     })
     if (formNullFlag)
       throw new Error('未填必须项')
+    const submitid = new Date().getTime()
+    enterInformationForm.value.submitid = submitid.toString()
+    enterInformationForm.value.sign = md5(`${submitid}${enterInformationForm.value.linkmantel}123789`)
+
+    await userinfoinput(enterInformationForm.value)
 
     operateDialogRef.value.openDialog()
   }
@@ -178,42 +188,42 @@ const closeOperateDialogFun = () => {
 /**
  * @description: 省份提示显示标识
  */
-const provinceShowFlag = computed(() => enterInformationForm.value.province.length === 0)
+const provinceShowFlag = computed(() => enterInformationForm.value.provinceArr.length === 0)
 
 /**
  * @description: 公司名称显示标识
  */
-const businessNameShowFlag = computed(() => !enterInformationForm.value.businessName || enterInformationForm.value.businessName === '')
+const businessNameShowFlag = computed(() => !enterInformationForm.value.unitname || enterInformationForm.value.unitname === '')
 
 /**
  * @description: 注册地址：提示显示标识
  */
-const registeredAddressShowFlag = computed(() => !enterInformationForm.value.registeredAddress || enterInformationForm.value.registeredAddress === '')
+const registeredAddressShowFlag = computed(() => !enterInformationForm.value.unitaddr || enterInformationForm.value.unitaddr === '')
 
 /**
  * @description: 公司办公电话：提示显示标识
  */
-const officePhoneShowFlag = computed(() => !enterInformationForm.value.officePhone || enterInformationForm.value.officePhone === '')
+const officePhoneShowFlag = computed(() => !enterInformationForm.value.unittel || enterInformationForm.value.unittel === '')
 
 /**
  * @description: 企业信用代码：提示显示标识
  */
-const creditCodeShowFlag = computed(() => !enterInformationForm.value.creditCode || enterInformationForm.value.creditCode === '')
+const creditCodeShowFlag = computed(() => !enterInformationForm.value.unittax || enterInformationForm.value.unittax === '')
 
 /**
  * @description: 联系人：提示显示标识
  */
-const contactShowFlag = computed(() => !enterInformationForm.value.contact || enterInformationForm.value.contact === '')
+const contactShowFlag = computed(() => !enterInformationForm.value.linkman || enterInformationForm.value.linkman === '')
 
 /**
  * @description: 手机号码：提示显示标识
  */
-const phoneNumberShowFlag = computed(() => !enterInformationForm.value.phoneNumber || enterInformationForm.value.phoneNumber === '')
+const phoneNumberShowFlag = computed(() => !enterInformationForm.value.linkmantel || enterInformationForm.value.linkmantel === '')
 
 /**
  * @description:邮箱：提示显示标识
  */
-const MailboxShowFlag = computed(() => !enterInformationForm.value.Mailbox || enterInformationForm.value.Mailbox === '')
+const MailboxShowFlag = computed(() => !enterInformationForm.value.email || enterInformationForm.value.email === '')
 
 /**
  * @description: 弹窗关闭方法
@@ -235,7 +245,7 @@ const closePop = () => {
       <el-form class="enter-information-form" :model="enterInformationForm" label-width="220px" label-position="left">
         <el-form-item label="所在省份：">
           <el-cascader
-            v-model="enterInformationForm.province" popper-class="enter-information-pop" :props="props"
+            v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
             placeholder="请选择"
           />
           <div v-show="provinceShowFlag" class="remark-box">
@@ -244,49 +254,49 @@ const closePop = () => {
           </div>
         </el-form-item>
         <el-form-item label="企业名称：">
-          <el-input v-model="enterInformationForm.businessName" placeholder="请输入工商注册的企业名称" />
+          <el-input v-model="enterInformationForm.unitname" placeholder="请输入工商注册的企业名称" />
           <div v-show="businessNameShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="businessNameRef" class="form-remark">请输入企业名称</span>
           </div>
         </el-form-item>
         <el-form-item label="注册地址：">
-          <el-input v-model="enterInformationForm.registeredAddress" placeholder="请输入企业工商注册地址" />
+          <el-input v-model="enterInformationForm.unitaddr" placeholder="请输入企业工商注册地址" />
           <div v-show="registeredAddressShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="registeredAddressRef" class="form-remark">请输入注册地址</span>
           </div>
         </el-form-item>
         <el-form-item label="公司办公电话：">
-          <el-input v-model="enterInformationForm.officePhone" placeholder="请输入公司电话" />
+          <el-input v-model="enterInformationForm.unittel" placeholder="请输入公司电话" />
           <div v-show="officePhoneShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="officePhoneRef" class="form-remark">请输入你的联系电话</span>
           </div>
         </el-form-item>
         <el-form-item label="企业信用代码：">
-          <el-input v-model="enterInformationForm.creditCode" placeholder="请输入企业信用代码" />
+          <el-input v-model="enterInformationForm.unittax" placeholder="请输入企业信用代码" />
           <div v-show="creditCodeShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="creditCodeRef" class="form-remark">请输入你的企业信用代码</span>
           </div>
         </el-form-item>
         <el-form-item label="联系人：">
-          <el-input v-model="enterInformationForm.contact" placeholder="请输入联系人" />
+          <el-input v-model="enterInformationForm.linkman" placeholder="请输入联系人" />
           <div v-show="contactShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="contactRef" class="form-remark">请输入联系人</span>
           </div>
         </el-form-item>
         <el-form-item label="手机号码：">
-          <el-input v-model="enterInformationForm.phoneNumber" placeholder="必须是13或15打头" />
+          <el-input v-model="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
           <div v-show="phoneNumberShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
           </div>
         </el-form-item>
         <el-form-item label="邮箱：">
-          <el-input v-model="enterInformationForm.Mailbox" placeholder="XX@X.X(用于找回密码)" />
+          <el-input v-model="enterInformationForm.email" placeholder="XX@X.X(用于找回密码)" />
           <div v-show="MailboxShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>

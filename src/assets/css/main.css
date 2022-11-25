@@ -6,6 +6,12 @@
   color: #1adcff;
 }
 
+.enter-information-pop .el-icon {
+  color: #1adcff;
+}
+
+
+
 .el-cascader-node:not(.is-disabled):focus,
 .el-cascader-node:not(.is-disabled):hover
   .enter-information-pop
@@ -23,10 +29,15 @@
   color: white !important;
 }
 
+.enter-information-pop .in-active-path .el-icon {
+  color: white !important;
+}
+
 .enter-information-pop .el-popper__arrow:before {
   display: none;
 }
 
+/* 通知提醒 */
 .el-message .el-icon {
   width: 16px !important;
   height: 16px !important;

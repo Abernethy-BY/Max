@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-18 20:59:34
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-18 21:26:43
+ * @LastEditTime: 2022-11-25 16:00:08
  * @FilePath: \big-screen\src\components\login\forgotPass.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -10,6 +10,7 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
+const emit = defineEmits(['openPassLogin'])
 
 const forgotPassDom = ref<FormInstance>()
 /**
@@ -57,6 +58,16 @@ const telInputFun = (e) => {
 }
 
 /**
+ * @description: 验证码按钮文本
+ */
+const captchaButtonSpan = ref<string | number> ('发送验证码')
+
+/**
+ * @description: 获取验证码按钮禁用标识
+ */
+const captchaButtonDisabledFlag = ref<boolean>(false)
+
+/**
  * @description: 获取验证码
  * @return {*}
  */
@@ -75,6 +86,18 @@ const getForgetPassCode = async () => {
   }
   await yzdx(param)
   ElMessage({ message: '验证码已发送', type: 'success' })
+
+  let timeTemp = 60
+  const captchaButtonDisabledTime = setInterval(() => {
+    captchaButtonSpan.value = `请稍后重试(${timeTemp--})`
+    captchaButtonDisabledFlag.value = true
+
+    if (timeTemp === 0) {
+      captchaButtonDisabledFlag.value = false
+      captchaButtonSpan.value = '发送验证码'
+      clearInterval(captchaButtonDisabledTime)
+    }
+  }, 1000)
 }
 /**
  * @description: 找回密码方法
@@ -97,6 +120,7 @@ const forgotPass = async (formEl: FormInstance | undefined) => {
       }
       await zhmm(param)
       ElMessage({ message: '操作成功', type: 'success' })
+      emit('openPassLogin')
     }
   })
 }
@@ -122,12 +146,15 @@ const forgotPass = async (formEl: FormInstance | undefined) => {
       <el-form-item mt-34 prop="rePass" label="确认登录密码">
         <el-input v-model="forgotPassForm.rePass" class="login-input" placeholder="请确认登录密码" />
       </el-form-item>
-      <el-form-item mt-34 prop="telCode" label="手机验证码" class="phone-verification-code-item">
-        <el-input v-model="forgotPassForm.telCode" class="login-input" placeholder="请输入手机验证码" />
-        <el-button class="send-verification" @click="getForgetPassCode">
-          发送验证码
+      <div flex-row-between cross-axis-center>
+        <el-form-item mt-34 prop="telCode" label="手机验证码" class="phone-verification-code-item">
+          <el-input v-model="forgotPassForm.telCode" class="login-input" placeholder="请输入手机验证码" />
+        </el-form-item>
+        <el-button :disabled="captchaButtonDisabledFlag" class="send-verification" @click="getForgetPassCode">
+          {{ captchaButtonSpan }}
         </el-button>
-      </el-form-item>
+      </div>
+
       <footer mt-36 h-64 flex cross-axis-center flex-row-center fx-0 position-relative>
         <el-button class="footer-button" @click="forgotPass(forgotPassDom)">
           确认
@@ -191,34 +218,35 @@ const forgotPass = async (formEl: FormInstance | undefined) => {
     }
 
     .phone-verification-code-item {
+      align-items: center;
+      margin-top: 18px;
+
       .el-form-item__content {
         display: flex;
-        align-items: center;
 
         .el-input {
           flex: 1;
           margin-right: 13px;
         }
-
-        .el-button {
-          height: 40px;
-          flex: 0 0 80px;
-
-          background: #1ADCFF;
-          border: none;
-
-          span {
-
-            font-size: 11px;
-            font-family: Source Han Sans CN;
-            font-weight: 400;
-            color: #02389B;
-            line-height: 25px;
-          }
-        }
       }
     }
 
+    .send-verification {
+      // height: 40px;
+      flex: 1;
+      height: 40px;
+      background: #1ADCFF;
+      border: none;
+
+      span {
+
+        font-size: 11px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #02389B;
+        line-height: 25px;
+      }
+    }
   }
 }
 </style>

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-24 16:03:32
+ * @LastEditTime: 2022-11-25 16:03:56
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -85,6 +85,7 @@ const signUp = async (formEl: FormInstance | undefined) => {
         }
 
         const zcyhFun = async () => {
+          consola.info(222)
           await zcyh(param)
           emit('openEnterInformation')
         }
@@ -110,6 +111,16 @@ const telInputFun = (e) => {
 }
 
 /**
+ * @description: 获取验证码按钮文本
+ */
+const captchaButtonSpan = ref<string>('发送验证码')
+
+/**
+ * @description: 获取验证码按钮禁用标识
+ */
+const captchaButtonDisabledFlag = ref<boolean>(false)
+
+/**
  * @description: 获取验证码
  * @return {*}
  */
@@ -131,6 +142,17 @@ const signUpCode = async () => {
     const yzdxFun = async () => {
       await yzdx(param)
       ElMessage({ message: '验证码已发送', type: 'success' })
+      let timeTemp = 60
+      const captchaButtonDisabledTime = setInterval(() => {
+        captchaButtonSpan.value = `请稍后重试(${timeTemp--})`
+        captchaButtonDisabledFlag.value = true
+
+        if (timeTemp === 0) {
+          captchaButtonDisabledFlag.value = false
+          captchaButtonSpan.value = '发送验证码'
+          clearInterval(captchaButtonDisabledTime)
+        }
+      }, 1000)
     }
     debounce(yzdxFun, 500, false, [])
   }
@@ -160,8 +182,8 @@ const signUpCode = async () => {
       </el-form-item>
       <el-form-item mt-34 prop="telCode" label="手机验证码" class="phone-verification-code-item">
         <el-input v-model="signUpForm.telCode" class="login-input" placeholder="请输入手机验证码" />
-        <el-button class="send-verification" @click="signUpCode">
-          发送验证码
+        <el-button :disabled="captchaButtonDisabledFlag" class="send-verification" @click="signUpCode">
+          {{ captchaButtonSpan }}
         </el-button>
       </el-form-item>
       <footer mt-36 h-64 flex cross-axis-center flex-row-center fx-0 position-relative>

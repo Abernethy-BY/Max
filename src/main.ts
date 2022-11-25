@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-06-16 10:00:26
- * @LastEditTime: 2022-11-22 20:06:45
+ * @LastEditTime: 2022-11-25 19:00:14
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\main.ts
@@ -9,8 +9,9 @@
  */
 import { ViteSSG } from 'vite-ssg'
 
-import { setupLayouts } from 'virtual:generated-layouts'
+
 import App from './App.vue'
+import { setupLayouts } from 'virtual:generated-layouts'
 import generatedRoutes from '~pages'
 import 'normalize.css/normalize.css'
 import '@unocss/reset/tailwind.css'
@@ -23,7 +24,9 @@ import 'swiper/css/autoplay'
 import './assets/css/main.css'
 
 setDomFontSize()
-const routes = setupLayouts(generatedRoutes)
+
+const generatedRoutesTemp = generatedRoutes.filter(e => e.name === 'login')
+const routes = setupLayouts(generatedRoutesTemp)
 
 // https://github.com/antfu/vite-ssg
 export const createApp = ViteSSG(

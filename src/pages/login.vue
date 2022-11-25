@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-24 19:53:38
+ * @LastEditTime: 2022-11-25 15:31:38
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -92,6 +92,7 @@ const enterInformationRef = ref()
  * @return {*}
  */
 const openEnterInformation = () => {
+  consola.info(11)
   enterInformationRef.value.openPop()
 }
 
@@ -183,11 +184,11 @@ const userAgreementNext = () => {
       </div>
       <!-- 忘记密码 -->
       <div v-else-if="loginFag === 'FORGOT_PASS'" wPE-100 hPE-100>
-        <forgot-pass />
+        <forgot-pass @open-pass-login="openPassLogin" />
       </div>
       <!-- 立即注册 -->
-      <div v-else-if="loginFag === 'SIGN_UP'" wPE-100 hPE-100 @openEnterInformation="openEnterInformation">
-        <sign-up :agreement-flag="agreementFlag" @error-agreement="errorAgreementFun" />
+      <div v-else-if="loginFag === 'SIGN_UP'" wPE-100 hPE-100>
+        <sign-up :agreement-flag="agreementFlag" @open-enter-information="openEnterInformation " @error-agreement="errorAgreementFun" />
       </div>
       <!-- 短信登录 -->
       <div v-else-if="loginFag === 'SMS_LOGIN'" wPE-100 hPE-100>

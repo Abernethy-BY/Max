@@ -2,6 +2,8 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
+import { setupLayouts } from 'virtual:generated-layouts'
+import generatedRoutes from '~pages'
 const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
 const router = useRouter()
@@ -66,7 +68,15 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.token = temp.token
         userInfo.userCode = temp.usercode
         userInfo.userRole = temp.role
+        userInfo.city = temp.city
+        userInfo.compname = temp.compname
+        userInfo.province = temp.province
+
+        const routes = setupLayouts(generatedRoutes)
+        routes.forEach(element => { router.addRoute(element) });
+        
         operateDialogRef.value.openDialog()
+
       }
     }
   })
@@ -77,7 +87,15 @@ const submitForm = async (formEl: FormInstance | undefined) => {
  * @return {*}
  */
 const dialogCloseFun = () => {
-  router.push({ path: '/' })
+  if (userInfo.userRole === '工信局' || userInfo.userRole === '工信厅')
+    router.push({ path: '/enterprise' })
+
+  else if (userInfo.userRole === '企业')
+
+    router.push({ path: '/corporatePortrait' })
+
+  else
+    router.push({ path: '/' })
 }
 </script>
 
@@ -99,10 +117,8 @@ const dialogCloseFun = () => {
         </el-input>
       </el-form-item>
       <el-form-item mt-25>
-        <span
-          wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
-          @click="openForgotPass"
-        >忘记密码？</span>
+        <span wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
+          @click="openForgotPass">忘记密码？</span>
       </el-form-item>
       <el-form-item mt-48>
         <el-button class="login-button" type="primary" @click="submitForm(ruleFormRef)">
@@ -111,7 +127,6 @@ const dialogCloseFun = () => {
       </el-form-item>
     </el-form>
 
-    <!-- <login-success :show-flag="popShowFlag" /> -->
     <operate-dialog ref="operateDialogRef" type="LOGIN" :close="dialogCloseFun" />
   </div>
 </template>

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-11-24 11:04:32
+ * @LastEditTime: 2022-11-25 10:39:40
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
@@ -60,3 +60,7 @@ export const getimg = (param: any) => post('/getimg.aspx', param)
 
 // 获取二维码code
 export const loginWxBack = (param: any) => post('/loginwxback.aspx', param)
+
+// 资料录入
+export const userinfoinput = (param: any) => post('/userinfoinput.aspx', param)
+

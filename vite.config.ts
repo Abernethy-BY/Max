@@ -107,9 +107,6 @@ export default defineConfig({
 
     Inspect(),
   ],
-  esbuild: {
-    logOverride: { 'this-is-undefined-in-esm': 'silent' },
-  },
 
   ssgOptions: {
     script: 'async',

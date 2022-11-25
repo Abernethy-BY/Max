@@ -2,14 +2,14 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-09 15:33:19
+ * @LastEditTime: 2022-11-25 17:38:41
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
-const userInfo = useUserStore()
+const user = useUserStore()
 
 const industryRankingData = ref([])
 const constructionProgressData = ref([])
@@ -20,8 +20,8 @@ const getYqzl = async (val?) => {
   const submitId = new Date().getTime()
   const param = {
     submitid: submitId,
-    usercode: userInfo.userCode,
-    sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
+    usercode: user.userCode,
+    sign: hexMD5(submitId + user.userCode + user.token),
     address: val,
   }
   const res: any = await yqzl(param)
