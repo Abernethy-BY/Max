@@ -75,6 +75,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.city = temp.city
         userInfo.compname = temp.compname
         userInfo.province = temp.province
+        userInfo.getRouter()
 
         // const routes = setupLayouts(generatedRoutes)
         // routes.forEach((element) => {

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-25 18:57:54
+ * @LastEditTime: 2022-11-28 21:17:22
  * @FilePath: \big-screen\src\store\useUserStore.ts
  * @Description: userInfo
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -41,20 +41,18 @@ export const useUserStore = defineStore('user', () => {
     userRole.value = param
   }
 
-  // const getRouter = () => {
-  //   consola.info(generatedRoutes)
-  //   const routes = setupLayouts(generatedRoutes)
-  //   consola.info(App)
-  //   consola.info(route)
-  //   consola.info(router)
-  // }
+  const getRouter = () => {
+    // consola.info(getCurrentInstance())
+    // const { proxy } = getCurrentInstance()
+    // consola.start(proxy)
+  }
 
-  return { token, userCode, userRole, changeToken, changeUserCode, changeRole, city, compname, province, hasToken, getToken, getUserCode, getUserRole }
+  return { token, userCode, userRole, changeToken, changeUserCode, changeRole, city, compname, province, hasToken, getToken, getUserCode, getUserRole, getRouter }
 }, {
   persist: {
     enabled: true,
     strategies: [{ key: 'user', storage: sessionStorage }],
-  }
+  },
 })
 if (import.meta.hot)
   import.meta.hot.accept(acceptHMRUpdate(useUserStore, import.meta.hot))
