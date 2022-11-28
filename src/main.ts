@@ -9,9 +9,8 @@
  */
 import { ViteSSG } from 'vite-ssg'
 
-
-import App from './App.vue'
 import { setupLayouts } from 'virtual:generated-layouts'
+import App from './App.vue'
 import generatedRoutes from '~pages'
 import 'normalize.css/normalize.css'
 import '@unocss/reset/tailwind.css'
@@ -25,7 +24,8 @@ import './assets/css/main.css'
 
 setDomFontSize()
 
-const generatedRoutesTemp = generatedRoutes.filter(e => e.name === 'login')
+// const generatedRoutesTemp = generatedRoutes.filter(e => e.name === 'login')
+const generatedRoutesTemp = generatedRoutes
 const routes = setupLayouts(generatedRoutesTemp)
 
 // https://github.com/antfu/vite-ssg

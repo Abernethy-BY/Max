@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-25 15:31:38
+ * @LastEditTime: 2022-11-28 17:43:37
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -14,8 +14,7 @@ import returnIcon from '~/assets/image/login/returnIcon.png'
 /**
  * @description: 页面标识
  */
-const loginFag = ref<string>('PASS_LOGIN')
-
+const loginFlag = ref<string>('PASS_LOGIN')
 /**
  * @description: 页面登录文字
  */
@@ -31,7 +30,7 @@ const loginSpan = new Map()
  * @return {*}
  */
 const openFindPass = () => {
-  loginFag.value = 'FORGOT_PASS'
+  loginFlag.value = 'FORGOT_PASS'
 }
 
 /**
@@ -39,7 +38,7 @@ const openFindPass = () => {
  * @return {*}
  */
 const closeForgotPass = () => {
-  loginFag.value = 'PASS_LOGIN'
+  loginFlag.value = 'PASS_LOGIN'
 }
 
 /**
@@ -47,7 +46,7 @@ const closeForgotPass = () => {
  * @return {*}
  */
 const openSignUp = () => {
-  loginFag.value = 'SIGN_UP'
+  loginFlag.value = 'SIGN_UP'
 }
 
 /**
@@ -55,7 +54,7 @@ const openSignUp = () => {
  * @return {*}
  */
 const openPassLogin = () => {
-  loginFag.value = 'PASS_LOGIN'
+  loginFlag.value = 'PASS_LOGIN'
 }
 
 /**
@@ -63,7 +62,7 @@ const openPassLogin = () => {
  * @return {*}
  */
 const scanLogIn = () => {
-  loginFag.value = 'SCAN_TO_LOG_IN'
+  loginFlag.value = 'SCAN_TO_LOG_IN'
 }
 
 /**
@@ -71,11 +70,11 @@ const scanLogIn = () => {
  * @return {*}
  */
 const jumpFun = () => {
-  if (loginFag.value === 'SMS_LOGIN')
-    loginFag.value = 'PASS_LOGIN'
+  if (loginFlag.value === 'SMS_LOGIN')
+    loginFlag.value = 'PASS_LOGIN'
 
-  else if (loginFag.value === 'PASS_LOGIN' || loginFag.value === 'SCAN_TO_LOG_IN')
-    loginFag.value = 'SMS_LOGIN'
+  else if (loginFlag.value === 'PASS_LOGIN' || loginFlag.value === 'SCAN_TO_LOG_IN')
+    loginFlag.value = 'SMS_LOGIN'
 }
 /**
  * @description: 用户协议选项
@@ -88,11 +87,24 @@ const agreementFlag = ref<boolean>(false)
 const enterInformationRef = ref()
 
 /**
+ * @description: 用户注册电话
+ */
+const userSignTel = ref<string>('')
+
+/**
+ * @description: 用户注册类型
+ */
+const userSignType = ref<string>('')
+
+/**
  * @description: 弹出信息录入弹窗
+ * @param {*} tel 用户注册手机号
+ * @param {*} type 用户注册角色类型
  * @return {*}
  */
-const openEnterInformation = () => {
-  consola.info(11)
+const openEnterInformation = (tel, type) => {
+  userSignTel.value = tel
+  userSignType.value = type
   enterInformationRef.value.openPop()
 }
 
@@ -152,64 +164,64 @@ const userAgreementNext = () => {
   >
     <!-- 密码登录标头 -->
     <header
-      v-if="loginFag === 'PASS_LOGIN' || loginFag === 'SMS_LOGIN'" flex cross-axis-center flex-row-between ml-53
+      v-if="loginFlag === 'PASS_LOGIN' || loginFlag === 'SMS_LOGIN'" flex cross-axis-center flex-row-between ml-53
       mr-56
     >
-      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFag).mainTitle }}</span>
+      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFlag).mainTitle }}</span>
       <div cursor-p flex cross-axis-center @click="jumpFun">
-        <span fs-18 lh-42 color="#05FFFF">{{ loginSpan.get(loginFag).subTitle }}</span>
+        <span fs-18 lh-42 color="#05FFFF">{{ loginSpan.get(loginFlag).subTitle }}</span>
         <el-image class="handoff-icon" :src="handoffIcon" fit="fill" />
       </div>
     </header>
     <!-- 忘记密码标头 注册标头 -->
     <header
-      v-if="loginFag === 'FORGOT_PASS' || loginFag === 'SIGN_UP'" po-r flex cross-axis-center flex-row-between
+      v-if="loginFlag === 'FORGOT_PASS' || loginFlag === 'SIGN_UP'" po-r flex cross-axis-center flex-row-between
       ml-53 mr-56
     >
-      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFag).mainTitle }}</span>
+      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFlag).mainTitle }}</span>
       <el-image class="return-icon" :src="returnIcon" fit="fill" @click="closeForgotPass" />
     </header>
 
     <!-- 扫一扫登录标头 -->
-    <header
-      v-if="loginFag === 'SCAN_TO_LOG_IN'" flex cross-axis-center flex-row-center ml-53
-      mr-56
-    >
-      <span fs-24 fw-400 color="#05FFFF" opacity-100>{{ loginSpan.get(loginFag).mainTitle }}</span>
+    <header v-if="loginFlag === 'SCAN_TO_LOG_IN'" flex cross-axis-center flex-row-center ml-53 mr-56>
+      <span fs-24 fw-400 color="#05FFFF" opacity-100>{{ loginSpan.get(loginFlag).mainTitle }}</span>
     </header>
     <main flex-1>
       <!-- 密码登陆 -->
-      <div v-if="loginFag === 'PASS_LOGIN'" wPE-100 hPE-100>
+      <div v-if="loginFlag === 'PASS_LOGIN'" wPE-100 hPE-100>
         <pass-login @open-find-pass="openFindPass" />
       </div>
       <!-- 忘记密码 -->
-      <div v-else-if="loginFag === 'FORGOT_PASS'" wPE-100 hPE-100>
+      <div v-else-if="loginFlag === 'FORGOT_PASS'" wPE-100 hPE-100>
         <forgot-pass @open-pass-login="openPassLogin" />
       </div>
       <!-- 立即注册 -->
-      <div v-else-if="loginFag === 'SIGN_UP'" wPE-100 hPE-100>
-        <sign-up :agreement-flag="agreementFlag" @open-enter-information="openEnterInformation " @error-agreement="errorAgreementFun" />
+      <div v-else-if="loginFlag === 'SIGN_UP'" wPE-100 hPE-100>
+        <sign-up
+          :agreement-flag="agreementFlag" @open-enter-information="openEnterInformation"
+          @error-agreement="errorAgreementFun"
+        />
       </div>
       <!-- 短信登录 -->
-      <div v-else-if="loginFag === 'SMS_LOGIN'" wPE-100 hPE-100>
+      <div v-else-if="loginFlag === 'SMS_LOGIN'" wPE-100 hPE-100>
         <sms-login />
       </div>
 
       <!-- 扫一扫登录 -->
-      <div v-if="loginFag === 'SCAN_TO_LOG_IN'" w-100 h-100>
+      <div v-if="loginFlag === 'SCAN_TO_LOG_IN'" w-100 h-100>
         <scan-login />
       </div>
     </main>
     <!-- 密码登录||手机号登录页脚 -->
     <footer
-      v-if="loginFag === 'PASS_LOGIN' || loginFag === 'SMS_LOGIN'" ml-53 mr-56 flex flex-row-between
+      v-if="loginFlag === 'PASS_LOGIN' || loginFlag === 'SMS_LOGIN'" ml-53 mr-56 flex flex-row-between
       cross-axis-center
     >
       <span cursor-p color="#05FFFF" fs-18 @click="scanLogIn">扫一扫登录</span>
       <span cursor-p color="#05FFFF" fs-18 @click="openSignUp"> 立即注册</span>
     </footer>
     <!-- 注册也页脚 -->
-    <footer v-if="loginFag === 'SIGN_UP'" ml-53 mr-56 flex flex-row-center cross-axis-center>
+    <footer v-if="loginFlag === 'SIGN_UP'" ml-53 mr-56 flex flex-row-center cross-axis-center>
       <el-checkbox v-model="agreementFlag" class="agreement" size="large" @change="checkboxChangeFun" />
       <span ref="agreementSpanRef" class="agreement-span"> 同意并接受
         <span ref="userAgreementRef" class="jump-span" @click="openUserAgreement">《用户协议》</span>
@@ -218,16 +230,13 @@ const userAgreementNext = () => {
       </span>
     </footer>
     <!-- 扫一扫登录页脚 -->
-    <footer
-      v-if="loginFag === 'SCAN_TO_LOG_IN'" ml-53 mr-56 flex flex-row-between
-      cross-axis-center
-    >
+    <footer v-if="loginFlag === 'SCAN_TO_LOG_IN'" ml-53 mr-56 flex flex-row-between cross-axis-center>
       <span cursor-p color="#05FFFF" fs-18 @click="openPassLogin">账号密码登录</span>
       <span cursor-p color="#05FFFF" fs-18 @click="jumpFun"> 手机号登录</span>
     </footer>
   </div>
   <!-- 信息录入弹窗 -->
-  <enter-information ref="enterInformationRef" @open-pass-login="openPassLogin" />
+  <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" @open-pass-login="openPassLogin" />
   <!-- 用户协议弹窗 -->
   <operate-dialog ref="operateDialogRef" type="USER_AGREEMENT" :confirm="userAgreementNext" />
 </template>

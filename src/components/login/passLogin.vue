@@ -1,9 +1,9 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
+// import { setupLayouts } from 'virtual:generated-layouts'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
-import { setupLayouts } from 'virtual:generated-layouts'
-import generatedRoutes from '~pages'
+// import generatedRoutes from '~pages'
 const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
 const router = useRouter()
@@ -42,6 +42,11 @@ const openForgotPass = () => {
 const operateDialogRef = ref()
 
 /**
+ * @description: 弹窗类型标识
+ */
+const dialogType = ref<string>('')
+
+/**
  * @description: 登录方法
  * @param {*} formEl 表单节点
  * @return {*}
@@ -62,7 +67,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         token: '',
       }
       const res: any = await xtdl(param)
-
       const temp = res?.[0]
       if (res[0]) {
         userInfo.token = temp.token
@@ -72,11 +76,14 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.compname = temp.compname
         userInfo.province = temp.province
 
-        const routes = setupLayouts(generatedRoutes)
-        routes.forEach(element => { router.addRoute(element) });
-        
+        // const routes = setupLayouts(generatedRoutes)
+        // routes.forEach((element) => {
+        //   consola.info(element)
+        //   if (element.path !== '/login')
+        //     router.addRoute(element)
+        // })
+        dialogType.value = 'LOGIN'
         operateDialogRef.value.openDialog()
-
       }
     }
   })
@@ -86,7 +93,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
  * @description: 弹窗关闭回调
  * @return {*}
  */
-const dialogCloseFun = () => {
+const loginSuccessfulCloseFun = () => {
   if (userInfo.userRole === '工信局' || userInfo.userRole === '工信厅')
     router.push({ path: '/enterprise' })
 
@@ -97,6 +104,16 @@ const dialogCloseFun = () => {
   else
     router.push({ path: '/' })
 }
+
+/**
+ * @description: 弹窗关闭回调字典
+ */
+const closeFunMap = new Map().set('LOGIN', loginSuccessfulCloseFun)
+
+/**
+ * @description: 弹窗关闭回调
+ */
+const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
 </script>
 
 <template>
@@ -117,8 +134,10 @@ const dialogCloseFun = () => {
         </el-input>
       </el-form-item>
       <el-form-item mt-25>
-        <span wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
-          @click="openForgotPass">忘记密码？</span>
+        <span
+          wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
+          @click="openForgotPass"
+        >忘记密码？</span>
       </el-form-item>
       <el-form-item mt-48>
         <el-button class="login-button" type="primary" @click="submitForm(ruleFormRef)">
@@ -127,7 +146,7 @@ const dialogCloseFun = () => {
       </el-form-item>
     </el-form>
 
-    <operate-dialog ref="operateDialogRef" type="LOGIN" :close="dialogCloseFun" />
+    <operate-dialog ref="operateDialogRef" :type="dialogType" :close="dialogCloseFun" />
   </div>
 </template>
 

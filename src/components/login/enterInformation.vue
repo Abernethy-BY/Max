@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:56:20
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-25 15:03:14
+ * @LastEditTime: 2022-11-28 17:34:38
  * @FilePath: \big-screen\src\components\login\enterInformation.vue
  * @Description:信息录入
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -12,8 +12,8 @@ import closeIcon from '~/assets/image/login/closeIcon.png'
 import headerBg from '~/assets/image/login/headerBg.png'
 import prompt from '~/assets/image/login/prompt.png'
 
+const propObj = withDefaults(defineProps<{ userSignTel: string; userSignType: string }>(), { userSignTel: '', userSignType: '' })
 const emit = defineEmits(['openPassLogin'])
-
 /**
  * @description: 弹窗弹出标识
  */
@@ -73,13 +73,13 @@ const openPop = () => {
 
   nextTick(() => {
     refMap.set('province', provinceRef.value)
-    refMap.set('businessName', businessNameRef.value)
-    refMap.set('registeredAddress', registeredAddressRef.value)
-    refMap.set('officePhone', officePhoneRef.value)
-    refMap.set('creditCode', creditCodeRef.value)
-    refMap.set('contact', contactRef.value)
-    refMap.set('phoneNumber', phoneNumberRef.value)
-    refMap.set('Mailbox', MailboxRef.value)
+    refMap.set('unitname', businessNameRef.value)
+    refMap.set('unitaddr', registeredAddressRef.value)
+    refMap.set('unittel', officePhoneRef.value)
+    refMap.set('unittax', creditCodeRef.value)
+    refMap.set('linkman', contactRef.value)
+    refMap.set('linkmantel', phoneNumberRef.value)
+    refMap.set('email', MailboxRef.value)
   })
 }
 
@@ -100,12 +100,17 @@ const enterInformationForm = ref({
   province: '',
   city: '',
   county: '',
-  submitid: '',
-  sign: '',
-  // Username: '',
-  // pass: '',
-  // rePass: '',
 })
+
+/**
+ * @description: 权限字典
+ */
+const permissionsMap = new Map()
+permissionsMap.set('工信厅', [])
+permissionsMap.set('工信局', ['province'])
+permissionsMap.set('园区管理员', ['province', 'city'])
+permissionsMap.set('园区专员', ['province', 'city'])
+permissionsMap.set('企业', ['province', 'city'])
 
 /**
  * @description: 省份连级选择器数据获取方法
@@ -115,11 +120,10 @@ const props = {
   lazy: true,
   async lazyLoad(node, resolve) {
     const { label } = node
-    const leafArr = ['city', 'district']
     try {
       const param = {
         key: '79848c3f3fbd1e9321efb5408c3c4a31',
-        keywords: label || '湖南',
+        keywords: label || '中国',
         subdistrict: 1,
         sig: '',
       }
@@ -129,7 +133,7 @@ const props = {
         throw new Error('地区服务器错误请刷新重试')
 
       const temp = res?.districts?.[0]?.districts
-      const nodes = temp.map(e => ({ value: e.adcode, label: e.name, leaf: !leafArr.includes(e.level) }))
+      const nodes = temp.map(e => ({ value: e.adcode, label: e.name, leaf: !permissionsMap.get(propObj.userSignType)?.includes(e.level) }))
       resolve(nodes)
     }
     catch (error) {
@@ -151,25 +155,39 @@ const operateDialogRef = ref()
 const nextFun = async () => {
   try {
     let formNullFlag = false
-    Object.keys(enterInformationForm.value).forEach((element, index) => {
-      if (!enterInformationForm.value[element] || enterInformationForm.value[element] === '') {
+
+    let userinfoinputParam = {}
+    if (propObj.userSignType === '工信厅') {
+      const { city, county, ...param } = enterInformationForm.value
+      userinfoinputParam = param
+    }
+    else if (propObj.userSignType === '工信局') {
+      const { county, ...param } = enterInformationForm.value
+      userinfoinputParam = param
+    }
+    else {
+      userinfoinputParam = enterInformationForm.value
+    }
+
+    consola.info(userinfoinputParam)
+    Object.keys(userinfoinputParam).forEach((element, index) => {
+      if (!userinfoinputParam[element] || userinfoinputParam[element] === '') {
         anime({ targets: refMap.get(element), color: '#ff4757', round: 1, easing: 'linear', duration: 300 })
         formNullFlag = true
       }
 
-      else if (element === 'province' && (!enterInformationForm.value.province || enterInformationForm.value.province.length === 0)) {
+      if (element === 'provinceArr' && (!userinfoinputParam[element] || userinfoinputParam[element].length === 0)) {
         anime({ targets: refMap.get('province'), color: '#ff4757', round: 1, easing: 'linear', duration: 300 })
         formNullFlag = true
       }
     })
     if (formNullFlag)
       throw new Error('未填必须项')
+
     const submitid = new Date().getTime()
-    enterInformationForm.value.submitid = submitid.toString()
-    enterInformationForm.value.sign = md5(`${submitid}${enterInformationForm.value.linkmantel}123789`)
+    const sign = md5(`${submitid}${propObj.userSignTel}123789`)
 
-    await userinfoinput(enterInformationForm.value)
-
+    await userinfoinput({ ...enterInformationForm.value, submitid, sign })
     operateDialogRef.value.openDialog()
   }
   catch (error) {
@@ -232,6 +250,38 @@ const MailboxShowFlag = computed(() => !enterInformationForm.value.email || ente
 const closePop = () => {
   enterInformationFlag.value = false
 }
+
+const provinceChange = async (e) => {
+  try {
+    if (e[0]) {
+      const param = { key: '79848c3f3fbd1e9321efb5408c3c4a31', keywords: e[0], subdistrict: 0, sig: '' }
+      param.sig = md5(`key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=${e[0]}&subdistrict=0cef67f7186b4debe1f9dd24dec1141a4`)
+      const provinceRes: any = await district(param)
+      const temp = provinceRes.districts
+      enterInformationForm.value.province = temp[0].name
+    }
+
+    if (e[1]) {
+      const param = { key: '79848c3f3fbd1e9321efb5408c3c4a31', keywords: e[1], subdistrict: 0, sig: '' }
+      param.sig = md5(`key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=${e[1]}&subdistrict=0cef67f7186b4debe1f9dd24dec1141a4`)
+      const cityRes: any = await district(param)
+      const temp = cityRes.districts
+      enterInformationForm.value.province = temp[0].name
+    }
+
+    if (e[2]) {
+      const param = { key: '79848c3f3fbd1e9321efb5408c3c4a31', keywords: e[2], subdistrict: 0, sig: '' }
+      param.sig = md5(`key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=${e[2]}&subdistrict=0cef67f7186b4debe1f9dd24dec1141a4`)
+      const countyRes: any = await district(param)
+      const temp = countyRes.districts
+      enterInformationForm.value.province = temp[0].name
+    }
+  }
+  catch (error) {
+    consola.fatal(error)
+    throw new Error('地区服务器错误请刷新重试')
+  }
+}
 </script>
 
 <template>
@@ -246,7 +296,7 @@ const closePop = () => {
         <el-form-item label="所在省份：">
           <el-cascader
             v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
-            placeholder="请选择"
+            placeholder="请选择" @change="provinceChange"
           />
           <div v-show="provinceShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />

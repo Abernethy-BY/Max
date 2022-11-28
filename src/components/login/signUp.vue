@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-25 16:03:56
+ * @LastEditTime: 2022-11-28 17:37:07
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -12,7 +12,7 @@ import type { FormInstance, FormRules } from 'element-plus'
 import type { SELECT_OPTION_MODEL } from '~/model'
 
 const propObj = withDefaults(defineProps<{ agreementFlag: boolean }>(), { agreementFlag: false })
-const emit = defineEmits(['openEnterInformation', 'errorAgreement'])
+const emit = defineEmits(['openEnterInformation', 'errorAgreement', 'parameterPassing'])
 /**
  * @description: 注册表单检验规则
  * @return {*}
@@ -47,7 +47,7 @@ const signUpForm = ref({
 const userTypeOptions = ref<Array<SELECT_OPTION_MODEL>>([
   { label: '工信厅', value: '工信厅' },
   { label: '工信局', value: '工信局' },
-  { label: '工信园区管委会管理员厅', value: '园区管委会管理员' },
+  { label: '园区管理员', value: '园区管理员' },
   { label: '园区专员', value: '园区专员' },
   { label: '企业', value: '企业' },
 ])
@@ -85,9 +85,8 @@ const signUp = async (formEl: FormInstance | undefined) => {
         }
 
         const zcyhFun = async () => {
-          consola.info(222)
           await zcyh(param)
-          emit('openEnterInformation')
+          emit('openEnterInformation', signUpForm.value.tel, signUpForm.value.userType)
         }
         debounce(zcyhFun, 500, false, [])
       }
@@ -142,7 +141,7 @@ const signUpCode = async () => {
     const yzdxFun = async () => {
       await yzdx(param)
       ElMessage({ message: '验证码已发送', type: 'success' })
-      let timeTemp = 60
+      let timeTemp = 120
       const captchaButtonDisabledTime = setInterval(() => {
         captchaButtonSpan.value = `请稍后重试(${timeTemp--})`
         captchaButtonDisabledFlag.value = true

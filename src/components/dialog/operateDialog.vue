@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 16:09:53
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-24 17:55:01
+ * @LastEditTime: 2022-11-28 16:05:27
  * @FilePath: \big-screen\src\components\dialog\operateDialog.vue
  * @Description: 注册成功弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -80,6 +80,16 @@ const userAgreementNext = () => {
   propObj.confirm()
   propObj.close()
 }
+
+/**
+ * @description: 审核失败返回修改方法
+ * @return {*}
+ */
+const closeAuditFailed = () => {
+  dialogFlag.value = false
+  propObj.confirm()
+  propObj.close()
+}
 </script>
 
 <template>
@@ -142,12 +152,29 @@ const userAgreementNext = () => {
       <div w-100 h-139px flex-row-center cross-axis-center po-r>
         <div class="user-agreement-checkbox">
           <el-checkbox v-model="agreementFlag" class="agreement" size="large" @change="checkboxChangeFun" />
-          <span ref="userAgreementRef">同意以上协议</span>
+          <span ref="userAgreementRef" class="pop-span">同意以上协议</span>
         </div>
         <el-button class="user-agreement-next-button" @click="userAgreementNext">
           下一步
         </el-button>
       </div>
+    </div>
+
+    <!-- 审核成功  Review successful -->
+    <div v-else-if="propObj.type === 'REVIEW_SUCCESSFUL'" class="review-successful-box" w-500px h-364px>
+      111
+    </div>
+
+    <div
+      v-else-if="propObj.type === 'AUDIT_FAILED'" class="audit-failed-box" w-500px h-364px po-r flex-column-end
+      cross-axis-center padding-0-0-32px-0
+    >
+      <el-image class="audit-failed-close-icon" :src="closeIcon" fit="fill" @click="closeIconFun" />
+      <span class="pop-span">抱歉！审核不通过</span>
+
+      <el-button class="audit-failed-button" @click="closeAuditFailed">
+        返回修改
+      </el-button>
     </div>
   </div>
 </template>
@@ -256,6 +283,44 @@ const userAgreementNext = () => {
         font-weight: 400;
         color: #02389B;
         line-height: 38px;
+      }
+    }
+  }
+
+  .review-successful-box {
+    background: no-repeat url("~/assets/image/pop/reviewSuccessful.png");
+    background-size: 100% 100%;
+  }
+
+  .audit-failed-box {
+    background: no-repeat url("~/assets/image/pop/auditFailed.png");
+    background-size: 100% 100%;
+
+    :deep(.audit-failed-close-icon) {
+      @extend .general-close-icon;
+    }
+
+    .pop-span {
+      font-size: 24px;
+      font-family: Source Han Sans CN;
+      font-weight: 400;
+      color: #05FFFF;
+      line-height: 33px;
+    }
+
+    :deep(.audit-failed-button) {
+      width: 317px;
+      height: 44px;
+      background: #1ADCFF;
+      border-radius: 4px;
+      margin-top: 35px;
+
+      span {
+        font-size: 18px;
+        font-family: Source Han Sans CN;
+        font-weight: 400;
+        color: #0A3D75;
+        line-height: 33px;
       }
     }
   }
