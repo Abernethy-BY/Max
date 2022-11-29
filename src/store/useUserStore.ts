@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-28 21:17:22
+ * @LastEditTime: 2022-11-29 10:11:47
  * @FilePath: \big-screen\src\store\useUserStore.ts
  * @Description: userInfo
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

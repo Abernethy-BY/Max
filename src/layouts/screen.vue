@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-25 16:29:45
+ * @LastEditTime: 2022-11-29 14:50:00
  * @FilePath: \big-screen\src\layouts\screen.vue
  * @Description: 页面layout
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -24,10 +24,9 @@ import jianceSelect from '~/assets/image/common/navBg/jianceSelect.png'
 import jiankong from '~/assets/image/common/navBg/jiankong.png'
 import jiankongSelect from '~/assets/image/common/navBg/jiankongSelect.png'
 
-// jiankong
 const pageIndex = ref(0)
 const router = useRouter()
-
+const menuMap = new Map().set(3, 'averageOutput').set(5, 'publicOpinionMonitoring')
 const menuInfo = menuStore()
 const userInfo = useUserStore()
 
@@ -73,7 +72,7 @@ const jumpToLogin = () => {
 </script>
 
 <template>
-  <div class="layout-box" layouts box-center>
+  <div class="layout-box" :class="menuMap.get(menuInfo.menuIndex)" layouts box-center>
     <header hPE-10 flex flex-row-center po-r cross-axis-center pl-21 pr-27 pb-23>
       <div class="area-select-box" po-a pol-21 h-41 flex cross-axis-center>
         <el-image cursor-p class="area-icon" :src="areaIcon" fit="fill" @click="jumpToLogin" />

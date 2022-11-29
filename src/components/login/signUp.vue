@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-28 17:37:07
+ * @LastEditTime: 2022-11-29 17:32:43
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -47,7 +47,7 @@ const signUpForm = ref({
 const userTypeOptions = ref<Array<SELECT_OPTION_MODEL>>([
   { label: '工信厅', value: '工信厅' },
   { label: '工信局', value: '工信局' },
-  { label: '园区管理员', value: '园区管理员' },
+  { label: '园区管委会', value: '园区管委会' },
   { label: '园区专员', value: '园区专员' },
   { label: '企业', value: '企业' },
 ])
@@ -85,7 +85,7 @@ const signUp = async (formEl: FormInstance | undefined) => {
         }
 
         const zcyhFun = async () => {
-          await zcyh(param)
+          // await zcyh(param)
           emit('openEnterInformation', signUpForm.value.tel, signUpForm.value.userType)
         }
         debounce(zcyhFun, 500, false, [])

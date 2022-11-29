@@ -1,10 +1,10 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:06:27
- * @LastEditTime: 2022-08-18 16:06:34
- * @LastEditors: By
+ * @LastEditTime: 2022-11-29 13:38:01
+ * @LastEditors: BY by15242952083@outlook.com
  * @Description:
- * @FilePath: \big-screen-vue3\src\utils\nprogress.ts
+ * @FilePath: \big-screen\src\modules\nprogress.ts
  * 可以输入预定的版权声明、个性签名、空行等
  */
 // import NProgress from 'nprogress'
@@ -16,6 +16,8 @@ export const install: UserModule = ({ isClient, router }) => {
       if (to.path !== from.path)
         nprogress.start()
     })
-    router.afterEach(() => { nprogress.done() })
+    router.afterEach(() => {
+      nprogress.done()
+    })
   }
 }

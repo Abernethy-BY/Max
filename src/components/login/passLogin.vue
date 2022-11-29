@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-// import { setupLayouts } from 'virtual:generated-layouts'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
-// import generatedRoutes from '~pages'
 const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
+// const routerInfo = routerStore()
+
 const router = useRouter()
 
 // const popShowFlag = ref<boolean>(false)
@@ -75,14 +75,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.city = temp.city
         userInfo.compname = temp.compname
         userInfo.province = temp.province
-        userInfo.getRouter()
 
-        // const routes = setupLayouts(generatedRoutes)
-        // routes.forEach((element) => {
-        //   consola.info(element)
-        //   if (element.path !== '/login')
-        //     router.addRoute(element)
-        // })
         dialogType.value = 'LOGIN'
         operateDialogRef.value.openDialog()
       }

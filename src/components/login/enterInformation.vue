@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:56:20
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-28 17:34:38
+ * @LastEditTime: 2022-11-29 17:36:45
  * @FilePath: \big-screen\src\components\login\enterInformation.vue
  * @Description:信息录入
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -108,7 +108,7 @@ const enterInformationForm = ref({
 const permissionsMap = new Map()
 permissionsMap.set('工信厅', [])
 permissionsMap.set('工信局', ['province'])
-permissionsMap.set('园区管理员', ['province', 'city'])
+permissionsMap.set('园区管委会', ['province', 'city'])
 permissionsMap.set('园区专员', ['province', 'city'])
 permissionsMap.set('企业', ['province', 'city'])
 
@@ -211,7 +211,7 @@ const provinceShowFlag = computed(() => enterInformationForm.value.provinceArr.l
 /**
  * @description: 公司名称显示标识
  */
-const businessNameShowFlag = computed(() => !enterInformationForm.value.unitname || enterInformationForm.value.unitname === '')
+const unitNameShowFlag = computed(() => !enterInformationForm.value.unitname || enterInformationForm.value.unitname === '')
 
 /**
  * @description: 注册地址：提示显示标识
@@ -292,7 +292,11 @@ const provinceChange = async (e) => {
       <span>录入企业、园区信息</span>
     </header>
     <main mt-26 flex-1>
-      <el-form class="enter-information-form" :model="enterInformationForm" label-width="220px" label-position="left">
+      <!-- 企业 -->
+      <el-form
+        v-if="propObj.userSignType === '企业'" class="enter-information-form" :model="enterInformationForm"
+        label-width="220px" label-position="left"
+      >
         <el-form-item label="所在省份：">
           <el-cascader
             v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
@@ -305,23 +309,9 @@ const provinceChange = async (e) => {
         </el-form-item>
         <el-form-item label="企业名称：">
           <el-input v-model="enterInformationForm.unitname" placeholder="请输入工商注册的企业名称" />
-          <div v-show="businessNameShowFlag" class="remark-box">
+          <div v-show="unitNameShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="businessNameRef" class="form-remark">请输入企业名称</span>
-          </div>
-        </el-form-item>
-        <el-form-item label="注册地址：">
-          <el-input v-model="enterInformationForm.unitaddr" placeholder="请输入企业工商注册地址" />
-          <div v-show="registeredAddressShowFlag" class="remark-box">
-            <el-image class="remark-icon" :src="prompt" fit="cover" />
-            <span ref="registeredAddressRef" class="form-remark">请输入注册地址</span>
-          </div>
-        </el-form-item>
-        <el-form-item label="公司办公电话：">
-          <el-input v-model="enterInformationForm.unittel" placeholder="请输入公司电话" />
-          <div v-show="officePhoneShowFlag" class="remark-box">
-            <el-image class="remark-icon" :src="prompt" fit="cover" />
-            <span ref="officePhoneRef" class="form-remark">请输入你的联系电话</span>
           </div>
         </el-form-item>
         <el-form-item label="企业信用代码：">
@@ -329,6 +319,182 @@ const provinceChange = async (e) => {
           <div v-show="creditCodeShowFlag" class="remark-box">
             <el-image class="remark-icon" :src="prompt" fit="cover" />
             <span ref="creditCodeRef" class="form-remark">请输入你的企业信用代码</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="联系人：">
+          <el-input v-model="enterInformationForm.linkman" placeholder="请输入联系人" />
+          <div v-show="contactShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="contactRef" class="form-remark">请输入联系人</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="手机号码：">
+          <el-input v-model="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
+          <div v-show="phoneNumberShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="邮箱：">
+          <el-input v-model="enterInformationForm.email" placeholder="XX@X.X(用于找回密码)" />
+          <div v-show="MailboxShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>
+          </div>
+        </el-form-item>
+      </el-form>
+      <!-- 园区专员 -->
+      <el-form
+        v-else-if="propObj.userSignType === '园区专员'" class="enter-information-form" :model="enterInformationForm"
+        label-width="220px" label-position="left"
+      >
+        <el-form-item label="所在省份：">
+          <el-cascader
+            v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
+            placeholder="请选择" @change="provinceChange"
+          />
+          <div v-show="provinceShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="provinceRef" class="form-remark">请选择区域</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="园区名称：">
+          <el-input v-model="enterInformationForm.unitname" placeholder="请输入园区名称" />
+          <div v-show="unitNameShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="businessNameRef" class="form-remark">请输入园区名称</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="联系人：">
+          <el-input v-model="enterInformationForm.linkman" placeholder="请输入联系人" />
+          <div v-show="contactShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="contactRef" class="form-remark">请输入联系人</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="手机号码：">
+          <el-input v-model="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
+          <div v-show="phoneNumberShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="邮箱：">
+          <el-input v-model="enterInformationForm.email" placeholder="XX@X.X(用于找回密码)" />
+          <div v-show="MailboxShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>
+          </div>
+        </el-form-item>
+      </el-form>
+      <!-- 园区管理员 -->
+      <el-form
+        v-else-if="propObj.userSignType === '园区管理员'" class="enter-information-form" :model="enterInformationForm"
+        label-width="220px" label-position="left"
+      >
+        <el-form-item label="所在省份：">
+          <el-cascader
+            v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
+            placeholder="请选择" @change="provinceChange"
+          />
+          <div v-show="provinceShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="provinceRef" class="form-remark">请选择区域</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="园区名称：">
+          <el-input v-model="enterInformationForm.unitname" placeholder="请输入园区名称" />
+          <div v-show="unitNameShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="businessNameRef" class="form-remark">请输入园区名称</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="联系人：">
+          <el-input v-model="enterInformationForm.linkman" placeholder="请输入联系人" />
+          <div v-show="contactShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="contactRef" class="form-remark">请输入联系人</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="手机号码：">
+          <el-input v-model="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
+          <div v-show="phoneNumberShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="邮箱：">
+          <el-input v-model="enterInformationForm.email" placeholder="XX@X.X(用于找回密码)" />
+          <div v-show="MailboxShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>
+          </div>
+        </el-form-item>
+      </el-form>
+      <!-- 工信局 -->
+      <el-form
+        v-else-if="propObj.userSignType === '工信局'" class="enter-information-form" :model="enterInformationForm"
+        label-width="220px" label-position="left"
+      >
+        <el-form-item label="所在省份：">
+          <el-cascader
+            v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
+            placeholder="请选择" @change="provinceChange"
+          />
+          <div v-show="provinceShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="provinceRef" class="form-remark">请选择区域</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="单位名称：">
+          <el-input v-model="enterInformationForm.unitName" placeholder="请输入单位名称" />
+          <div v-show="unitNameShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="businessNameRef" class="form-remark">请输入单位名称</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="联系人：">
+          <el-input v-model="enterInformationForm.linkman" placeholder="请输入联系人" />
+          <div v-show="contactShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="contactRef" class="form-remark">请输入联系人</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="手机号码：">
+          <el-input v-model="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
+          <div v-show="phoneNumberShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="邮箱：">
+          <el-input v-model="enterInformationForm.email" placeholder="XX@X.X(用于找回密码)" />
+          <div v-show="MailboxShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>
+          </div>
+        </el-form-item>
+      </el-form>
+      <!-- 工信厅 -->
+      <el-form
+        v-else-if="propObj.userSignType === '工信厅'" class="enter-information-form" :model="enterInformationForm"
+        label-width="220px" label-position="left"
+      >
+        <el-form-item label="所在省份：">
+          <el-cascader
+            v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
+            placeholder="请选择" @change="provinceChange"
+          />
+          <div v-show="provinceShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="provinceRef" class="form-remark">请选择区域</span>
+          </div>
+        </el-form-item>
+        <el-form-item label="单位名称：">
+          <el-input v-model="enterInformationForm.unitName" placeholder="请输入单位名称" />
+          <div v-show="unitNameShowFlag" class="remark-box">
+            <el-image class="remark-icon" :src="prompt" fit="cover" />
+            <span ref="businessNameRef" class="form-remark">请输入园区名称</span>
           </div>
         </el-form-item>
         <el-form-item label="联系人：">
