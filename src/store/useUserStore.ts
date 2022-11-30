@@ -2,19 +2,14 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-29 10:11:47
+ * @LastEditTime: 2022-11-30 21:04:41
  * @FilePath: \big-screen\src\store\useUserStore.ts
  * @Description: userInfo
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
  */
 
 import { acceptHMRUpdate, defineStore } from 'pinia'
-// import { setupLayouts } from 'virtual:generated-layouts'
-// import generatedRoutes from '~pages'
-// import App from '~/App.vue'
-// import router from '@/router'
-
-// import { createRouter, createWebHistory } from 'vue-router'
+import type { RouteRecordRaw } from 'vue-router'
 
 export const useUserStore = defineStore('user', () => {
   const token = ref<string>('')
@@ -29,6 +24,10 @@ export const useUserStore = defineStore('user', () => {
   const getUserCode = computed(() => userCode.value)
   const getUserRole = computed(() => userRole.value)
 
+  // const roleMap: Map<string, string[]> = new Map()
+  // roleMap.set('企业', ['corporatePortrait'])
+  // roleMap.set('企业', ['corporatePortrait'])
+
   const changeToken = (param) => {
     token.value = param
   }
@@ -41,13 +40,9 @@ export const useUserStore = defineStore('user', () => {
     userRole.value = param
   }
 
-  const getRouter = () => {
-    // consola.info(getCurrentInstance())
-    // const { proxy } = getCurrentInstance()
-    // consola.start(proxy)
-  }
+  const getRouter = () => { }
 
-  return { token, userCode, userRole, changeToken, changeUserCode, changeRole, city, compname, province, hasToken, getToken, getUserCode, getUserRole, getRouter }
+  return { token, userCode, userRole, changeToken, changeUserCode, changeRole, city, compname, province, hasToken, getToken, getUserCode, getUserRole, getRouter, roleMap }
 }, {
   persist: {
     enabled: true,

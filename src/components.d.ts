@@ -18,6 +18,8 @@ declare module '@vue/runtime-core' {
     DITEnterInformation: typeof import('./components/enterInformationComponents/DITEnterInformation.vue')['default']
     EconomicalOperation: typeof import('./components/corporatePortrait/economicalOperation.vue')['default']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCarousel: typeof import('element-plus/es')['ElCarousel']
+    ElCarouselItem: typeof import('element-plus/es')['ElCarouselItem']
     ElCascader: typeof import('element-plus/es')['ElCascader']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElectricityUsage: typeof import('./components/doubleCarbon/electricityUsage.vue')['default']
