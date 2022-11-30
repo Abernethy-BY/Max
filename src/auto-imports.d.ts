@@ -20,7 +20,6 @@ declare global {
   const b64MD5: typeof import('./utils/md5')['b64MD5']
   const b64MD5w: typeof import('./utils/md5')['b64MD5w']
   const calcMD5: typeof import('./utils/md5')['calcMD5']
-  const changeRouter: typeof import('./router/index')['changeRouter']
   const clone: typeof import('./utils/deepClone')['clone']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
@@ -53,6 +52,7 @@ declare global {
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
   const extendRef: typeof import('@vueuse/core')['extendRef']
+  const formVerify: typeof import('./utils/verify')['formVerify']
   const formatDate: typeof import('./utils/utils')['formatDate']
   const gaoDeWebApi: typeof import('./utils/http')['gaoDeWebApi']
   const get: typeof import('./utils/http')['get']
@@ -71,6 +71,7 @@ declare global {
   const getNowWeek: typeof import('./utils/utils')['getNowWeek']
   const getOneDayOfMonth: typeof import('./utils/utils')['getOneDayOfMonth']
   const getOneDayOfYear: typeof import('./utils/utils')['getOneDayOfYear']
+  const getProvinces: typeof import('./utils/amap')['getProvinces']
   const getTimeDifference: typeof import('./utils/utils')['getTimeDifference']
   const getYear: typeof import('./utils/utils')['getYear']
   const getYearLastDay: typeof import('./utils/utils')['getYearLastDay']
@@ -137,7 +138,6 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
-  const routerStore: typeof import('./store/routerStore')['routerStore']
   const seriesOption: typeof import('./utils/utils')['seriesOption']
   const setDomFontSize: typeof import('./utils/dom')['setDomFontSize']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -362,7 +362,6 @@ declare module 'vue' {
     readonly b64MD5: UnwrapRef<typeof import('./utils/md5')['b64MD5']>
     readonly b64MD5w: UnwrapRef<typeof import('./utils/md5')['b64MD5w']>
     readonly calcMD5: UnwrapRef<typeof import('./utils/md5')['calcMD5']>
-    readonly changeRouter: UnwrapRef<typeof import('./router/index')['changeRouter']>
     readonly clone: UnwrapRef<typeof import('./utils/deepClone')['clone']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
@@ -395,6 +394,7 @@ declare module 'vue' {
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
+    readonly formVerify: UnwrapRef<typeof import('./utils/verify')['formVerify']>
     readonly formatDate: UnwrapRef<typeof import('./utils/utils')['formatDate']>
     readonly gaoDeWebApi: UnwrapRef<typeof import('./utils/http')['gaoDeWebApi']>
     readonly get: UnwrapRef<typeof import('./utils/http')['get']>
@@ -413,6 +413,7 @@ declare module 'vue' {
     readonly getNowWeek: UnwrapRef<typeof import('./utils/utils')['getNowWeek']>
     readonly getOneDayOfMonth: UnwrapRef<typeof import('./utils/utils')['getOneDayOfMonth']>
     readonly getOneDayOfYear: UnwrapRef<typeof import('./utils/utils')['getOneDayOfYear']>
+    readonly getProvinces: UnwrapRef<typeof import('./utils/amap')['getProvinces']>
     readonly getTimeDifference: UnwrapRef<typeof import('./utils/utils')['getTimeDifference']>
     readonly getYear: UnwrapRef<typeof import('./utils/utils')['getYear']>
     readonly getYearLastDay: UnwrapRef<typeof import('./utils/utils')['getYearLastDay']>
@@ -479,7 +480,6 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
-    readonly routerStore: UnwrapRef<typeof import('./store/routerStore')['routerStore']>
     readonly seriesOption: UnwrapRef<typeof import('./utils/utils')['seriesOption']>
     readonly setDomFontSize: UnwrapRef<typeof import('./utils/dom')['setDomFontSize']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>

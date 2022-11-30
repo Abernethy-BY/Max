@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-15 20:02:08
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-08 17:45:12
+ * @LastEditTime: 2022-11-30 09:58:24
  * @FilePath: \big-screen\src\components\doubleCarbon\businessRankings.vue
  * @Description:企业排名组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -138,7 +138,9 @@ const option: any = {
 const initChart = () => {
   if (!myChart)
     myChart = eCharts.init(businessRankingsRef.value)
-  window.addEventListener('resize', () => { myChart?.resize() })
+  window.addEventListener('resize', () => {
+    myChart?.resize()
+  })
 }
 
 watch(() => propObj.businessRankingsProp, () => {
@@ -148,7 +150,9 @@ watch(() => propObj.businessRankingsProp, () => {
   // 排序
   const sortTemp = temp.sort((a, b) => Number(b.数值1) - Number(a.数值1))
 
-  const dataTemp: any = sortTemp.map((e) => { return e?.['数值1'] })
+  const dataTemp: any = sortTemp.map((e) => {
+    return e?.['数值1']
+  })
   option.series[0].data = dataTemp
   option.series[1].data = dataTemp
   option.series[2].data = dataTemp
@@ -159,7 +163,9 @@ watch(() => propObj.businessRankingsProp, () => {
     maximumList.push(maximum)
 
   option.series[3].data = maximumList
-  const yAxisTemp = sortTemp.map((e) => { return e?.['数据'] }) || []
+  const yAxisTemp = sortTemp.map((e) => {
+    return e?.['数据']
+  }) || []
 
   option.yAxis[0].data = yAxisTemp
   myChart?.setOption(option)

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-29 17:32:43
+ * @LastEditTime: 2022-11-30 16:16:18
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -85,7 +85,7 @@ const signUp = async (formEl: FormInstance | undefined) => {
         }
 
         const zcyhFun = async () => {
-          // await zcyh(param)
+          await zcyh(param)
           emit('openEnterInformation', signUpForm.value.tel, signUpForm.value.userType)
         }
         debounce(zcyhFun, 500, false, [])
@@ -105,7 +105,7 @@ const signUp = async (formEl: FormInstance | undefined) => {
  */
 const telInputFun = (e) => {
   const temp = e[e.length - 1]
-  if (temp.charCodeAt() < 48 || temp.charCodeAt() > 57)
+  if (temp && (temp.charCodeAt() < 48 || temp.charCodeAt() > 57))
     signUpForm.value.tel = signUpForm.value.tel.substring(0, signUpForm.value.tel.length - 1)
 }
 
@@ -157,7 +157,7 @@ const signUpCode = async () => {
   }
   catch (error) {
     consola.fatal(error)
-    ElMessage({ message: error, type: 'error' })
+    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
   }
 }
 </script>

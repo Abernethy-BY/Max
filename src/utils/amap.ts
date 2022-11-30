@@ -1,25 +1,39 @@
 /*
- * @Author: By
- * @Date: 2022-08-22 20:47:50
- * @LastEditTime: 2022-08-24 09:39:16
- * @LastEditors: By
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-09-26 18:09:51
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-11-30 14:46:25
+ * @FilePath: \big-screen\src\utils\amap.ts
  * @Description:
- * @FilePath: \big-screen-vue3\src\utils\amap.ts
- * 可以输入预定的版权声明、个性签名、空行等
+ * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
  */
-// Vue.use(VueAMap)
-// VueAMap.initAMapApiLoader({
-//   key: 'your amap key',
-//   plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
-//   // 默认高德 sdk 版本为 1.4.4
-//   v: '1.4.4',
-// })
-// import { type UserModule } from '~/types'
-// export const install: UserModule = ({ app }) => {
-//   app.use(VueAMap)
-//   VueAMap.initAMapApiLoader({
-//     key: 'd46cf5068a9a22141e1a3719fbcf65f5',
-//     plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'Map3D', 'AMap.DistrictLayer'],
-//     v: '1.4.4',
-//   })
-// }
+
+export const getProvinces = async (parentArea: string, role: string) => {
+  try {
+    const permissionsMap = new Map()
+    permissionsMap.set('工信厅', [])
+    permissionsMap.set('工信局', ['province'])
+    permissionsMap.set('园区管理员', ['province', 'city'])
+    permissionsMap.set('园区专员', ['province', 'city'])
+    permissionsMap.set('企业', ['province', 'city'])
+
+    const param = {
+      key: '79848c3f3fbd1e9321efb5408c3c4a31',
+      keywords: parentArea || '中国',
+      subdistrict: 1,
+      sig: '',
+    }
+    param.sig = md5(`key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=${param.keywords}&subdistrict=1cef67f7186b4debe1f9dd24dec1141a4`)
+    const res: any = await district(param)
+    if (res.status !== '1')
+      throw new Error('地区服务器错误请刷新重试')
+
+    const temp = res?.districts?.[0]?.districts
+    const nodes = temp.map(e => ({ value: e.adcode, label: e.name, leaf: !permissionsMap.get(role).includes(e.level) }))
+    return nodes
+  }
+  catch (error) {
+    consola.fatal(error)
+    ElMessage({ message: error, type: 'error' })
+  }
+}
