@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-18 20:59:34
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-28 14:18:30
+ * @LastEditTime: 2022-12-01 15:35:18
  * @FilePath: \big-screen\src\components\login\forgotPass.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -60,7 +60,7 @@ const telInputFun = (e) => {
 /**
  * @description: 验证码按钮文本
  */
-const captchaButtonSpan = ref<string | number> ('发送验证码')
+const captchaButtonSpan = ref<string | number>('发送验证码')
 
 /**
  * @description: 获取验证码按钮禁用标识
@@ -72,32 +72,38 @@ const captchaButtonDisabledFlag = ref<boolean>(false)
  * @return {*}
  */
 const getForgetPassCode = async () => {
-  if (!forgotPassForm.value.tel || forgotPassForm.value.tel === '') {
-    ElMessage({ message: '请输入手机号', type: 'error' })
-    return
-  }
-
-  const submitId = new Date().getTime()
-  const param = {
-    submitid: submitId,
-    usercode: '',
-    sign: md5(`${submitId}123789`),
-    tel: forgotPassForm.value.tel,
-  }
-  await yzdx(param)
-  ElMessage({ message: '验证码已发送', type: 'success' })
-
-  let timeTemp = 120
-  const captchaButtonDisabledTime = setInterval(() => {
-    captchaButtonSpan.value = `请稍后重试(${timeTemp--})`
-    captchaButtonDisabledFlag.value = true
-
-    if (timeTemp === 0) {
-      captchaButtonDisabledFlag.value = false
-      captchaButtonSpan.value = '发送验证码'
-      clearInterval(captchaButtonDisabledTime)
+  try {
+    if (!forgotPassForm.value.tel || forgotPassForm.value.tel === '') {
+      ElMessage({ message: '请输入手机号', type: 'error' })
+      return
     }
-  }, 1000)
+
+    const submitId = new Date().getTime()
+    const param = {
+      submitid: submitId,
+      usercode: '',
+      sign: md5(`${submitId}123789`),
+      tel: forgotPassForm.value.tel,
+    }
+    await yzdx(param)
+    ElMessage({ message: '验证码已发送', type: 'success' })
+
+    let timeTemp = 120
+    const captchaButtonDisabledTime = setInterval(() => {
+      captchaButtonSpan.value = `请稍后重试(${timeTemp--})`
+      captchaButtonDisabledFlag.value = true
+
+      if (timeTemp === 0) {
+        captchaButtonDisabledFlag.value = false
+        captchaButtonSpan.value = '发送验证码'
+        clearInterval(captchaButtonDisabledTime)
+      }
+    }, 1000)
+  }
+  catch (error) {
+    consola.fatal(error)
+    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+  }
 }
 /**
  * @description: 找回密码方法

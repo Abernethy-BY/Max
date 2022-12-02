@@ -32,6 +32,9 @@ https.httpClient.interceptors.response.use((res) => {
   if (Number(res.data.state) !== 0 && Number(res.data.state) !== 5) {
     ElMessage({ message: res.data.message, type: 'error' })
   }
+  else if (Number(res.data.state) === 20) {
+    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+  }
   else if (Number(res.data.state) === 3) {
     userInfo.token = ''
     userInfo.userCode = ''

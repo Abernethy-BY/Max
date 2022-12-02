@@ -2,14 +2,13 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-30 21:04:41
+ * @LastEditTime: 2022-12-01 15:17:32
  * @FilePath: \big-screen\src\store\useUserStore.ts
  * @Description: userInfo
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
  */
 
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import type { RouteRecordRaw } from 'vue-router'
 
 export const useUserStore = defineStore('user', () => {
   const token = ref<string>('')
@@ -42,7 +41,7 @@ export const useUserStore = defineStore('user', () => {
 
   const getRouter = () => { }
 
-  return { token, userCode, userRole, changeToken, changeUserCode, changeRole, city, compname, province, hasToken, getToken, getUserCode, getUserRole, getRouter, roleMap }
+  return { token, userCode, userRole, changeToken, changeUserCode, changeRole, city, compname, province, hasToken, getToken, getUserCode, getUserRole, getRouter }
 }, {
   persist: {
     enabled: true,
