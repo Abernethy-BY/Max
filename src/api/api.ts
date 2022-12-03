@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-11-30 18:28:54
+ * @LastEditTime: 2022-12-03 16:52:03
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
@@ -11,7 +11,7 @@
  * @description: 登录
  * @param {*} param 参数
  */
-export const xtdl = (param: any) => post('/xtdl.aspx', param)
+export const xtdl = (param: any) => loginPost('/xtdl.aspx', param)
 
 /** *****
  * @description: 企业画像

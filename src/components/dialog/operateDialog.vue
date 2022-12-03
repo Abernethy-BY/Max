@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 16:09:53
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-28 16:05:27
+ * @LastEditTime: 2022-12-03 18:10:56
  * @FilePath: \big-screen\src\components\dialog\operateDialog.vue
  * @Description: 注册成功弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -160,11 +160,19 @@ const closeAuditFailed = () => {
       </div>
     </div>
 
-    <!-- 审核成功  Review successful -->
-    <div v-else-if="propObj.type === 'REVIEW_SUCCESSFUL'" class="review-successful-box" w-500px h-364px>
-      111
-    </div>
+    <!-- 审核中  Review successful -->
+    <div
+      v-else-if="propObj.type === 'UNDER_REVIEW'" class="under-review-box" w-500px h-364px po-r flex-column-end
+      cross-axis-center padding-0-0-32px-0
+    >
+      <el-image class="audit-failed-close-icon" :src="closeIcon" fit="fill" @click="closeIconFun" />
+      <span class="pop-span">审核中</span>
 
+      <el-button class="audit-failed-button" @click="closeAuditFailed">
+        关闭
+      </el-button>
+    </div>
+    <!-- 审核失败 -->
     <div
       v-else-if="propObj.type === 'AUDIT_FAILED'" class="audit-failed-box" w-500px h-364px po-r flex-column-end
       cross-axis-center padding-0-0-32px-0

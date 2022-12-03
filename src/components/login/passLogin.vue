@@ -47,6 +47,11 @@ const operateDialogRef = ref()
 const dialogType = ref<string>('')
 
 /**
+ * @description: 状态字典
+ */
+const statusMap = new Map().set('审核中', 'UNDER_REVIEW').set('未录入资料', 'NOT_ENTERED').set('审核不通过', 'AUDIT_FAILED')
+
+/**
  * @description: 登录方法
  * @param {*} formEl 表单节点
  * @return {*}
@@ -56,19 +61,23 @@ const submitForm = async (formEl: FormInstance | undefined) => {
     return
   await formEl.validate(async (valid, fields) => {
     if (valid) {
-      // const res: any = await xtdl({ submitid: '1213', usercode: '', sign: '97d595e6d6997525cf98aa66e670511f', pass: '123', tel: '13111112222', type: 1, token: '' })
-      const param = {
-        submitid: '1213',
-        usercode: '',
-        sign: '97d595e6d6997525cf98aa66e670511f',
-        pass: loginForm.value.passWord,
-        tel: loginForm.value.userName,
-        type: 1,
-        token: '',
-      }
-      const res: any = await xtdl(param)
-      const temp = res?.[0]
-      if (res[0]) {
+      try {
+        // const res: any = await xtdl({ submitid: '1213', usercode: '', sign: '97d595e6d6997525cf98aa66e670511f', pass: '123', tel: '13111112222', type: 1, token: '' })
+        const param = {
+          submitid: '1213',
+          usercode: '',
+          sign: '97d595e6d6997525cf98aa66e670511f',
+          pass: loginForm.value.passWord,
+          tel: loginForm.value.userName,
+          type: 1,
+          token: '',
+        }
+        const res: any = await xtdl(param)
+
+        const temp = res?.data[0]
+        if (!temp)
+          throw new Error(res.message)
+
         userInfo.token = temp.token
         userInfo.userCode = temp.usercode
         userInfo.userRole = temp.role
@@ -78,6 +87,14 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
         dialogType.value = 'LOGIN'
         operateDialogRef.value.openDialog()
+      }
+      catch (error: any) {
+        if (error.includes('审核不通过'))
+          ElMessage({ message: error, type: 'error' })
+
+        dialogType.value = statusMap.get(error) ? statusMap.get(error) : statusMap.get('审核不通过')
+        operateDialogRef.value.openDialog()
+        consola.fatal(error)
       }
     }
   })

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-11-24 10:58:00
+ * @LastEditTime: 2022-12-03 16:50:46
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -14,7 +14,7 @@ import { ElMessage } from 'element-plus'
 import type { meeting } from '~/model'
 
 const config: HttpClientConfig = {
-  baseURL: 'http://47.107.96.124:8034',
+  baseURL: 'http://175.6.101.127:8700',
   headers: {
     'Content-Type': 'application/json;charset=UTF-8',
     'Accept': 'application/json;charset=UTF-8',
@@ -77,6 +77,14 @@ export const del = (url: string, data: RequestParams) => {
 export const gaoDeWebApi = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
     https.request<meeting>(url, Method.GET, data).then((response: any) => {
+      resolve(response)
+    }, (err: any) => { reject(err) })
+  })
+}
+
+export const loginPost = (url: string, data: RequestParams) => {
+  return new Promise((resolve, reject) => {
+    https.request<meeting>(url, Method.POST, data).then((response: any) => {
       resolve(response)
     }, (err: any) => { reject(err) })
   })
