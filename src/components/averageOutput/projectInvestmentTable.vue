@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-12 22:57:45
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-11 10:54:52
+ * @LastEditTime: 2022-12-02 16:43:24
  * @FilePath: \big-screen\src\components\averageOutput\projectInvestmentTable.vue
  * @Description:项目投资统计
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -41,7 +41,7 @@ watch(() => propObj.projectInvestmentTableProp, () => {
 
 <template>
   <div class="project-investment-table-box" wPE-100 hPE-100 flex fw flex-row-between elastic-longitudinal-axis-start>
-    <div v-for="(item, index) in list" :key="index" h-78 flex-basis-PE-48 mtPE-4 po-r flex flex-column-center plPE-17>
+    <div v-for="(item, index) in list" :key="index" h-78px flex-basis-PE-48 mtPE-4 po-r flex flex-column-center plPE-17>
       <el-image class="item-bg" :src="item.bg" fit="cover" />
       <span class="value">
         <span ref="span" />

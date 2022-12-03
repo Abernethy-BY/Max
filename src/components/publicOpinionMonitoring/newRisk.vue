@@ -98,7 +98,7 @@ watch(() => prop.riskClassificationProp, (val) => {
     <div class="new-risk-table">
       <span class="new-risk-table-title">最新风险</span>
 
-      <div class="table-header" flex h-38 pl-14 pr-14>
+      <div class="table-header" flex h-38px pl-14 pr-14>
         <span
           v-for="(item, index) in headerList" :key="index" class="header-span" flex-shrink-0 flex-basis-PE-25
           flex-basis-0 flex flex-row-between cross-axis-center v-text="item.label"
@@ -106,7 +106,7 @@ watch(() => prop.riskClassificationProp, (val) => {
       </div>
 
       <Vue3SeamlessScroll :list="tableData" class="scroll">
-        <div v-for="(item, index) in tableData" :key="index" class="item" flex h-38 pl-14 pr-14>
+        <div v-for="(item, index) in tableData" :key="index" class="item" flex h-38px pl-14 pr-14>
           <span
             class="employee-recruitment-span " flex-shrink-0 flex-basis-PE-25 flex-basis-0 flex flex-row-between
             cross-axis-center
