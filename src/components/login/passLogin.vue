@@ -74,9 +74,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         }
         const res: any = await xtdl(param)
 
+        const stateList = ['审核中', '审核不通过', '未录入资料']
+
         const temp = res?.data[0]
-        if (!temp)
-          throw new Error(res.message)
+        if (stateList.includes(temp.state))
+          throw new Error(temp.state)
 
         userInfo.token = temp.token
         userInfo.userCode = temp.usercode
@@ -89,10 +91,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         operateDialogRef.value.openDialog()
       }
       catch (error: any) {
-        if (error.includes('审核不通过'))
+        const errorTemp = error.message
+        if (errorTemp.includes('审核不通过'))
           ElMessage({ message: error, type: 'error' })
 
-        dialogType.value = statusMap.get(error) ? statusMap.get(error) : statusMap.get('审核不通过')
+        dialogType.value = statusMap.get(errorTemp) ? statusMap.get(errorTemp) : statusMap.get('审核不通过')
         operateDialogRef.value.openDialog()
         consola.fatal(error)
       }
@@ -117,9 +120,28 @@ const loginSuccessfulCloseFun = () => {
 }
 
 /**
+ * @description: 录入信息弹窗节点
+ */
+const enterInformationRef = ref()
+
+/**
+ * @description: 用户录入信息依赖
+ */
+const userSignTel = ref<string>('')
+const userSignType = ref<string>('')
+
+/**
+ * @description: 未录入信息弹窗关闭回调
+ * @return {*}
+ */
+const openEnterInformationFun = () => {
+  enterInformationRef.value.openDialog()
+}
+
+/**
  * @description: 弹窗关闭回调字典
  */
-const closeFunMap = new Map().set('LOGIN', loginSuccessfulCloseFun)
+const closeFunMap = new Map().set('LOGIN', loginSuccessfulCloseFun).set('NOT_ENTERED', openEnterInformationFun).set('AUDIT_FAILED', openEnterInformationFun)
 
 /**
  * @description: 弹窗关闭回调
@@ -131,14 +153,14 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
   <div wPE-100 hPE-100 class="login-form-content-box">
     <el-form ref="ruleFormRef" :rules="rules" class="login-form-content" :model="loginForm" ml-53 mr-56>
       <el-form-item mt-48 prop="userName">
-        <el-input v-model="loginForm.userName" class="login-input" placeholder="请输入用户名">
+        <el-input v-model.trim="loginForm.userName" class="login-input" placeholder="请输入用户名">
           <template #prepend>
             <el-image w-26px h-26px :src="userNameIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>
       <el-form-item mt-48 prop="passWord">
-        <el-input v-model="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input">
+        <el-input v-model.trim="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input">
           <template #prepend>
             <el-image w-26px h-26px :src="passWordIcon" fit="fill" />
           </template>
@@ -158,6 +180,7 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
     </el-form>
 
     <operate-dialog ref="operateDialogRef" :type="dialogType" :close="dialogCloseFun" />
+    <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
   </div>
 </template>
 

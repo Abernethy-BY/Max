@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-18 20:59:34
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-01 15:35:18
+ * @LastEditTime: 2022-12-05 19:33:56
  * @FilePath: \big-screen\src\components\login\forgotPass.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -102,7 +102,7 @@ const getForgetPassCode = async () => {
   }
   catch (error) {
     consola.fatal(error)
-    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+    // ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
   }
 }
 /**

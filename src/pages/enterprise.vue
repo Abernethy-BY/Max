@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-09 17:26:51
+ * @LastEditTime: 2022-12-05 20:04:01
  * @FilePath: \big-screen\src\pages\enterprise.vue
  * @Description:产业图鉴
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -31,7 +31,9 @@ const getData = async (val = '湖南省') => {
   coordinateData.value = res?.find(e => e?.['位置'] === '左上')
 }
 // getData()
-setInterval(() => { getData() }, 1000 * 60 * 30)
+setInterval(() => {
+  getData()
+}, 1000 * 60 * 30)
 </script>
 
 <template>

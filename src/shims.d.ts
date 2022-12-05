@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 11:12:28
- * @LastEditTime: 2022-09-28 21:38:18
+ * @LastEditTime: 2022-12-05 17:47:52
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 
  * @FilePath: \big-screen\src\shims.d.ts
@@ -34,4 +34,22 @@ declare module 'virtual:pwa-register' {
   export default content
 }
 
+declare module 'vue-wxlogin' {
+  const content: any
+  export default content
+}
+
+
+declare module 'vue-next-wxlogin' {
+  const content: any
+  export default content
+}
+
+declare module 'WxLogin' {
+  const content: any
+  export default content
+}
+
 declare let AMapUI: any
+
+

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-30 15:20:11
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-30 15:29:28
+ * @LastEditTime: 2022-12-05 20:02:21
  * @FilePath: \big-screen\src\components\enterInformationComponents\DITEnterInformation.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -48,7 +48,7 @@ const props = {
       resolve(res)
     }
     catch (error) {
-      consola.info(error)
+      consola.fatal(error)
       ElMessage({ message: error, type: 'error' })
     }
   },

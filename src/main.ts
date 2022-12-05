@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-30 20:54:51
+ * @LastEditTime: 2022-12-05 17:17:26
  * @FilePath: \big-screen\src\main.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -34,6 +34,7 @@ export const createApp = ViteSSG(
       if (!useUserStore().hasToken && to.path !== '/login')
         return { path: '/login' }
     })
+
     Object.values(import.meta.globEager('./modules/*.ts')).forEach((i: any) => i.install?.(ctx))
   },
 )

@@ -64,7 +64,7 @@ const props = {
       resolve(res)
     }
     catch (error) {
-      consola.info(error)
+      consola.fatal(error)
       ElMessage({ message: error, type: 'error' })
     }
   },

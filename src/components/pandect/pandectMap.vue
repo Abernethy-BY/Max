@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-24 14:32:45
+ * @LastEditTime: 2022-12-05 20:47:29
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -18,6 +18,7 @@ import magnify from '~/assets/image/pandect/magnify.png'
 
 import fanhui from '~/assets/image/common/navBg/fanhui.png'
 
+const propObj = withDefaults(defineProps<{ adCode: string; areaName: string }>(), { adCode: '10000', areaName: '中国' })
 const emit = defineEmits(['refresh'])
 const userInfo = useUserStore()
 
@@ -88,7 +89,7 @@ const disposeParamFun = val => `${Object.keys(val).map(e => `${e}=${val[e]}`).jo
  * @description: 初始化地图方法
  * @return {*}
  */
-const initMap = (val = 430000, areaName = '湖南省', flag = 'drillDown') => {
+const initMap = (val, areaName, flag = 'drillDown') => {
   AMapLoader.load(aMapParam).then(() => {
     AMapUI.loadUI(['geo/DistrictExplorer'], (DistrictExplorer) => {
       const districtExplorer = new DistrictExplorer()
@@ -277,11 +278,7 @@ onMounted(() => {
   })
   myChart.showLoading(loadingParam)
   myChart?.on('click', mapClickFun)
-  initMap()
-})
-
-watch(() => parkFlag.value, () => {
-  consola.info(['地图类型更改', parkFlag.value])
+  initMap(propObj.adCode, propObj.areaName)
 })
 
 /**
@@ -307,10 +304,14 @@ const loadFun = (e) => {
   <div wPE-100 hPE-100 class="map-box" po-r>
     <div class="coordinate-box" po-r z-10>
       <div class="icon-box" po-a pob-50>
-        <el-image class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
-          @mouseup.prevent="goMagnifyMapTouchEnd" />
-        <el-image class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
-          @mouseup.prevent="goShrinkMapEnd" />
+        <el-image
+          class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
+          @mouseup.prevent="goMagnifyMapTouchEnd"
+        />
+        <el-image
+          class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
+          @mouseup.prevent="goShrinkMapEnd"
+        />
         <el-image class="operate-icon" :src="fanhui" fit="fill" @click="goLast" />
       </div>
       <div class="coordinate-span">
@@ -319,8 +320,10 @@ const loadFun = (e) => {
       </div>
     </div>
     <div v-if="!parkFlag" id="map" ref="mapRef" wPE-100 hPE-100 />
-    <el-image v-else ref="parkImageRef" :src="parkImage" class="park-image" fit="cover" @error="(err) => errorFun(err)"
-      @load="(err) => loadFun(err)" />
+    <el-image
+      v-else ref="parkImageRef" :src="parkImage" class="park-image" fit="cover" @error="(err) => errorFun(err)"
+      @load="(err) => loadFun(err)"
+    />
   </div>
 </template>
 

@@ -28,12 +28,13 @@ https.httpClient.interceptors.response.use((res) => {
   const userInfo = useUserStore()
   if (res.config.method === 'get')
     return res
+  if (Number(res.data.state) === 20) {
+    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+    return new Error('已发送短信，如要重发短信，请稍等')
+  }
 
   if (Number(res.data.state) !== 0 && Number(res.data.state) !== 5) {
     ElMessage({ message: res.data.message, type: 'error' })
-  }
-  else if (Number(res.data.state) === 20) {
-    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
   }
   else if (Number(res.data.state) === 3) {
     userInfo.token = ''

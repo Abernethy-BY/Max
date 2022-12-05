@@ -98,7 +98,6 @@ const submitInformationFun = async (val: FORM_DATA_MODEL) => {
     }
     const submitid = new Date().getTime()
     const sign = md5(`${submitid}${propObj.userSignTel}123789`)
-    consola.info([submitid, sign, propObj.userSignTel])
 
     await userinfoinput({ ...val, submitid, sign, province, city, county, tel: propObj.userSignTel })
     operateDialogRef.value.openDialog()

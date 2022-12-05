@@ -15,6 +15,8 @@ import Icons from 'unplugin-icons/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import pxToRem from 'postcss-pxtorem'
 import autoPreFixer from 'autoprefixer'
+import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
+import externalGlobals from 'rollup-plugin-external-globals'
 // import swiper from 'swiper'
 // import anime from 'animejs'
 import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-import'
@@ -24,7 +26,11 @@ const loader_pxToRem = pxToRem({ rootValue: 37.5, unitPrecision: 2, propList: ['
 const loader_autoPreFixer = autoPreFixer({ overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8', 'last 10 versions'], grid: true })
 
 export default defineConfig({
-  resolve: { alias: { '~/': `${path.resolve(__dirname, 'src')}/` } },
+  resolve: {
+    alias: {
+      '~/': `${path.resolve(__dirname, 'src')}/`,
+    },
+  },
 
   server: {
     host: 'localhost',
@@ -38,6 +44,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
       reactivityTransform: true,
     }),
+    externalGlobals({ wxLogin: 'wxLogin' }),
     Pages({ extensions: ['vue'], exclude: ['**/components/*.vue'] }),
     Layouts({
       layoutsDirs: 'src/layouts',
@@ -106,6 +113,14 @@ export default defineConfig({
     }),
 
     Inspect(),
+    // WxLogin
+    importToCDN({
+      modules: [{
+        name: 'WxLogin',
+        var: 'WxLogin',
+        path: 'http://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js',
+      }],
+    }),
   ],
 
   ssgOptions: {

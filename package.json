@@ -34,6 +34,7 @@
     "swiper": "^8.4.5",
     "vue": "^3.2.45",
     "vue-i18n": "^9.2.2",
+    "vue-next-wxlogin": "^1.0.3",
     "vue-router": "^4.1.6",
     "vue3-seamless-scroll": "^2.0.1"
   },
@@ -57,6 +58,7 @@
     "normalize.css": "^8.0.1",
     "pnpm": "^7.17.1",
     "postcss-pxtorem": "^6.0.0",
+    "rollup-plugin-external-globals": "^0.7.1",
     "sass": "^1.56.1",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.3",
@@ -65,6 +67,7 @@
     "unplugin-icons": "^0.14.14",
     "unplugin-vue-components": "^0.22.11",
     "vite": "^3.2.4",
+    "vite-plugin-cdn-import": "^0.3.5",
     "vite-plugin-inspect": "^0.7.9",
     "vite-plugin-md": "^0.20.4",
     "vite-plugin-pages": "^0.27.1",

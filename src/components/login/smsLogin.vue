@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-22 21:08:12
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-24 16:17:27
+ * @LastEditTime: 2022-12-05 19:34:05
  * @FilePath: \big-screen\src\components\login\smsLogin.vue
  * @Description: 验证码登录方法
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -71,7 +71,7 @@ const getVerificationCode = async () => {
   }
   catch (error) {
     consola.fatal(error)
-    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+    // ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
   }
 }
 

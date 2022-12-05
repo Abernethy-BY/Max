@@ -157,7 +157,7 @@ const signUpCode = async () => {
   }
   catch (error) {
     consola.fatal(error)
-    ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+    // ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
   }
 }
 </script>

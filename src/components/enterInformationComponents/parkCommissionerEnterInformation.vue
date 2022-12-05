@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-30 14:38:36
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-30 15:29:48
+ * @LastEditTime: 2022-12-05 20:02:34
  * @FilePath: \big-screen\src\components\enterInformationComponents\parkCommissionerEnterInformation.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -57,7 +57,7 @@ const props = {
       resolve(res)
     }
     catch (error) {
-      consola.info(error)
+      consola.fatal(error)
       ElMessage({ message: error, type: 'error' })
     }
   },

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-25 17:38:41
+ * @LastEditTime: 2022-12-05 20:44:33
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -10,6 +10,35 @@
 
 <script lang="ts" setup>
 const user = useUserStore()
+
+/**
+ * @description: 地图区域字典
+ */
+const areaNameMap = new Map().set('工信厅', user.province).set('工信局', user.city).set('园区', user.compname)
+
+/**
+ * @description: adcode字符
+ */
+const adCodeRes = ref<string>('')
+
+/**
+ * @description: 用户区域名称
+ */
+const areaName = computed(() => areaNameMap.get(user.userRole))
+
+/**
+ * @description: 获取用户地区adcode
+ * @return {*}
+ */
+const getAdCode = async () => {
+  if (user.userRole === '工信厅')
+    adCodeRes.value = await getMapAdCode(user.province)
+
+  else if (user.userRole === '工信局')
+    adCodeRes.value = await getMapAdCode(user.city)
+}
+
+getAdCode()
 
 const industryRankingData = ref([])
 const constructionProgressData = ref([])
@@ -43,10 +72,10 @@ const getYqzl = async (val?) => {
       </div>
     </div>
     <div class="pandect-center" wPE-45 hPE-100>
-      <pandectMap @refresh="getYqzl" />
+      <pandect-map :ad-code="adCodeRes" :area-name="areaName" @refresh="getYqzl" />
     </div>
     <div class="pandect-right" wPE-28 hPE-94>
-      <constructionProgress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />
+      <construction-progress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />
     </div>
   </div>
 </template>

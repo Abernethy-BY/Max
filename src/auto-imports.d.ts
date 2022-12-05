@@ -61,6 +61,7 @@ declare global {
   const getCurrentScope: typeof import('vue')['getCurrentScope']
   const getDay: typeof import('./utils/utils')['getDay']
   const getLastDayOfMonth: typeof import('./utils/utils')['getLastDayOfMonth']
+  const getMapAdCode: typeof import('./utils/amap')['getMapAdCode']
   const getMapdata: typeof import('./api/api')['getMapdata']
   const getMilliseconds: typeof import('./utils/utils')['getMilliseconds']
   const getMonth: typeof import('./utils/utils')['getMonth']
@@ -404,6 +405,7 @@ declare module 'vue' {
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly getDay: UnwrapRef<typeof import('./utils/utils')['getDay']>
     readonly getLastDayOfMonth: UnwrapRef<typeof import('./utils/utils')['getLastDayOfMonth']>
+    readonly getMapAdCode: UnwrapRef<typeof import('./utils/amap')['getMapAdCode']>
     readonly getMapdata: UnwrapRef<typeof import('./api/api')['getMapdata']>
     readonly getMilliseconds: UnwrapRef<typeof import('./utils/utils')['getMilliseconds']>
     readonly getMonth: UnwrapRef<typeof import('./utils/utils')['getMonth']>
