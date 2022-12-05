@@ -254,14 +254,10 @@ onMounted(() => {
       <span>{{ propObj.coordinateProp.值1 }}</span><span>{{ propObj.coordinateProp.值2 }}</span>
     </div>
     <div po-a por-0 pobPE-10 flex flex-column-between>
-      <el-image
-        class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
-        @mouseup.prevent="goMagnifyMapTouchEnd"
-      />
-      <el-image
-        class="operate-icon" :src="shrink" fit="fill" mt-22 @mousedown.prevent="goShrinkMapStart"
-        @mouseup.prevent="goShrinkMapEnd"
-      />
+      <el-image class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
+        @mouseup.prevent="goMagnifyMapTouchEnd" />
+      <el-image class="operate-icon" :src="shrink" fit="fill" mt-22 @mousedown.prevent="goShrinkMapStart"
+        @mouseup.prevent="goShrinkMapEnd" />
       <el-image class="operate-icon" mt-22 :src="fanhui" fit="fill" @click="goLast" />
     </div>
   </div>
@@ -278,5 +274,8 @@ onMounted(() => {
       margin-right: 25px;
     }
   }
+}
+:deep(.operate-icon) {
+  cursor: pointer;
 }
 </style>

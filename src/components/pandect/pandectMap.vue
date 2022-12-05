@@ -307,14 +307,10 @@ const loadFun = (e) => {
   <div wPE-100 hPE-100 class="map-box" po-r>
     <div class="coordinate-box" po-r z-10>
       <div class="icon-box" po-a pob-50>
-        <el-image
-          class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
-          @mouseup.prevent="goMagnifyMapTouchEnd"
-        />
-        <el-image
-          class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
-          @mouseup.prevent="goShrinkMapEnd"
-        />
+        <el-image class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart"
+          @mouseup.prevent="goMagnifyMapTouchEnd" />
+        <el-image class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart"
+          @mouseup.prevent="goShrinkMapEnd" />
         <el-image class="operate-icon" :src="fanhui" fit="fill" @click="goLast" />
       </div>
       <div class="coordinate-span">
@@ -323,10 +319,8 @@ const loadFun = (e) => {
       </div>
     </div>
     <div v-if="!parkFlag" id="map" ref="mapRef" wPE-100 hPE-100 />
-    <el-image
-      v-else ref="parkImageRef" :src="parkImage" class="park-image" fit="cover" @error="(err) => errorFun(err)"
-      @load="(err) => loadFun(err)"
-    />
+    <el-image v-else ref="parkImageRef" :src="parkImage" class="park-image" fit="cover" @error="(err) => errorFun(err)"
+      @load="(err) => loadFun(err)" />
   </div>
 </template>
 
@@ -347,16 +341,14 @@ const loadFun = (e) => {
   :deep(.operate-icon) {
     width: 48px;
     height: 48px;
-
     margin-left: 20px;
-
+    cursor: pointer;
   }
 
   .coordinate-span {
     width: 100%;
     display: flex;
     justify-content: space-around;
-    ;
 
     span {
       font-size: 16px;
