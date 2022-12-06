@@ -140,6 +140,8 @@ declare global {
   const resolveDirective: typeof import('vue')['resolveDirective']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
+  const scanloginchk: typeof import('./api/api')['scanloginchk']
+  const scanloginchkPost: typeof import('./utils/http')['scanloginchkPost']
   const seriesOption: typeof import('./utils/utils')['seriesOption']
   const setDomFontSize: typeof import('./utils/dom')['setDomFontSize']
   const shallowReactive: typeof import('vue')['shallowReactive']
@@ -484,6 +486,8 @@ declare module 'vue' {
     readonly resolveDirective: UnwrapRef<typeof import('vue')['resolveDirective']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
+    readonly scanloginchk: UnwrapRef<typeof import('./api/api')['scanloginchk']>
+    readonly scanloginchkPost: UnwrapRef<typeof import('./utils/http')['scanloginchkPost']>
     readonly seriesOption: UnwrapRef<typeof import('./utils/utils')['seriesOption']>
     readonly setDomFontSize: UnwrapRef<typeof import('./utils/dom')['setDomFontSize']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>

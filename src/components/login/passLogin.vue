@@ -108,6 +108,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
  * @return {*}
  */
 const loginSuccessfulCloseFun = () => {
+  userInfo.userRole = '企业'
   if (userInfo.userRole === '工信局' || userInfo.userRole === '工信厅')
     router.push({ path: '/enterprise' })
 

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-05 20:44:33
+ * @LastEditTime: 2022-12-06 09:55:39
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -65,7 +65,7 @@ const getYqzl = async (val?) => {
   <div hPE-100 wPE-100 flex flex-row-between>
     <div wPE-25 hPE-100>
       <div class="top10" wPE-100 hPE-61>
-        <industryRanking :industry-ranking-prop="industryRankingData" />
+        <industry-ranking :industry-ranking-prop="industryRankingData" />
       </div>
       <div class="Income" mt-30 wPE-100 hPE-29>
         <income :income-prop="incomeData" />

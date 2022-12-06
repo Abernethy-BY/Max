@@ -115,6 +115,11 @@ export default defineConfig({
     [/^polPE-(\d+)$/, ([, d]) => ({ left: `${d}%` })],
     [/^porPE-(\d+)$/, ([, d]) => ({ right: `${d}%` })],
 
+    [/^po-(t|l|b|r+)-(\w+)$/, ([, a, b]) => {
+      const numReg = /^((?![A-Za-z]).)*$/
+      const directionMap = new Map().set('t', 'top').set('b', 'bottom').set('r', 'right').set('l', 'left')
+      return numReg.test(b) ? { [directionMap.get(a)]: `${b}%` } : { [directionMap.get(a)]: b }
+    }],
     [/^bw-(\d+)$/, ([, d]) => ({ 'border-width': `${d}px` })],
     [/^bs-(\w+)$/, ([, w]) => ({ 'border-style': `${w}` })],
     [/^br-(\d+)$/, ([, d]) => ({ ' border-radius': `${d}px` })],
@@ -129,11 +134,6 @@ export default defineConfig({
       return effectiveArr.length === 0 ? { padding: '0px' } : { padding: paddingList.join(' ') }
     }],
 
-    [/^po-(t|l|b|r+)-(.+)$/, ([, a, b]) => {
-      const numReg = /^((?![A-Za-z]).)*$/
-      const directionMap = new Map().set('t', 'top').set('b', 'bottom').set('r', 'right').set('l', 'left')
-      return numReg.test(b) ? { [directionMap.get(a)]: `${b}%` } : { [directionMap.get(a)]: b }
-    }],
   ],
   transformers: [
     transformerDirectives(),

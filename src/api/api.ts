@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-12-03 16:52:03
+ * @LastEditTime: 2022-12-06 19:14:01
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
@@ -35,7 +35,6 @@ export const yqjk = (param: any) => post('/yqjk.aspx', param)
 export const yzdx = (param: any) => post('/fsdx.aspx', param)
 
 // 获取地区adcode
-// export const getAdCode = (param: any) => get('https://restapi.amap.com/v3/config/district', param)
 export const getAdCode = (param: any) => gaoDeWebApi('https://restapi.amap.com/v3/geocode/geo', param)
 
 // 获取地图数据
@@ -63,4 +62,7 @@ export const loginWxBack = (param: any) => post('/loginwxback.aspx', param)
 
 // 资料录入
 export const userinfoinput = (param: any) => post('/userinfoinput.aspx', param)
+
+// 获取扫码结果
+export const scanloginchk = (param: any) => scanloginchkPost('/scanloginchk.aspx', param)
 

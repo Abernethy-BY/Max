@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-12-03 16:50:46
+ * @LastEditTime: 2022-12-06 19:38:29
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -26,22 +26,27 @@ const config: HttpClientConfig = {
 const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
   const userInfo = useUserStore()
-  if (res.config.method === 'get')
-    return res
-  if (Number(res.data.state) === 20) {
+  const { data } = res
+  if (Number(data.state) === 20) {
     ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
-    return new Error('已发送短信，如要重发短信，请稍等')
+    return Promise.reject(new Error('已发送短信，如要重发短信，请稍等'))
   }
-
-  if (Number(res.data.state) !== 0 && Number(res.data.state) !== 5) {
-    ElMessage({ message: res.data.message, type: 'error' })
+  if (Number(data.state) === 30) {
+    // ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+    return Promise.reject(new Error(data.message))
   }
-  else if (Number(res.data.state) === 3) {
+  else if (Number(data.state) === 3) {
     userInfo.token = ''
     userInfo.userCode = ''
     userInfo.userRole = ''
-    ElMessage({ message: res.data.message, type: 'error' })
+    ElMessage({ message: data.message, type: 'error' })
+    return Promise.reject(data.message)
   }
+  else if (Number(data.state) !== 0 && Number(data.state) !== 5) {
+    ElMessage({ message: data.message, type: 'error' })
+    return Promise.reject(data.message)
+  }
+
   else { return res }
 })
 
@@ -84,6 +89,14 @@ export const gaoDeWebApi = (url: string, data: RequestParams) => {
 }
 
 export const loginPost = (url: string, data: RequestParams) => {
+  return new Promise((resolve, reject) => {
+    https.request<meeting>(url, Method.POST, data).then((response: any) => {
+      resolve(response)
+    }, (err: any) => { reject(err) })
+  })
+}
+
+export const scanloginchkPost = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
     https.request<meeting>(url, Method.POST, data).then((response: any) => {
       resolve(response)
