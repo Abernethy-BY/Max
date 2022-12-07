@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-06 20:47:19
+ * @LastEditTime: 2022-12-07 16:16:48
  * @FilePath: \big-screen\src\main.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -25,7 +25,6 @@ import './assets/css/main.css'
 setDomFontSize()
 
 const routes = setupLayouts(generatedRoutes)
-consola.info(routes)
 export const createApp = ViteSSG(
   App,
   { routes, base: import.meta.env.BASE_URL },

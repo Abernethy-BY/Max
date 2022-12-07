@@ -2,13 +2,15 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 19:54:24
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-06 20:29:52
+ * @LastEditTime: 2022-12-07 20:53:58
  * @FilePath: \big-screen\src\components\login\scanLogin.vue
  * @Description: 扫一扫登录页面
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
+const emit = defineEmits(['scanGoRegistered'])
+
 /**
  * @description: 二维码透明度
  */
@@ -30,20 +32,45 @@ const rqValue = ref<string>('')
 const maskFlag = ref<boolean>(false)
 
 /**
+ * @description: 错误列表
+ */
+const errList = ['未扫秒', '未注册']
+
+/**
+ * @description:获取扫描结果定时器
+ */
+let getOutcomeInterval: NodeJS.Timeout | null = null
+
+/**
+ * @description: 未注册方法
+ * @return {*}
+ */
+const notRegisteredFun = () => {
+  emit('scanGoRegistered')
+}
+
+/**
  * @description: 获取扫码结果
  * @return {*}
  */
 const getOutcome = async () => {
   try {
     const res = await scanloginchk({ logincode: state.value })
-    consola.info(res)
+    consola.success(['扫码成功', res])
   }
   catch (error) {
-    consola.fatal(error)
+    const errType = errList.findIndex(e => e === error.message)
+    // if (errType === -1) {
+    //   ElMessage({ message: '服务器错误', type: 'error' })
+    // getOutcomeInterval && clearInterval(getOutcomeInterval)
+
+    // }
+
+    // else if (errType === 1) {
+    notRegisteredFun()
+    // }
   }
 }
-
-let getOutcomeInterval: NodeJS.Timeout | null = null
 
 /**
  * @description: 获取二维码
@@ -57,7 +84,7 @@ const getQrCoded = async () => {
     const scope = 'snsapi_base'
     state.value = Math.random().toFixed(6).slice(-6)
 
-    rqValue.value = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state}`
+    rqValue.value = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state.value}`
 
     getOutcome()
 

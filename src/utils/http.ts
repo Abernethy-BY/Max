@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-12-06 19:38:29
+ * @LastEditTime: 2022-12-07 18:30:20
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -27,22 +27,21 @@ const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
   const userInfo = useUserStore()
   const { data } = res
-  if (Number(data.state) === 20) {
+  if (Number(data.state) && Number(data.state) === 20) {
     ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
     return Promise.reject(new Error('已发送短信，如要重发短信，请稍等'))
   }
-  if (Number(data.state) === 30) {
-    // ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
+  if (Number(data.state) && (Number(data.state) === 30 || Number(data.state) === 31)) {
     return Promise.reject(new Error(data.message))
   }
-  else if (Number(data.state) === 3) {
+  else if (Number(data.state) && Number(data.state) === 3) {
     userInfo.token = ''
     userInfo.userCode = ''
     userInfo.userRole = ''
     ElMessage({ message: data.message, type: 'error' })
     return Promise.reject(data.message)
   }
-  else if (Number(data.state) !== 0 && Number(data.state) !== 5) {
+  else if (Number(data.state) && (Number(data.state) !== 0 && Number(data.state) !== 5)) {
     ElMessage({ message: data.message, type: 'error' })
     return Promise.reject(data.message)
   }

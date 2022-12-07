@@ -61,6 +61,7 @@ const nextFun = () => {
  * @return {*}
  */
 const closeOperateDialogFun = () => {
+  enterInformationFlag.value = false
   emit('openPassLogin')
 }
 

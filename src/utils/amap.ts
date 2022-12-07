@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-05 20:24:29
+ * @LastEditTime: 2022-12-07 18:19:11
  * @FilePath: \big-screen\src\utils\amap.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -66,11 +66,10 @@ export const getMapAdCode = async (area: string) => {
 
     const { districts } = res
     const temp = districts[0].adcode
-
     return temp
   }
   catch (error) {
-    consola.fatal(error)
+    // consola.fatal(error)
     ElMessage({ message: error, type: 'error' })
   }
 }

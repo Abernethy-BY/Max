@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-28 17:43:37
+ * @LastEditTime: 2022-12-07 17:50:42
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -155,6 +155,14 @@ const openUserAgreement = () => {
 const userAgreementNext = () => {
   agreementFlag.value = true
 }
+
+/**
+ * @description:扫码后未注册
+ * @return {*}
+ */
+const scanGoRegistered = () => {
+  loginFlag.value = 'SIGN_UP'
+}
 </script>
 
 <template>
@@ -209,7 +217,7 @@ const userAgreementNext = () => {
 
       <!-- 扫一扫登录 -->
       <div v-if="loginFlag === 'SCAN_TO_LOG_IN'" w-100 h-100>
-        <scan-login />
+        <scan-login @scan-go-registered="scanGoRegistered" />
       </div>
     </main>
     <!-- 密码登录||手机号登录页脚 -->

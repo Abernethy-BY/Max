@@ -1,12 +1,3 @@
-/*
- * @Author: By
- * @Date: 2022-08-18 16:20:19
- * @LastEditTime: 2022-11-30 14:45:33
- * @LastEditors: BY by15242952083@outlook.com
- * @Description: 类型集合
- * @FilePath: \big-screen\src\model\index.ts
- * 可以输入预定的版权声明、个性签名、空行等
- */
 export interface Slide {
   title: string
   type: string
@@ -50,4 +41,9 @@ export interface ENTER_INFORMATION_MODEL {
 
 export interface FORM_DATA_MODEL {
   [key: string]: string | Array<string>
+}
+
+export interface REAR_DATA_MODEL {
+  adCode: string
+  areaName: string
 }
