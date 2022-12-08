@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { DefineComponent } from 'vue'
 import left from '~/assets/image/corporatePortrait/overview/left.png'
 import right from '~/assets/image/corporatePortrait/overview/right.png'
 import importAndExportCreditImage from '~/assets/image/corporatePortrait/overview/importAndExportCreditImage.png'
@@ -52,6 +53,18 @@ const subItemizationList = ref([
   { label: '企业荣誉', value: '', image: rongyaoBg },
 ])
 
+// 弹窗节点
+const overviewPageDialogRef = ref<DefineComponent>()
+
+// 弹窗标题
+const dialogTitle = ref<string>('')
+
+// 打开详情弹窗方法
+const openDetail = (label: string) => {
+  dialogTitle.value = label
+  overviewPageDialogRef.value?.openDialog()
+}
+
 watch(() => propObj.highTechEnterpriseListProp, () => {
   HighTechEnterpriseList.value = propObj.highTechEnterpriseListProp?.map((e: any) => e['值1'])
 })
@@ -102,19 +115,16 @@ watch(() => propObj.overviewProp, () => {
     <div wPE-100 hPE-55 flex fw flex-row-between elastic-longitudinal-axis-between>
       <div
         v-for="(item, index) in subItemizationList" :key="index" wPE-19 hPE-30 flex flex-row-between
-        cross-axis-center
+        cross-axis-center @click="openDetail(item.label)"
       >
         <el-image class="sub-itemization-image" :src="item.image" fit="fill" />
         <div class="sub-itemization-main">
-          <span ref="span" class="sub-itemization-value">{{
-            item.value
-          }}</span>
-          <span class="sub-itemization-label">{{
-            item.label
-          }}</span>
+          <span ref="span" class="sub-itemization-value">{{ item.value }}</span>
+          <span class="sub-itemization-label">{{ item.label }}</span>
         </div>
       </div>
     </div>
+    <overview-page-dialog ref="overviewPageDialogRef" :dialog-title="dialogTitle" />
   </div>
 </template>
 

@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 19:54:24
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-07 20:53:58
+ * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
+ * @LastEditTime: 2022-12-08 20:00:38
  * @FilePath: \big-screen\src\components\login\scanLogin.vue
  * @Description: 扫一扫登录页面
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -31,15 +31,8 @@ const rqValue = ref<string>('')
  */
 const maskFlag = ref<boolean>(false)
 
-/**
- * @description: 错误列表
- */
-const errList = ['未扫秒', '未注册']
-
-/**
- * @description:获取扫描结果定时器
- */
-let getOutcomeInterval: NodeJS.Timeout | null = null
+// 未扫描方法
+const notScannedFun = () => { }
 
 /**
  * @description: 未注册方法
@@ -49,6 +42,33 @@ const notRegisteredFun = () => {
   emit('scanGoRegistered')
 }
 
+// 未录入方法
+const notEnteredFun = () => {}
+
+// 审核中方法
+const underReviewFun = () => {}
+
+// 深恶黑不通过方法
+const auditFailedFun = () => {}
+
+/**
+ * @description: 错误字典
+ */
+const errMap: Map<string, Function> = new Map()
+errMap.set('未扫描', notScannedFun)
+errMap.set('未注册', notRegisteredFun)
+errMap.set('未录入资料', notEnteredFun)
+errMap.set('审核中', underReviewFun)
+errMap.set('审核不通过', auditFailedFun)
+
+// 扫码登陆接口
+const scanLogin = () => {}
+
+/**
+ * @description:获取扫描结果定时器
+ */
+let getOutcomeInterval: NodeJS.Timeout | null = null
+
 /**
  * @description: 获取扫码结果
  * @return {*}
@@ -57,18 +77,10 @@ const getOutcome = async () => {
   try {
     const res = await scanloginchk({ logincode: state.value })
     consola.success(['扫码成功', res])
+    scanLogin()
   }
   catch (error) {
-    const errType = errList.findIndex(e => e === error.message)
-    // if (errType === -1) {
-    //   ElMessage({ message: '服务器错误', type: 'error' })
-    // getOutcomeInterval && clearInterval(getOutcomeInterval)
-
-    // }
-
-    // else if (errType === 1) {
-    notRegisteredFun()
-    // }
+    errMap.get(error.message)?.call(this)
   }
 }
 
