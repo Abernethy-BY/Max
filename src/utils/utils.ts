@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-22 21:00:46
+ * @LastEditTime: 2022-12-12 20:49:18
  * @FilePath: \big-screen\src\utils\utils.ts
  * @Description: 工具类
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -356,13 +356,12 @@ export const seriesOption = (val, zlevel, chart, zoom) => {
       smooth: true,
       lineStyle: { color: '#bbb' },
     },
-    labelLayout() {
-      return {
-        x: (chart?.getWidth() || 100) - 100,
-        moveOverlap: 'shiftY',
-        fontSize: '0.45rem',
-      }
-    },
+    labelLayout: () => ({
+      x: (chart?.getWidth() || 100) - 100,
+      y: 100,
+      moveOverlap: 'shiftY',
+      fontSize: '0.45rem',
+    }),
     itemStyle: {
       areaColor: '#35356C',
       borderColor: 'white',
@@ -387,5 +386,6 @@ export const disposeGeoJson = (val) => {
     if (index !== 0)
       element.splice(0, element.length)
   })
+
   return temp
 }

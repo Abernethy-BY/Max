@@ -56,13 +56,9 @@ const subItemizationList = ref([
 // 弹窗节点
 const overviewPageDialogRef = ref<DefineComponent>()
 
-// 弹窗标题
-const dialogTitle = ref<string>('')
-
 // 打开详情弹窗方法
 const openDetail = (label: string) => {
-  dialogTitle.value = label
-  overviewPageDialogRef.value?.openDialog()
+  overviewPageDialogRef.value?.openDialog(label)
 }
 
 watch(() => propObj.highTechEnterpriseListProp, () => {
@@ -115,7 +111,7 @@ watch(() => propObj.overviewProp, () => {
     <div wPE-100 hPE-55 flex fw flex-row-between elastic-longitudinal-axis-between>
       <div
         v-for="(item, index) in subItemizationList" :key="index" wPE-19 hPE-30 flex flex-row-between
-        cross-axis-center @click="openDetail(item.label)"
+        cross-axis-center cursor-p @click="openDetail(item.label)"
       >
         <el-image class="sub-itemization-image" :src="item.image" fit="fill" />
         <div class="sub-itemization-main">
@@ -124,7 +120,7 @@ watch(() => propObj.overviewProp, () => {
         </div>
       </div>
     </div>
-    <overview-page-dialog ref="overviewPageDialogRef" :dialog-title="dialogTitle" />
+    <overview-page-dialog ref="overviewPageDialogRef" />
   </div>
 </template>
 

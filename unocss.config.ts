@@ -134,6 +134,14 @@ export default defineConfig({
       return effectiveArr.length === 0 ? { padding: '0px' } : { padding: paddingList.join(' ') }
     }],
 
+    [/^margin-(\w+)-(\w+)?-?(\w+)?-?(\w+)?$/, ([, t, r, b, l]) => {
+      const effectiveArr = [t, r, b, l].filter(e => e)
+      const numReg = /^((?![A-Za-z]).)*$/
+      const paddingList = effectiveArr.map(e => numReg.test(e) ? `${e}%` : e)
+
+      return effectiveArr.length === 0 ? { marginpadding: '0px' } : { margin: paddingList.join(' ') }
+    }],
+
   ],
   transformers: [
     transformerDirectives(),

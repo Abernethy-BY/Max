@@ -77,6 +77,10 @@ declare global {
   const getYear: typeof import('./utils/utils')['getYear']
   const getYearLastDay: typeof import('./utils/utils')['getYearLastDay']
   const getimg: typeof import('./api/api')['getimg']
+  const goMagnifyMapStart: typeof import('./utils/dom')['goMagnifyMapStart']
+  const goMagnifyMapTouchEnd: typeof import('./utils/dom')['goMagnifyMapTouchEnd']
+  const goShrinkMapEnd: typeof import('./utils/dom')['goShrinkMapEnd']
+  const goShrinkMapStart: typeof import('./utils/dom')['goShrinkMapStart']
   const h: typeof import('vue')['h']
   const hexMD5: typeof import('./utils/md5')['hexMD5']
   const hexMD5w: typeof import('./utils/md5')['hexMD5w']
@@ -423,6 +427,10 @@ declare module 'vue' {
     readonly getYear: UnwrapRef<typeof import('./utils/utils')['getYear']>
     readonly getYearLastDay: UnwrapRef<typeof import('./utils/utils')['getYearLastDay']>
     readonly getimg: UnwrapRef<typeof import('./api/api')['getimg']>
+    readonly goMagnifyMapStart: UnwrapRef<typeof import('./utils/dom')['goMagnifyMapStart']>
+    readonly goMagnifyMapTouchEnd: UnwrapRef<typeof import('./utils/dom')['goMagnifyMapTouchEnd']>
+    readonly goShrinkMapEnd: UnwrapRef<typeof import('./utils/dom')['goShrinkMapEnd']>
+    readonly goShrinkMapStart: UnwrapRef<typeof import('./utils/dom')['goShrinkMapStart']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
     readonly hexMD5: UnwrapRef<typeof import('./utils/md5')['hexMD5']>
     readonly hexMD5w: UnwrapRef<typeof import('./utils/md5')['hexMD5w']>

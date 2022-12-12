@@ -47,3 +47,8 @@ export interface REAR_DATA_MODEL {
   adCode: string
   areaName: string
 }
+
+export interface TABLE_HEADER_MODEL {
+  label: string
+  prop: string
+}

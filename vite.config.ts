@@ -17,10 +17,7 @@ import pxToRem from 'postcss-pxtorem'
 import autoPreFixer from 'autoprefixer'
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
 import externalGlobals from 'rollup-plugin-external-globals'
-// import swiper from 'swiper'
-// import anime from 'animejs'
 import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-import'
-// import { consola } from 'consola'
 
 const loader_pxToRem = pxToRem({ rootValue: 37.5, unitPrecision: 2, propList: ['*'], exclude: /(node_module)/, selectorBlackList: [], mediaQuery: true, minPixelValue: 1 })
 const loader_autoPreFixer = autoPreFixer({ overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8', 'last 10 versions'], grid: true })
@@ -82,7 +79,7 @@ export default defineConfig({
       extensions: ['vue', 'md'],
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
-      resolvers: [IconsResolver({ enabledCollections: ['ep'] }), ElementPlusResolver()],
+      resolvers: [IconsResolver({ }), ElementPlusResolver()],
     }),
 
     UnoCss(),
