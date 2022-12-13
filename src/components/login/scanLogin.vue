@@ -1,15 +1,15 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 19:54:24
- * @LastEditors: error: git config user.name && git config user.email & please set dead value or install git
- * @LastEditTime: 2022-12-08 20:00:38
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2022-12-13 20:35:05
  * @FilePath: \big-screen\src\components\login\scanLogin.vue
  * @Description: 扫一扫登录页面
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
-
 <script lang="ts" setup>
-const emit = defineEmits(['scanGoRegistered'])
+const emit = defineEmits(['scanGoRegistered', 'scanGoInput', 'scanGoUnderReview', 'scanGoAuditFailed'])
+const userInfo = useUserStore()
 
 /**
  * @description: 二维码透明度
@@ -32,24 +32,34 @@ const rqValue = ref<string>('')
 const maskFlag = ref<boolean>(false)
 
 // 未扫描方法
-const notScannedFun = () => { }
+const notScannedFun = () => {
+  consola.fatal('未扫描')
+}
 
 /**
  * @description: 未注册方法
  * @return {*}
  */
-const notRegisteredFun = () => {
-  emit('scanGoRegistered')
+const notRegisteredFun = (openId) => {
+  ElMessage({ message: '您的账号未注册,即将为您打开注册页面', type: 'error' })
+  emit('scanGoRegistered', openId)
 }
 
 // 未录入方法
-const notEnteredFun = () => {}
+const notEnteredFun = (openId) => {
+  ElMessage({ message: '您的账号未录入,即将为您打开录入页面', type: 'error' })
+  emit('scanGoInput', openId)
+}
 
 // 审核中方法
-const underReviewFun = () => {}
+const underReviewFun = () => {
+  emit('scanGoUnderReview')
+}
 
-// 深恶黑不通过方法
-const auditFailedFun = () => {}
+// 审核不通过方法
+const auditFailedFun = (openId) => {
+  emit('scanGoAuditFailed', openId)
+}
 
 /**
  * @description: 错误字典
@@ -62,7 +72,14 @@ errMap.set('审核中', underReviewFun)
 errMap.set('审核不通过', auditFailedFun)
 
 // 扫码登陆接口
-const scanLogin = () => {}
+const scanLogin = (user) => {
+  userInfo.token = user.token
+  userInfo.userCode = user.usercode
+  userInfo.userRole = user.role
+  userInfo.city = user.city
+  userInfo.compname = user.compname
+  userInfo.province = user.province
+}
 
 /**
  * @description:获取扫描结果定时器
@@ -75,12 +92,14 @@ let getOutcomeInterval: NodeJS.Timeout | null = null
  */
 const getOutcome = async () => {
   try {
-    const res = await scanloginchk({ logincode: state.value })
-    consola.success(['扫码成功', res])
-    scanLogin()
+    const res: any = await scanloginchk({ logincode: state.value })
+    if (errMap.get(res.message))
+      errMap.get(res.message)?.call(this, res.data[0] ? res.data[0].openid : '')
+    else
+      scanLogin(res.data[0])
   }
   catch (error) {
-    errMap.get(error.message)?.call(this)
+    consola.fatal(error)
   }
 }
 
@@ -108,7 +127,7 @@ const getQrCoded = async () => {
         qrOpacity.value = 0.1
       }
       getOutcome()
-    }, 1000 * 30)
+    }, 1000 * 5)
   }
   catch (error) {
     consola.fatal(error)

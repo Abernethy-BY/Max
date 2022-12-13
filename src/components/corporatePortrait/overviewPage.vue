@@ -58,7 +58,7 @@ const overviewPageDialogRef = ref<DefineComponent>()
 
 // 打开详情弹窗方法
 const openDetail = (label: string) => {
-  overviewPageDialogRef.value?.openDialog(label)
+  // overviewPageDialogRef.value?.openDialog(label)
 }
 
 watch(() => propObj.highTechEnterpriseListProp, () => {

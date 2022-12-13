@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-29 13:52:15
+ * @LastEditTime: 2022-12-13 20:35:15
  * @FilePath: \big-screen\src\modules\pwa.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

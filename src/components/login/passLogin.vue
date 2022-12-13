@@ -4,11 +4,8 @@ import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
 const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
-// const routerInfo = routerStore()
 
 const router = useRouter()
-
-// const popShowFlag = ref<boolean>(false)
 /**
  * @description: 表单节点
  */

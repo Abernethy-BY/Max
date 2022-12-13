@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-07 17:50:42
+ * @LastEditTime: 2022-12-13 20:11:53
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -140,11 +140,15 @@ const checkboxChangeFun = (val) => {
  */
 const operateDialogRef = ref()
 
+// 操作弹窗类型
+const operateDialogFlag = ref<string>('')
+
 /**
  * @description: 弹出用户协议弹窗
  * @return {*}
  */
 const openUserAgreement = () => {
+  operateDialogFlag.value = 'USER_AGREEMENT'
   operateDialogRef.value.openDialog()
 }
 
@@ -162,6 +166,24 @@ const userAgreementNext = () => {
  */
 const scanGoRegistered = () => {
   loginFlag.value = 'SIGN_UP'
+}
+
+// 扫码后未录入
+const scanGoInput = (openId) => {
+  enterInformationRef.value.openPop()
+}
+
+// 扫码后审核中
+const scanGoUnderReview = () => {
+  loginFlag.value = 'PASS_LOGIN'
+  operateDialogFlag.value = 'UNDER_REVIEW'
+  enterInformationRef.value.openPop()
+}
+
+// 扫码后审核不通过
+const scanGoAuditFailed = (openId) => {
+  operateDialogFlag.value = 'AUDIT_FAILED'
+  enterInformationRef.value.openPop()
 }
 </script>
 
@@ -217,7 +239,10 @@ const scanGoRegistered = () => {
 
       <!-- 扫一扫登录 -->
       <div v-if="loginFlag === 'SCAN_TO_LOG_IN'" w-100 h-100>
-        <scan-login @scan-go-registered="scanGoRegistered" />
+        <scan-login
+          @scan-go-registered="scanGoRegistered" @scan-go-input="scanGoInput"
+          @scan-go-under-review="scanGoUnderReview" @scan-go-audit-gailed="scanGoAuditFailed"
+        />
       </div>
     </main>
     <!-- 密码登录||手机号登录页脚 -->
@@ -244,9 +269,12 @@ const scanGoRegistered = () => {
     </footer>
   </div>
   <!-- 信息录入弹窗 -->
-  <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" @open-pass-login="openPassLogin" />
+  <enter-information
+    ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType"
+    @open-pass-login="openPassLogin"
+  />
   <!-- 用户协议弹窗 -->
-  <operate-dialog ref="operateDialogRef" type="USER_AGREEMENT" :confirm="userAgreementNext" />
+  <operate-dialog ref="operateDialogRef" :type="operateDialogFlag" :confirm="userAgreementNext" />
 </template>
 
 <style lang="scss" scoped>

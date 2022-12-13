@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-12-07 18:30:20
+ * @LastEditTime: 2022-12-13 19:57:36
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -27,12 +27,11 @@ const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
   const userInfo = useUserStore()
   const { data } = res
+
+  const succeedCodeList = [0, 5, 30, 31]
   if (Number(data.state) && Number(data.state) === 20) {
     ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
     return Promise.reject(new Error('已发送短信，如要重发短信，请稍等'))
-  }
-  if (Number(data.state) && (Number(data.state) === 30 || Number(data.state) === 31)) {
-    return Promise.reject(new Error(data.message))
   }
   else if (Number(data.state) && Number(data.state) === 3) {
     userInfo.token = ''
@@ -41,7 +40,7 @@ https.httpClient.interceptors.response.use((res) => {
     ElMessage({ message: data.message, type: 'error' })
     return Promise.reject(data.message)
   }
-  else if (Number(data.state) && (Number(data.state) !== 0 && Number(data.state) !== 5)) {
+  else if (Number(data.state) && (!succeedCodeList.includes(Number(data.state)))) {
     ElMessage({ message: data.message, type: 'error' })
     return Promise.reject(data.message)
   }

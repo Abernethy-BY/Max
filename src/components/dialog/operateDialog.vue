@@ -287,7 +287,6 @@ const closeNotEntered = () => {
     }
 
     .user-agreement-checkbox {
-      :deep(.agreement) {}
 
       span {
         font-size: 12px;

@@ -16,7 +16,7 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import pxToRem from 'postcss-pxtorem'
 import autoPreFixer from 'autoprefixer'
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
-import externalGlobals from 'rollup-plugin-external-globals'
+// import externalGlobals from 'rollup-plugin-external-globals'
 import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-import'
 
 const loader_pxToRem = pxToRem({ rootValue: 37.5, unitPrecision: 2, propList: ['*'], exclude: /(node_module)/, selectorBlackList: [], mediaQuery: true, minPixelValue: 1 })
@@ -41,7 +41,7 @@ export default defineConfig({
       include: [/\.vue$/, /\.md$/],
       reactivityTransform: true,
     }),
-    externalGlobals({ wxLogin: 'wxLogin' }),
+    // externalGlobals({ wxLogin: 'wxLogin' }),
     Pages({ extensions: ['vue'], exclude: ['**/components/*.vue'] }),
     Layouts({
       layoutsDirs: 'src/layouts',
