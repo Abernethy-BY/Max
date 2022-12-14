@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-13 20:11:53
+ * @LastEditTime: 2022-12-14 20:18:06
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -170,7 +170,7 @@ const scanGoRegistered = () => {
 
 // 扫码后未录入
 const scanGoInput = (openId) => {
-  enterInformationRef.value.openPop()
+  enterInformationRef.value.openPop(openId)
 }
 
 // 扫码后审核中
@@ -183,7 +183,7 @@ const scanGoUnderReview = () => {
 // 扫码后审核不通过
 const scanGoAuditFailed = (openId) => {
   operateDialogFlag.value = 'AUDIT_FAILED'
-  enterInformationRef.value.openPop()
+  enterInformationRef.value.openPop(openId)
 }
 </script>
 

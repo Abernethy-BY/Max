@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 19:54:24
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-13 20:35:05
+ * @LastEditTime: 2022-12-14 20:06:31
  * @FilePath: \big-screen\src\components\login\scanLogin.vue
  * @Description: 扫一扫登录页面
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -103,6 +103,9 @@ const getOutcome = async () => {
   }
 }
 
+// 定时器范围
+let intervalTimer = 20
+
 /**
  * @description: 获取二维码
  * @return {*}
@@ -120,9 +123,10 @@ const getQrCoded = async () => {
     getOutcome()
 
     // 轮询获取接口结果
-    let intervalTimer = 20
+
     getOutcomeInterval = setInterval(() => {
       if (--intervalTimer === 0) {
+        maskFlag.value = true
         getOutcomeInterval && clearInterval(getOutcomeInterval)
         qrOpacity.value = 0.1
       }
@@ -140,14 +144,24 @@ getQrCoded()
 onUnmounted(() => {
   getOutcomeInterval && clearInterval(getOutcomeInterval)
 })
+
+// 刷新二维码
+const flushedQR = () => {
+  intervalTimer = 20
+  maskFlag.value = false
+  qrOpacity.value = 1
+  getQrCoded()
+}
 </script>
 
 <template>
-  <div id="box" w-100 h-100 flex-row-center po-r cross-axis-center>
-    <div v-if="maskFlag" class="masks-box" bg="#2f3542" opacity-50 w-100 h-100 po-a po-l-0 po-t-0>
-      <span>二维码已失效，点击刷新</span>
+  <div id="box" class="scan-login-box" w-100 h-100 flex-row-center po-r cross-axis-center>
+    <div
+      v-if="maskFlag" class="masks-box" bg="#2f3542" opacity-50 z-10 w-70 h-70 po-a flex-row-center cross-axis-center
+      cursor-p @click="flushedQR"
+    >
+      <span fs-18 lh-42 color="#ffffff" class="mask">二维码已失效，点击刷新</span>
     </div>
     <vue-qrcode :style="{ opacity: qrOpacity }" :value="rqValue" :options="{ width: '100%' }" />
   </div>
 </template>
-

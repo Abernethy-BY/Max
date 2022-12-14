@@ -11,6 +11,9 @@ const emit = defineEmits(['openPassLogin'])
  */
 const enterInformationFlag = ref<boolean>(false)
 
+// openId
+let openid: string | null = null
+
 /**
  * @description: 弹窗弹出方法
  */
@@ -35,7 +38,8 @@ const DITEnterInformationRef = ref()
  * @description: 弹窗弹出方法
  * @return {*}
  */
-const openPop = () => {
+const openPop = (openId?) => {
+  openId && (openid = openId)
   enterInformationFlag.value = true
 
   nextTick(() => {
@@ -100,7 +104,7 @@ const submitInformationFun = async (val: FORM_DATA_MODEL) => {
     const submitid = new Date().getTime()
     const sign = md5(`${submitid}${propObj.userSignTel}123789`)
 
-    await userinfoinput({ ...val, submitid, sign, province, city, county, tel: propObj.userSignTel })
+    await userinfoinput({ ...val, submitid, sign, province, city, county, tel: propObj.userSignTel, openid })
     operateDialogRef.value.openDialog()
   }
   catch (error) {

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-07 16:16:48
+ * @LastEditTime: 2022-12-14 20:30:42
  * @FilePath: \big-screen\src\main.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -33,9 +33,12 @@ export const createApp = ViteSSG(
 
     const userInfo = useUserStore()
 
-    ctx.router.beforeEach(async (to) => {
+    ctx.router.beforeEach(async (to, from) => {
       if (!useUserStore().hasToken && to.path !== '/login')
         return { path: '/login' }
+
+      if (useUserStore().hasToken && to.path === '/login')
+        return { path: from.path }
 
       if (userInfo.userRole === '企业' && to.path !== '/corporatePortrait')
         return { path: '/corporatePortrait' }
