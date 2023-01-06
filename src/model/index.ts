@@ -1,3 +1,13 @@
+/*
+ * @Author: BY by15242952083@outlook.com
+ * @Date: 2022-12-08 17:17:08
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2023-01-06 15:11:49
+ * @FilePath: \big-screen\src\model\index.ts
+ * @Description:
+ * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
+ */
+
 export interface Slide {
   title: string
   type: string
@@ -51,4 +61,20 @@ export interface REAR_DATA_MODEL {
 export interface TABLE_HEADER_MODEL {
   label: string
   prop: string
+}
+
+export interface MAP_PARAM_TYPE {
+  key: string
+  version: string
+  plugins: string[]
+  Loca: { [key: string]: string }
+  AMapUI: { [key: string]: string | string[] }
+}
+
+export interface USER_FORM_MODEL {
+  userType: string
+  tel: string
+  pass: string
+  rePass?: string
+  telCode: string
 }

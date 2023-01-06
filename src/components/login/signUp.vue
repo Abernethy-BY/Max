@@ -2,20 +2,19 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-11-30 16:16:18
+ * @LastEditTime: 2023-01-06 15:13:04
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
-import type { SELECT_OPTION_MODEL } from '~/model'
+import type { SELECT_OPTION_MODEL, USER_FORM_MODEL } from '~/model'
 
 const propObj = withDefaults(defineProps<{ agreementFlag: boolean }>(), { agreementFlag: false })
 const emit = defineEmits(['openEnterInformation', 'errorAgreement', 'parameterPassing'])
 /**
  * @description: 注册表单检验规则
- * @return {*}
  */
 const signUpRules = ref<FormRules>({
   tel: [
@@ -34,12 +33,7 @@ const signUpRules = ref<FormRules>({
 /**
  * @description:注册表单
  */
-const signUpForm = ref({
-  userType: '',
-  tel: '',
-  pass: '',
-  telCode: '',
-})
+const signUpForm = ref<USER_FORM_MODEL>({ userType: '', tel: '', pass: '', telCode: '' })
 
 /**
  * @description: 用户选择器配置项
@@ -54,16 +48,15 @@ const userTypeOptions = ref<Array<SELECT_OPTION_MODEL>>([
 
 /**
  * @description: 注册表单节点
- * @return {*}
  */
 const signUpPassRef = ref<FormInstance>()
 
 /**
  * @description: 注册方法
- * @param {*} formEl 表单节点
- * @return {*}
+ * @param {FormInstance | undefined} formEl 表单节点
+ * @return {Promise<void>}
  */
-const signUp = async (formEl: FormInstance | undefined) => {
+const signUp = async (formEl: FormInstance | undefined): Promise<void> => {
   if (!formEl)
     return
 
@@ -100,12 +93,12 @@ const signUp = async (formEl: FormInstance | undefined) => {
 
 /**
  * @description: 手机号校验方法
- * @param {*} val
- * @return {*}
+ * @param {string} val
+ * @return {void}
  */
-const telInputFun = (e) => {
+const telInputFun = (e: string): void => {
   const temp = e[e.length - 1]
-  if (temp && (temp.charCodeAt() < 48 || temp.charCodeAt() > 57))
+  if (temp && (temp.charCodeAt(0) < 48 || temp.charCodeAt(0) > 57))
     signUpForm.value.tel = signUpForm.value.tel.substring(0, signUpForm.value.tel.length - 1)
 }
 
@@ -121,9 +114,9 @@ const captchaButtonDisabledFlag = ref<boolean>(false)
 
 /**
  * @description: 获取验证码
- * @return {*}
+ * @return {Promise<void>}
  */
-const signUpCode = async () => {
+const signUpCode = async (): Promise<void> => {
   try {
     if (!signUpForm.value.tel || signUpForm.value.tel === '') {
       ElMessage({ message: '请输入手机号', type: 'error' })
@@ -177,10 +170,10 @@ const signUpCode = async () => {
         <el-input v-model="signUpForm.tel" class="login-input" placeholder="请输入手机号码" @input="telInputFun" />
       </el-form-item>
       <el-form-item mt-34 prop="pass" label="登录密码">
-        <el-input v-model="signUpForm.pass" type="password" class="login-input" placeholder="请输入登录密码" />
+        <el-input v-model.trim="signUpForm.pass" type="password" class="login-input" placeholder="请输入登录密码" />
       </el-form-item>
       <el-form-item mt-34 prop="telCode" label="手机验证码" class="phone-verification-code-item">
-        <el-input v-model="signUpForm.telCode" class="login-input" placeholder="请输入手机验证码" />
+        <el-input v-model.trim="signUpForm.telCode" class="login-input" placeholder="请输入手机验证码" />
         <el-button :disabled="captchaButtonDisabledFlag" class="send-verification" @click="signUpCode">
           {{ captchaButtonSpan }}
         </el-button>

@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+import type { DefineComponent } from 'vue'
 import closeIcon from '~/assets/image/login/closeIcon.png'
 import headerBg from '~/assets/image/login/headerBg.png'
 import type { FORM_DATA_MODEL } from '~/model'
@@ -16,67 +17,69 @@ let openid: string | null = null
 
 /**
  * @description: 弹窗弹出方法
+ * @return {void}
  */
-const closePop = () => {
+const closePop = (): void => {
   enterInformationFlag.value = false
 }
 
 /**
  * @description: 节点字典
  */
-const refMap = new Map()
+const refMap: Map<string, DefineComponent> = new Map()
 /**
  * @description: 子表单节点
  */
-const enterInformationRef = ref()
-const parkCommissionerEnterInformationRef = ref()
-const parkAdministratorEnterInformationRef = ref()
-const BITEnterInformationRef = ref()
-const DITEnterInformationRef = ref()
+const enterInformationRef = ref<DefineComponent>()
+const parkCommissionerEnterInformationRef = ref<DefineComponent>()
+const parkAdministratorEnterInformationRef = ref<DefineComponent>()
+const BITEnterInformationRef = ref<DefineComponent>()
+const DITEnterInformationRef = ref<DefineComponent>()
 
 /**
  * @description: 弹窗弹出方法
- * @return {*}
+ * @param {string} openId 用户openId
+ * @return {void}
  */
-const openPop = (openId?) => {
+const openPop = (openId?: string): void => {
   openId && (openid = openId)
   enterInformationFlag.value = true
 
   nextTick(() => {
-    refMap.set('企业', enterInformationRef.value)
-    refMap.set('园区专员', parkCommissionerEnterInformationRef.value)
-    refMap.set('园区管理员', parkAdministratorEnterInformationRef.value)
-    refMap.set('工信局', BITEnterInformationRef.value)
-    refMap.set('工信厅', DITEnterInformationRef.value)
+    enterInformationRef.value && (refMap.set('企业', enterInformationRef.value))
+    parkCommissionerEnterInformationRef.value && (refMap.set('园区专员', parkCommissionerEnterInformationRef.value))
+    parkAdministratorEnterInformationRef.value && (refMap.set('园区管理员', parkAdministratorEnterInformationRef.value))
+    BITEnterInformationRef.value && (refMap.set('工信局', BITEnterInformationRef.value))
+    DITEnterInformationRef.value && (refMap.set('工信厅', DITEnterInformationRef.value))
   })
 }
 defineExpose({ openPop })
 
 /**
  * @description: 下一步
- * @return {*}
+ * @return {void}
  */
-const nextFun = () => {
-  refMap.get(propObj.userSignType).formValidation()
+const nextFun = (): void => {
+  refMap.get(propObj.userSignType)?.formValidation()
 }
 
 /**
  * @description: 打开密码登录页面
- * @return {*}
+ * @return {void}
  */
-const closeOperateDialogFun = () => {
+const closeOperateDialogFun = (): void => {
   enterInformationFlag.value = false
   emit('openPassLogin')
 }
 
-const operateDialogRef = ref()
+const operateDialogRef = ref<DefineComponent>()
 
 /**
  * @description: 表单提交方法
  * @param {FORM_DATA_MODEL} val 表单对象
- * @return {*}
+ * @return {Promise<void>}
  */
-const submitInformationFun = async (val: FORM_DATA_MODEL) => {
+const submitInformationFun = async (val: FORM_DATA_MODEL): Promise<void> => {
   try {
     const provinceTemp = val.provinceArr
     let province, city, county
@@ -105,7 +108,7 @@ const submitInformationFun = async (val: FORM_DATA_MODEL) => {
     const sign = md5(`${submitid}${propObj.userSignTel}123789`)
 
     await userinfoinput({ ...val, submitid, sign, province, city, county, tel: propObj.userSignTel, openid })
-    operateDialogRef.value.openDialog()
+    operateDialogRef.value?.openDialog()
   }
   catch (error) {
     consola.fatal(error)

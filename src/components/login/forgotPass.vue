@@ -2,14 +2,15 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-18 20:59:34
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-05 19:33:56
+ * @LastEditTime: 2023-01-06 15:07:23
  * @FilePath: \big-screen\src\components\login\forgotPass.vue
- * @Description:
+ * @Description: 忘记密码弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage } from 'element-plus'
+import type { USER_FORM_MODEL } from '~/model'
 const emit = defineEmits(['openPassLogin'])
 
 const forgotPassDom = ref<FormInstance>()
@@ -33,13 +34,7 @@ const forgotRules = ref<FormRules>({
 /**
  * @description: 表单对象
  */
-const forgotPassForm = ref({
-  userType: '',
-  tel: '',
-  pass: '',
-  rePass: '',
-  telCode: '',
-})
+const forgotPassForm = ref<USER_FORM_MODEL>({ userType: '', tel: '', pass: '', rePass: '', telCode: '' })
 
 /**
  * @description:类型选择器数据
@@ -48,12 +43,12 @@ const userTypeOptions = ref<Array<{ value: string; label: string }>>([])
 
 /**
    * @description: 电话校验方法
-   * @param {*} e 输入字符
-   * @return {*}
+   * @param {string} e 输入字符
+   * @return {void}
    */
-const telInputFun = (e) => {
+const telInputFun = (e: string): void => {
   const temp = e[e.length - 1]
-  if (temp.charCodeAt() < 48 || temp.charCodeAt() > 57)
+  if (temp.charCodeAt(0) < 48 || temp.charCodeAt(0) > 57)
     forgotPassForm.value.tel = forgotPassForm.value.tel.substring(0, forgotPassForm.value.tel.length - 1)
 }
 
@@ -69,9 +64,9 @@ const captchaButtonDisabledFlag = ref<boolean>(false)
 
 /**
  * @description: 获取验证码
- * @return {*}
+ * @return {Promise<void>}
  */
-const getForgetPassCode = async () => {
+const getForgetPassCode = async (): Promise<void> => {
   try {
     if (!forgotPassForm.value.tel || forgotPassForm.value.tel === '') {
       ElMessage({ message: '请输入手机号', type: 'error' })
@@ -105,12 +100,13 @@ const getForgetPassCode = async () => {
     // ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
   }
 }
+
 /**
  * @description: 找回密码方法
- * @param {*} formEl 表单节点
- * @return {*}
+ * @param {FormInstance |undefined} formEl
+ * @return {Promise<void>}
  */
-const forgotPass = async (formEl: FormInstance | undefined) => {
+const forgotPass = async (formEl: FormInstance | undefined): Promise<void> => {
   if (!formEl)
     return
   await formEl.validate(async (valid, fields) => {
@@ -147,14 +143,14 @@ const forgotPass = async (formEl: FormInstance | undefined) => {
         <el-input v-model="forgotPassForm.tel" class="login-input" placeholder="请输入手机号码" @input="telInputFun" />
       </el-form-item>
       <el-form-item mt-34 prop="pass" label="登录密码">
-        <el-input v-model="forgotPassForm.pass" class="login-input" placeholder="请输入登录密码" />
+        <el-input v-model.trim="forgotPassForm.pass" class="login-input" placeholder="请输入登录密码" />
       </el-form-item>
       <el-form-item mt-34 prop="rePass" label="确认登录密码">
-        <el-input v-model="forgotPassForm.rePass" class="login-input" placeholder="请确认登录密码" />
+        <el-input v-model.trim="forgotPassForm.rePass" class="login-input" placeholder="请确认登录密码" />
       </el-form-item>
       <div flex-row-between cross-axis-center>
         <el-form-item mt-34 prop="telCode" label="手机验证码" class="phone-verification-code-item">
-          <el-input v-model="forgotPassForm.telCode" class="login-input" placeholder="请输入手机验证码" />
+          <el-input v-model.trim="forgotPassForm.telCode" class="login-input" placeholder="请输入手机验证码" />
         </el-form-item>
         <el-button :disabled="captchaButtonDisabledFlag" class="send-verification" @click="getForgetPassCode">
           {{ captchaButtonSpan }}

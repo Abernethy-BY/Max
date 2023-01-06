@@ -10,8 +10,6 @@
   color: #1adcff;
 }
 
-
-
 .el-cascader-node:not(.is-disabled):focus,
 .el-cascader-node:not(.is-disabled):hover
   .enter-information-pop
@@ -59,4 +57,12 @@
 .role-popper .hover span,
 .role-popper .selected span {
   color: #ffffff !important;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-transition-delay: 99999s;
+  -webkit-transition: color 99999s ease-out, background-color 99999s ease-out;
 }

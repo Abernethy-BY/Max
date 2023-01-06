@@ -99,28 +99,28 @@ defineExpose({ formValidation })
         </div>
       </el-form-item>
       <el-form-item label="园区名称：">
-        <el-input v-model="enterInformationForm.unitname" placeholder="请输入园区名称" />
+        <el-input v-model.trim="enterInformationForm.unitname" placeholder="请输入园区名称" />
         <div v-show="unitNameShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="businessNameRef" class="form-remark">请输入园区名称</span>
         </div>
       </el-form-item>
       <el-form-item label="联系人：">
-        <el-input v-model="enterInformationForm.linkman" placeholder="请输入联系人" />
+        <el-input v-model.trim="enterInformationForm.linkman" placeholder="请输入联系人" />
         <div v-show="contactShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="contactRef" class="form-remark">请输入联系人</span>
         </div>
       </el-form-item>
       <el-form-item label="手机号码：">
-        <el-input v-model="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
+        <el-input v-model.trim="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
         <div v-show="phoneNumberShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
         </div>
       </el-form-item>
       <el-form-item label="邮箱：">
-        <el-input v-model="enterInformationForm.email" type="email" placeholder="XX@X.X(用于找回密码)" />
+        <el-input v-model.trim="enterInformationForm.email" type="email" placeholder="XX@X.X(用于找回密码)" />
         <div v-show="MailboxShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>

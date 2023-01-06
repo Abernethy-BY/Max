@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-22 21:08:12
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-05 19:34:05
+ * @LastEditTime: 2023-01-06 15:08:54
  * @FilePath: \big-screen\src\components\login\smsLogin.vue
  * @Description: 验证码登录方法
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -34,20 +34,20 @@ const phoneLoginForm = ref({ phoneNum: '', verificationCode: '' })
 
 /**
  * @description: 手机号输入校验方法
- * @param {*} e 输入字符
- * @return {*}
+ * @param {string} e 输入字符
+ * @return {void}
  */
-const phoneInputFun = (e) => {
+const phoneInputFun = (e: string): void => {
   const temp = e[e.length - 1]
-  if (temp.charCodeAt() < 48 || temp.charCodeAt() > 57)
+  if (temp.charCodeAt(0) < 48 || temp.charCodeAt(0) > 57)
     phoneLoginForm.value.phoneNum = phoneLoginForm.value.phoneNum.substring(0, phoneLoginForm.value.phoneNum.length - 1)
 }
 
 /**
  * @description: 获取短信验证码
- * @return {*}
+ * @return {Promise<void>}
  */
-const getVerificationCode = async () => {
+const getVerificationCode = async (): Promise<void> => {
   try {
     if (!phoneLoginForm.value.phoneNum || phoneLoginForm.value.phoneNum === '') {
       ElMessage({ message: '请输入手机号', type: 'error' })
@@ -78,10 +78,10 @@ const getVerificationCode = async () => {
 const phoneFormRef = ref<FormInstance>()
 /**
  * @description: 手机号登录
- * @param {*} formEl 表单节点
- * @return {*}
+ * @param {FormInstance | undefined} formEl 表单节点
+ * @return {Promise<void>}
  */
-const phoneLogin = async (formEl: FormInstance | undefined) => {
+const phoneLogin = async (formEl: FormInstance | undefined): Promise<void> => {
   if (!formEl)
     return
   await formEl.validate(async (valid, fields) => {
@@ -125,7 +125,7 @@ const phoneLogin = async (formEl: FormInstance | undefined) => {
         </el-input>
       </el-form-item>
       <el-form-item mt-48 prop="verificationCode" class="verification-code-form-item">
-        <el-input v-model="phoneLoginForm.verificationCode" class="login-input" placeholder="验证码" />
+        <el-input v-model.trim="phoneLoginForm.verificationCode" class="login-input" placeholder="验证码" />
         <el-button class="send-verification " @click="getVerificationCode">
           发送验证码
         </el-button>

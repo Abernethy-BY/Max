@@ -2,12 +2,14 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-12 20:49:18
+ * @LastEditTime: 2023-01-06 16:46:45
  * @FilePath: \big-screen\src\utils\utils.ts
  * @Description: 工具类
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
  */
 // 日期格式化规范
+
+import type { EChartsType, SeriesOption } from 'echarts'
 
 export const dateTypes = {
   yyyy_MM_dd_HH_mm_ss: 'yyyy-MM-dd HH:mm:ss',
@@ -332,12 +334,15 @@ export const getYearLastDay = (year, pattern = 'yyyy-MM-dd') => {
 
 /**
  * @description: 地图配置项生成方法
- * @param {*} val 地图名称
- * @param {*} zlevel 地图层级
- * @param {*} chart 图表节点
- * @return {*}
+ * @param {string} val 地图名称
+ * @param {number} zlevel 地图层级
+ * @param {EChartsType} chart 图表节点
+ * @param {number} zoom 地图大小
+ * @param {string} labelPosition label定位
+ * @param {number} labelMargins
+ * @return {EChartsOption}
  */
-export const seriesOption = (val, zlevel, chart, zoom) => {
+export const seriesOption = (val: string, zlevel: number, chart: EChartsType, zoom: number, labelPosition: string, labelMargins: number): SeriesOption => {
   return {
     type: 'map',
     map: val,
@@ -357,10 +362,10 @@ export const seriesOption = (val, zlevel, chart, zoom) => {
       lineStyle: { color: '#bbb' },
     },
     labelLayout: () => ({
-      x: (chart?.getWidth() || 100) - 100,
+      x: labelPosition === 'right' ? labelMargins : (chart?.getWidth() || labelMargins) - labelMargins,
       y: 100,
       moveOverlap: 'shiftY',
-      fontSize: '0.45rem',
+      fontSize: '0.45rem' as unknown as number,
     }),
     itemStyle: {
       areaColor: '#35356C',

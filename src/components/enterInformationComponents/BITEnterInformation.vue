@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-30 15:20:11
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-05 20:02:16
+ * @LastEditTime: 2023-01-06 15:32:02
  * @FilePath: \big-screen\src\components\enterInformationComponents\BITEnterInformation.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -99,7 +99,7 @@ defineExpose({ formValidation })
     <el-form class="enter-information-form" :model="enterInformationForm" label-width="220px" label-position="left">
       <el-form-item label="所在省份：">
         <el-cascader
-          v-model="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
+          v-model.trim="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
           placeholder="请选择"
         />
         <div v-show="provinceShowFlag" class="remark-box">
@@ -108,28 +108,28 @@ defineExpose({ formValidation })
         </div>
       </el-form-item>
       <el-form-item label="单位名称：">
-        <el-input v-model="enterInformationForm.unitname" placeholder="请输入单位名称" />
+        <el-input v-model.trim="enterInformationForm.unitname" placeholder="请输入单位名称" />
         <div v-show="unitNameShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="businessNameRef" class="form-remark">请输入单位名称</span>
         </div>
       </el-form-item>
       <el-form-item label="联系人：">
-        <el-input v-model="enterInformationForm.linkman" placeholder="请输入联系人" />
+        <el-input v-model.trim="enterInformationForm.linkman" placeholder="请输入联系人" />
         <div v-show="contactShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="contactRef" class="form-remark">请输入联系人</span>
         </div>
       </el-form-item>
       <el-form-item label="手机号码：">
-        <el-input v-model="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
+        <el-input v-model.trim="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
         <div v-show="phoneNumberShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
         </div>
       </el-form-item>
       <el-form-item label="邮箱：">
-        <el-input v-model="enterInformationForm.email" type="email" placeholder="XX@X.X(用于找回密码)" />
+        <el-input v-model.trim="enterInformationForm.email" type="email" placeholder="XX@X.X(用于找回密码)" />
         <div v-show="MailboxShowFlag" class="remark-box">
           <el-image class="remark-icon" :src="prompt" fit="cover" />
           <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>

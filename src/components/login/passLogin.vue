@@ -163,9 +163,9 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
           </template>
         </el-input>
       </el-form-item>
-      <el-form-item mt-25>
+      <el-form-item mt-25 class="forget-pass-box">
         <span
-          wPE-100 fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
+          fs-16 fw-400 flex cross-axis-center flex-row-end color="#1AD1FF" lh-42 cursor-p
           @click="openForgotPass"
         >忘记密码？</span>
       </el-form-item>
@@ -187,6 +187,14 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
   :deep(.login-form-content) {
     .el-form-item {
       margin-bottom: 0;
+    }
+
+    .forget-pass-box {
+      .el-form-item__content {
+        display: flex;
+        justify-content: flex-end;
+      }
+
     }
   }
 }

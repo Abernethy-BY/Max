@@ -2,12 +2,13 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-14 20:18:06
+ * @LastEditTime: 2023-01-06 15:01:50
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
+import type { DefineComponent } from 'vue'
 import handoffIcon from '~/assets/image/login/handoffIcon.png'
 import returnIcon from '~/assets/image/login/returnIcon.png'
 
@@ -15,10 +16,11 @@ import returnIcon from '~/assets/image/login/returnIcon.png'
  * @description: 页面标识
  */
 const loginFlag = ref<string>('PASS_LOGIN')
+
 /**
  * @description: 页面登录文字
  */
-const loginSpan = new Map()
+const loginSpan: Map<string, { mainTitle: string; subTitle: string }> = new Map()
   .set('PASS_LOGIN', { mainTitle: '账号密码登录', subTitle: '短信快捷登录' })
   .set('FORGOT_PASS', { mainTitle: '找回密码', subTitle: '' })
   .set('SIGN_UP', { mainTitle: '注册', subTitle: '' })
@@ -27,49 +29,49 @@ const loginSpan = new Map()
 
 /**
  * @description: 打开找回密码
- * @return {*}
+ * @return {void}
  */
-const openFindPass = () => {
+const openFindPass = (): void => {
   loginFlag.value = 'FORGOT_PASS'
 }
 
 /**
  * @description:关闭忘记密码
- * @return {*}
+ * @return {void}
  */
-const closeForgotPass = () => {
+const closeForgotPass = (): void => {
   loginFlag.value = 'PASS_LOGIN'
 }
 
 /**
  * @description: 弹出立即注册
- * @return {*}
+ * @return {void}
  */
-const openSignUp = () => {
+const openSignUp = (): void => {
   loginFlag.value = 'SIGN_UP'
 }
 
 /**
  * @description: 弹出密码登录页面
- * @return {*}
+ * @return {void}
  */
-const openPassLogin = () => {
+const openPassLogin = (): void => {
   loginFlag.value = 'PASS_LOGIN'
 }
 
 /**
  * @description: 弹出扫一扫登录页面
- * @return {*}
+ * @return {void}
  */
-const scanLogIn = () => {
+const scanLogIn = (): void => {
   loginFlag.value = 'SCAN_TO_LOG_IN'
 }
 
 /**
  * @description: 弹出短信登录弹窗
- * @return {*}
+ * @return {void}
  */
-const jumpFun = () => {
+const jumpFun = (): void => {
   if (loginFlag.value === 'SMS_LOGIN')
     loginFlag.value = 'PASS_LOGIN'
 
@@ -84,7 +86,7 @@ const agreementFlag = ref<boolean>(false)
 /**
  * @description: 录入信息表单节点
  */
-const enterInformationRef = ref()
+const enterInformationRef = ref<DefineComponent>()
 
 /**
  * @description: 用户注册电话
@@ -98,14 +100,14 @@ const userSignType = ref<string>('')
 
 /**
  * @description: 弹出信息录入弹窗
- * @param {*} tel 用户注册手机号
- * @param {*} type 用户注册角色类型
- * @return {*}
+ * @param {string} tel 用户注册手机号
+ * @param {string} type 用户注册角色类型
+ * @return {void}
  */
-const openEnterInformation = (tel, type) => {
+const openEnterInformation = (tel: string, type: string): void => {
   userSignTel.value = tel
   userSignType.value = type
-  enterInformationRef.value.openPop()
+  enterInformationRef.value?.openPop()
 }
 
 /**
@@ -117,18 +119,18 @@ const privacyPolicyRef = ref<HTMLElement>()
 
 /**
  * @description: 用户协议告警方法
- * @return {*}
+ * @return {void}
  */
-const errorAgreementFun = () => {
+const errorAgreementFun = (): void => {
   anime({ targets: [agreementSpanRef.value, userAgreementRef.value, privacyPolicyRef.value], color: '#ff4757', round: 1, easing: 'linear', duration: 300 })
 }
 
 /**
  * @description: 用户协议选中更改方法
- * @param {*} val 选中标识
- * @return {*}
+ * @param {boolean} val 选中标识
+ * @return {void}
  */
-const checkboxChangeFun = (val) => {
+const checkboxChangeFun = (val: boolean): void => {
   if (val) {
     anime({ targets: [agreementSpanRef.value], color: '#0D96CC', round: 1, easing: 'linear', duration: 300 })
     anime({ targets: [userAgreementRef.value, privacyPolicyRef.value], color: '#1ADCFF', round: 1, easing: 'linear', duration: 300 })
@@ -138,52 +140,65 @@ const checkboxChangeFun = (val) => {
 /**
  * @description: 用户协议弹窗节点
  */
-const operateDialogRef = ref()
+const operateDialogRef = ref<DefineComponent>()
 
-// 操作弹窗类型
+/**
+ * @description: 操作弹窗类型
+ */
 const operateDialogFlag = ref<string>('')
 
 /**
  * @description: 弹出用户协议弹窗
- * @return {*}
+ * @return {void}
  */
-const openUserAgreement = () => {
+const openUserAgreement = (): void => {
   operateDialogFlag.value = 'USER_AGREEMENT'
-  operateDialogRef.value.openDialog()
+  operateDialogRef.value?.openDialog()
 }
 
 /**
  * @description: 用户协议弹窗下一步方法
- * @return {*}
+ * @return {void}
  */
-const userAgreementNext = () => {
+const userAgreementNext = (): void => {
   agreementFlag.value = true
 }
 
 /**
  * @description:扫码后未注册
- * @return {*}
+ * @return {void}
  */
-const scanGoRegistered = () => {
+const scanGoRegistered = (): void => {
   loginFlag.value = 'SIGN_UP'
 }
 
-// 扫码后未录入
-const scanGoInput = (openId) => {
-  enterInformationRef.value.openPop(openId)
+/**
+ * @description: 扫码后未录入
+ * @param {string} openId 用户openId
+ * @return {void}
+ */
+const scanGoInput = (openId: string): void => {
+  enterInformationRef.value?.openPop(openId)
 }
 
-// 扫码后审核中
-const scanGoUnderReview = () => {
+/**
+ * @description: 扫码后审核中
+ * @return {void}
+ */
+const scanGoUnderReview = (): void => {
   loginFlag.value = 'PASS_LOGIN'
   operateDialogFlag.value = 'UNDER_REVIEW'
-  enterInformationRef.value.openPop()
+  enterInformationRef.value?.openPop()
 }
 
-// 扫码后审核不通过
-const scanGoAuditFailed = (openId) => {
+/**
+ * @description: 扫码后审核不通过
+ * @param {string} openId 用户openId
+ * @return {void}
+ */
+const scanGoAuditFailed = (openId): void => {
   operateDialogFlag.value = 'AUDIT_FAILED'
-  enterInformationRef.value.openPop(openId)
+  enterInformationRef.value?.openPop(openId)
 }
 </script>
 
@@ -197,9 +212,9 @@ const scanGoAuditFailed = (openId) => {
       v-if="loginFlag === 'PASS_LOGIN' || loginFlag === 'SMS_LOGIN'" flex cross-axis-center flex-row-between ml-53
       mr-56
     >
-      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFlag).mainTitle }}</span>
+      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFlag)?.mainTitle }}</span>
       <div cursor-p flex cross-axis-center @click="jumpFun">
-        <span fs-18 lh-42 color="#05FFFF">{{ loginSpan.get(loginFlag).subTitle }}</span>
+        <span fs-18 lh-42 color="#05FFFF">{{ loginSpan.get(loginFlag)?.subTitle }}</span>
         <el-image class="handoff-icon" :src="handoffIcon" fit="fill" />
       </div>
     </header>
@@ -208,23 +223,25 @@ const scanGoAuditFailed = (openId) => {
       v-if="loginFlag === 'FORGOT_PASS' || loginFlag === 'SIGN_UP'" po-r flex cross-axis-center flex-row-between
       ml-53 mr-56
     >
-      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFlag).mainTitle }}</span>
+      <span fs-24 fw-400 color="#05FFFF" opacity-50>{{ loginSpan.get(loginFlag)?.mainTitle }}</span>
       <el-image class="return-icon" :src="returnIcon" fit="fill" @click="closeForgotPass" />
     </header>
 
     <!-- 扫一扫登录标头 -->
     <header v-if="loginFlag === 'SCAN_TO_LOG_IN'" flex cross-axis-center flex-row-center ml-53 mr-56>
-      <span fs-24 fw-400 color="#05FFFF" opacity-100>{{ loginSpan.get(loginFlag).mainTitle }}</span>
+      <span fs-24 fw-400 color="#05FFFF" opacity-100>{{ loginSpan.get(loginFlag)?.mainTitle }}</span>
     </header>
     <main flex-1>
       <!-- 密码登陆 -->
       <div v-if="loginFlag === 'PASS_LOGIN'" wPE-100 hPE-100>
         <pass-login @open-find-pass="openFindPass" />
       </div>
+
       <!-- 忘记密码 -->
       <div v-else-if="loginFlag === 'FORGOT_PASS'" wPE-100 hPE-100>
         <forgot-pass @open-pass-login="openPassLogin" />
       </div>
+
       <!-- 立即注册 -->
       <div v-else-if="loginFlag === 'SIGN_UP'" wPE-100 hPE-100>
         <sign-up
@@ -232,6 +249,7 @@ const scanGoAuditFailed = (openId) => {
           @error-agreement="errorAgreementFun"
         />
       </div>
+
       <!-- 短信登录 -->
       <div v-else-if="loginFlag === 'SMS_LOGIN'" wPE-100 hPE-100>
         <sms-login />
