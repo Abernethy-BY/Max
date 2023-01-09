@@ -23,10 +23,6 @@ export const useUserStore = defineStore('user', () => {
   const getUserCode = computed(() => userCode.value)
   const getUserRole = computed(() => userRole.value)
 
-  // const roleMap: Map<string, string[]> = new Map()
-  // roleMap.set('企业', ['corporatePortrait'])
-  // roleMap.set('企业', ['corporatePortrait'])
-
   const changeToken = (param) => {
     token.value = param
   }

@@ -27,11 +27,6 @@ const getXmtz = async () => {
   projectInvestmentTableData.value = res?.filter(e => e?.['位置'] === '右下')
 }
 getXmtz()
-
-onUnmounted(() => {
-  const menuInfo = menuStore()
-  menuInfo.menuIndex = 0
-})
 </script>
 
 <template>

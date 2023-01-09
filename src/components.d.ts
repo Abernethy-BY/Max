@@ -69,5 +69,7 @@ declare module '@vue/runtime-core' {
     SmsLogin: typeof import('./components/login/smsLogin.vue')['default']
     SubItemization: typeof import('./components/enterprise/subItemization.vue')['default']
     SubmissionSuccessful: typeof import('./components/dialog/submissionSuccessful.vue')['default']
+    TheBar: typeof import('./components/common/TheBar.vue')['default']
+    TheHeader: typeof import('./components/common/TheHeader.vue')['default']
   }
 }
