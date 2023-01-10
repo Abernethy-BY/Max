@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-12-05 13:34:00
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 16:57:38
+ * @LastEditTime: 2023-01-10 18:00:04
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 地图组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -10,13 +10,13 @@
 
 <script lang="ts" setup>
 import type { EChartsOption, EChartsType } from 'echarts'
-import magnify from '~/assets/image/pandect/magnify.png'
-import shrink from '~/assets/image/pandect/shrink.png'
-import fanhui from '~/assets/image/common/navBg/fanhui.png'
+// import magnify from '~/assets/image/pandect/magnify.png'
+// import shrink from '~/assets/image/pandect/shrink.png'
+// import fanhui from '~/assets/image/common/navBg/fanhui.png'
 
 import type { MAP_PARAM_TYPE, REAR_DATA_MODEL } from '~/model'
 const propObj = withDefaults(defineProps<{ areaData: REAR_DATA_MODEL; iconPosition: string }>(), { areaData: () => ({ adCode: '10000', areaName: '中国' }), iconPosition: 'left' })
-const emit = defineEmits(['getPageData'])
+const emit = defineEmits(['getPageData', 'showParkImage'])
 
 // 用户信息对象
 const userInfo = useUserStore()
@@ -155,6 +155,7 @@ const mapClickFun = ({ name, componentIndex }: { name: string; componentIndex: n
     }
     else {
       mapChart?.dispose()
+      emit('showParkImage')
     }
   }
   catch (error) {
@@ -182,13 +183,23 @@ const goLast = (): void => {
 watch(propObj.areaData, () => {
   generateMap(propObj.areaData, 'drillDown')
 })
+
+/**
+ * @description: 上层绘制地图
+ * @return {void}
+ */
+const protractMap = () => {
+  generateMap(propObj.areaData, 'goBack')
+}
+
+defineExpose({ protractMap })
 </script>
 
 <template>
   <div class="pandect-map-box" w-100 h-100 po-r>
     <!-- <span>{{ propObj.areaData }}</span> -->
     <!-- <span>{{ propObj.areaName }}</span> -->
-    <div
+    <!-- <div
       class="icon-box" :style="propObj.iconPosition === 'left' ? { left: '5%' } : { right: '5%' }" po-a pob-50 z-50
       flex-column-start
     >
@@ -201,16 +212,8 @@ watch(propObj.areaData, () => {
         @mouseup.prevent="goShrinkMapEnd(mapChart, option)"
       />
       <el-image class="operate-icon" :src="fanhui" fit="fill" @click="goLast" />
-    </div>
+    </div> -->
+    <map-operate :icon-position="propObj.iconPosition" content-type="map" @go-last="goLast" />
     <div ref="pandectMapRef" w-100 h-100 />
   </div>
 </template>
-
-<style lang="scss" scoped>
-.pandect-map-box {
-  :deep(.operate-icon) {
-    margin: 10px 0;
-    cursor: pointer;
-  }
-}
-</style>

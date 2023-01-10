@@ -2,13 +2,14 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 17:02:00
- * @FilePath: \big-screen\src\pages\index.vue
+ * @LastEditTime: 2023-01-10 18:01:54
+ * @FilePath: \big-screen\src\pages\overviewOfPark.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
+import type { DefineComponent } from 'vue'
 import type { REAR_DATA_MODEL } from '~/model'
 
 const user = useUserStore()
@@ -94,6 +95,10 @@ onMounted(() => {
 const showParkImage = (): void => {
   mapFlag.value = false
 }
+/**
+ * @description: 地图组件节点
+ */
+const pandectMapRef = ref<DefineComponent>()
 
 /**
  * @description: 关闭园区，显示地图
@@ -101,6 +106,10 @@ const showParkImage = (): void => {
  */
 const showMap = (): void => {
   mapFlag.value = true
+
+  nextTick(() => {
+    pandectMapRef.value?.protractMap()
+  })
 }
 </script>
 
@@ -115,7 +124,7 @@ const showMap = (): void => {
       </div>
     </div>
     <div class="pandect-center" w-45 h-100>
-      <pandect-map v-if="mapFlag" icon-position="left" :area-data="areaData" @show-park-image="showParkImage" @get-page-data="getYqzl" />
+      <pandect-map v-if="mapFlag" ref="pandectMapRef" icon-position="left" :area-data="areaData" @show-park-image="showParkImage" @get-page-data="getYqzl" />
       <park-map v-else @show-map="showMap" />
     </div>
     <div class="pandect-right" wPE-28 hPE-94>

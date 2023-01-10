@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 19:25:26
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-09 19:46:15
+ * @LastEditTime: 2023-01-10 15:47:44
  * @FilePath: \big-screen\src\components\common\TheHeader.vue
  * @Description:
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -46,7 +46,7 @@ const jumpToLogin = () => {
 </script>
 
 <template>
-  <div class="the-header-box" hPE-10 flex flex-row-center po-r cross-axis-center pl-21 pr-27 pb-23>
+  <div class="the-header-box" hPE-10 flex flex-row-center po-r z-10 cross-axis-center pl-21 pr-27 pb-23>
     <div class="area-select-box" po-a pol-21 h-41 flex cross-axis-center>
       <el-image cursor-p class="area-icon" :src="areaIcon" fit="fill" @click="jumpToLogin" />
       <span fs-20 color="#FFFFFF" ml-9>工业大数据平台</span>

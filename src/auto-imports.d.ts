@@ -96,6 +96,7 @@ declare global {
   const loginPost: typeof import('./utils/http')['loginPost']
   const loginWxBack: typeof import('./api/api')['loginWxBack']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
+  const mapStore: typeof import('./store/mapStore')['mapStore']
   const markRaw: typeof import('vue')['markRaw']
   const md5: typeof import('js-md5')['default']
   const menuStore: typeof import('./store/menu')['menuStore']
@@ -446,6 +447,7 @@ declare module 'vue' {
     readonly loginPost: UnwrapRef<typeof import('./utils/http')['loginPost']>
     readonly loginWxBack: UnwrapRef<typeof import('./api/api')['loginWxBack']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
+    readonly mapStore: UnwrapRef<typeof import('./store/mapStore')['mapStore']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly md5: UnwrapRef<typeof import('js-md5')['default']>
     readonly menuStore: UnwrapRef<typeof import('./store/menu')['menuStore']>
