@@ -35,7 +35,7 @@ export default defineConfig({
     [/^z-(\d+)$/, ([, d]) => ({ 'z-index': `${d}` })],
     [/^wPE-(\d+)$/, ([, d]) => ({ width: `${d}%` })],
     [/^hPE-(\d+)$/, ([, d]) => ({ height: `${d}%` })],
-    [/^h-calc-(\w+)-(\w+)$/, ([, a, b]) => {
+    [/^ch-calc-(\w+)-(\w+)$/, ([, a, b]) => {
       const numReg = /^((?![A-Za-z]).)*$/
       const heightArr = [a, b].map(e => numReg.test(e) ? `${e}%` : e)
       return { height: `calc(${heightArr[0]} - ${heightArr[1]})` }
@@ -149,4 +149,3 @@ export default defineConfig({
   ],
   safelist: 'prose prose-sm m-auto text-left'.split(' '),
 })
-

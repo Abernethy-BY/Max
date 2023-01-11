@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-08 17:31:43
+ * @LastEditTime: 2023-01-11 09:36:44
  * @FilePath: \big-screen\src\components\pandect\industryRanking.vue
  * @Description: 首页柱状图
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -145,9 +145,13 @@ let YInterval: NodeJS.Timer | null | any = null
 const initIndustryEankingRefChart = () => {
   initChart()
 
-  const dataTemp: any = prop?.industryRankingProp?.map((e: any) => { return e['值1'] === '' ? 0 : e['值1'] })
+  const dataTemp: any = prop?.industryRankingProp?.map((e: any) => {
+    return e['值1'] === '' ? 0 : e['值1']
+  })
 
-  barOption.value.series[0].data = dataTemp.map((e) => { return { value: e, symbolOffset: e === 0 || !e ? [5, 0] : [-5, 0] } })
+  barOption.value.series[0].data = dataTemp.map((e) => {
+    return { value: e, symbolOffset: e === 0 || !e ? [5, 0] : [-5, 0] }
+  })
 
   barOption.value.series[1].data = dataTemp
   barOption.value.series[2].data = dataTemp

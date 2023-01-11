@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 16:24:55
- * @LastEditTime: 2022-12-06 19:14:01
+ * @LastEditTime: 2023-01-11 11:52:13
  * @LastEditors: BY by15242952083@outlook.com
  * @Description:
  * @FilePath: \big-screen\src\api\api.ts
@@ -65,4 +65,3 @@ export const userinfoinput = (param: any) => post('/userinfoinput.aspx', param)
 
 // 获取扫码结果
 export const scanloginchk = (param: any) => scanloginchkPost('/scanloginchk.aspx', param)
-

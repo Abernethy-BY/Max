@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 15:01:50
+ * @LastEditTime: 2023-01-11 14:57:22
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -334,4 +334,3 @@ const scanGoAuditFailed = (openId): void => {
 meta:
   layout: login
 </route>
-

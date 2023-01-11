@@ -18,7 +18,7 @@ import autoPreFixer from 'autoprefixer'
 import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
 // import externalGlobals from 'rollup-plugin-external-globals'
 import { ElementPlusResolve, createStyleImportPlugin } from 'vite-plugin-style-import'
-
+import VueMacros from 'unplugin-vue-macros/vite'
 const loader_pxToRem = pxToRem({ rootValue: 37.5, unitPrecision: 2, propList: ['*'], exclude: /(node_module)/, selectorBlackList: [], mediaQuery: true, minPixelValue: 1 })
 const loader_autoPreFixer = autoPreFixer({ overrideBrowserslist: ['Android 4.1', 'iOS 7.1', 'Chrome > 31', 'ff > 31', 'ie >= 8', 'last 10 versions'], grid: true })
 
@@ -37,11 +37,13 @@ export default defineConfig({
   },
 
   plugins: [
-    Vue({
-      include: [/\.vue$/, /\.md$/],
-      reactivityTransform: true,
+
+    VueMacros({
+      plugins: {
+        vue: Vue({ include: [/\.vue$/, /\.md$/], reactivityTransform: true }),
+      },
     }),
-    // externalGlobals({ wxLogin: 'wxLogin' }),
+
     Pages({ extensions: ['vue'], exclude: ['**/components/*.vue'] }),
     Layouts({
       layoutsDirs: 'src/layouts',
@@ -49,7 +51,7 @@ export default defineConfig({
     }),
 
     AutoImport({
-      imports: ['vue', 'vue-router', 'vue-i18n', 'vue/macros', '@vueuse/head', '@vueuse/core',
+      imports: ['vue', 'vue-router', 'vue-i18n', 'vue/macros', '@vueuse/head', '@vueuse/core', 'pinia',
         { axios: [['default', 'axios']] },
         { consola: [['default', 'consola']] },
         { 'axios-mapper': [['default', 'HttpClient']] },

@@ -94,7 +94,7 @@ watch(() => propObj.electricityUsedProportionProp, () => {
     font-weight: 500;
     color: #92FCFF;
     position: absolute;
-    top: 12px;
+    top: 1%;
     left: 30px;
   }
 
@@ -112,7 +112,7 @@ watch(() => propObj.electricityUsedProportionProp, () => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     flex: 0 0 160px;
 
     :deep(.electricity-used-proportion-content-item-icon) {

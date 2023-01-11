@@ -2,14 +2,15 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 16:46:45
+ * @LastEditTime: 2023-01-11 10:01:22
  * @FilePath: \big-screen\src\utils\utils.ts
  * @Description: 工具类
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
  */
 // 日期格式化规范
 
-import type { EChartsType, SeriesOption } from 'echarts'
+import type { SeriesOption } from 'echarts'
+import type { SERIES_OPTION_MODEL } from '~/model/map'
 
 export const dateTypes = {
   yyyy_MM_dd_HH_mm_ss: 'yyyy-MM-dd HH:mm:ss',
@@ -339,13 +340,13 @@ export const getYearLastDay = (year, pattern = 'yyyy-MM-dd') => {
  * @param {EChartsType} chart 图表节点
  * @param {number} zoom 地图大小
  * @param {string} labelPosition label定位
- * @param {number} labelMargins
+ * @param {number} labelMargins 定位距离
  * @return {EChartsOption}
  */
-export const seriesOption = (val: string, zlevel: number, chart: EChartsType, zoom: number, labelPosition: string, labelMargins: number): SeriesOption => {
+export const seriesOption = ({ mapName, zlevel, chart, zoom, labelPosition, labelMargins }: SERIES_OPTION_MODEL): SeriesOption => {
   return {
     type: 'map',
-    map: val,
+    map: mapName,
     zoom,
     zlevel,
     label: {

@@ -23,13 +23,20 @@
       "vue/ref-macros",
       "vite-plugin-pages/client",
       "vite-plugin-vue-layouts/client",
-      "pinia-plugin-persist"
+      "pinia-plugin-persist",
+      "unplugin-vue-macros/macros-global"
     ],
     "paths": {
       "~/*": [
         "src/*"
       ]
-    }
+    },
+  },
+  "vueCompilerOptions": {
+    "plugins": [
+      "@vue-macros/volar/define-model",
+      "@vue-macros/volar/short-vmodel"
+    ]
   },
   "exclude": [
     "dist",

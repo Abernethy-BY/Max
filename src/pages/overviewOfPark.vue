@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-10 18:01:54
+ * @LastEditTime: 2023-01-11 16:14:16
  * @FilePath: \big-screen\src\pages\overviewOfPark.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -14,9 +14,21 @@ import type { REAR_DATA_MODEL } from '~/model'
 
 const user = useUserStore()
 
+/**
+ * @description: top10产业排名数据
+ */
 const industryRankingData = ref([])
+/**
+ * @description: 动态数据
+ */
 const constructionProgressData = ref([])
+/**
+ * @description: 五好园区建设进度数据
+ */
 const progressData = ref([])
+/**
+ * @description: 各产业主营业务收入占比数据
+ */
 const incomeData = ref([])
 
 /**
@@ -89,11 +101,26 @@ onMounted(() => {
 })
 
 /**
+ * @description: 园区图片节点
+ */
+const parkMapRef = ref<DefineComponent>()
+
+/**
+ * @description: 园区名称
+ */
+const parkName = ref<string>('')
+
+/**
  * @description: 关闭地图，显示园区图片
+ * @param {string} name 园区名称
  * @return {void}
  */
-const showParkImage = (): void => {
+const showParkImage = (name: string): void => {
   mapFlag.value = false
+  parkName.value = name
+  nextTick(() => {
+    parkMapRef.value?.getParkImage()
+  })
 }
 /**
  * @description: 地图组件节点
@@ -125,7 +152,7 @@ const showMap = (): void => {
     </div>
     <div class="pandect-center" w-45 h-100>
       <pandect-map v-if="mapFlag" ref="pandectMapRef" icon-position="left" :area-data="areaData" @show-park-image="showParkImage" @get-page-data="getYqzl" />
-      <park-map v-else @show-map="showMap" />
+      <park-map v-else ref="parkMapRef" :park-name="parkName" @show-map="showMap" />
     </div>
     <div class="pandect-right" wPE-28 hPE-94>
       <construction-progress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />
@@ -137,4 +164,3 @@ const showMap = (): void => {
 meta:
   layout: screen
 </route>
-

@@ -13,6 +13,7 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
   const HttpClient: typeof import('axios-mapper')['default']
+  const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const anime: typeof import('animejs')['default']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
@@ -33,6 +34,7 @@ declare global {
   const createEventHook: typeof import('@vueuse/core')['createEventHook']
   const createGlobalState: typeof import('@vueuse/core')['createGlobalState']
   const createInjectionState: typeof import('@vueuse/core')['createInjectionState']
+  const createPinia: typeof import('pinia')['createPinia']
   const createReactiveFn: typeof import('@vueuse/core')['createReactiveFn']
   const createSharedComposable: typeof import('@vueuse/core')['createSharedComposable']
   const createUnrefFn: typeof import('@vueuse/core')['createUnrefFn']
@@ -45,6 +47,7 @@ declare global {
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
   const defineComponent: typeof import('vue')['defineComponent']
+  const defineStore: typeof import('pinia')['defineStore']
   const del: typeof import('./utils/http')['del']
   const disposeGeoJson: typeof import('./utils/utils')['disposeGeoJson']
   const district: typeof import('./api/api')['district']
@@ -56,6 +59,7 @@ declare global {
   const formatDate: typeof import('./utils/utils')['formatDate']
   const gaoDeWebApi: typeof import('./utils/http')['gaoDeWebApi']
   const get: typeof import('./utils/http')['get']
+  const getActivePinia: typeof import('pinia')['getActivePinia']
   const getAdCode: typeof import('./api/api')['getAdCode']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
@@ -96,7 +100,12 @@ declare global {
   const loginPost: typeof import('./utils/http')['loginPost']
   const loginWxBack: typeof import('./api/api')['loginWxBack']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
-  const mapStore: typeof import('./store/mapStore')['mapStore']
+  const mapActions: typeof import('pinia')['mapActions']
+  const mapGetters: typeof import('pinia')['mapGetters']
+  const mapHistoryStore: typeof import('./store/mapHistoryStore')['mapHistoryStore']
+  const mapState: typeof import('pinia')['mapState']
+  const mapStores: typeof import('pinia')['mapStores']
+  const mapWritableState: typeof import('pinia')['mapWritableState']
   const markRaw: typeof import('vue')['markRaw']
   const md5: typeof import('js-md5')['default']
   const menuStore: typeof import('./store/menu')['menuStore']
@@ -148,11 +157,14 @@ declare global {
   const scanloginchk: typeof import('./api/api')['scanloginchk']
   const scanloginchkPost: typeof import('./utils/http')['scanloginchkPost']
   const seriesOption: typeof import('./utils/utils')['seriesOption']
+  const setActivePinia: typeof import('pinia')['setActivePinia']
   const setDomFontSize: typeof import('./utils/dom')['setDomFontSize']
+  const setMapStoreSuffix: typeof import('pinia')['setMapStoreSuffix']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
   const shallowRef: typeof import('vue')['shallowRef']
   const stjc: typeof import('./api/api')['stjc']
+  const storeToRefs: typeof import('pinia')['storeToRefs']
   const syncRef: typeof import('@vueuse/core')['syncRef']
   const syncRefs: typeof import('@vueuse/core')['syncRefs']
   const templateRef: typeof import('@vueuse/core')['templateRef']
@@ -180,6 +192,7 @@ declare global {
   const useArrayMap: typeof import('@vueuse/core')['useArrayMap']
   const useArrayReduce: typeof import('@vueuse/core')['useArrayReduce']
   const useArraySome: typeof import('@vueuse/core')['useArraySome']
+  const useArrayUnique: typeof import('@vueuse/core')['useArrayUnique']
   const useAsyncQueue: typeof import('@vueuse/core')['useAsyncQueue']
   const useAsyncState: typeof import('@vueuse/core')['useAsyncState']
   const useAttrs: typeof import('vue')['useAttrs']
@@ -364,6 +377,7 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly HttpClient: UnwrapRef<typeof import('axios-mapper')['default']>
+    readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly anime: UnwrapRef<typeof import('animejs')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
@@ -384,6 +398,7 @@ declare module 'vue' {
     readonly createEventHook: UnwrapRef<typeof import('@vueuse/core')['createEventHook']>
     readonly createGlobalState: UnwrapRef<typeof import('@vueuse/core')['createGlobalState']>
     readonly createInjectionState: UnwrapRef<typeof import('@vueuse/core')['createInjectionState']>
+    readonly createPinia: UnwrapRef<typeof import('pinia')['createPinia']>
     readonly createReactiveFn: UnwrapRef<typeof import('@vueuse/core')['createReactiveFn']>
     readonly createSharedComposable: UnwrapRef<typeof import('@vueuse/core')['createSharedComposable']>
     readonly createUnrefFn: UnwrapRef<typeof import('@vueuse/core')['createUnrefFn']>
@@ -396,6 +411,7 @@ declare module 'vue' {
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
+    readonly defineStore: UnwrapRef<typeof import('pinia')['defineStore']>
     readonly del: UnwrapRef<typeof import('./utils/http')['del']>
     readonly disposeGeoJson: UnwrapRef<typeof import('./utils/utils')['disposeGeoJson']>
     readonly district: UnwrapRef<typeof import('./api/api')['district']>
@@ -407,6 +423,7 @@ declare module 'vue' {
     readonly formatDate: UnwrapRef<typeof import('./utils/utils')['formatDate']>
     readonly gaoDeWebApi: UnwrapRef<typeof import('./utils/http')['gaoDeWebApi']>
     readonly get: UnwrapRef<typeof import('./utils/http')['get']>
+    readonly getActivePinia: UnwrapRef<typeof import('pinia')['getActivePinia']>
     readonly getAdCode: UnwrapRef<typeof import('./api/api')['getAdCode']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
@@ -447,7 +464,12 @@ declare module 'vue' {
     readonly loginPost: UnwrapRef<typeof import('./utils/http')['loginPost']>
     readonly loginWxBack: UnwrapRef<typeof import('./api/api')['loginWxBack']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
-    readonly mapStore: UnwrapRef<typeof import('./store/mapStore')['mapStore']>
+    readonly mapActions: UnwrapRef<typeof import('pinia')['mapActions']>
+    readonly mapGetters: UnwrapRef<typeof import('pinia')['mapGetters']>
+    readonly mapHistoryStore: UnwrapRef<typeof import('./store/mapHistoryStore')['mapHistoryStore']>
+    readonly mapState: UnwrapRef<typeof import('pinia')['mapState']>
+    readonly mapStores: UnwrapRef<typeof import('pinia')['mapStores']>
+    readonly mapWritableState: UnwrapRef<typeof import('pinia')['mapWritableState']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly md5: UnwrapRef<typeof import('js-md5')['default']>
     readonly menuStore: UnwrapRef<typeof import('./store/menu')['menuStore']>
@@ -499,11 +521,14 @@ declare module 'vue' {
     readonly scanloginchk: UnwrapRef<typeof import('./api/api')['scanloginchk']>
     readonly scanloginchkPost: UnwrapRef<typeof import('./utils/http')['scanloginchkPost']>
     readonly seriesOption: UnwrapRef<typeof import('./utils/utils')['seriesOption']>
+    readonly setActivePinia: UnwrapRef<typeof import('pinia')['setActivePinia']>
     readonly setDomFontSize: UnwrapRef<typeof import('./utils/dom')['setDomFontSize']>
+    readonly setMapStoreSuffix: UnwrapRef<typeof import('pinia')['setMapStoreSuffix']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
     readonly shallowRef: UnwrapRef<typeof import('vue')['shallowRef']>
     readonly stjc: UnwrapRef<typeof import('./api/api')['stjc']>
+    readonly storeToRefs: UnwrapRef<typeof import('pinia')['storeToRefs']>
     readonly syncRef: UnwrapRef<typeof import('@vueuse/core')['syncRef']>
     readonly syncRefs: UnwrapRef<typeof import('@vueuse/core')['syncRefs']>
     readonly templateRef: UnwrapRef<typeof import('@vueuse/core')['templateRef']>
@@ -531,6 +556,7 @@ declare module 'vue' {
     readonly useArrayMap: UnwrapRef<typeof import('@vueuse/core')['useArrayMap']>
     readonly useArrayReduce: UnwrapRef<typeof import('@vueuse/core')['useArrayReduce']>
     readonly useArraySome: UnwrapRef<typeof import('@vueuse/core')['useArraySome']>
+    readonly useArrayUnique: UnwrapRef<typeof import('@vueuse/core')['useArrayUnique']>
     readonly useAsyncQueue: UnwrapRef<typeof import('@vueuse/core')['useAsyncQueue']>
     readonly useAsyncState: UnwrapRef<typeof import('@vueuse/core')['useAsyncState']>
     readonly useAttrs: UnwrapRef<typeof import('vue')['useAttrs']>

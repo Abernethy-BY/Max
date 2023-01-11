@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-12-05 13:34:00
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-10 18:00:04
+ * @LastEditTime: 2023-01-11 14:49:20
  * @FilePath: \big-screen\src\components\pandect\pandectMap.vue
  * @Description: 地图组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -10,19 +10,21 @@
 
 <script lang="ts" setup>
 import type { EChartsOption, EChartsType } from 'echarts'
-// import magnify from '~/assets/image/pandect/magnify.png'
-// import shrink from '~/assets/image/pandect/shrink.png'
-// import fanhui from '~/assets/image/common/navBg/fanhui.png'
 
 import type { MAP_PARAM_TYPE, REAR_DATA_MODEL } from '~/model'
-const propObj = withDefaults(defineProps<{ areaData: REAR_DATA_MODEL; iconPosition: string }>(), { areaData: () => ({ adCode: '10000', areaName: '中国' }), iconPosition: 'left' })
+import type { MAP_OPERATE_ICON_POSITION_MODEL, MAP_OPERATE_MODEL, SERIES_OPTION_MODEL } from '~/model/map'
+const propObj = withDefaults(defineProps<{ areaData: REAR_DATA_MODEL; iconPosition: MAP_OPERATE_ICON_POSITION_MODEL }>(), { areaData: () => ({ adCode: '10000', areaName: '中国' }), iconPosition: 'left' })
 const emit = defineEmits(['getPageData', 'showParkImage'])
 
-// 用户信息对象
+/**
+ * @description: 用户信息
+ */
 const userInfo = useUserStore()
 
-// 地图历史栈
-const historyList: Array<REAR_DATA_MODEL> = []
+/**
+ * @description: 地图历史对象
+ */
+const mapHistory = mapHistoryStore()
 
 /**
  * @description: 地图chart对象
@@ -72,7 +74,12 @@ const getParkJson = async (adCode: string): Promise<void> => {
     const arrTemp: any = []
     disposeGeoJson(temp).features.forEach((element, index) => {
       eCharts.registerMap(`map${index}`, { type: 'FeatureCollection', features: [element] })
-      mapChart && (arrTemp.push(seriesOption(`map${index}`, index + 1, mapChart, index === 0 ? 1 : 0.1, propObj.iconPosition, propObj.iconPosition === 'right' ? 100 : 500)))
+      if (mapChart) {
+        const zoom = index === 0 ? 1 : 0.1
+        const labelMargins = propObj.iconPosition === 'right' ? 100 : 500
+        const optionParam: SERIES_OPTION_MODEL = { mapName: `map${index}`, zlevel: index + 1, chart: mapChart, zoom, labelPosition: propObj.iconPosition, labelMargins }
+        arrTemp.push(seriesOption(optionParam))
+      }
     })
     option.series = arrTemp
     mapChart?.setOption(option)
@@ -87,23 +94,30 @@ const getParkJson = async (adCode: string): Promise<void> => {
  * @return {void}
  */
 const initMap = (): void => {
-  if (mapChart)
-    mapChart?.dispose()
+  mapChart?.dispose()
+  pandectMapRef.value && (mapChart = eCharts.init(pandectMapRef.value))
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  mapChart?.on('click', mapClickFun)
+}
 
-  nextTick(() => {
-    pandectMapRef.value && (mapChart = eCharts.init(pandectMapRef.value))
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    mapChart?.on('click', mapClickFun)
-  })
+const eChartLoadingOpt: Object = {
+  text: '加载中',
+  color: '#c23531',
+  textColor: '#ffffff',
+  maskColor: 'rgba(255, 255, 255, 0)',
+  zlevel: 10,
+  fontSize: 25,
 }
 
 /**
  * @description: 地图生成方法
  * @param {REAR_DATA_MODEL} areaData 区域信息
- * @param {string} operate 地图动作
+ * @param {MAP_OPERATE_MODEL} operate 地图动作
  * @return {void}
  */
-const generateMap = (areaData: REAR_DATA_MODEL, operate: string): void => {
+const generateMap = (areaData: REAR_DATA_MODEL, operate: MAP_OPERATE_MODEL): void => {
+  consola.info([areaData, operate])
+  mapChart?.showLoading(eChartLoadingOpt)
   AMapLoader.load(aMapParam).then(() => {
     AMapUI.loadUI(['geo/DistrictExplorer'], (DistrictExplorer) => {
       // 创建ui对象
@@ -111,14 +125,12 @@ const generateMap = (areaData: REAR_DATA_MODEL, operate: string): void => {
 
       // ui方法 --- 获取json
       districtExplorer.loadAreaNode(areaData.adCode, async (error, areaNode) => {
-        if (error) {
-          ElMessage({ message: '地图服务器错误，请刷新重试', type: 'error' })
+        if (error)
           throw new Error('地图服务器错误，请刷新重试')
-        }
 
-        if (operate === 'drillDown' && historyList.findIndex(e => e.adCode === areaData.adCode) === -1)
-          historyList.push(areaData)
-
+        if (operate === 'DRILL_DOWN')
+          mapHistory.addMapData(areaData)
+        mapChart?.hideLoading()
         await initMap()
         // 获取json对象
         const Json = areaNode.getSubFeatures()
@@ -128,8 +140,12 @@ const generateMap = (areaData: REAR_DATA_MODEL, operate: string): void => {
         }
         else {
           eCharts.registerMap('map', { type: 'FeatureCollection', features: Json })
-          mapChart && (option.series = [seriesOption('map', 1, mapChart, 1, propObj.iconPosition, propObj.iconPosition === 'right' ? 200 : 100)])
-          mapChart?.setOption(option)
+          if (mapChart) {
+            const labelMargins = propObj.iconPosition === 'right' ? 200 : 100
+            const optionParam: SERIES_OPTION_MODEL = { mapName: 'map', zlevel: 1, chart: mapChart, zoom: 1, labelPosition: propObj.iconPosition, labelMargins }
+            option.series = [seriesOption(optionParam)]
+            mapChart?.setOption(option)
+          }
         }
 
         emit('getPageData', areaData.areaName)
@@ -149,13 +165,13 @@ const mapClickFun = ({ name, componentIndex }: { name: string; componentIndex: n
     if (componentIndex === 0) {
       const drillDownFun = async (val) => {
         const adCode = await getMapAdCode(val)
-        generateMap({ adCode, areaName: val }, 'drillDown')
+        generateMap({ adCode, areaName: val }, 'DRILL_DOWN')
       }
       debounce(drillDownFun, 1000, true, [name])
     }
     else {
       mapChart?.dispose()
-      emit('showParkImage')
+      emit('showParkImage', name)
     }
   }
   catch (error) {
@@ -170,10 +186,7 @@ const mapClickFun = ({ name, componentIndex }: { name: string; componentIndex: n
  */
 const goLast = (): void => {
   try {
-    if (historyList.length > 1)
-      historyList.pop()
-
-    generateMap(historyList[historyList.length - 1], 'goBack')
+    generateMap(mapHistory.popMapData(), 'GO_BACK')
   }
   catch (error) {
     consola.fatal(error)
@@ -181,7 +194,7 @@ const goLast = (): void => {
 }
 
 watch(propObj.areaData, () => {
-  generateMap(propObj.areaData, 'drillDown')
+  generateMap(propObj.areaData, 'DRILL_DOWN')
 })
 
 /**
@@ -189,31 +202,37 @@ watch(propObj.areaData, () => {
  * @return {void}
  */
 const protractMap = () => {
-  generateMap(propObj.areaData, 'goBack')
+  const historyTemp = toRaw(mapHistory.mapHistory)
+  generateMap(historyTemp[historyTemp.length - 1], 'GO_BACK')
 }
 
 defineExpose({ protractMap })
+
+/**
+ * @description: 地图放大方法
+ * @return {void}
+ */
+const magnifyMap = () => {
+  (option.series && option.series[0]) && (option.series[0].zoom += 0.1)
+  mapChart?.setOption(option)
+}
+
+/**
+ * @description: 地图缩小方法
+ * @return {void}
+ */
+const shrinkMap = () => {
+  (option.series && option.series[0]) && (option.series[0].zoom -= 0.1)
+  mapChart?.setOption(option)
+}
 </script>
 
 <template>
   <div class="pandect-map-box" w-100 h-100 po-r>
-    <!-- <span>{{ propObj.areaData }}</span> -->
-    <!-- <span>{{ propObj.areaName }}</span> -->
-    <!-- <div
-      class="icon-box" :style="propObj.iconPosition === 'left' ? { left: '5%' } : { right: '5%' }" po-a pob-50 z-50
-      flex-column-start
-    >
-      <el-image
-        class="operate-icon" :src="magnify" fit="fill" @mousedown.prevent="goMagnifyMapStart(mapChart, option)"
-        @mouseup.prevent="goMagnifyMapTouchEnd(mapChart, option)"
-      />
-      <el-image
-        class="operate-icon" :src="shrink" fit="fill" @mousedown.prevent="goShrinkMapStart(mapChart, option)"
-        @mouseup.prevent="goShrinkMapEnd(mapChart, option)"
-      />
-      <el-image class="operate-icon" :src="fanhui" fit="fill" @click="goLast" />
-    </div> -->
-    <map-operate :icon-position="propObj.iconPosition" content-type="map" @go-last="goLast" />
+    <map-operate
+      :icon-position="propObj.iconPosition" content-type="map" @go-last="goLast" @magnify-map="magnifyMap"
+      @shrink-map="shrinkMap"
+    />
     <div ref="pandectMapRef" w-100 h-100 />
   </div>
 </template>

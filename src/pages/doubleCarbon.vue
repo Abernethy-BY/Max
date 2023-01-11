@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-03 01:56:14
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-17 14:42:59
+ * @LastEditTime: 2023-01-11 16:42:26
  * @FilePath: \big-screen\src\pages\doubleCarbon.vue
  * @Description:双碳检测
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -44,4 +44,3 @@ getStjc()
     </div>
   </div>
 </template>
-

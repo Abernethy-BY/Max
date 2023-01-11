@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 19:25:26
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-10 15:47:44
+ * @LastEditTime: 2023-01-11 14:53:31
  * @FilePath: \big-screen\src\components\common\TheHeader.vue
  * @Description:
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -36,12 +36,12 @@ const router = useRouter()
  * @return {void}
  */
 const jumpToLogin = () => {
-  const backlen = history.length - 2
+  const backLen = history.length - 2
   const userInfo = useUserStore()
   userInfo.userCode = ''
   userInfo.token = ''
   userInfo.userRole = ''
-  router.go(backlen - (backlen * 2))
+  router.go(backLen - (backLen * 2))
 }
 </script>
 

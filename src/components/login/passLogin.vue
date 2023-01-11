@@ -4,7 +4,7 @@ import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
 const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
-
+const menu = menuStore()
 const router = useRouter()
 /**
  * @description: 表单节点
@@ -114,6 +114,8 @@ const loginSuccessfulCloseFun = () => {
 
   else
     router.push({ path: '/' })
+
+  menu.menuIndex = 0
 }
 
 /**
