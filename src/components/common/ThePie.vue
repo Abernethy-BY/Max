@@ -1,25 +1,35 @@
 <!--
  * @Author: BY by15242952083@outlook.com
- * @Date: 2022-09-01 16:29:28
+ * @Date: 2023-01-12 17:20:32
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-12 17:22:14
- * @FilePath: \big-screen\src\components\pandect\income.vue
- * @Description:各产业主营业务收入占比
- * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
+ * @LastEditTime: 2023-01-12 17:57:34
+ * @FilePath: \big-screen\src\components\common\ThePie.vue
+ * @Description: 3D饼图
+ * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
-
 <script lang="ts" setup>
-import 'echarts/lib/chart/pie'
+import type { EChartsOption, EChartsType, LegendComponentOption } from 'echarts'
 import 'echarts-gl'
 import 'echarts/theme/macarons'
+import type { PIE_MODEL } from '~/model/pieModel'
 
-const propObj = defineProps({
-  incomeProp: Array,
-})
-const incomeRef = ref()
-let hoveredIndex: any = ''
+const propObj = withDefaults(defineProps<{ pieProp: PIE_MODEL[]; pieTitle: string }>(), { pieProp: () => [], pieTitle: '' })
 
-// 生成扇形的曲面参数方程
+/**
+ * @description: 响应层级
+ */
+let hoveredIndex: number | string = ''
+
+/**
+ * @description: 生成扇形的曲面参数方程
+ * @param {*} startRatio
+ * @param {*} endRatio
+ * @param {*} isSelected
+ * @param {*} isHovered
+ * @param {*} k
+ * @param {*} h
+ * @return {*}
+ */
 const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h) => {
   // 计算
   const midRatio = (startRatio + endRatio) / 2
@@ -45,17 +55,9 @@ const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h
 
   // 返回曲面参数方程
   return {
-    u: {
-      min: -Math.PI,
-      max: Math.PI * 3,
-      step: Math.PI / 32,
-    },
+    u: { min: -Math.PI, max: Math.PI * 3, step: Math.PI / 32 },
 
-    v: {
-      min: 0,
-      max: Math.PI * 2,
-      step: Math.PI / 20,
-    },
+    v: { min: 0, max: Math.PI * 2, step: Math.PI / 20 },
 
     x(u, v) {
       if (u < startRadian)
@@ -90,36 +92,32 @@ const getParametricEquation = (startRatio, endRatio, isSelected, isHovered, k, h
   }
 }
 
-// 生成模拟 3D 饼图的配置项
-const getPie3D = (pieData, internalDiameterRatio) => {
+/**
+ * @description:  生成模拟 3D 饼图的配置项
+ * @param {InterfaceModel[]} pieData 饼图数据
+ * @param {number} internalDiameterRatio 放大倍数
+ * @return {void}
+ */
+const getPie3D = (pieData: PIE_MODEL[], internalDiameterRatio: number) => {
   const series: any = []
   // 总和
   let sumValue = 0
   let startValue = 0
   let endValue = 0
-  const legendData: any = []
-  const k
-    = typeof internalDiameterRatio !== 'undefined'
-      ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio)
-      : 1 / 3
+  const legendData: LegendComponentOption['data'] = []
+  const k = typeof internalDiameterRatio !== 'undefined' ? (1 - internalDiameterRatio) / (1 + internalDiameterRatio) : 1 / 3
 
   // 为每一个饼图数据，生成一个 series-surface 配置
   for (let i = 0; i < pieData.length; i += 1) {
-    sumValue += pieData[i].value
+    sumValue += Number(pieData[i].value)
 
     const seriesItem: any = {
       name: typeof pieData[i].name === 'undefined' ? `series${i}` : pieData[i].name,
       type: 'surface',
       parametric: true,
-      wireframe: {
-        show: false,
-      },
+      wireframe: { show: false },
       pieData: pieData[i],
-      pieStatus: {
-        selected: false,
-        hovered: false,
-        k,
-      },
+      pieStatus: { selected: false, hovered: false, k },
     }
 
     if (typeof pieData[i].itemStyle !== 'undefined') {
@@ -128,9 +126,7 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       // eslint-disable-next-line no-unused-expressions
       typeof pieData[i].itemStyle.color !== 'undefined' ? (itemStyle.color = pieData[i].itemStyle.color) : null
       // eslint-disable-next-line no-unused-expressions
-      typeof pieData[i].itemStyle.opacity !== 'undefined'
-        ? (itemStyle.opacity = pieData[i].itemStyle.opacity)
-        : null
+      typeof pieData[i].itemStyle.opacity !== 'undefined' ? (itemStyle.opacity = pieData[i].itemStyle.opacity) : null
 
       seriesItem.itemStyle = itemStyle
     }
@@ -138,45 +134,39 @@ const getPie3D = (pieData, internalDiameterRatio) => {
   }
   // 使用上一次遍历时，计算出的数据和 sumValue，调用 getParametricEquation 函数，
   // 向每个 series-surface 传入不同的参数方程 series-surface.parametricEquation，也就是实现每一个扇形。
-
   for (let i = 0; i < series.length; i += 1) {
     endValue = startValue + series[i].pieData.value
 
     series[i].pieData.startRatio = startValue / sumValue
     series[i].pieData.endRatio = endValue / sumValue
-    series[i].parametricEquation = getParametricEquation(
-      series[i].pieData.startRatio,
-      series[i].pieData.endRatio,
-      false,
-      false,
-      k,
-      // 我这里做了一个处理，使除了第一个之外的值都是10
-      series[i].pieData.value === series[0].pieData.value ? 35 : 10,
-    )
-
+    series[i].parametricEquation = getParametricEquation(series[i].pieData.startRatio, series[i].pieData.endRatio, false, false, k, series[i].pieData.value === series[0].pieData.value ? 35 : 10)
     startValue = endValue
-
     legendData.push(series[i].name)
   }
 
-  // 准备待返回的配置项，把准备好的 legendData、series 传入。
-  const option = {
+  /**
+   * @description: 饼图配置
+   */
+  const option: EChartsOption = {
     // animation: false,
     tooltip: {
       formatter: (params) => {
-        if (params.seriesName !== 'mouseoutSeries')
-          return `${params.seriesName}<br/><span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>${option.series[params.seriesIndex].pieData.value}%`
+        if (params.seriesName !== 'mouseoutSeries') {
+          return `${params.seriesName}<br/>
+          <span style="display:inline-block;margin-right:5px;border-radius:10px;width:10px;height:10px;background-color:${params.color};"></span>
+          ${option.series?.[params.seriesIndex].pieData.value}%`
+        }
         return ''
       },
     },
     title: {
       show: true,
-      text: '主营业务收入',
+      text: propObj.pieTitle,
       textStyle: {
         color: '#FFFFFF',
         fontSize: 12,
       },
-      top: '20%',
+      top: '25%',
       left: '5%',
     },
     legend: {
@@ -184,33 +174,31 @@ const getPie3D = (pieData, internalDiameterRatio) => {
       data: legendData,
       orient: 'vertical',
       right: '30',
-      top: 'center',
+      height: '100%',
+      top: '30%',
       icon: 'circle',
       itemHeight: 6,
-      textStyle: {
-        color: '#ffffff',
-      },
-      selectedMode: false,
+      itemGap: 20,
+      textStyle: { color: '#ffffff' },
     },
     xAxis3D: { min: -1, max: 1 },
     yAxis3D: { min: -1, max: 1 },
     zAxis3D: { min: -1, max: 1 },
     grid3D: {
       show: false,
-      boxHeight: 5,
-      // top: '-20%',
+      boxHeight: 3,
       left: '-15%',
+      top: '10%',
+      bottom: '15%',
       viewControl: {
         alpha: 25,
         rotateSensitivity: 1,
         zoomSensitivity: 0,
         panSensitivity: 0,
         autoRotate: false,
-        distance: 150,
+        distance: 180,
       },
-      // 后处理特效可以为画面添加高光、景深、环境光遮蔽（SSAO）、调色等效果。可以让整个画面更富有质感。
       postEffect: {
-        // 配置这项会出现锯齿，请自己去查看官方配置有办法解决
         enable: false,
         bloom: { enable: true, bloomIntensity: 0.1 },
         SSAO: { enable: true, quality: 'medium', radius: 2 },
@@ -221,29 +209,33 @@ const getPie3D = (pieData, internalDiameterRatio) => {
   return option
 }
 
-const colorList = ['#FFEE62', '#00A8FF', '#FB2F00', '#DD6391']
-watch(() => propObj.incomeProp, () => {
-  const sumWithInitial = propObj.incomeProp?.reduce(
-    (previousValue: any, currentValue: any) => previousValue + (currentValue?.['值1'] === '' ? 0 : Number(currentValue?.['值1'])),
-    0,
-  )
+/**
+ * @description: 图标节点
+ */
+const thePieRef = ref<HTMLElement>()
 
-  const temp = propObj.incomeProp?.map((e: any, i) => {
-    return {
-      name: e?.['数据'],
-      value: sumWithInitial === 0 ? 0 : Number(new Big(Number(e?.['值1'])).div(sumWithInitial).times(100).toFixed(0)),
+/**
+ * @description: 饼图对象
+ */
+let pieChart: EChartsType | null = null
 
-      itemStyle: { color: colorList[i] },
-    }
+onMounted(() => {
+
+})
+
+watch(() => propObj.pieProp, () => {
+  const option = getPie3D(propObj.pieProp, 0.59)
+  // const pieChart = eCharts.init(pieRef.value)
+
+  thePieRef.value && (pieChart = eCharts.init(thePieRef.value))
+  window.addEventListener('resize', () => {
+    pieChart?.resize()
   })
-  const option = getPie3D(temp, 0.59)
-  eCharts.init(incomeRef.value).dispose()
-  const myChart = eCharts.init(incomeRef.value)
-  myChart.setOption(option)
+  pieChart?.setOption(option)
 
   //  修正取消高亮失败的 bug
   // 监听 mouseover，近似实现高亮（放大）效果
-  myChart.on('mouseover', (params) => {
+  pieChart?.on('mouseover', (params) => {
     // 准备重新渲染扇形所需的参数
     let isSelected: any
     let isHovered: any
@@ -261,15 +253,15 @@ watch(() => propObj.incomeProp, () => {
       // 如果当前有高亮的扇形，取消其高亮状态（对 option 更新）
       if (hoveredIndex !== '') {
         // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 false。
-        isSelected = option.series[hoveredIndex].pieStatus.selected
+        isSelected = option.series?.[hoveredIndex].pieStatus.selected
         isHovered = false
-        startRatio = option.series[hoveredIndex].pieData.startRatio
-        endRatio = option.series[hoveredIndex].pieData.endRatio
-        k = option.series[hoveredIndex].pieStatus.k
-        i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 35 : 10
+        startRatio = option.series?.[hoveredIndex].pieData.startRatio
+        endRatio = option.series?.[hoveredIndex].pieData.endRatio
+        k = option.series?.[hoveredIndex].pieStatus.k
+        i = option.series?.[hoveredIndex].pieData.value === option.series?.[0].pieData.value ? 35 : 10
         // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
-        option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, i)
-        option.series[hoveredIndex].pieStatus.hovered = isHovered
+        option.series && (option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, i))
+        option.series && (option.series[hoveredIndex].pieStatus.hovered = isHovered)
 
         // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
         hoveredIndex = ''
@@ -278,66 +270,56 @@ watch(() => propObj.incomeProp, () => {
       // 如果触发 mouseover 的扇形不是透明圆环，将其高亮（对 option 更新）
       if (params.seriesName !== 'mouseoutSeries') {
         // 从 option.series 中读取重新渲染扇形所需的参数，将是!否高亮设置为 true。
-        isSelected = option.series[params.seriesIndex!].pieStatus.selected
+        isSelected = option.series?.[params.seriesIndex!].pieStatus.selected
         isHovered = true
-        startRatio = option.series[params.seriesIndex!].pieData.startRatio
-        endRatio = option.series[params.seriesIndex!].pieData.endRatio
-        k = option.series[params.seriesIndex!].pieStatus.k
+        startRatio = option.series?.[params.seriesIndex!].pieData.startRatio
+        endRatio = option.series?.[params.seriesIndex!].pieData.endRatio
+        k = option.series?.[params.seriesIndex!].pieStatus.k
 
         // 对当前点击的扇形，执行高亮操作（对 option 更新）
-        option.series[params.seriesIndex!].parametricEquation = getParametricEquation(
+        option.series && (option.series[params.seriesIndex!].parametricEquation = getParametricEquation(
           startRatio,
           endRatio,
           isSelected,
           isHovered,
           k,
           option.series[params.seriesIndex!].pieData.value + 5,
-        )
-        option.series[params.seriesIndex!].pieStatus.hovered = isHovered
+        ))
+        option.series && (option.series[params.seriesIndex!].pieStatus.hovered = isHovered)
 
         // 记录上次高亮的扇形对应的系列号 seriesIndex
-        hoveredIndex = params.seriesIndex
+        hoveredIndex = params.seriesIndex!
       }
 
       // 使用更新后的 option，渲染图表
-      myChart.setOption(option)
+      pieChart?.setOption(option)
     }
   })
 
   // 修正取消高亮失败的 bug
-  myChart.on('globalout', () => {
+  pieChart?.on('globalout', () => {
     if (hoveredIndex !== '') {
       // 从 option.series 中读取重新渲染扇形所需的参数，将是否高亮设置为 true。
-      const isSelected = option.series[hoveredIndex].pieStatus.selected
+      const isSelected = option.series?.[hoveredIndex].pieStatus.selected
       const isHovered = false
-      const k = option.series[hoveredIndex].pieStatus.k
-      const startRatio = option.series[hoveredIndex].pieData.startRatio
-      const endRatio = option.series[hoveredIndex].pieData.endRatio
+      const k = option.series?.[hoveredIndex].pieStatus.k
+      const startRatio = option.series?.[hoveredIndex].pieData.startRatio
+      const endRatio = option.series?.[hoveredIndex].pieData.endRatio
       // 对当前点击的扇形，执行取消高亮操作（对 option 更新）
-      const i = option.series[hoveredIndex].pieData.value === option.series[0].pieData.value ? 35 : 10
-      option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, i)
-      option.series[hoveredIndex].pieStatus.hovered = isHovered
+      const i = option.series?.[hoveredIndex].pieData.value === option.series?.[0].pieData.value ? 35 : 10
+      option.series && (option.series[hoveredIndex].parametricEquation = getParametricEquation(startRatio, endRatio, isSelected, isHovered, k, i))
+      option.series && (option.series[hoveredIndex].pieStatus.hovered = isHovered)
 
       // 将此前记录的上次选中的扇形对应的系列号 seriesIndex 清空
       hoveredIndex = ''
     }
 
     // 使用更新后的 option，渲染图表
-    myChart.setOption(option)
+    pieChart?.setOption(option)
   })
 })
 </script>
 
 <template>
-  <div class="income-box" wPE-100 hPE-100 po-r flex flex-row-center>
-    <span fs-16 fw-400 color="#FFFFFF" po-a pot-13>各产业主营业务收入占比 </span>
-    <div ref="incomeRef" wPE-100 hPE-100 class="income-content" />
-  </div>
+  <div ref="thePieRef" flex-1 />
 </template>
-
-<style lang="scss" scoped>
-.income-box {
-  background-image: url("~/assets/image/pandect/incomeBg.png");
-  background-size: 100% 100%;
-}
-</style>

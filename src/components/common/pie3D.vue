@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-13 11:02:01
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-09-29 19:43:08
+ * @LastEditTime: 2023-01-12 17:47:24
  * @FilePath: \big-screen\src\components\common\pie3D.vue
  * @Description: 3D饼图组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

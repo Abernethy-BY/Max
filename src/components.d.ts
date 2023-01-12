@@ -72,5 +72,7 @@ declare module '@vue/runtime-core' {
     SubmissionSuccessful: typeof import('./components/dialog/submissionSuccessful.vue')['default']
     TheBar: typeof import('./components/common/TheBar.vue')['default']
     TheHeader: typeof import('./components/common/TheHeader.vue')['default']
+    ThePie: typeof import('./components/common/ThePie.vue')['default']
+    ThePie3D: typeof import('./components/common/ThePie3D.vue')['default']
   }
 }

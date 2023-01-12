@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 18:50:54
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-11 16:43:38
+ * @LastEditTime: 2023-01-12 17:26:48
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description: 首页
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -61,10 +61,12 @@ getStjc()
 </script>
 
 <template>
-  <div wPE-100 hPE-100 po-r flex-row-between>
+  <div class="Home-box" wPE-100 hPE-100 po-r flex-row-between>
     <div h-100 w-30 flex-column-between>
-      <div w-100 h-48>
-        <income :income-prop="incomeData" />
+      <div w-100 h-48 class="in-come-box" flex-column-start>
+        <span flex-row-center>各产业主营业务收入占比 </span>
+        <the-pie />
+        <!-- <income :income-prop="incomeData" /> -->
       </div>
       <div w-100 h-48 bg="#ff7f50" />
     </div>
@@ -81,3 +83,20 @@ getStjc()
 meta:
   layout: home
 </route>
+
+<style lang="scss" scoped>
+.Home-box {
+  .in-come-box {
+    background-image: url("~/assets/image/pandect/incomeBg.png");
+    background-size: 100% 100%;
+
+    span {
+      font-size: 18px;
+      font-family: Source Han Sans CN;
+      font-weight: 400;
+      color: #FFFFFF;
+      line-height: 62px;
+    }
+  }
+}
+</style>
