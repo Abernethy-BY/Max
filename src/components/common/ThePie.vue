@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-12 17:20:32
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-12 17:57:34
+ * @LastEditTime: 2023-01-13 17:23:45
  * @FilePath: \big-screen\src\components\common\ThePie.vue
  * @Description: 3D饼图
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -148,7 +148,6 @@ const getPie3D = (pieData: PIE_MODEL[], internalDiameterRatio: number) => {
    * @description: 饼图配置
    */
   const option: EChartsOption = {
-    // animation: false,
     tooltip: {
       formatter: (params) => {
         if (params.seriesName !== 'mouseoutSeries') {
@@ -162,10 +161,7 @@ const getPie3D = (pieData: PIE_MODEL[], internalDiameterRatio: number) => {
     title: {
       show: true,
       text: propObj.pieTitle,
-      textStyle: {
-        color: '#FFFFFF',
-        fontSize: 12,
-      },
+      textStyle: { color: '#FFFFFF', fontSize: 12 },
       top: '25%',
       left: '5%',
     },
@@ -173,9 +169,9 @@ const getPie3D = (pieData: PIE_MODEL[], internalDiameterRatio: number) => {
       show: true,
       data: legendData,
       orient: 'vertical',
-      right: '30',
+      right: '10%',
       height: '100%',
-      top: '30%',
+      top: 'center',
       icon: 'circle',
       itemHeight: 6,
       itemGap: 20,
@@ -188,7 +184,7 @@ const getPie3D = (pieData: PIE_MODEL[], internalDiameterRatio: number) => {
       show: false,
       boxHeight: 3,
       left: '-15%',
-      top: '10%',
+      top: 'center',
       bottom: '15%',
       viewControl: {
         alpha: 25,
@@ -219,14 +215,8 @@ const thePieRef = ref<HTMLElement>()
  */
 let pieChart: EChartsType | null = null
 
-onMounted(() => {
-
-})
-
 watch(() => propObj.pieProp, () => {
   const option = getPie3D(propObj.pieProp, 0.59)
-  // const pieChart = eCharts.init(pieRef.value)
-
   thePieRef.value && (pieChart = eCharts.init(thePieRef.value))
   window.addEventListener('resize', () => {
     pieChart?.resize()

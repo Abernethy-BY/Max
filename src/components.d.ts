@@ -65,6 +65,8 @@ declare module '@vue/runtime-core' {
     RiskIndex: typeof import('./components/corporatePortrait/riskIndex.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    RunOIverview: typeof import('./components/home/runOIverview.vue')['default']
+    RunOverview: typeof import('./components/home/runOverview.vue')['default']
     ScanLogin: typeof import('./components/login/scanLogin.vue')['default']
     SignUp: typeof import('./components/login/signUp.vue')['default']
     SmsLogin: typeof import('./components/login/smsLogin.vue')['default']
@@ -72,6 +74,7 @@ declare module '@vue/runtime-core' {
     SubmissionSuccessful: typeof import('./components/dialog/submissionSuccessful.vue')['default']
     TheBar: typeof import('./components/common/TheBar.vue')['default']
     TheHeader: typeof import('./components/common/TheHeader.vue')['default']
+    TheHomeElectricityUsage: typeof import('./components/home/theHomeElectricityUsage.vue')['default']
     ThePie: typeof import('./components/common/ThePie.vue')['default']
     ThePie3D: typeof import('./components/common/ThePie3D.vue')['default']
   }

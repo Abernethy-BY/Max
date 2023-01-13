@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-12-08 17:17:08
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 15:11:49
+ * @LastEditTime: 2023-01-13 14:41:32
  * @FilePath: \big-screen\src\model\index.ts
  * @Description:
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -24,9 +24,9 @@ export interface RootObject {
   slideshow: Slideshow
 }
 
-export interface meeting { any: any }
-
 export interface InterfaceModel { '位置': string; '数据': string; '数值1'?: string; '数值2'?: string; '图标': string; '值1'?: string; '值2'?: string }
+
+export interface HTTP_MODEL { data: InterfaceModel[]; message: string; state: number }
 
 export interface TableModel { [key: string]: string | number }
 
@@ -77,4 +77,11 @@ export interface USER_FORM_MODEL {
   pass: string
   rePass?: string
   telCode: string
+}
+
+export interface PARAM_MODEL {
+  submitid: number
+  usercode: string
+  sign: string
+  address?: string
 }

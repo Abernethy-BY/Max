@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 11:52:04
- * @LastEditTime: 2022-12-12 19:55:40
+ * @LastEditTime: 2023-01-13 15:42:14
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: domTS
  * @FilePath: \big-screen\src\utils\dom.ts
@@ -9,7 +9,10 @@
  */
 import _ from 'lodash'
 
-// rem转换方法
+/**
+ * @description: rem转换方法
+ * @return {void}
+ */
 export const setDomFontSize = (): void => {
   const width = document.documentElement.clientWidth || document.body.clientWidth
   const scale = 37.5 * Math.min((width <= 1200 ? 1200 : width) / 1920, 2)
@@ -20,9 +23,16 @@ export const setDomFontSize = (): void => {
 const setDomFontSizeDebounce = _.debounce(setDomFontSize, 400)
 window.addEventListener('resize', setDomFontSizeDebounce) // 浏览器加入收缩监听防抖，重新计算rem配置
 
-// 操作时间标识
+/**
+ * @description: 操作时间标识
+ */
 let timeOutEvent: NodeJS.Timeout | number | null = null
-// 地图放大方法
+/**
+ * @description: 地图放大方法
+ * @param {EChartsType} eChart 节点
+ * @param {EChartsOption} option 图标配置
+ * @return {void}
+ */
 const mapMagnify = (chart, option) => {
   option.series[0].zoom += 0.1
   chart?.setOption(option)

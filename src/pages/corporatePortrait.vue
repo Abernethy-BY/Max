@@ -2,7 +2,7 @@
  * @Author: Forrest-Rice by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-12 20:58:29
+ * @LastEditTime: 2023-01-13 14:45:50
  * @FilePath: \big-screen\src\pages\corporatePortrait.vue
  * @Description: 企业画像
  * Copyright (c) 2022 by Forrest-Rice email: by15242952083@outlook.com, All Rights Reserved.

@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2022-12-13 19:57:36
+ * @LastEditTime: 2023-01-13 14:08:57
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
@@ -11,7 +11,7 @@ import type { HttpClientConfig, RequestParams } from 'axios-mapper'
 import { Method } from 'axios-mapper'
 import { ElMessage } from 'element-plus'
 
-import type { meeting } from '~/model'
+import type { HTTP_MODEL } from '~/model'
 
 const config: HttpClientConfig = {
   baseURL: 'http://175.6.101.127:8700',
@@ -50,54 +50,54 @@ https.httpClient.interceptors.response.use((res) => {
 
 export const post = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.POST, data).then((response: any) => {
+    https.request<HTTP_MODEL>(url, Method.POST, data).then((response) => {
       resolve(response?.data)
-    }, (err: any) => { reject(err) })
+    }, (err) => { reject(err) })
   })
 }
 
 export const get = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.GET, data).then((response: any) => {
+    https.request<HTTP_MODEL>(url, Method.GET, data).then((response) => {
       resolve(response?.data)
-    }, (err: any) => { reject(err) })
+    }, (err) => { reject(err) })
   })
 }
 export const put = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.PUT, data).then((response: any) => {
+    https.request<HTTP_MODEL>(url, Method.PUT, data).then((response) => {
       resolve(response?.data)
     }, (err: any) => { reject(err) })
   })
 }
 export const del = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.DELETE, data).then((response: any) => {
+    https.request<HTTP_MODEL>(url, Method.DELETE, data).then((response) => {
       resolve(response?.data)
-    }, (err: any) => { reject(err) })
+    }, (err) => { reject(err) })
   })
 }
 
 export const gaoDeWebApi = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.GET, data).then((response: any) => {
+    https.request<HTTP_MODEL>(url, Method.GET, data).then((response) => {
       resolve(response)
-    }, (err: any) => { reject(err) })
+    }, (err) => { reject(err) })
   })
 }
 
 export const loginPost = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.POST, data).then((response: any) => {
+    https.request<HTTP_MODEL>(url, Method.POST, data).then((response) => {
       resolve(response)
-    }, (err: any) => { reject(err) })
+    }, (err) => { reject(err) })
   })
 }
 
 export const scanloginchkPost = (url: string, data: RequestParams) => {
   return new Promise((resolve, reject) => {
-    https.request<meeting>(url, Method.POST, data).then((response: any) => {
+    https.request<HTTP_MODEL>(url, Method.POST, data).then((response) => {
       resolve(response)
-    }, (err: any) => { reject(err) })
+    }, (err) => { reject(err) })
   })
 }
