@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-11 16:14:16
+ * @LastEditTime: 2023-01-20 22:41:12
  * @FilePath: \big-screen\src\pages\overviewOfPark.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -142,7 +142,7 @@ const showMap = (): void => {
 
 <template>
   <div hPE-100 wPE-100 flex flex-row-between>
-    <div wPE-25 hPE-100>
+    <div wPE-25 hPE-100 po-r z-10>
       <div class="top10" wPE-100 hPE-61>
         <industry-ranking :industry-ranking-prop="industryRankingData" />
       </div>
@@ -154,7 +154,7 @@ const showMap = (): void => {
       <pandect-map v-if="mapFlag" ref="pandectMapRef" icon-position="left" :area-data="areaData" @show-park-image="showParkImage" @get-page-data="getYqzl" />
       <park-map v-else ref="parkMapRef" :park-name="parkName" @show-map="showMap" />
     </div>
-    <div class="pandect-right" wPE-28 hPE-94>
+    <div class="pandect-right" wPE-28 hPE-94 po-r z-10>
       <construction-progress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />
     </div>
   </div>

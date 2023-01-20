@@ -2,13 +2,13 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 18:50:54
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-13 17:41:31
+ * @LastEditTime: 2023-01-20 21:37:23
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description: 首页
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
-import type { InterfaceModel } from '~/model'
+import type { INDUSTRIAL_PROJECTS_PROP_MODEL, InterfaceModel } from '~/model'
 
 /**
  * @description: 用户信息
@@ -31,6 +31,11 @@ const electricityUsageData = ref([])
 const economicalOperationData = ref<InterfaceModel[]>([])
 
 /**
+ * @description: 工业项目月数据趋势
+ */
+const industrialProjectsData = ref<INDUSTRIAL_PROJECTS_PROP_MODEL>({ industrialProjectsData: [], gdpData: [] })
+
+/**
  * @description: 获取经济运行总览数据
  * @param {*} val
  * @return {*}
@@ -40,8 +45,10 @@ const getHomeData = async (val) => {
   const usercode = userInfo.userCode
   const sign = hexMD5(submitid + userInfo.userCode + userInfo.token)
   // 获取经济运行总览数据
-  const qyhxRes: any = await qyhx({ submitid, usercode, sign })
-  economicalOperationData.value = qyhxRes?.filter(e => e?.['位置'] === '经济运行总览')
+  // const qyhxRes: any = await qyhx({ submitid, usercode, sign })
+  // economicalOperationData.value = qyhxRes?.filter(e => e?.['位置'] === '经济运行总览')
+  // // 园区工业用电情况（单位：万度）
+  // electricityUsageData.value = qyhxRes?.filter(e => e?.['位置'] === '企业工业用电').map(e => e['值1'])
   // 获取各产业主营业务收入占比数据
   const incomeRes: any = await yqzl({ submitid, usercode, sign, address: val })
   const incomeTemp = incomeRes?.filter(e => e['位置'] === '各产业主营业务收入占比')
@@ -58,6 +65,11 @@ const getHomeData = async (val) => {
     }
   })
   incomeData.value = incomeDataTemp
+  // 工业项目月数据趋势
+  const yqjkRes: any = await mjcz({ submitid, usercode, sign, type: '工业项目' })
+  const yqjkTemp = yqjkRes?.filter(e => e?.['位置'] === '工业项目月数据趋势')
+  industrialProjectsData.value.industrialProjectsData = yqjkTemp?.find(e => e.数据 === '园区税收')?.数值1.split('，')
+  industrialProjectsData.value.gdpData = yqjkTemp?.find(e => e.数据 === '园区GDP')?.数值1.split('，')
 }
 
 getHomeData(userInfo.city)
@@ -78,9 +90,12 @@ getHomeData(userInfo.city)
     <div h-100 w-30 flex-column-between>
       <div class="modules-box" flex-column-start w-100 h-48>
         <span flex-row-center>园区工业用电情况（单位：万度） </span>
-        <home-electricity-usage-box />
+        <the-home-electricity-usage :home-electricity-usage-prop="electricityUsageData" />
       </div>
-      <div w-100 h-48 bg="#ffd32a" />
+      <div class="modules-box" w-100 h-48 flex-column-start>
+        <span flex-row-center>工业项目月数据趋势</span>
+        <the-industrial-projects :industrial-projects-prop="industrialProjectsData" />
+      </div>
     </div>
   </div>
 </template>

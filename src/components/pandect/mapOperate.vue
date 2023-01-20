@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-10 16:28:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-11 14:32:46
+ * @LastEditTime: 2023-01-20 23:07:51
  * @FilePath: \big-screen\src\components\pandect\mapOperate.vue
  * @Description: 地图操作组件
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,7 +11,8 @@
 import magnify from '~/assets/image/pandect/magnify.png'
 import shrink from '~/assets/image/pandect/shrink.png'
 import fanhui from '~/assets/image/common/navBg/fanhui.png'
-const propObj = withDefaults(defineProps<{ iconPosition: string; contentType: string }>(), { iconPosition: 'left', contentType: 'map' })
+const propObj = withDefaults(defineProps<{ iconPosition: string; contentType: string; margin: number | string; bottom: number | string }>(),
+  { iconPosition: 'left', contentType: 'map', margin: '5%', bottom: '50px' })
 
 const emit = defineEmits(['goLast', 'magnifyMap', 'shrinkMap'])
 
@@ -73,8 +74,9 @@ const goShrinkMapEnd = () => {
 
 <template>
   <div
-    class="map-operate-box" :style="propObj.iconPosition === 'left' ? { left: '5%' } : { right: '5%' }" po-a pob-50
-    z-50 flex-column-start
+    class="map-operate-box"
+    :style="propObj.iconPosition === 'left' ? { left: propObj.margin, bottom: propObj.bottom } : { right: propObj.margin, bottom: propObj.bottom }"
+    po-a z-50 flex-column-start
   >
     <el-image
       v-if="propObj.contentType === 'map'" class="operate-icon" :src="magnify" fit="fill"

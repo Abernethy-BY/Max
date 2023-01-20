@@ -38,7 +38,6 @@ declare module '@vue/runtime-core' {
     EnterInformation: typeof import('./components/login/enterInformation.vue')['default']
     EnterpriseAssociationMap: typeof import('./components/corporatePortrait/enterpriseAssociationMap.vue')['default']
     EnterpriseEnterInformation: typeof import('./components/enterInformationComponents/enterpriseEnterInformation.vue')['default']
-    EnterpriseMap: typeof import('./components/enterprise/enterpriseMap.vue')['default']
     EnterpriseProducts: typeof import('./components/corporatePortrait/enterpriseProducts.vue')['default']
     EnterpriseProgress: typeof import('./components/enterprise/enterpriseProgress.vue')['default']
     EnterpriseRiskCom: typeof import('./components/publicOpinionMonitoring/enterpriseRiskCom.vue')['default']
@@ -54,7 +53,6 @@ declare module '@vue/runtime-core' {
     'OverviewPage copy': typeof import('./components/corporatePortrait/overviewPage copy.vue')['default']
     OverviewPageDialog: typeof import('./components/corporatePortrait/overviewPageDialog.vue')['default']
     PandectMap: typeof import('./components/pandect/pandectMap.vue')['default']
-    PandectMapCopy: typeof import('./components/pandect/pandectMapCopy.vue')['default']
     ParkAdministratorEnterInformation: typeof import('./components/enterInformationComponents/parkAdministratorEnterInformation.vue')['default']
     ParkCommissionerEnterInformation: typeof import('./components/enterInformationComponents/parkCommissionerEnterInformation.vue')['default']
     ParkMap: typeof import('./components/pandect/parkMap.vue')['default']
@@ -65,7 +63,6 @@ declare module '@vue/runtime-core' {
     RiskIndex: typeof import('./components/corporatePortrait/riskIndex.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    RunOIverview: typeof import('./components/home/runOIverview.vue')['default']
     RunOverview: typeof import('./components/home/runOverview.vue')['default']
     ScanLogin: typeof import('./components/login/scanLogin.vue')['default']
     SignUp: typeof import('./components/login/signUp.vue')['default']
@@ -75,7 +72,7 @@ declare module '@vue/runtime-core' {
     TheBar: typeof import('./components/common/TheBar.vue')['default']
     TheHeader: typeof import('./components/common/TheHeader.vue')['default']
     TheHomeElectricityUsage: typeof import('./components/home/theHomeElectricityUsage.vue')['default']
+    TheIndustrialProjects: typeof import('./components/home/theIndustrialProjects.vue')['default']
     ThePie: typeof import('./components/common/ThePie.vue')['default']
-    ThePie3D: typeof import('./components/common/ThePie3D.vue')['default']
   }
 }
