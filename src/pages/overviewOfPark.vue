@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-20 22:41:12
+ * @LastEditTime: 2023-01-30 19:35:08
  * @FilePath: \big-screen\src\pages\overviewOfPark.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -138,6 +138,14 @@ const showMap = (): void => {
     pandectMapRef.value?.protractMap()
   })
 }
+
+/**
+ * @description: 模块隐藏方法
+ * @return {void}
+ */
+const modulesHideFun = (): void => {
+
+}
 </script>
 
 <template>
@@ -152,7 +160,7 @@ const showMap = (): void => {
     </div>
     <div class="pandect-center" w-45 h-100>
       <pandect-map v-if="mapFlag" ref="pandectMapRef" icon-position="left" :area-data="areaData" @show-park-image="showParkImage" @get-page-data="getYqzl" />
-      <park-map v-else ref="parkMapRef" :park-name="parkName" @show-map="showMap" />
+      <park-map v-else ref="parkMapRef" :park-name="parkName" @modules-hide="modulesHideFun" @show-map="showMap" />
     </div>
     <div class="pandect-right" wPE-28 hPE-94 po-r z-10>
       <construction-progress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />

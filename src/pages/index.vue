@@ -2,12 +2,13 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 18:50:54
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-20 21:37:23
+ * @LastEditTime: 2023-01-30 13:48:44
  * @FilePath: \big-screen\src\pages\index.vue
  * @Description: 首页
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
+import type { HTMLAttributes } from 'vue'
 import type { INDUSTRIAL_PROJECTS_PROP_MODEL, InterfaceModel } from '~/model'
 
 /**
@@ -45,10 +46,10 @@ const getHomeData = async (val) => {
   const usercode = userInfo.userCode
   const sign = hexMD5(submitid + userInfo.userCode + userInfo.token)
   // 获取经济运行总览数据
-  // const qyhxRes: any = await qyhx({ submitid, usercode, sign })
-  // economicalOperationData.value = qyhxRes?.filter(e => e?.['位置'] === '经济运行总览')
+  const qyhxRes: any = await qyhx({ submitid, usercode, sign })
+  economicalOperationData.value = qyhxRes?.filter(e => e?.['位置'] === '经济运行总览')
   // // 园区工业用电情况（单位：万度）
-  // electricityUsageData.value = qyhxRes?.filter(e => e?.['位置'] === '企业工业用电').map(e => e['值1'])
+  electricityUsageData.value = qyhxRes?.filter(e => e?.['位置'] === '企业工业用电').map(e => e['值1'])
   // 获取各产业主营业务收入占比数据
   const incomeRes: any = await yqzl({ submitid, usercode, sign, address: val })
   const incomeTemp = incomeRes?.filter(e => e['位置'] === '各产业主营业务收入占比')
@@ -73,10 +74,20 @@ const getHomeData = async (val) => {
 }
 
 getHomeData(userInfo.city)
+
+/**
+ * @description: home元素节点
+ */
+const homeRef = ref<HTMLAttributes>()
+onMounted(() => {
+  setTimeout(() => {
+    anime({ targets: homeRef.value, round: 10, duration: 5000, opacity: 0 })
+  }, 1000 * 15)
+})
 </script>
 
 <template>
-  <div class="Home-box" wPE-100 hPE-100 po-r flex-row-between>
+  <div ref="homeRef" class="Home-box" wPE-100 hPE-100 po-r flex-row-between>
     <div h-100 w-30 flex-column-between>
       <div w-100 h-48 class="in-come-box modules-box" flex-column-start>
         <span flex-row-center>各产业主营业务收入占比 </span>
