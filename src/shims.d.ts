@@ -1,7 +1,7 @@
 /*
  * @Author: By
  * @Date: 2022-08-13 11:12:28
- * @LastEditTime: 2022-12-05 17:47:52
+ * @LastEditTime: 2023-01-31 15:10:28
  * @LastEditors: BY by15242952083@outlook.com
  * @Description: 
  * @FilePath: \big-screen\src\shims.d.ts
@@ -51,5 +51,4 @@ declare module 'WxLogin' {
 }
 
 declare let AMapUI: any
-
 

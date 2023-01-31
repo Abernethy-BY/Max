@@ -34,10 +34,10 @@ https.httpClient.interceptors.response.use((res) => {
     return Promise.reject(new Error('已发送短信，如要重发短信，请稍等'))
   }
   else if (Number(data.state) && Number(data.state) === 3) {
+    ElMessage({ message: data.message, type: 'error' })
     userInfo.token = ''
     userInfo.userCode = ''
     userInfo.userRole = ''
-    ElMessage({ message: data.message, type: 'error' })
     return Promise.reject(data.message)
   }
   else if (Number(data.state) && (!succeedCodeList.includes(Number(data.state)))) {

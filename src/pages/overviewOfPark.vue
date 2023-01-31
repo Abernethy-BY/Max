@@ -2,14 +2,14 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-30 19:35:08
+ * @LastEditTime: 2023-01-31 15:27:12
  * @FilePath: \big-screen\src\pages\overviewOfPark.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
-import type { DefineComponent } from 'vue'
+import type { DefineComponent, HTMLAttributes } from 'vue'
 import type { REAR_DATA_MODEL } from '~/model'
 
 const user = useUserStore()
@@ -111,6 +111,16 @@ const parkMapRef = ref<DefineComponent>()
 const parkName = ref<string>('')
 
 /**
+ * @description: 左侧图表节点
+ */
+const pandectLeftRef = ref<HTMLAttributes>()
+
+/**
+ * @description: 右侧图表节点
+ */
+const pandectRightRef = ref<HTMLAttributes>()
+
+/**
  * @description: 关闭地图，显示园区图片
  * @param {string} name 园区名称
  * @return {void}
@@ -120,6 +130,7 @@ const showParkImage = (name: string): void => {
   parkName.value = name
   nextTick(() => {
     parkMapRef.value?.getParkImage()
+    anime({ targets: [pandectLeftRef.value, pandectRightRef.value], round: 10, duration: 5000, opacity: 0 })
   })
 }
 /**
@@ -136,21 +147,14 @@ const showMap = (): void => {
 
   nextTick(() => {
     pandectMapRef.value?.protractMap()
+    anime({ targets: [pandectLeftRef.value, pandectRightRef.value], round: 10, duration: 5000, opacity: 1 })
   })
-}
-
-/**
- * @description: 模块隐藏方法
- * @return {void}
- */
-const modulesHideFun = (): void => {
-
 }
 </script>
 
 <template>
   <div hPE-100 wPE-100 flex flex-row-between>
-    <div wPE-25 hPE-100 po-r z-10>
+    <div ref="pandectLeftRef" wPE-25 hPE-100 po-r z-10>
       <div class="top10" wPE-100 hPE-61>
         <industry-ranking :industry-ranking-prop="industryRankingData" />
       </div>
@@ -159,10 +163,13 @@ const modulesHideFun = (): void => {
       </div>
     </div>
     <div class="pandect-center" w-45 h-100>
-      <pandect-map v-if="mapFlag" ref="pandectMapRef" icon-position="left" :area-data="areaData" @show-park-image="showParkImage" @get-page-data="getYqzl" />
-      <park-map v-else ref="parkMapRef" :park-name="parkName" @modules-hide="modulesHideFun" @show-map="showMap" />
+      <pandect-map
+        v-if="mapFlag" ref="pandectMapRef" icon-position="left" :area-data="areaData"
+        @show-park-image="showParkImage" @get-page-data="getYqzl"
+      />
+      <park-map v-else ref="parkMapRef" :park-name="parkName" @show-map="showMap" />
     </div>
-    <div class="pandect-right" wPE-28 hPE-94 po-r z-10>
+    <div ref="pandectRightRef" class="pandect-right" wPE-28 hPE-94 po-r z-10>
       <construction-progress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />
     </div>
   </div>

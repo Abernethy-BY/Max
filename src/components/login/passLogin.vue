@@ -152,14 +152,14 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
   <div wPE-100 hPE-100 class="login-form-content-box">
     <el-form ref="ruleFormRef" :rules="rules" class="login-form-content" :model="loginForm" ml-53 mr-56>
       <el-form-item mt-48 prop="userName">
-        <el-input v-model.trim="loginForm.userName" class="login-input" placeholder="请输入用户名">
+        <el-input v-model.trim="loginForm.userName" class="login-input" placeholder="请输入用户名" @keyup.enter.exact="submitForm(ruleFormRef)">
           <template #prepend>
             <el-image w-26px h-26px :src="userNameIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>
       <el-form-item mt-48 prop="passWord">
-        <el-input v-model.trim="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input">
+        <el-input v-model.trim="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input" @keyup.enter.exact="submitForm(ruleFormRef)">
           <template #prepend>
             <el-image w-26px h-26px :src="passWordIcon" fit="fill" />
           </template>

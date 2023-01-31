@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-13 17:26:25
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-19 11:29:50
+ * @LastEditTime: 2023-01-31 15:16:25
  * @FilePath: \big-screen\src\components\home\theHomeElectricityUsage.vue
  * @Description: 工业用电情况
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,6 +11,7 @@
 <script lang="ts" setup>
 import type { EChartsOption, EChartsType } from 'echarts'
 import type { InterfaceModel } from '~/model'
+import type { XAXisOption1 } from '~/model/chart'
 const propObj = withDefaults(defineProps<{ homeElectricityUsageProp: InterfaceModel[] }>(), { homeElectricityUsageProp: () => [] })
 
 /**
@@ -27,17 +28,24 @@ let homeElectricityUsageChart: EChartsType | null = null
  * @description: 图表配置
  */
 const option: EChartsOption = {
+  legend: {
+    show: true,
+    top: '5%',
+    left: 'center',
+    itemGap: 50,
+    textStyle: { color: '#E6E6E6' },
+  },
   grid: {
     left: '5%',
     right: '7%',
     bottom: '10%',
     containLabel: true,
   },
-  color: ['#60C1FF', '#FFC554', '#FF5F5F'],
+  color: ['#FF5F5F', '#FFC554', '#60C1FF'],
   xAxis: {
     type: 'category',
     boundaryGap: false,
-    data: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+    data: [],
     axisLabel: { color: '#FFFFFF', fontFamily: 'Source Han Sans CN', fontWeight: 400, fontSize: 14, margin: 13 },
   },
   yAxis: {
@@ -47,14 +55,18 @@ const option: EChartsOption = {
     splitLine: { lineStyle: { color: 'rgba(255,255,255,.4)' } },
   },
   series: [
-    { type: 'line', data: [] },
-    { type: 'line', data: [] },
-    { type: 'line', data: [] },
+    { type: 'line', name: '本月', data: [] },
+    { type: 'line', name: '去年同月', data: [] },
+    { type: 'line', name: '增长率', data: [] },
   ],
 }
 
 watch(() => propObj.homeElectricityUsageProp, () => {
-  option.series && (option.series[0].data = propObj.homeElectricityUsageProp)
+  option.xAxis && ((option.xAxis as XAXisOption1).data = propObj.homeElectricityUsageProp.map(e => e.数据))
+  option.series && (option.series[0].data = propObj.homeElectricityUsageProp.map(e => e.数值1))
+  option.series && (option.series[1].data = propObj.homeElectricityUsageProp.map(e => e.数值2))
+  option.series && (option.series[2].data = propObj.homeElectricityUsageProp.map(e => e.图标))
+
   if (homeElectricityUsageBox.value && !homeElectricityUsageChart) {
     homeElectricityUsageChart = eCharts.init(homeElectricityUsageBox.value)
     window.addEventListener('resize', () => homeElectricityUsageChart?.resize())

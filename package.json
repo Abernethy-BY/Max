@@ -24,6 +24,7 @@
     "eslint": "^8.31.0",
     "eslint-plugin-cypress": "^2.12.1",
     "js-md5": "^0.7.3",
+    "mitt": "^3.0.0",
     "nprogress": "^0.2.0",
     "pinia": "^2.0.28",
     "pinia-plugin-persist": "^1.0.0",

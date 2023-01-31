@@ -54,6 +54,7 @@ declare global {
   const eCharts: typeof import('echarts')
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
+  const emitter: typeof import('./utils/transactionBus')['emitter']
   const extendRef: typeof import('@vueuse/core')['extendRef']
   const formVerify: typeof import('./utils/verify')['formVerify']
   const formatDate: typeof import('./utils/utils')['formatDate']
@@ -109,6 +110,7 @@ declare global {
   const markRaw: typeof import('vue')['markRaw']
   const md5: typeof import('js-md5')['default']
   const menuStore: typeof import('./store/menu')['menuStore']
+  const mitt: typeof import('mitt')['default']
   const mjcz: typeof import('./api/api')['mjcz']
   const nextTick: typeof import('vue')['nextTick']
   const nprogress: typeof import('nprogress')['default']
@@ -137,6 +139,7 @@ declare global {
   const provide: typeof import('vue')['provide']
   const put: typeof import('./utils/http')['put']
   const qyhx: typeof import('./api/api')['qyhx']
+  const randomTwoDigitsNumber: typeof import('./utils/mathUnils')['randomTwoDigitsNumber']
   const reactify: typeof import('@vueuse/core')['reactify']
   const reactifyObject: typeof import('@vueuse/core')['reactifyObject']
   const reactive: typeof import('vue')['reactive']
@@ -418,6 +421,7 @@ declare module 'vue' {
     readonly eCharts: UnwrapRef<typeof import('echarts')>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
+    readonly emitter: UnwrapRef<typeof import('./utils/transactionBus')['emitter']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly formVerify: UnwrapRef<typeof import('./utils/verify')['formVerify']>
     readonly formatDate: UnwrapRef<typeof import('./utils/utils')['formatDate']>
@@ -473,6 +477,7 @@ declare module 'vue' {
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly md5: UnwrapRef<typeof import('js-md5')['default']>
     readonly menuStore: UnwrapRef<typeof import('./store/menu')['menuStore']>
+    readonly mitt: UnwrapRef<typeof import('mitt')['default']>
     readonly mjcz: UnwrapRef<typeof import('./api/api')['mjcz']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
     readonly nprogress: UnwrapRef<typeof import('nprogress')['default']>
@@ -501,6 +506,7 @@ declare module 'vue' {
     readonly provide: UnwrapRef<typeof import('vue')['provide']>
     readonly put: UnwrapRef<typeof import('./utils/http')['put']>
     readonly qyhx: UnwrapRef<typeof import('./api/api')['qyhx']>
+    readonly randomTwoDigitsNumber: UnwrapRef<typeof import('./utils/mathUnils')['randomTwoDigitsNumber']>
     readonly reactify: UnwrapRef<typeof import('@vueuse/core')['reactify']>
     readonly reactifyObject: UnwrapRef<typeof import('@vueuse/core')['reactifyObject']>
     readonly reactive: UnwrapRef<typeof import('vue')['reactive']>

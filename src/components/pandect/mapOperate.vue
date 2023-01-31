@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-10 16:28:43
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-20 23:07:51
+ * @LastEditTime: 2023-01-31 14:23:56
  * @FilePath: \big-screen\src\components\pandect\mapOperate.vue
  * @Description: 地图操作组件
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,7 +11,7 @@
 import magnify from '~/assets/image/pandect/magnify.png'
 import shrink from '~/assets/image/pandect/shrink.png'
 import fanhui from '~/assets/image/common/navBg/fanhui.png'
-const propObj = withDefaults(defineProps<{ iconPosition: string; contentType: string; margin: number | string; bottom: number | string }>(),
+const propObj = withDefaults(defineProps<{ iconPosition: string; contentType: string; margin?: number | string; bottom?: number | string }>(),
   { iconPosition: 'left', contentType: 'map', margin: '5%', bottom: '50px' })
 
 const emit = defineEmits(['goLast', 'magnifyMap', 'shrinkMap'])

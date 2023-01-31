@@ -63,6 +63,7 @@ export default defineConfig({
         { '@amap/amap-jsapi-loader': [['default', 'AMapLoader']] },
         { 'js-md5': [['default', 'md5']] },
         { animejs: [['default', 'anime']] },
+        { mitt: [['default', 'mitt']] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: ['src/composables', 'src/store', 'src/utils', 'src/api', 'src/model', 'src/router', 'src/components'],
