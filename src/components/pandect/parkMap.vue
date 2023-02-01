@@ -2,14 +2,16 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-12-07 17:54:34
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-30 19:12:39
+ * @LastEditTime: 2023-02-01 17:57:02
  * @FilePath: \big-screen\src\components\pandect\parkMap.vue
  * @Description: 园区图片组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
 <script lang="ts" setup>
-const propObj = withDefaults(defineProps<{ parkName: string }>(), { parkName: '' })
-// import indexBg from '~/assets/image/Abernethy/aaa.jpg'
+import type { DefineComponent } from 'vue'
+import { PARK_DISPLAY_MODE_ENUM } from '~/model/parkImage'
+
+const propObj = withDefaults(defineProps<{ parkName: string; parkDisplayMode: PARK_DISPLAY_MODE_ENUM }>(), { parkName: '', parkDisplayMode: PARK_DISPLAY_MODE_ENUM.fullScreen })
 const emit = defineEmits(['showMap', 'modulesHide'])
 
 /**
@@ -22,15 +24,18 @@ const userInfo = useUserStore()
  */
 const picUrl = ref<string>('')
 
+// /**
+//  * @description: 退回地图方法
+//  * @return {void}
+//  */
+// const goLast = () => {
+//   emit('showMap')
+// }
 /**
- * @description: 退回地图方法
- * @return {void}
+ * @description: 获取园区图片
+ * @return {Promise<void>}
  */
-const goLast = () => {
-  emit('showMap')
-}
-
-const getParkImage = async () => {
+const getParkImage = async (): Promise<void> => {
   try {
     const submitId = new Date().getTime()
     const param = {
@@ -51,14 +56,14 @@ const getParkImage = async () => {
 /**
  * @description: 图片节点
  */
-const imgRef = ref()
+const imgRef = ref<DefineComponent>()
 
 /**
  * @description: 图片加载失败方法
  * @return {void}
  */
 const errorFun = (): void => {
-  imgRef.value.$el.style.display = 'none'
+  imgRef.value && (imgRef.value.$el.style.display = 'none')
 }
 
 /**
@@ -66,17 +71,28 @@ const errorFun = (): void => {
  * @return {void}
  */
 const loadFun = (): void => {
-  imgRef.value.$el.style.display = 'block'
+  imgRef.value && (imgRef.value.$el.style.display = 'block')
   emit('modulesHide')
 }
 
 defineExpose({ getParkImage })
+
+/**
+ * @description: 图片定位类型
+ */
+const positionType = computed(() => propObj.parkDisplayMode === PARK_DISPLAY_MODE_ENUM.fullScreen ? 'fixed' : 'absolute')
 </script>
 
 <template>
-  <div wPE-100 hPE-94 po-f potPE-8 pol-0 z-1>
+  <div class="park-map-box" wPE-100 hPE-94 potPE-8 pol-0 z-1>
     <ElImage ref="imgRef" style="width: 100%; height: 98%" :src="picUrl" fit="cover" @error="(err) => errorFun()" @load="(e) => loadFun()" />
 
-    <map-operate icon-position="left" content-type="parkImage" margin="29%" bottom="70px" @go-last="goLast" />
+    <!-- <map-operate icon-position="left" content-type="parkImage" margin="29%" bottom="70px" @go-last="goLast" /> -->
   </div>
 </template>
+
+<style lang="scss" scoped>
+.park-map-box{
+  position:  v-bind(positionType);
+}
+</style>

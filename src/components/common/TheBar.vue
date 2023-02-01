@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 18:54:03
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-11 15:51:34
+ * @LastEditTime: 2023-02-01 16:56:42
  * @FilePath: \big-screen\src\components\common\TheBar.vue
  * @Description: 菜单组件
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -70,7 +70,7 @@ const jump = (index) => {
 
 <template>
   <!-- w-100 h-100  -->
-  <div class="the-bar-box" flex-row-center cross-axis-center mt-19 wPE-100 hPE-6>
+  <div class="the-bar-box" flex-row-center cross-axis-center mt-19 wPE-100 hPE-6 z-10>
     <div
       v-for="(item, index) in tabList" :key="index" po-r cursor-p w-210px hPE-100 mr-18 ml-18 flex cross-axis-center
       :class="menuInfo.menuIndex === index ? 'click' : ''" @click="jump(index)"

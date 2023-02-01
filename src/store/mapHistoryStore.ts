@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-10 18:02:22
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-11 14:50:21
+ * @LastEditTime: 2023-02-01 16:48:51
  * @FilePath: \big-screen\src\store\mapHistoryStore.ts
  * @Description: 地图历史堆栈
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -44,11 +44,6 @@ export const mapHistoryStore = defineStore('map', () => {
   }
 
   return { mapHistory, addMapData, popMapData }
-}, {
-  persist: {
-    enabled: true,
-    strategies: [{ key: 'map', storage: sessionStorage }],
-  },
 })
 if (import.meta.hot)
   import.meta.hot.accept(acceptHMRUpdate(mapHistoryStore, import.meta.hot))
