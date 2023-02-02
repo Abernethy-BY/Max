@@ -57,6 +57,7 @@ export default defineConfig({
 
     ['flex', { display: 'flex' }],
     ['flex-row-between', { 'display': 'flex', 'justify-content': 'space-between' }],
+    ['flex-row-around', { 'display': 'flex', 'justify-content': 'space-around' }],
     ['flex-row-center', { 'display': 'flex', 'justify-content': 'center' }],
     ['flex-row-end', { 'display': 'flex', 'justify-content': 'flex-end' }],
     ['flex-column-start', { 'display': 'flex', 'flex-direction': 'column' }],
@@ -67,6 +68,8 @@ export default defineConfig({
     ['cross-axis-stretch', { 'align-items': 'stretch' }],
     ['cross-axis-center', { 'align-items': 'center' }],
     ['cross-axis-end', { 'align-items': 'flex-end' }],
+    ['cross-axis-start', { 'align-items': 'flex-start' }],
+    ['cross-axis-between', { 'align-items': 'space-between' }],
     ['elastic-longitudinal-axis-start', { 'align-content': 'flex-start' }],
     ['elastic-longitudinal-axis-end', { 'align-content': 'flex-end' }],
     ['elastic-longitudinal-axis-center', { 'align-content': 'center' }],

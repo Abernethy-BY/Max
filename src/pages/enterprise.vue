@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-09 23:30:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-01 17:56:49
+ * @LastEditTime: 2023-02-02 09:57:53
  * @FilePath: \big-screen\src\pages\enterprise.vue
  * @Description:产业图鉴
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -15,25 +15,6 @@ import { PARK_DISPLAY_MODE_ENUM } from '~/model/parkImage'
 
 const subItemizationData = ref<InterfaceModel[]>([])
 const enterpriseProgressData = ref<InterfaceModel[]>([])
-// const coordinateData = ref<InterfaceModel>()
-
-// const getData = async (val = '湖南省') => {
-//   const submitId = new Date().getTime()
-//   const param = {
-//     submitid: submitId,
-//     usercode: userInfo.userCode,
-//     sign: hexMD5(submitId + userInfo.userCode + userInfo.token),
-//     address: val,
-//   }
-//   const res: any = await cytj(param)
-//   subItemizationData.value = res?.filter(e => e?.['位置'] === '下面')
-//   enterpriseProgressData.value = res?.filter(e => e?.['位置'] === '右上')
-//   coordinateData.value = res?.find(e => e?.['位置'] === '左上')
-// }
-// // getData()
-// setInterval(() => {
-//   getData()
-// }, 1000 * 60 * 30)
 
 /**
  * @description: 区域信息
@@ -157,7 +138,7 @@ const displayMode = ref<PARK_DISPLAY_MODE_ENUM>(PARK_DISPLAY_MODE_ENUM.halfScree
       </div>
     </div>
     <div po-r z-10 flex-shrink-0 flex-basis-0 flex-basis-PE-28>
-      <subItemization :sub-itemization-prop="subItemizationData" />
+      <sub-itemization :sub-itemization-prop="subItemizationData" />
     </div>
   </div>
 </template>

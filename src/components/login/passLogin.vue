@@ -2,7 +2,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
-const findPass = defineEmits(['openFindPass'])
+// const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
 const menu = menuStore()
 const router = useRouter()
@@ -30,7 +30,7 @@ const loginForm = ref({ userName: '', passWord: '' })
  * @return {*}
  */
 const openForgotPass = () => {
-  findPass('openFindPass')
+  emitter.emit('openForgetPass')
 }
 
 /**
@@ -134,7 +134,7 @@ const userSignType = ref<string>('')
  * @return {*}
  */
 const openEnterInformationFun = () => {
-  enterInformationRef.value.openDialog()
+  enterInformationRef.value.openPop()
 }
 
 /**
@@ -146,6 +146,10 @@ const closeFunMap = new Map().set('LOGIN', loginSuccessfulCloseFun).set('NOT_ENT
  * @description: 弹窗关闭回调
  */
 const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
+
+// onMounted(() => {
+//   enterInformationRef.value.openPop()
+// })
 </script>
 
 <template>
@@ -179,6 +183,10 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
     </el-form>
 
     <operate-dialog ref="operateDialogRef" :type="dialogType" :close="dialogCloseFun" />
+    <!-- <div class="enter-information" wPE-100 hPE-100 po-f pot-0 pol-0 flex-row-center cross-axis-center>
+      <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
+    </div> -->
+
     <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
   </div>
 </template>
@@ -198,6 +206,10 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
       }
 
     }
+  }
+
+  .enter-information{
+    pointer-events: none;
   }
 }
 </style>

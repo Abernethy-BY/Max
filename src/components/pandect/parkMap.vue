@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-12-07 17:54:34
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-01 17:57:02
+ * @LastEditTime: 2023-02-02 09:56:43
  * @FilePath: \big-screen\src\components\pandect\parkMap.vue
  * @Description: 园区图片组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -81,18 +81,30 @@ defineExpose({ getParkImage })
  * @description: 图片定位类型
  */
 const positionType = computed(() => propObj.parkDisplayMode === PARK_DISPLAY_MODE_ENUM.fullScreen ? 'fixed' : 'absolute')
+
+/**
+ * @description: 图片定位高度
+ */
+const positionHeight = computed(() => propObj.parkDisplayMode === PARK_DISPLAY_MODE_ENUM.fullScreen ? '8%' : '0%')
 </script>
 
 <template>
-  <div class="park-map-box" wPE-100 hPE-94 potPE-8 pol-0 z-1>
-    <ElImage ref="imgRef" style="width: 100%; height: 98%" :src="picUrl" fit="cover" @error="(err) => errorFun()" @load="(e) => loadFun()" />
+  <div class="park-map-box" wPE-100 hPE-94 pol-0 z-1>
+    <ElImage
+      ref="imgRef" class="park-map" style="width: 100%; height: 98%" :src="picUrl" fit="cover" @error="(err) => errorFun()"
+      @load="(e) => loadFun()"
+    />
 
     <!-- <map-operate icon-position="left" content-type="parkImage" margin="29%" bottom="70px" @go-last="goLast" /> -->
   </div>
 </template>
 
 <style lang="scss" scoped>
-.park-map-box{
-  position:  v-bind(positionType);
+.park-map-box {
+  position: v-bind(positionType);
+  .park-map{
+    top: v-bind(positionHeight);
+  }
+
 }
 </style>

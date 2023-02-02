@@ -36,6 +36,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     EmployeeRecruitment: typeof import('./components/averageOutput/employeeRecruitment.vue')['default']
     EnterInformation: typeof import('./components/login/enterInformation.vue')['default']
+    EnterInformationCopy: typeof import('./components/login/enterInformationCopy.vue')['default']
     EnterpriseAssociationMap: typeof import('./components/corporatePortrait/enterpriseAssociationMap.vue')['default']
     EnterpriseEnterInformation: typeof import('./components/enterInformationComponents/enterpriseEnterInformation.vue')['default']
     EnterpriseProducts: typeof import('./components/corporatePortrait/enterpriseProducts.vue')['default']

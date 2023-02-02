@@ -67,7 +67,7 @@ watch(() => propObj.subItemizationProp, () => {
 <template>
   <div class="subItemization" wPE-100 hPE-100 po-r flex fw elastic-longitudinal-axis-between flex-row-between>
     <div v-for="(item, index) in subItemizationList" :key="index" class="content-item" po-r wPE-13 hPE-48>
-      <el-image class="sub-itemization-image" :src="item.image" fit="fill" />
+      <el-image class="sub-itemization-image" :src="item.image" fit="contain" />
       <div hPE-100 flex flex-column-between mlPE-40 style="padding: 15px 0 18px;">
         <span ref="span" class="sub-itemization-value">
           <!-- {{ item.value }} -->
@@ -114,4 +114,3 @@ watch(() => propObj.subItemizationProp, () => {
   }
 }
 </style>
-

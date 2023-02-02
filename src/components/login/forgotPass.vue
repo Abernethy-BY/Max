@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-18 20:59:34
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 15:07:23
+ * @LastEditTime: 2023-02-02 20:37:31
  * @FilePath: \big-screen\src\components\login\forgotPass.vue
  * @Description: 忘记密码弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -129,7 +129,7 @@ const forgotPass = async (formEl: FormInstance | undefined): Promise<void> => {
 </script>
 
 <template>
-  <div class="forgot-password-content-box" po-r flex flex-column-start>
+  <div class="forgot-password-content-box" po-r flex flex-column-start wPE-100 hPE-100>
     <el-form
       ref="forgotPassDom" :rules="forgotRules" class="forgot-password-content" :model="forgotPassForm" ml-53
       mr-56 label-width="120px"
@@ -139,7 +139,7 @@ const forgotPass = async (formEl: FormInstance | undefined): Promise<void> => {
           <el-option v-for="item in userTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </el-form-item>
-      <el-form-item mt-34 prop="tel" label="手机号码">
+      <el-form-item mt-0 prop="tel" label="手机号码">
         <el-input v-model="forgotPassForm.tel" class="login-input" placeholder="请输入手机号码" @input="telInputFun" />
       </el-form-item>
       <el-form-item mt-34 prop="pass" label="登录密码">
@@ -156,12 +156,13 @@ const forgotPass = async (formEl: FormInstance | undefined): Promise<void> => {
           {{ captchaButtonSpan }}
         </el-button>
       </div>
-
-      <footer mt-36 h-64 flex cross-axis-center flex-row-center fx-0 position-relative>
+      <el-form-item class="button-box" mt-34>
         <el-button class="footer-button" @click="forgotPass(forgotPassDom)">
           确认
         </el-button>
-      </footer>
+      </el-form-item>
+
+      <!-- <footer mt-36 h-64 flex cross-axis-center flex-row-center fx-0 flex-grow-0 position-relative /> -->
     </el-form>
   </div>
 </template>
@@ -170,6 +171,7 @@ const forgotPass = async (formEl: FormInstance | undefined): Promise<void> => {
 .forgot-password-content-box {
 
   :deep(.forgot-password-content) {
+    height: 100%;
     .el-form-item {
       align-items: center;
 
@@ -247,6 +249,12 @@ const forgotPass = async (formEl: FormInstance | undefined): Promise<void> => {
         font-weight: 400;
         color: #02389B;
         line-height: 25px;
+      }
+    }
+
+    .button-box {
+      .el-form-item__content {
+        margin-left: 0px !important;
       }
     }
   }
