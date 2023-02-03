@@ -13,8 +13,12 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const ElMessage: typeof import('element-plus/es')['ElMessage']
   const HttpClient: typeof import('axios-mapper')['default']
+  const LOGIN_ERROR_ENUM: typeof import('./model/login')['LOGIN_ERROR_ENUM']
+  const LOGIN_MITT_ENUM: typeof import('./model/login')['LOGIN_MITT_ENUM']
   const LOGIN_TYPE_ENUM: typeof import('./model/login')['LOGIN_TYPE_ENUM']
+  const OPERATE_DIALOG_FLAG_ENUM: typeof import('./model/login')['OPERATE_DIALOG_FLAG_ENUM']
   const PARK_DISPLAY_MODE_ENUM: typeof import('./model/parkImage')['PARK_DISPLAY_MODE_ENUM']
+  const USER_ROLE_ENUM: typeof import('./model/login')['USER_ROLE_ENUM']
   const acceptHMRUpdate: typeof import('pinia')['acceptHMRUpdate']
   const anime: typeof import('animejs')['default']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
@@ -382,8 +386,12 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly ElMessage: UnwrapRef<typeof import('element-plus/es')['ElMessage']>
     readonly HttpClient: UnwrapRef<typeof import('axios-mapper')['default']>
+    readonly LOGIN_ERROR_ENUM: UnwrapRef<typeof import('./model/login')['LOGIN_ERROR_ENUM']>
+    readonly LOGIN_MITT_ENUM: UnwrapRef<typeof import('./model/login')['LOGIN_MITT_ENUM']>
     readonly LOGIN_TYPE_ENUM: UnwrapRef<typeof import('./model/login')['LOGIN_TYPE_ENUM']>
+    readonly OPERATE_DIALOG_FLAG_ENUM: UnwrapRef<typeof import('./model/login')['OPERATE_DIALOG_FLAG_ENUM']>
     readonly PARK_DISPLAY_MODE_ENUM: UnwrapRef<typeof import('./model/parkImage')['PARK_DISPLAY_MODE_ENUM']>
+    readonly USER_ROLE_ENUM: UnwrapRef<typeof import('./model/login')['USER_ROLE_ENUM']>
     readonly acceptHMRUpdate: UnwrapRef<typeof import('pinia')['acceptHMRUpdate']>
     readonly anime: UnwrapRef<typeof import('animejs')['default']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>

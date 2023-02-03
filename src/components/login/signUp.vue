@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 15:13:04
+ * @LastEditTime: 2023-02-03 15:53:51
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -12,7 +12,6 @@ import type { FormInstance, FormRules } from 'element-plus'
 import type { SELECT_OPTION_MODEL, USER_FORM_MODEL } from '~/model'
 
 const propObj = withDefaults(defineProps<{ agreementFlag: boolean }>(), { agreementFlag: false })
-const emit = defineEmits(['openEnterInformation', 'errorAgreement', 'parameterPassing'])
 /**
  * @description: 注册表单检验规则
  */
@@ -64,7 +63,7 @@ const signUp = async (formEl: FormInstance | undefined): Promise<void> => {
     if (valid) {
       try {
         if (!propObj.agreementFlag) {
-          emit('errorAgreement')
+          emitter.emit(LOGIN_MITT_ENUM.userAgreementError)
           return
         }
         const submitId = new Date().getTime()
@@ -79,7 +78,10 @@ const signUp = async (formEl: FormInstance | undefined): Promise<void> => {
 
         const zcyhFun = async () => {
           await zcyh(param)
-          emit('openEnterInformation', signUpForm.value.tel, signUpForm.value.userType)
+          emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, {
+            type: OPERATE_DIALOG_FLAG_ENUM.SIGN_UP,
+            closeCallBack: () => emitter.emit(LOGIN_MITT_ENUM.openEnterInformation, { userType: signUpForm.value.userType, tel: signUpForm.value.tel }),
+          })
         }
         debounce(zcyhFun, 500, false, [])
       }
@@ -161,7 +163,7 @@ const signUpCode = async (): Promise<void> => {
       ref="signUpPassRef" :rules="signUpRules" class="forgot-password-content" :model="signUpForm" ml-53 mr-56
       label-width="120px"
     >
-      <el-form-item class="user-type-item" mt-34 prop="userType" label="用户类型">
+      <el-form-item class="user-type-item" mt-0 prop="userType" label="用户类型">
         <el-select v-model="signUpForm.userType" class="login-input" popper-class="role-popper" placeholder="请选择用户类型">
           <el-option v-for="item in userTypeOptions" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>

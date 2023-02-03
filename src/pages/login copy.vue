@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-02 19:37:34
+ * @LastEditTime: 2023-02-03 17:54:37
  * @FilePath: \big-screen\src\pages\login copy.vue
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -244,10 +244,7 @@ const scanGoAuditFailed = (openId): void => {
 
       <!-- 立即注册 -->
       <div v-else-if="loginFlag === 'SIGN_UP'" wPE-100 hPE-100>
-        <sign-up
-          :agreement-flag="agreementFlag" @open-enter-information="openEnterInformation"
-          @error-agreement="errorAgreementFun"
-        />
+        <sign-up :agreement-flag="agreementFlag" @open-enter-information="openEnterInformation" @error-agreement="errorAgreementFun" />
       </div>
 
       <!-- 短信登录 -->

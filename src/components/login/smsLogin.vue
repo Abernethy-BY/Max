@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-22 21:08:12
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-06 15:08:54
+ * @LastEditTime: 2023-02-03 17:53:16
  * @FilePath: \big-screen\src\components\login\smsLogin.vue
  * @Description: 验证码登录方法
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,6 +11,8 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import phoneInputIcon from '~/assets/image/login/phoneInputIcon.png'
 const userInfo = useUserStore()
+const menu = menuStore()
+const router = useRouter()
 
 /**
  * @description:验证码登录表单验证规则
@@ -44,6 +46,16 @@ const phoneInputFun = (e: string): void => {
 }
 
 /**
+ * @description: 获取验证码按钮文字
+ */
+let captchaButtonSpan = $ref<string>('发送验证码')
+
+/**
+ * @description: 验证码按钮禁用标识
+ */
+let captchaButtonDisabledFlag = $ref<boolean>(false)
+
+/**
  * @description: 获取短信验证码
  * @return {Promise<void>}
  */
@@ -71,8 +83,36 @@ const getVerificationCode = async (): Promise<void> => {
   }
   catch (error) {
     consola.fatal(error)
-    // ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })
   }
+  finally {
+    let timeTemp = 120
+
+    const captchaButtonDisabledTime = setInterval(() => {
+      captchaButtonSpan = `请稍后重试(${timeTemp--})`
+      captchaButtonDisabledFlag = true
+
+      if (timeTemp === 0) {
+        captchaButtonDisabledFlag = false
+        captchaButtonSpan = '发送验证码'
+        clearInterval(captchaButtonDisabledTime)
+      }
+    }, 1000)
+  }
+}
+
+/**
+ * @description: 弹窗关闭回调
+ * @return {*}
+ */
+const loginSuccessfulCloseFun = () => {
+  if (userInfo.userRole === '工信局' || userInfo.userRole === '工信厅')
+    router.push({ path: '/' })
+  else if (userInfo.userRole === '企业')
+    router.push({ path: '/corporatePortrait' })
+  else
+    router.push({ path: '/' })
+
+  menu.menuIndex = 0
 }
 
 const phoneFormRef = ref<FormInstance>()
@@ -97,12 +137,11 @@ const phoneLogin = async (formEl: FormInstance | undefined): Promise<void> => {
       }
       const res: any = await xtdl(param)
 
-      const temp = res?.[0]
-      if (res[0]) {
-        userInfo.token = temp.token
-        userInfo.userCode = temp.usercode
-        userInfo.userRole = temp.role
-      }
+      const temp = res.data[0]
+      temp && (userInfo.token = temp.token)
+      temp && (userInfo.userCode = temp.usercode)
+      temp && (userInfo.userRole = temp.role)
+      emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: OPERATE_DIALOG_FLAG_ENUM.LOGIN, closeCallBack: loginSuccessfulCloseFun })
     }
   })
 }
@@ -114,9 +153,6 @@ const phoneLogin = async (formEl: FormInstance | undefined): Promise<void> => {
       ref="phoneFormRef" :rules="phoneLoginRules" class="phone-login-form-content" :model="phoneLoginForm" ml-53
       mr-56
     >
-      <el-form-item mt-21>
-        <span fs-16 color="#05FFFF" opacity-50>验证即登录，未注册将自动创建账号</span>
-      </el-form-item>
       <el-form-item mt-34 prop="userName">
         <el-input v-model="phoneLoginForm.phoneNum" class="login-input" placeholder="请输入手机号" @input="phoneInputFun">
           <template #prepend>
@@ -126,8 +162,8 @@ const phoneLogin = async (formEl: FormInstance | undefined): Promise<void> => {
       </el-form-item>
       <el-form-item mt-48 prop="verificationCode" class="verification-code-form-item">
         <el-input v-model.trim="phoneLoginForm.verificationCode" class="login-input" placeholder="验证码" />
-        <el-button class="send-verification " @click="getVerificationCode">
-          发送验证码
+        <el-button :disabled="captchaButtonDisabledFlag" class="send-verification " @click="getVerificationCode">
+          {{ captchaButtonSpan }}
         </el-button>
       </el-form-item>
       <el-form-item mt-48>

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 19:25:26
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-31 14:08:18
+ * @LastEditTime: 2023-02-03 11:27:59
  * @FilePath: \big-screen\src\components\common\TheHeader.vue
  * @Description:
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -27,21 +27,14 @@ const weekMap = new Map().set(1, '一').set(2, '二').set(3, '三').set(4, '四'
 const nowWeek = ref(`星期${weekMap.get(getNowWeek())}`)
 
 /**
- * @description: 路由对象
- */
-const router = useRouter()
-
-/**
  * @description: 跳转登录方法
  * @return {void}
  */
 const jumpToLogin = () => {
-  const backLen = history.length - 2
   const userInfo = useUserStore()
   userInfo.userCode = ''
   userInfo.token = ''
   userInfo.userRole = ''
-  router.go(backLen - (backLen * 2))
 }
 </script>
 

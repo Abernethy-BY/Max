@@ -2,17 +2,16 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-01 16:43:55
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-02 20:35:39
+ * @LastEditTime: 2023-02-03 15:52:02
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
 -->
 <script lang="ts" setup>
-import type { VNodeRef } from 'vue'
+import type { DefineComponent, VNodeRef } from 'vue'
 import handoffIcon from '~/assets/image/login/handoffIcon.png'
 import returnIcon from '~/assets/image/login/returnIcon.png'
-import { LOGIN_TYPE_ENUM } from '~/model/login'
-import type { LOGIN_FLAG_DICTIONARY, LOGIN_FOOTER_SPAN_DICTIONARY, LOGIN_KEY } from '~/model/login'
+import type { LOGIN_FLAG_DICTIONARY, LOGIN_FOOTER_SPAN_DICTIONARY, LOGIN_KEY, OPERATE_DIALOG_MITT_MODEL, OPERATE_DIALOG_TYPE_KEY, USER_ROLE_TYPE } from '~/model/login'
 
 /**
  * @description: 登录方式标识
@@ -145,9 +144,63 @@ const openUserAgreement = (): void => {
 }
 
 /**
- * @description: 订阅忘记密码事件
+ * @description: 相应弹窗类型
  */
-emitter.on('openForgetPass', () => loginFlag = LOGIN_TYPE_ENUM.FORGOT_PASS)
+let operateDialogFlag = $ref<OPERATE_DIALOG_TYPE_KEY>('LOGIN')
+
+/**
+ * @description: 交互弹窗确认回调函数
+ */
+let userAgreementNext = $ref<Function>()
+
+/**
+ * @description: 交互弹窗关闭回调函数
+ */
+let userAgreementClose = $ref<Function>()
+
+/**
+ * @description: 订阅跳转忘记密码事件
+ */
+emitter.on(LOGIN_MITT_ENUM.openForgetPass, () => loginFlag = LOGIN_TYPE_ENUM.FORGOT_PASS)
+
+/**
+ * @description: 交互弹窗对象
+ */
+const operateDialogRef = $ref<DefineComponent>()
+/**
+ * @description: 订阅弹窗操作弹窗事件
+ */
+emitter.on(LOGIN_MITT_ENUM.openOperateDialog, ({ type, nextCallBack, closeCallBack }: OPERATE_DIALOG_MITT_MODEL<{ userType: USER_ROLE_TYPE; tel: number }>) => {
+  type && (operateDialogFlag = type)
+  nextCallBack && (userAgreementNext = nextCallBack)
+  closeCallBack && (userAgreementClose = closeCallBack)
+  operateDialogRef?.openDialog()
+})
+
+/**
+ * @description: 用户录入手机号
+ */
+const userSignTel = $ref<string>('')
+
+/**
+ * @description: 用户录入角色信息
+ */
+const userSignType = $ref<string>('')
+
+/**
+ * @description: 信息录入弹窗节点
+ */
+const enterInformationRef = $ref<DefineComponent>()
+
+/**
+ * @description: 订阅弹出信息录入弹窗
+ */
+emitter.on(LOGIN_MITT_ENUM.openEnterInformation, param => enterInformationRef?.openPop(param))
+
+/**
+ * @description: 用户协议同意警告
+ */
+emitter.on(LOGIN_MITT_ENUM.userAgreementError, () => anime({ targets: [agreementSpanRef, userAgreementRef, privacyPolicyRef], color: '#ff4757', round: 1, easing: 'linear', duration: 300 }))
 </script>
 
 <template>
@@ -169,14 +222,23 @@ emitter.on('openForgetPass', () => loginFlag = LOGIN_TYPE_ENUM.FORGOT_PASS)
         v-text="loginHeaderMarking"
       />
     </header>
+
     <main flex-1>
-      <!-- @open-find-pass="openFindPass"  -->
-      <!-- 密码登录 -->
       <pass-login v-if="loginFlag === 'PASS_LOGIN'" />
 
-      <!-- 忘记密码  @open-pass-login="openPassLogin" -->
       <forgot-pass v-else-if="loginFlag === 'FORGOT_PASS'" />
+
+      <sign-up v-else-if="loginFlag === 'SIGN_UP'" :agreement-flag="agreementFlag" />
+
+      <sms-login v-else-if="loginFlag === 'SMS_LOGIN'" />
+
+      <scan-login
+        v-if="loginFlag === 'SCAN_TO_LOG_IN'"
+        @scan-go-registered="scanGoRegistered" @scan-go-input="scanGoInput"
+        @scan-go-under-review="scanGoUnderReview" @scan-go-audit-gailed="scanGoAuditFailed"
+      />
     </main>
+
     <footer v-if="loginFooterFlag" hPE-12 ml-53 mr-56 flex flex-row-center cross-axis-center>
       <div v-if="loginFooterType" wPE="100" hPE-100 flex flex-row-between cross-axis-center>
         <span
@@ -193,6 +255,11 @@ emitter.on('openForgetPass', () => loginFlag = LOGIN_TYPE_ENUM.FORGOT_PASS)
         </span>
       </div>
     </footer>
+
+    <!-- 信息录入弹窗       @open-pass-login="openPassLogin" -->
+    <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
+
+    <operate-dialog ref="operateDialogRef" :type="operateDialogFlag" :confirm="userAgreementNext" :close="userAgreementClose" />
   </div>
 </template>
 

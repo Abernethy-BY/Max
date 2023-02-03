@@ -2,6 +2,8 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
+import type { LOGIN_ERROR_TYPE_LEY } from '~/model/login'
+import { OPERATE_DIALOG_FLAG_ENUM } from '~/model/login'
 // const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
 const menu = menuStore()
@@ -30,23 +32,55 @@ const loginForm = ref({ userName: '', passWord: '' })
  * @return {*}
  */
 const openForgotPass = () => {
-  emitter.emit('openForgetPass')
+  emitter.emit(LOGIN_MITT_ENUM.openForgetPass)
 }
 
 /**
  * @description: 弹窗节点
  */
-const operateDialogRef = ref()
+// const operateDialogRef = ref()
 
-/**
- * @description: 弹窗类型标识
- */
-const dialogType = ref<string>('')
+// /**
+//  * @description: 弹窗类型标识
+//  */
+// const dialogType = ref<string>('')
 
 /**
  * @description: 状态字典
  */
-const statusMap = new Map().set('审核中', 'UNDER_REVIEW').set('未录入资料', 'NOT_ENTERED').set('审核不通过', 'AUDIT_FAILED')
+const statusMap = new Map().set('审核中', OPERATE_DIALOG_FLAG_ENUM.UNDER_REVIEW).set('未录入资料', OPERATE_DIALOG_FLAG_ENUM.NOT_ENTERED).set('审核不通过', OPERATE_DIALOG_FLAG_ENUM.AUDIT_FAILED)
+
+/**
+ * @description: 未录入资料弹窗关闭回调方法 --- 弹出资料录入弹窗
+ * @return {*}
+ */
+const notEnteredCloseFun = () => {
+  emitter.emit(LOGIN_MITT_ENUM.openEnterInformation)
+}
+
+/**
+ * @description: 登录失败交互回调字典
+ */
+const statusCloseCallBackMap: Map<LOGIN_ERROR_TYPE_LEY, Function> = new Map()
+  .set(LOGIN_ERROR_ENUM.NOT_ENTERED, notEnteredCloseFun)
+
+/**
+ * @description: 弹窗关闭回调
+ * @return {*}
+ */
+const loginSuccessfulCloseFun = () => {
+  if (userInfo.userRole === '工信局' || userInfo.userRole === '工信厅')
+    router.push({ path: '/' })
+
+  else if (userInfo.userRole === '企业')
+
+    router.push({ path: '/corporatePortrait' })
+
+  else
+    router.push({ path: '/' })
+
+  menu.menuIndex = 0
+}
 
 /**
  * @description: 登录方法
@@ -84,16 +118,16 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         userInfo.compname = temp.compname
         userInfo.province = temp.province
 
-        dialogType.value = 'LOGIN'
-        operateDialogRef.value.openDialog()
+        emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: OPERATE_DIALOG_FLAG_ENUM.LOGIN, closeCallBack: loginSuccessfulCloseFun })
       }
       catch (error: any) {
         const errorTemp = error.message
         if (errorTemp.includes('审核不通过'))
           ElMessage({ message: error, type: 'error' })
+        emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: statusMap.get(errorTemp), closeCallBack: statusCloseCallBackMap.get(errorTemp) })
 
-        dialogType.value = statusMap.get(errorTemp) ? statusMap.get(errorTemp) : statusMap.get('审核不通过')
-        operateDialogRef.value.openDialog()
+        // dialogType.value = statusMap.get(errorTemp) ? statusMap.get(errorTemp) : statusMap.get('审核不通过')
+        // operateDialogRef.value.openDialog()
         consola.fatal(error)
       }
     }
@@ -101,51 +135,33 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 }
 
 /**
- * @description: 弹窗关闭回调
- * @return {*}
- */
-const loginSuccessfulCloseFun = () => {
-  if (userInfo.userRole === '工信局' || userInfo.userRole === '工信厅')
-    router.push({ path: '/' })
-
-  else if (userInfo.userRole === '企业')
-
-    router.push({ path: '/corporatePortrait' })
-
-  else
-    router.push({ path: '/' })
-
-  menu.menuIndex = 0
-}
-
-/**
  * @description: 录入信息弹窗节点
  */
-const enterInformationRef = ref()
+// const enterInformationRef = ref()
 
 /**
  * @description: 用户录入信息依赖
  */
-const userSignTel = ref<string>('')
-const userSignType = ref<string>('')
+// const userSignTel = ref<string>('')
+// const userSignType = ref<string>('')
 
-/**
- * @description: 未录入信息弹窗关闭回调
- * @return {*}
- */
-const openEnterInformationFun = () => {
-  enterInformationRef.value.openPop()
-}
+// /**
+//  * @description: 未录入信息弹窗关闭回调
+//  * @return {*}
+//  */
+// const openEnterInformationFun = () => {
+//   enterInformationRef.value.openPop()
+// }
 
 /**
  * @description: 弹窗关闭回调字典
  */
-const closeFunMap = new Map().set('LOGIN', loginSuccessfulCloseFun).set('NOT_ENTERED', openEnterInformationFun).set('AUDIT_FAILED', openEnterInformationFun)
+// const closeFunMap = new Map().set('LOGIN', loginSuccessfulCloseFun).set('NOT_ENTERED', openEnterInformationFun).set('AUDIT_FAILED', openEnterInformationFun)
 
-/**
- * @description: 弹窗关闭回调
- */
-const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
+// /**
+//  * @description: 弹窗关闭回调
+//  */
+// const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
 
 // onMounted(() => {
 //   enterInformationRef.value.openPop()
@@ -156,14 +172,20 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
   <div wPE-100 hPE-100 class="login-form-content-box">
     <el-form ref="ruleFormRef" :rules="rules" class="login-form-content" :model="loginForm" ml-53 mr-56>
       <el-form-item mt-48 prop="userName">
-        <el-input v-model.trim="loginForm.userName" class="login-input" placeholder="请输入用户名" @keyup.enter.exact="submitForm(ruleFormRef)">
+        <el-input
+          v-model.trim="loginForm.userName" class="login-input" placeholder="请输入用户名"
+          @keyup.enter.exact="submitForm(ruleFormRef)"
+        >
           <template #prepend>
             <el-image w-26px h-26px :src="userNameIcon" fit="fill" />
           </template>
         </el-input>
       </el-form-item>
       <el-form-item mt-48 prop="passWord">
-        <el-input v-model.trim="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input" @keyup.enter.exact="submitForm(ruleFormRef)">
+        <el-input
+          v-model.trim="loginForm.passWord" type="password" placeholder="请输入用户密码" class="login-input"
+          @keyup.enter.exact="submitForm(ruleFormRef)"
+        >
           <template #prepend>
             <el-image w-26px h-26px :src="passWordIcon" fit="fill" />
           </template>
@@ -182,12 +204,12 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
       </el-form-item>
     </el-form>
 
-    <operate-dialog ref="operateDialogRef" :type="dialogType" :close="dialogCloseFun" />
+    <!-- <operate-dialog ref="operateDialogRef" :type="dialogType" :close="dialogCloseFun" /> -->
     <!-- <div class="enter-information" wPE-100 hPE-100 po-f pot-0 pol-0 flex-row-center cross-axis-center>
       <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
     </div> -->
 
-    <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
+    <!-- <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" /> -->
   </div>
 </template>
 
@@ -208,7 +230,7 @@ const dialogCloseFun = computed(() => closeFunMap.get(dialogType.value))
     }
   }
 
-  .enter-information{
+  .enter-information {
     pointer-events: none;
   }
 }
