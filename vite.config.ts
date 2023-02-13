@@ -29,13 +29,6 @@ export default defineConfig({
     },
   },
 
-  server: {
-    host: 'localhost',
-    cors: true,
-    open: true,
-    hmr: true,
-  },
-
   plugins: [
 
     VueMacros({
@@ -64,6 +57,7 @@ export default defineConfig({
         { 'js-md5': [['default', 'md5']] },
         { animejs: [['default', 'anime']] },
         { mitt: [['default', 'mitt']] },
+        { 'flv.js': [['default', 'FlvJs']] },
       ],
       dts: 'src/auto-imports.d.ts',
       dirs: ['src/composables', 'src/store', 'src/utils', 'src/api', 'src/model', 'src/router', 'src/components'],
@@ -142,5 +136,11 @@ export default defineConfig({
     postcss: {
       plugins: [loader_pxToRem, loader_autoPreFixer],
     },
+  },
+  server: {
+
+    cors: true,
+    open: false,
+    hmr: true,
   },
 })

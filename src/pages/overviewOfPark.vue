@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-16 20:17:52
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-31 15:27:12
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-13 10:36:46
  * @FilePath: \big-screen\src\pages\overviewOfPark.vue
  * @Description:首页
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -150,6 +150,8 @@ const showMap = (): void => {
     anime({ targets: [pandectLeftRef.value, pandectRightRef.value], round: 10, duration: 5000, opacity: 1 })
   })
 }
+
+const parkDisplay = PARK_DISPLAY_MODE_ENUM.fullScreen
 </script>
 
 <template>
@@ -167,7 +169,7 @@ const showMap = (): void => {
         v-if="mapFlag" ref="pandectMapRef" icon-position="left" :area-data="areaData"
         @show-park-image="showParkImage" @get-page-data="getYqzl"
       />
-      <park-map v-else ref="parkMapRef" :park-name="parkName" @show-map="showMap" />
+      <park-map v-else ref="parkMapRef" :park-display-mode="parkDisplay" :park-name="parkName" @show-map="showMap" />
     </div>
     <div ref="pandectRightRef" class="pandect-right" wPE-28 hPE-94 po-r z-10>
       <construction-progress :construction-progress-prop="constructionProgressData" :progress-prop="progressData" />

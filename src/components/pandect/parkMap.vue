@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-12-07 17:54:34
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-02 09:56:43
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-13 10:42:29
  * @FilePath: \big-screen\src\components\pandect\parkMap.vue
  * @Description: 园区图片组件
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -102,6 +102,7 @@ const positionHeight = computed(() => propObj.parkDisplayMode === PARK_DISPLAY_M
 <style lang="scss" scoped>
 .park-map-box {
   position: v-bind(positionType);
+  top: 0;
   .park-map{
     top: v-bind(positionHeight);
   }
