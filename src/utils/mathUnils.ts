@@ -13,4 +13,4 @@
  * @param {number} digitsNumber 位数标识
  * @return {number}
  */
-export const randomTwoDigitsNumber = (digitsNumber: number): number => Math.round(Math.random() * digitsNumber)
+export const randomTwoDigitsNumber = (digitsNumber: number): number => Math.round(Math.random() * (digitsNumber * 10))

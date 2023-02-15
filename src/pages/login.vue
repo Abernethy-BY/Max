@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-01 16:43:55
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-03 15:52:02
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-15 16:22:01
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -178,16 +178,6 @@ emitter.on(LOGIN_MITT_ENUM.openOperateDialog, ({ type, nextCallBack, closeCallBa
 })
 
 /**
- * @description: 用户录入手机号
- */
-const userSignTel = $ref<string>('')
-
-/**
- * @description: 用户录入角色信息
- */
-const userSignType = $ref<string>('')
-
-/**
  * @description: 信息录入弹窗节点
  */
 const enterInformationRef = $ref<DefineComponent>()
@@ -201,6 +191,11 @@ emitter.on(LOGIN_MITT_ENUM.openEnterInformation, param => enterInformationRef?.o
  * @description: 用户协议同意警告
  */
 emitter.on(LOGIN_MITT_ENUM.userAgreementError, () => anime({ targets: [agreementSpanRef, userAgreementRef, privacyPolicyRef], color: '#ff4757', round: 1, easing: 'linear', duration: 300 }))
+
+/**
+ * @description: 扫码登录未注册事件
+ */
+emitter.on(LOGIN_MITT_ENUM.notRegistered, () => loginFlag = LOGIN_TYPE_ENUM.SIGN_UP)
 </script>
 
 <template>
@@ -232,11 +227,7 @@ emitter.on(LOGIN_MITT_ENUM.userAgreementError, () => anime({ targets: [agreement
 
       <sms-login v-else-if="loginFlag === 'SMS_LOGIN'" />
 
-      <scan-login
-        v-if="loginFlag === 'SCAN_TO_LOG_IN'"
-        @scan-go-registered="scanGoRegistered" @scan-go-input="scanGoInput"
-        @scan-go-under-review="scanGoUnderReview" @scan-go-audit-gailed="scanGoAuditFailed"
-      />
+      <scan-login v-if="loginFlag === 'SCAN_TO_LOG_IN'" />
     </main>
 
     <footer v-if="loginFooterFlag" hPE-12 ml-53 mr-56 flex flex-row-center cross-axis-center>
@@ -257,7 +248,7 @@ emitter.on(LOGIN_MITT_ENUM.userAgreementError, () => anime({ targets: [agreement
     </footer>
 
     <!-- 信息录入弹窗       @open-pass-login="openPassLogin" -->
-    <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
+    <enter-information ref="enterInformationRef" />
 
     <operate-dialog ref="operateDialogRef" :type="operateDialogFlag" :confirm="userAgreementNext" :close="userAgreementClose" />
   </div>

@@ -145,4 +145,3 @@ export function clone(target, map = new WeakMap()) {
   })
   return cloneTarget
 }
-

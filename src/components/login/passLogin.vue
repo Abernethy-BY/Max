@@ -2,7 +2,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
-import type { LOGIN_ERROR_TYPE_LEY } from '~/model/login'
+import type { LOGIN_ERROR_TYPE_LEY, USER_ROLE_TYPE } from '~/model/login'
 import { OPERATE_DIALOG_FLAG_ENUM } from '~/model/login'
 // const findPass = defineEmits(['openFindPass'])
 const userInfo = useUserStore()
@@ -36,26 +36,24 @@ const openForgotPass = () => {
 }
 
 /**
- * @description: 弹窗节点
+ * @description: 用户权限
  */
-// const operateDialogRef = ref()
-
-// /**
-//  * @description: 弹窗类型标识
-//  */
-// const dialogType = ref<string>('')
+let userRole = $ref<USER_ROLE_TYPE>('企业')
 
 /**
  * @description: 状态字典
  */
-const statusMap = new Map().set('审核中', OPERATE_DIALOG_FLAG_ENUM.UNDER_REVIEW).set('未录入资料', OPERATE_DIALOG_FLAG_ENUM.NOT_ENTERED).set('审核不通过', OPERATE_DIALOG_FLAG_ENUM.AUDIT_FAILED)
+const statusMap = new Map()
+  .set('审核中', OPERATE_DIALOG_FLAG_ENUM.UNDER_REVIEW)
+  .set('未录入资料', OPERATE_DIALOG_FLAG_ENUM.NOT_ENTERED)
+  .set('审核不通过', OPERATE_DIALOG_FLAG_ENUM.AUDIT_FAILED)
 
 /**
  * @description: 未录入资料弹窗关闭回调方法 --- 弹出资料录入弹窗
  * @return {*}
  */
 const notEnteredCloseFun = () => {
-  emitter.emit(LOGIN_MITT_ENUM.openEnterInformation)
+  emitter.emit(LOGIN_MITT_ENUM.openEnterInformation, { userSignType: userRole, userSignTel: loginForm.value.userName })
 }
 
 /**
@@ -108,8 +106,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         const stateList = ['审核中', '审核不通过', '未录入资料']
 
         const temp = res?.data[0]
-        if (stateList.includes(temp.state))
+        if (stateList.includes(temp.state)) {
+          userRole = temp.role === '' ? '企业' : temp.role
           throw new Error(temp.state)
+        }
 
         userInfo.token = temp.token
         userInfo.userCode = temp.usercode
@@ -121,7 +121,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: OPERATE_DIALOG_FLAG_ENUM.LOGIN, closeCallBack: loginSuccessfulCloseFun })
       }
       catch (error: any) {
-        const errorTemp = error.message
+        const errorTemp = error.message || ''
         if (errorTemp.includes('审核不通过'))
           ElMessage({ message: error, type: 'error' })
         emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: statusMap.get(errorTemp), closeCallBack: statusCloseCallBackMap.get(errorTemp) })

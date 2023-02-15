@@ -1,8 +1,8 @@
 /*
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-07 18:19:11
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-15 14:37:21
  * @FilePath: \big-screen\src\utils\amap.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

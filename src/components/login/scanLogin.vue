@@ -1,77 +1,76 @@
-<!--
- * @Author: BY by15242952083@outlook.com
- * @Date: 2022-11-24 19:54:24
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-14 20:06:31
- * @FilePath: \big-screen\src\components\login\scanLogin.vue
- * @Description: 扫一扫登录页面
- * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
--->
 <script lang="ts" setup>
-const emit = defineEmits(['scanGoRegistered', 'scanGoInput', 'scanGoUnderReview', 'scanGoAuditFailed'])
+import type { LOGIN_ERROR_TYPE_LEY, LOGIN_MITT_TYPE, OPERATE_DIALOG_TYPE } from '~/model/login'
+
 const userInfo = useUserStore()
+const router = useRouter()
+const menu = menuStore()
+
+/**
+ * @description: 蒙版标识
+ */
+let maskFlag = $ref<boolean>()
+
+// 定时器范围
+let intervalTimer = 20
 
 /**
  * @description: 二维码透明度
  */
-const qrOpacity = ref<number>(1)
-
-/**
- * @description: 二维码唯一标识符
- */
-const state = ref<string>()
+let qrOpacity = $ref<number>()
 
 /**
  * @description: 二维码内容
  */
-const rqValue = ref<string>('')
+let rqValue = $ref<string>('')
 
 /**
- * @description: 蒙版显示标识
+ * @description: 二维码唯一标识符
  */
-const maskFlag = ref<boolean>(false)
+let state = $ref<string>()
 
-// 未扫描方法
-const notScannedFun = () => {
-  consola.fatal('未扫描')
-}
+const errMap: Map<string, OPERATE_DIALOG_TYPE | LOGIN_MITT_TYPE> = new Map()
+  .set('未扫描', ' ')
+  .set('审核中', OPERATE_DIALOG_FLAG_ENUM.UNDER_REVIEW)
+  .set('未录入资料', OPERATE_DIALOG_FLAG_ENUM.NOT_ENTERED)
+  .set('审核不通过', OPERATE_DIALOG_FLAG_ENUM.AUDIT_FAILED)
+  .set('未注册', LOGIN_MITT_ENUM.notRegistered)
 
 /**
- * @description: 未注册方法
+ * @description: 弹窗关闭回调
  * @return {*}
  */
-const notRegisteredFun = (openId) => {
-  ElMessage({ message: '您的账号未注册,即将为您打开注册页面', type: 'error' })
-  emit('scanGoRegistered', openId)
-}
+const loginSuccessfulCloseFun = () => {
+  if (userInfo.userRole === '工信局' || userInfo.userRole === '工信厅')
+    router.push({ path: '/' })
 
-// 未录入方法
-const notEnteredFun = (openId) => {
-  ElMessage({ message: '您的账号未录入,即将为您打开录入页面', type: 'error' })
-  emit('scanGoInput', openId)
-}
+  else if (userInfo.userRole === '企业')
 
-// 审核中方法
-const underReviewFun = () => {
-  emit('scanGoUnderReview')
-}
+    router.push({ path: '/corporatePortrait' })
 
-// 审核不通过方法
-const auditFailedFun = (openId) => {
-  emit('scanGoAuditFailed', openId)
+  else
+    router.push({ path: '/' })
+
+  menu.menuIndex = 0
+}
+/**
+ * @description: 未录入资料弹窗关闭回调方法 --- 弹出资料录入弹窗
+ * @return {*}
+ */
+const notEnteredCloseFun = () => {
+  emitter.emit(LOGIN_MITT_ENUM.openEnterInformation)
 }
 
 /**
- * @description: 错误字典
+ * @description: 登录失败交互回调字典
  */
-const errMap: Map<string, Function> = new Map()
-errMap.set('未扫描', notScannedFun)
-errMap.set('未注册', notRegisteredFun)
-errMap.set('未录入资料', notEnteredFun)
-errMap.set('审核中', underReviewFun)
-errMap.set('审核不通过', auditFailedFun)
+const statusCloseCallBackMap: Map<LOGIN_ERROR_TYPE_LEY, Function> = new Map()
+  .set('未录入资料', notEnteredCloseFun)
 
-// 扫码登陆接口
+/**
+ * @description: 登录成功
+ * @param {*} user
+ * @return {*}
+ */
 const scanLogin = (user) => {
   userInfo.token = user.token
   userInfo.userCode = user.usercode
@@ -79,22 +78,17 @@ const scanLogin = (user) => {
   userInfo.city = user.city
   userInfo.compname = user.compname
   userInfo.province = user.province
+  emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: OPERATE_DIALOG_FLAG_ENUM.LOGIN, closeCallBack: loginSuccessfulCloseFun })
 }
-
-/**
- * @description:获取扫描结果定时器
- */
-let getOutcomeInterval: NodeJS.Timeout | null = null
-
 /**
  * @description: 获取扫码结果
  * @return {*}
  */
 const getOutcome = async () => {
   try {
-    const res: any = await scanloginchk({ logincode: state.value })
+    const res: any = await scanloginchk({ logincode: state })
     if (errMap.get(res.message))
-      errMap.get(res.message)?.call(this, res.data[0] ? res.data[0].openid : '')
+      emitter.emit(errMap.get(res.message)!, { type: errMap.get(res.message), closeCallBack: statusCloseCallBackMap.get(res.message) })
     else
       scanLogin(res.data[0])
   }
@@ -103,22 +97,23 @@ const getOutcome = async () => {
   }
 }
 
-// 定时器范围
-let intervalTimer = 20
-
 /**
- * @description: 获取二维码
- * @return {*}
+ * @description:获取扫描结果定时器
  */
-const getQrCoded = async () => {
+let getOutcomeInterval: NodeJS.Timeout | null = null
+/**
+ * @description: 获取二维码内容
+ * @return {Promise<void>}
+ */
+const getQrCoded = async (): Promise<void> => {
   try {
     const appId = 'wxa27b289d15efc9bf'
     const redirectUri = 'https://wx.maxrong.com/bigdata/loginwxback.aspx'
     const responseType = 'code'
     const scope = 'snsapi_base'
-    state.value = Math.random().toFixed(6).slice(-6)
+    state = Math.random().toFixed(6).slice(-6)
 
-    rqValue.value = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state.value}`
+    rqValue = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appId}&redirect_uri=${redirectUri}&response_type=${responseType}&scope=${scope}&state=${state}`
 
     getOutcome()
 
@@ -126,9 +121,9 @@ const getQrCoded = async () => {
 
     getOutcomeInterval = setInterval(() => {
       if (--intervalTimer === 0) {
-        maskFlag.value = true
+        maskFlag = true
         getOutcomeInterval && clearInterval(getOutcomeInterval)
-        qrOpacity.value = 0.1
+        qrOpacity = 0.1
       }
       getOutcome()
     }, 1000 * 5)
@@ -141,17 +136,20 @@ const getQrCoded = async () => {
 
 getQrCoded()
 
+/**
+ * @description: 二维码刷新方法
+ * @return {void}
+ */
+const flushedQR = (): void => {
+  intervalTimer = 20
+  maskFlag = false
+  qrOpacity = 1
+  getQrCoded()
+}
+
 onUnmounted(() => {
   getOutcomeInterval && clearInterval(getOutcomeInterval)
 })
-
-// 刷新二维码
-const flushedQR = () => {
-  intervalTimer = 20
-  maskFlag.value = false
-  qrOpacity.value = 1
-  getQrCoded()
-}
 </script>
 
 <template>

@@ -1,31 +1,22 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-02 10:37:02
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-02 15:17:30
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-15 16:25:18
  * @FilePath: \big-screen\src\components\login\enterInformation.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
 -->
 
 <script lang="ts" setup>
+import type { HTMLAttributes } from 'vue'
 import closeIcon from '~/assets/image/login/closeIcon.png'
 import headerBg from '~/assets/image/login/headerBg.png'
 import type { ENTER_INFORMATION_MODEL } from '~/model'
 import prompt from '~/assets/image/login/prompt.png'
+import type { USER_ROLE_TYPE } from '~/model/login'
 
-/**
- * @description: userSignTel 手机号、userSignType 用户类型
- */
-const propObj = withDefaults(defineProps<{ userSignTel: string; userSignType: string; openId?: string }>(), { userSignTel: '', userSignType: '', openId: '' })
-
-// const
-
-/**
- * @description: 角色权限字典
- */
-const userRoleDictionary: Map<string, string[]> = new Map()
-userRoleDictionary.set('企业', ['region', 'companyName', 'companyCreditCode', 'contact', 'mobileNumber', 'mailBox'])
+let userInfo = $ref<{ userSignTel: string; userSignType: USER_ROLE_TYPE }>({ userSignTel: '', userSignType: '企业' })
 /**
  * @description: 弹窗弹出显示标识
  */
@@ -43,78 +34,238 @@ const closePop = (): void => {
  * @description: 弹窗弹出方法
  * @return {void}
  */
-const openPop = (): void => {
+const openPop = (param): void => {
+  userInfo = param
   enterInformationFlag.value = true
 }
 
 /**
- * @description: 下一步方法 --- 表单校验
- * @return {void}
+ * @description: 地区提示节点
  */
-const nextFun = (): void => {
-  consola.info('下一步')
+const provinceRemarkRef = $ref<HTMLAttributes>()
+
+/**
+ * @description: 企业名称提示节点
+ */
+const unitNameRemarkRef = $ref<HTMLAttributes>()
+
+/**
+ * @description: 企业信用代码提示节点
+ */
+const creditCodeRemarkRef = $ref<HTMLAttributes>()
+
+/**
+ * @description: 联系人提示节点
+ */
+const contactRemarkRef = $ref<HTMLAttributes>()
+
+/**
+ * @description: 联系方式提示节点
+ */
+const phoneNumberRemarkRef = $ref<HTMLAttributes>()
+
+/**
+ * @description: 邮箱提示节点
+ */
+const MailboxRemarkRef = $ref<HTMLAttributes>()
+
+/**
+ * @description: 表单对象
+ */
+const enterInformationForm = $ref<ENTER_INFORMATION_MODEL>({
+  provinceArr: [],
+  unitname: '',
+  unittax: '',
+  linkman: '',
+  linkmantel: '',
+  email: '',
+})
+
+/**
+ * @description: 表单校验方法
+ * @return {Promise<void> }
+ */
+const nextFun = async (): Promise<void> => {
+  try {
+    const errorRef = [provinceRemarkRef, unitNameRemarkRef, creditCodeRemarkRef, contactRemarkRef, phoneNumberRemarkRef, MailboxRemarkRef].filter(e => e)
+    if (errorRef.length !== 0) {
+      anime({ targets: errorRef, color: '#ff4757', easing: 'linear', round: 10, duration: 300 })
+      return
+    }
+
+    consola.info(11)
+
+    const provinceTemp = enterInformationForm.provinceArr
+    let province, city, county
+    if (provinceTemp[0]) {
+      const param = { key: '79848c3f3fbd1e9321efb5408c3c4a31', keywords: provinceTemp[0], subdistrict: 0, sig: '' }
+      param.sig = md5(`key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=${provinceTemp[0]}&subdistrict=0cef67f7186b4debe1f9dd24dec1141a4`)
+      const provinceRes: any = await district(param)
+      const temp = provinceRes.districts
+      province = temp[0].name
+    }
+    if (provinceTemp[1]) {
+      const param = { key: '79848c3f3fbd1e9321efb5408c3c4a31', keywords: provinceTemp[1], subdistrict: 0, sig: '' }
+      param.sig = md5(`key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=${provinceTemp[1]}&subdistrict=0cef67f7186b4debe1f9dd24dec1141a4`)
+      const provinceRes: any = await district(param)
+      const temp = provinceRes.districts
+      city = temp[0].name
+    }
+    if (provinceTemp[2]) {
+      const param = { key: '79848c3f3fbd1e9321efb5408c3c4a31', keywords: provinceTemp[2], subdistrict: 0, sig: '' }
+      param.sig = md5(`key=79848c3f3fbd1e9321efb5408c3c4a31&keywords=${provinceTemp[2]}&subdistrict=0cef67f7186b4debe1f9dd24dec1141a4`)
+      const provinceRes: any = await district(param)
+      const temp = provinceRes.districts
+      county = temp[0].name
+    }
+    const submitid = new Date().getTime()
+    const sign = md5(`${submitid}${userInfo.userSignTel}123789`)
+
+    await userinfoinput({ ...enterInformationForm, submitid, sign, province, city, county, tel: userInfo.userSignTel })
+    ElMessage({ message: '资料录入成功，请等待审核', type: 'success' })
+
+    closePop()
+  }
+  catch (error) {
+    ElMessage({ message: error, type: 'error' })
+  }
 }
 
 /**
- * @description: 表单数据
- */
-const enterInformationForm = ref<ENTER_INFORMATION_MODEL>({ provinceArr: [], unitname: '', unittax: '', linkman: '', linkmantel: '', email: '' })
-
-/**
- * @description: 省份连级选择器数据获取方法
+ * @description: 获取省市区数据方法
+ * @return {*}
  */
 const props = {
   lazy: true,
   async lazyLoad(node, resolve) {
     const { label } = node
     try {
-      const res = await getProvinces(label, propObj.userSignType)
+      const res = await getProvinces(label, userInfo.userSignType)
       resolve(res)
     }
     catch (error) {
-      consola.fatal(error)
       ElMessage({ message: error, type: 'error' })
     }
   },
 }
 
 /**
- * @description: 区域提示信息显示标识
+ * @description: 地区选择消息标识
  */
-const provinceShowFlag = ref<boolean>(false)
+const provinceShowFlag = computed(() => !enterInformationForm.provinceArr || enterInformationForm.provinceArr.length === 0)
+
+const provinceLabelMap: Map<USER_ROLE_TYPE, string> = new Map()
+  .set('企业', '请选择省市区')
+  .set('园区专员', '请选择省市区')
+  .set('园区管理员', '请选择省市区')
+  .set('工信局', '请选择省市')
+  .set('工信厅', '请选择省')
+/**
+ * @description: 地区选择器label占位符
+ */
+const provinceLabel = computed(() => provinceLabelMap.get(userInfo.userSignType))
 
 /**
- * @description: 企业名称提示信息显示标识
+ * @description: 企业名称消息标识
  */
-const unitNameShowFlag = ref<boolean>(false)
+const unitNameShowFlag = computed(() => !enterInformationForm.unitname || enterInformationForm.unitname === '')
 
 /**
- * @description: 企业信用代码提示显示标识
+ * @description: 企业名称权限列表
  */
-const creditCodeShowFlag = ref<boolean>(false)
+const unitNameLabelMap: Map<USER_ROLE_TYPE, string> = new Map()
+  .set('企业', '企业名称')
+  .set('园区专员', '园区名称')
+  .set('园区管理员', '园区名称')
+  .set('工信局', '单位名称')
+  .set('工信厅', '单位名称')
 
 /**
- * @description: 联系人提示显示标识
+ * @description: 企业名称权限显示标识
  */
-const contactShowFlag = ref<boolean>(false)
+const unitNameLabel = computed(() => unitNameLabelMap.get(userInfo.userSignType))
 
 /**
- * @description: 手机号码提示显示标识
+ * @description: 企业名称占位符字典
  */
-const phoneNumberShowFlag = ref<boolean>(false)
+const unitNamePlaceHolderMap: Map<USER_ROLE_TYPE, string> = new Map()
+  .set('企业', '请输入工商注册的企业名称')
+  .set('园区专员', '请输入园区名称')
+  .set('园区管理员', '请输入园区名称')
+  .set('工信局', '请输入单位名称')
+  .set('工信厅', '请输入单位名称')
 
 /**
- * @description: 邮箱提示显示标识
+ * @description: 名称占位符
  */
-const mailboxShowFlag = ref<boolean>(false)
+const unitNamePlaceHolder = computed(() => unitNamePlaceHolderMap.get(userInfo.userSignType))
 
 /**
- * @description: 控制标签显示方法
- * @param {string} labelFlag 标签标识
- * @return {boolean}
+ * @description: 企业信用代码提示消息
  */
-const controlsDisplay = (labelFlag: string): boolean => (userRoleDictionary.get(propObj.userSignTel) || []).includes(labelFlag)
+const businessCreditCodeReg = /^[0-9A-HJ-NPQRTUWXY]{2}\d{6}[0-9A-HJ-NPQRTUWXY]{10}$/
 
+/**
+ * @description: 统一社会代码文本
+ */
+const creditCodeRemake = computed(() => {
+  if (!enterInformationForm.unittax || enterInformationForm.unittax === '')
+    return '请输入你的企业信用代码'
+  else if (!businessCreditCodeReg.test(enterInformationForm.unittax))
+    return '请输入正确的企业信用代码'
+  else
+    return ''
+})
+
+/**
+ * @description: 社会信用代码提示标识
+ */
+const creditCodeShowFlag = computed(() => !enterInformationForm.unittax || !businessCreditCodeReg.test(enterInformationForm.unittax))
+
+/**
+ * @description: 联系人提示标识
+ */
+const contactShowFlag = computed(() => !enterInformationForm.linkman || enterInformationForm.linkman === '')
+
+const telReg = /^[1][3,4,5,7,8][0-9]{9}$/
+/**
+ * @description: 手机号码提示标识
+ */
+const phoneNumberShowFlag = computed(() => !enterInformationForm.linkmantel || !telReg.test(enterInformationForm.linkmantel))
+
+/**
+ * @description: 手机号码提示文本
+ */
+const phoneNumberRemark = computed(() => {
+  if (!enterInformationForm.linkmantel || enterInformationForm.linkmantel === '')
+    return '请输入手机号码'
+  else if (!businessCreditCodeReg.test(enterInformationForm.linkmantel))
+    return '请输入正确的手机号码'
+  else
+    return ''
+})
+
+/**
+ * @description: 邮箱校验正则
+ */
+const emailReg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/
+
+/**
+ * @description: 邮箱提示标识
+ */
+const MailboxShowFlag = computed(() => !enterInformationForm.email || !emailReg.test(enterInformationForm.email))
+
+/**
+ * @description: 邮箱提示文本
+ */
+const MailboxRemark = computed(() => {
+  if (!enterInformationForm.email || enterInformationForm.email === '')
+    return ' 请输入你的邮箱'
+  else if (!emailReg.test(enterInformationForm.email))
+    return ' 请输入正确的邮箱'
+  else
+    return ''
+})
 defineExpose({ openPop })
 </script>
 
@@ -131,55 +282,49 @@ defineExpose({ openPop })
       </header>
       <main mt-26 flex-1>
         <el-form class="enter-information-form" :model="enterInformationForm" label-width="220px" label-position="left">
-          <!-- 地区 region -->
-          <el-form-item v-if="controlsDisplay('region')" label="所在省份：">
+          <el-form-item :label="provinceLabel">
             <el-cascader
-              v-model.trim="enterInformationForm.provinceArr" popper-class="enter-information-pop" :props="props"
-              placeholder="请选择"
+              v-model.trim="enterInformationForm.provinceArr" popper-class="enter-information-pop"
+              :props="props" placeholder="请选择"
             />
-            <div v-show="provinceShowFlag" class="remark-box">
+            <div v-if="provinceShowFlag" class="remark-box">
               <el-image class="remark-icon" :src="prompt" fit="cover" />
-              <span ref="provinceRef" class="form-remark">请选择区域</span>
+              <span ref="provinceRemarkRef" class="form-remark">请选择区域</span>
             </div>
           </el-form-item>
-          <!-- 公司名称 companyName -->
-          <el-form-item v-if="controlsDisplay('companyName')" label="企业名称：">
-            <el-input v-model.trim="enterInformationForm.unitname" placeholder="请输入工商注册的企业名称" />
-            <div v-show="unitNameShowFlag" class="remark-box">
+          <el-form-item :label="unitNameLabel">
+            <el-input v-model.trim="enterInformationForm.unitname" :placeholder="unitNamePlaceHolder" />
+            <div v-if="unitNameShowFlag" class="remark-box">
               <el-image class="remark-icon" :src="prompt" fit="cover" />
-              <span ref="businessNameRef" class="form-remark">请输入企业名称</span>
+              <span ref="unitNameRemarkRef" class="form-remark">请输入{{ unitNameLabel }}</span>
             </div>
           </el-form-item>
-          <!-- 企业信用代码 companyCreditCode -->
-          <el-form-item v-if="controlsDisplay('companyCreditCode')" label="企业信用代码：">
+          <el-form-item v-if="userInfo.userSignType === '企业'" label="企业信用代码：">
             <el-input v-model.trim="enterInformationForm.unittax" placeholder="请输入企业信用代码" />
-            <div v-show="creditCodeShowFlag" class="remark-box">
+            <div v-if="creditCodeShowFlag" class="remark-box">
               <el-image class="remark-icon" :src="prompt" fit="cover" />
-              <span ref="creditCodeRef" class="form-remark">请输入你的企业信用代码</span>
+              <span ref="creditCodeRemarkRef" class="form-remark" v-text="creditCodeRemake" />
             </div>
           </el-form-item>
-          <!-- 联系人 contact -->
-          <el-form-item v-if="controlsDisplay('contact')" label="联系人：">
+          <el-form-item label="联系人：">
             <el-input v-model.trim="enterInformationForm.linkman" placeholder="请输入联系人" />
-            <div v-show="contactShowFlag" class="remark-box">
+            <div v-if="contactShowFlag" class="remark-box">
               <el-image class="remark-icon" :src="prompt" fit="cover" />
-              <span ref="contactRef" class="form-remark">请输入联系人</span>
+              <span ref="contactRemarkRef" class="form-remark">请输入联系人</span>
             </div>
           </el-form-item>
-          <!-- 手机号码 mobileNumber -->
-          <el-form-item v-if="controlsDisplay('contact')" label="手机号码：">
+          <el-form-item label="手机号码：">
             <el-input v-model.trim="enterInformationForm.linkmantel" placeholder="必须是13或15打头" />
-            <div v-show="phoneNumberShowFlag" class="remark-box">
+            <div v-if="phoneNumberShowFlag" class="remark-box">
               <el-image class="remark-icon" :src="prompt" fit="cover" />
-              <span ref="phoneNumberRef" class="form-remark">请输入你的手机号</span>
+              <span ref="phoneNumberRemarkRef" class="form-remark" v-text="phoneNumberRemark" />
             </div>
           </el-form-item>
-          <!-- 邮箱  mailBox -->
-          <el-form-item v-if="controlsDisplay('mailBox')" label="邮箱：">
+          <el-form-item label="邮箱：">
             <el-input v-model.trim="enterInformationForm.email" type="email" placeholder="XX@X.X(用于找回密码)" />
-            <div v-show="mailboxShowFlag" class="remark-box">
+            <div v-if="MailboxShowFlag" class="remark-box">
               <el-image class="remark-icon" :src="prompt" fit="cover" />
-              <span ref="MailboxRef" class="form-remark">请输入你的邮箱</span>
+              <span ref="MailboxRemarkRef" class="form-remark" v-text="MailboxRemark" />
             </div>
           </el-form-item>
         </el-form>

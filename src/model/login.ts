@@ -1,11 +1,11 @@
 /*
- * @Author: BY by15242952083@outlook.com
+ * @Author: Abernethy-BY by15242952083@outlook.com
  * @Date: 2023-02-02 16:15:11
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-03 15:35:28
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-15 14:41:29
  * @FilePath: \big-screen\src\model\login.ts
  * @Description:
- * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
+ * Copyright (c) 2023 by Abernethy-BY email: by15242952083@outlook.com, All Rights Reserved.
  */
 export interface LOGIN_FLAG_DICTIONARY {
   mainTitle: string
@@ -61,7 +61,12 @@ export enum LOGIN_MITT_ENUM {
   openOperateDialog = 'OPEN_OPERATE_DIALOG',
   openEnterInformation = 'OPEN_ENTER_INFORMATION',
   userAgreementError = 'USER_AGREEMENT_ERROR',
+  notRegistered = 'NOT_REGISTERED',
 }
+
+export type LOGIN_MITT_TYPE = `${LOGIN_MITT_ENUM}`
+
+export type LOGIN_MITT = keyof typeof LOGIN_MITT_ENUM
 
 export enum LOGIN_ERROR_ENUM {
   UNDER_REVIEW = '审核中',
@@ -77,6 +82,7 @@ export enum USER_ROLE_ENUM {
   PMC = '园区管委会',
   PC = '园区专员',
   CP = '企业',
+  SA = '超级管理员',
 }
 
 export type USER_ROLE_TYPE = `${USER_ROLE_ENUM}`

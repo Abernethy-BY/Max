@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 18:54:03
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-01 16:56:42
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-15 10:22:41
  * @FilePath: \big-screen\src\components\common\TheBar.vue
  * @Description: 菜单组件
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -85,6 +85,7 @@ const jump = (index) => {
 
 <style lang="scss" scoped>
 .the-bar-box {
+  // pointer-events: none;
   :deep(.theme-icon) {
     position: absolute;
     top: 0;
