@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-18 17:10:08
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-20 22:37:14
+ * @LastEditTime: 2023-02-16 22:59:34
  * @FilePath: \big-screen\src\components\home\theIndustrialProjects.vue
  * @Description: 工业项目月数据趋势
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -55,6 +55,7 @@ const option: EChartsOption = {
     { type: 'line', name: '园区税收', data: [] },
     { type: 'line', name: '园区GDP', data: [] },
   ],
+  animationDuration: 10000,
 }
 
 watch(() => propObj.industrialProjectsProp, () => {

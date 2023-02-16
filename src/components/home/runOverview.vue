@@ -70,6 +70,7 @@ const chartOption: EChartsOption | any = {
       overflow: 'breakAll',
     },
   }],
+  animationDuration: 10000,
 
 }
 

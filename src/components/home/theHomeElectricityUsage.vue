@@ -59,6 +59,7 @@ const option: EChartsOption = {
     { type: 'line', name: '去年同月', data: [] },
     { type: 'line', name: '增长率', data: [] },
   ],
+  animationDuration: 10000,
 }
 
 watch(() => propObj.homeElectricityUsageProp, () => {

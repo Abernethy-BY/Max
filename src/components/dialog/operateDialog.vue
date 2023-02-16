@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 16:09:53
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-12-05 19:55:00
+ * @LastEditTime: 2023-02-16 22:54:53
  * @FilePath: \big-screen\src\components\dialog\operateDialog.vue
  * @Description: 注册成功弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.

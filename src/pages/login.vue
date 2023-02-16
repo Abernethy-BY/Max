@@ -1,14 +1,13 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-01 16:43:55
- * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-15 16:40:26
+ * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2023-02-16 22:52:36
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
 -->
 <script lang="ts" setup>
-import { all } from 'axios'
 import type { DefineComponent, VNodeRef } from 'vue'
 import handoffIcon from '~/assets/image/login/handoffIcon.png'
 import returnIcon from '~/assets/image/login/returnIcon.png'
@@ -198,7 +197,7 @@ emitter.on(LOGIN_MITT_ENUM.userAgreementError, () => anime({ targets: [agreement
  */
 emitter.on(LOGIN_MITT_ENUM.notRegistered, () => loginFlag = LOGIN_TYPE_ENUM.SIGN_UP)
 
-onMounted(() => {
+onUnmounted(() => {
   emitter.all.clear()
 })
 </script>

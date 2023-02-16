@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-01 16:29:28
  * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2022-10-14 18:05:45
+ * @LastEditTime: 2023-02-16 23:01:09
  * @FilePath: \big-screen\src\components\corporatePortrait\corporateIntellectualProperty.vue
  * @Description:企业知识产权  (智能制造 、R&D研发经费)
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -90,7 +90,7 @@ watch(() => propObj.corporateIntellectualPropertyProp, () => {
 
 <template>
   <div wPE-100 hPE-100 po-r flex cross-axis-end class="corporate-intellectual-property">
-    <span po-a pot-14 pol-16 fs-18 fw-900 color="#ffffff" class="corporate-intellectual-property-title">企业知识产权 (智能制造
+    <span style="font-family: Kaiti SC;" po-a pot-14 pol-16 fs-18 fw-900 color="#ffffff" class="corporate-intellectual-property-title">企业知识产权 (智能制造
       、R&D研发经费) </span>
     <div class="chart-box" flex hPE-82 wPE-100 fw flex-row-between>
       <div v-for="(item) in domArr" :key="item" flex po-r flex-row-center cross-axis-center hPE-40 class="corporate-intellectual-property-item">
