@@ -21,7 +21,7 @@ onMounted(() => {
 <template>
   <div po-r class="home-box" wPE-100 hPE-100 flex-column-start>
     <the-header />
-    <video v-show="false" ref="videoRef" autoplay po-a z-0 wPE-100 hPE-100 controls>
+    <video ref="videoRef" autoplay po-a z-0 wPE-100 hPE-100 controls>
       <source src="http://www.maxrongbigdata.com:8700/video.aspx" type="video/mp4">
       <p>您的浏览器不支持 HTML5 视频 </p>
     </video>
