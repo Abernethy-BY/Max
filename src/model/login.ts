@@ -2,7 +2,7 @@
  * @Author: Abernethy-BY by15242952083@outlook.com
  * @Date: 2023-02-02 16:15:11
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-15 14:41:29
+ * @LastEditTime: 2023-03-25 16:20:59
  * @FilePath: \big-screen\src\model\login.ts
  * @Description:
  * Copyright (c) 2023 by Abernethy-BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -43,6 +43,7 @@ export enum OPERATE_DIALOG_FLAG_ENUM {
   UNDER_REVIEW = 'UNDER_REVIEW',
   AUDIT_FAILED = 'AUDIT_FAILED',
   NOT_ENTERED = 'NOT_ENTERED',
+  PASS_MISTAKE = 'PASS_MISTAKE',
 }
 
 export type OPERATE_DIALOG_TYPE = `${OPERATE_DIALOG_FLAG_ENUM}`

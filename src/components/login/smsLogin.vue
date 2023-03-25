@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-22 21:08:12
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-03 17:53:16
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-03-25 15:37:03
  * @FilePath: \big-screen\src\components\login\smsLogin.vue
  * @Description: 验证码登录方法
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -77,26 +77,25 @@ const getVerificationCode = async (): Promise<void> => {
     const yzdxFun = async () => {
       await yzdx(param)
       ElMessage({ message: '验证码已发送', type: 'success' })
+
+      let timeTemp = 120
+
+      const captchaButtonDisabledTime = setInterval(() => {
+        captchaButtonSpan = `请稍后重试(${timeTemp--})`
+        captchaButtonDisabledFlag = true
+
+        if (timeTemp === 0) {
+          captchaButtonDisabledFlag = false
+          captchaButtonSpan = '发送验证码'
+          clearInterval(captchaButtonDisabledTime)
+        }
+      }, 1000)
     }
 
-    debounce(yzdxFun, 500, false, [])
+    await debounce(yzdxFun, 500, false, [])
   }
   catch (error) {
     consola.fatal(error)
-  }
-  finally {
-    let timeTemp = 120
-
-    const captchaButtonDisabledTime = setInterval(() => {
-      captchaButtonSpan = `请稍后重试(${timeTemp--})`
-      captchaButtonDisabledFlag = true
-
-      if (timeTemp === 0) {
-        captchaButtonDisabledFlag = false
-        captchaButtonSpan = '发送验证码'
-        clearInterval(captchaButtonDisabledTime)
-      }
-    }, 1000)
   }
 }
 

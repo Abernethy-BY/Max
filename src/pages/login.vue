@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-01 16:43:55
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-16 22:52:36
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-03-25 16:09:55
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -146,7 +146,7 @@ const openUserAgreement = (): void => {
 /**
  * @description: 相应弹窗类型
  */
-let operateDialogFlag = $ref<OPERATE_DIALOG_TYPE_KEY>('LOGIN')
+let operateDialogFlag = $ref<OPERATE_DIALOG_TYPE_KEY | null>(null)
 
 /**
  * @description: 交互弹窗确认回调函数

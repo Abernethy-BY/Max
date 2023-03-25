@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 16:09:53
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-16 22:54:53
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-03-25 16:31:08
  * @FilePath: \big-screen\src\components\dialog\operateDialog.vue
  * @Description: 注册成功弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import closeIcon from '~/assets/image/common/closeIcon.png'
 
-const propObj = withDefaults(defineProps<{ type: string; close?: Function; confirm?: Function }>(), { type: '', close: () => { }, confirm: () => { } })
+const propObj = withDefaults(defineProps<{ type: string | null; close?: Function; confirm?: Function }>(), { type: '', close: () => { }, confirm: () => { } })
 
 /**
  * @description: 弹窗标识
@@ -194,6 +194,30 @@ const closeNotEntered = () => {
         返回修改
       </el-button>
     </div>
+
+    <div
+      v-else-if="!propObj.type" class="audit-failed-box" w-500px h-364px po-r flex-column-end
+      cross-axis-center padding-0-0-32px-0
+    >
+      <el-image class="audit-failed-close-icon" :src="closeIcon" fit="fill" @click="closeIconFun" />
+      <span class="pop-span">出错了,请联系管理员</span>
+
+      <el-button class="audit-failed-button" @click="closeAuditFailed">
+        返回
+      </el-button>
+    </div>
+
+    <div
+      v-else-if="propObj.type === 'PASS_MISTAKE'" class="audit-failed-box" w-500px h-364px po-r flex-column-end
+      cross-axis-center padding-0-0-32px-0
+    >
+      <el-image class="audit-failed-close-icon" :src="closeIcon" fit="fill" @click="closeIconFun" />
+      <span class="pop-span">账号或密码不正确</span>
+
+      <el-button class="audit-failed-button" @click="closeAuditFailed">
+        返回
+      </el-button>
+    </div>
     <!-- 未录入资料 -->
     <div
       v-else-if="propObj.type === 'NOT_ENTERED'" class="not_entered-box" w-500px h-364px po-r flex-column-end
@@ -361,7 +385,8 @@ const closeNotEntered = () => {
     :deep(.under-review-close-icon) {
       @extend .general-close-icon;
     }
-    .pop-span{
+
+    .pop-span {
       font-size: 24px;
       font-family: Source Han Sans CN;
       font-weight: 400;
@@ -386,15 +411,15 @@ const closeNotEntered = () => {
     }
   }
 
-  .not_entered-box{
+  .not_entered-box {
     background: no-repeat url("~/assets/image/pop/auditFailed.png");
     background-size: 100% 100%;
 
-    :deep(.not_entered-close-icon){
+    :deep(.not_entered-close-icon) {
       @extend .general-close-icon;
     }
 
-    .pop-span{
+    .pop-span {
       font-size: 24px;
       font-family: Source Han Sans CN;
       font-weight: 400;
@@ -402,7 +427,7 @@ const closeNotEntered = () => {
       line-height: 33px;
     }
 
-    :deep(.not_entered-button){
+    :deep(.not_entered-button) {
       width: 317px;
       height: 44px;
       background: #1ADCFF;

@@ -93,8 +93,6 @@ const nextFun = async (): Promise<void> => {
       return
     }
 
-    consola.info(11)
-
     const provinceTemp = enterInformationForm.provinceArr
     let province, city, county
     if (provinceTemp[0]) {

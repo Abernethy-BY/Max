@@ -47,6 +47,7 @@ const statusMap = new Map()
   .set('审核中', OPERATE_DIALOG_FLAG_ENUM.UNDER_REVIEW)
   .set('未录入资料', OPERATE_DIALOG_FLAG_ENUM.NOT_ENTERED)
   .set('审核不通过', OPERATE_DIALOG_FLAG_ENUM.AUDIT_FAILED)
+  .set('账号或密码不正确', OPERATE_DIALOG_FLAG_ENUM.PASS_MISTAKE)
 
 /**
  * @description: 未录入资料弹窗关闭回调方法 --- 弹出资料录入弹窗
@@ -106,9 +107,13 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         const stateList = ['审核中', '审核不通过', '未录入资料']
 
         const temp = res?.data[0]
-        if (stateList.includes(temp.state)) {
+        consola.info(temp)
+        if (temp && stateList.includes(temp.state)) {
           userRole = temp.role === '' ? '企业' : temp.role
           throw new Error(temp.state)
+        }
+        else if (!temp) {
+          throw new Error('PASS_MISTAKE')
         }
 
         userInfo.token = temp.token
@@ -121,7 +126,16 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: OPERATE_DIALOG_FLAG_ENUM.LOGIN, closeCallBack: loginSuccessfulCloseFun })
       }
       catch (error: any) {
-        const errorTemp = error.message || ''
+        let errorTemp
+        consola.start([error, error.message, errorTemp])
+
+        if (error === '账号或密码不正确')
+          errorTemp = error
+        else if (error.message)
+          errorTemp = error.message
+        else
+          errorTemp = ''
+
         if (errorTemp.includes('审核不通过'))
           ElMessage({ message: error, type: 'error' })
         emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: statusMap.get(errorTemp), closeCallBack: statusCloseCallBackMap.get(errorTemp) })
@@ -206,8 +220,8 @@ const submitForm = async (formEl: FormInstance | undefined) => {
 
     <!-- <operate-dialog ref="operateDialogRef" :type="dialogType" :close="dialogCloseFun" /> -->
     <!-- <div class="enter-information" wPE-100 hPE-100 po-f pot-0 pol-0 flex-row-center cross-axis-center>
-      <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
-    </div> -->
+            <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" />
+          </div> -->
 
     <!-- <enter-information ref="enterInformationRef" :user-sign-tel="userSignTel" :user-sign-type="userSignType" /> -->
   </div>

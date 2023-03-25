@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-15 14:37:21
+ * @LastEditTime: 2023-03-25 18:34:30
  * @FilePath: \big-screen\src\utils\amap.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -35,6 +35,7 @@ export const getProvinces = async (parentArea: string, role: string) => {
       throw new Error('地区服务器错误请刷新重试')
 
     const temp = res?.districts?.[0]?.districts
+    consola.info(temp)
     const nodes = temp.map(e => ({ value: e.adcode, label: e.name, leaf: !permissionsMap.get(role).includes(e.level) }))
     return nodes
   }
