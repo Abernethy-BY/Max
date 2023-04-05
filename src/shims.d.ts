@@ -29,3 +29,8 @@ declare module 'unplugin-vue-macros/macros-global' {
   const content: any
   export default content
 }
+
+declare module 'unplugin-element-plus/vite' {
+  const content: any
+  export default content
+}

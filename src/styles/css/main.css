@@ -1,12 +1,8 @@
-@import './markdown.css';
 
-html,
-body,
-#app {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-}
+
+@import './markdown.css';
+@unocss all;
+
 
 html.dark {
   background: #121212;
@@ -26,4 +22,21 @@ html.dark {
   left: 0;
   width: 100%;
   height: 2px;
+}
+
+
+html,
+body,
+#app {
+width:100%;
+height:100%;
+}
+
+body{
+margin:0px
+}
+
+
+* {
+  box-sizing: border-box;
 }

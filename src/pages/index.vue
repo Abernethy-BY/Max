@@ -1,56 +1,35 @@
-<script setup lang="ts">
-defineOptions({
-  name: 'IndexPage',
-})
-const user = useUserStore()
-const name = $ref(user.savedName)
-
+<script lang="ts" setup>
+// const value = ref(new Date())
 const router = useRouter()
-const go = () => {
-  if (name)
-    router.push(`/hi/${encodeURIComponent(name)}`)
+const jump = () => {
+  router.push({ path: '/test/testaaa' })
 }
-
-const { t } = useI18n()
 </script>
 
 <template>
-  <div>
-    <div text-4xl>
-      <div i-carbon-campsite inline-block />
+  <div w-full h-full grid grid-rows-3 grid-cols-1 bg="#2ed573">
+    <div bg="#353b48" grid row-span-2 grid-rows-1 grid-cols-4>
+      <div bg="#487eb0" flex justify-center items-center>
+        左1
+      </div>
+      <div col-span-2 />
+      <div flex justify-center items-center bg="#9c88ff">
+        <el-button type="primary" @click="jump">
+          Primary
+        </el-button>
+      </div>
     </div>
-    <p>
-      <a rel="noreferrer" href="https://github.com/antfu/vitesse" target="_blank">
-        Vitesse
-      </a>
-    </p>
-    <p>
-      <em text-sm opacity-75>{{ t('intro.desc') }}</em>
-    </p>
-
-    <div py-4 />
-
-    <TheInput
-      v-model="name"
-      placeholder="What's your name?"
-      autocomplete="false"
-      @keydown.enter="go"
-    />
-    <label class="hidden" for="input">{{ t('intro.whats-your-name') }}</label>
-
-    <div>
-      <button
-        btn m-3 text-sm
-        :disabled="!name"
-        @click="go"
-      >
-        {{ t('button.go') }}
-      </button>
+    <div bg="#273c75" grid grid-rows-1 grid-cols-11>
+      <div col-span-3 bg="#ff5e57" />
+      <div col-span-4 bg="#ffdd59" />
+      <div col-span-3 bg="#ef5777" />
     </div>
+    <!-- <div bg="#f5f6fa" /> -->
   </div>
-</template>
 
-<route lang="yaml">
-meta:
-  layout: home
-</route>
+  <!--  <el-button type="warning">
+    Warning
+  </el-button>
+  <el-calendar v-model="value" />
+  aaa -->
+</template>

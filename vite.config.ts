@@ -17,15 +17,14 @@ import Unocss from 'unocss/vite'
 import Shiki from 'markdown-it-shiki'
 import VueMacros from 'unplugin-vue-macros/vite'
 import WebfontDownload from 'vite-plugin-webfont-dl'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import ElementPlus from 'unplugin-element-plus/vite'
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      '~/': `${path.resolve(__dirname, 'src')}/`,
-    },
-  },
+  resolve: { alias: { '~/': `${path.resolve(__dirname, 'src')}/` } },
 
   plugins: [
+    ElementPlus(),
     // Preview(),
 
     VueMacros({
@@ -56,10 +55,8 @@ export default defineConfig({
         '@vueuse/core',
       ],
       dts: 'src/auto-imports.d.ts',
-      dirs: [
-        'src/composables',
-        'src/stores',
-      ],
+      dirs: ['src/composables'],
+      resolvers: [ElementPlusResolver()],
       vueTemplate: true,
     }),
 
@@ -70,6 +67,8 @@ export default defineConfig({
       // allow auto import and register components used in markdown
       include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       dts: 'src/components.d.ts',
+      resolvers: [ElementPlusResolver()],
+      directoryAsNamespace: true,
     }),
 
     // https://github.com/antfu/unocss
@@ -170,6 +169,10 @@ export default defineConfig({
 
   ssr: {
     // TODO: workaround until they support native ESM
-    noExternal: ['workbox-window', /vue-i18n/],
+    noExternal: ['workbox-window', /vue-i18n/, 'element-plus'],
+  },
+  server: {
+    port: 5174,
+    host: true,
   },
 })
