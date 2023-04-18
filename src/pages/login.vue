@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-01 16:43:55
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-03-25 16:09:55
+ * @LastEditTime: 2023-04-18 19:28:56
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -167,10 +167,14 @@ emitter.on(LOGIN_MITT_ENUM.openForgetPass, () => loginFlag = LOGIN_TYPE_ENUM.FOR
  * @description: 交互弹窗对象
  */
 const operateDialogRef = $ref<DefineComponent>()
+
+let openId = $ref<string>('')
+
 /**
  * @description: 订阅弹窗操作弹窗事件
  */
 emitter.on(LOGIN_MITT_ENUM.openOperateDialog, ({ type, nextCallBack, closeCallBack }: OPERATE_DIALOG_MITT_MODEL<{ userType: USER_ROLE_TYPE; tel: number }>) => {
+  openId = ''
   type && (operateDialogFlag = type)
   nextCallBack && (userAgreementNext = nextCallBack)
   closeCallBack && (userAgreementClose = closeCallBack)
@@ -195,7 +199,11 @@ emitter.on(LOGIN_MITT_ENUM.userAgreementError, () => anime({ targets: [agreement
 /**
  * @description: 扫码登录未注册事件
  */
-emitter.on(LOGIN_MITT_ENUM.notRegistered, () => loginFlag = LOGIN_TYPE_ENUM.SIGN_UP)
+emitter.on(LOGIN_MITT_ENUM.notRegistered, (val: any) => {
+  openId = val?.openId
+  ElMessage.error('未注册')
+  loginFlag = LOGIN_TYPE_ENUM.SIGN_UP
+})
 
 onUnmounted(() => {
   emitter.all.clear()
@@ -227,7 +235,7 @@ onUnmounted(() => {
 
       <forgot-pass v-else-if="loginFlag === 'FORGOT_PASS'" />
 
-      <sign-up v-else-if="loginFlag === 'SIGN_UP'" :agreement-flag="agreementFlag" />
+      <sign-up v-else-if="loginFlag === 'SIGN_UP'" :agreement-flag="agreementFlag" :open-id="openId" />
 
       <sms-login v-else-if="loginFlag === 'SMS_LOGIN'" />
 

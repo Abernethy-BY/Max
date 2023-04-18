@@ -1,8 +1,8 @@
 /*
  * @Author: By
  * @Date: 2022-08-18 14:52:43
- * @LastEditTime: 2023-01-13 14:08:57
- * @LastEditors: BY by15242952083@outlook.com
+ * @LastEditTime: 2023-04-18 17:26:52
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
  * @Description: 封装axios请求
  * @FilePath: \big-screen\src\utils\http.ts
  * 可以输入预定的版权声明、个性签名、空行等
@@ -27,7 +27,6 @@ const https = new HttpClient(config)
 https.httpClient.interceptors.response.use((res) => {
   const userInfo = useUserStore()
   const { data } = res
-
   const succeedCodeList = [0, 5, 30, 31]
   if (Number(data.state) && Number(data.state) === 20) {
     ElMessage({ message: '已发送短信，如要重发短信，请稍等', type: 'error' })

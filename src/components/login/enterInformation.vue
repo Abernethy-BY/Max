@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-02 10:37:02
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-15 16:25:18
+ * @LastEditTime: 2023-03-27 20:13:16
  * @FilePath: \big-screen\src\components\login\enterInformation.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.

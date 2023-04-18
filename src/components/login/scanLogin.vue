@@ -88,7 +88,7 @@ const getOutcome = async () => {
   try {
     const res: any = await scanloginchk({ logincode: state })
     if (errMap.get(res.message))
-      emitter.emit(errMap.get(res.message)!, { type: errMap.get(res.message), closeCallBack: statusCloseCallBackMap.get(res.message) })
+      emitter.emit(errMap.get(res.message)!, { type: errMap.get(res.message), closeCallBack: statusCloseCallBackMap.get(res.message), openId: res.data[0]?.openid })
     else
       scanLogin(res.data[0])
   }

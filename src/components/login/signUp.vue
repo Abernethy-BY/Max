@@ -1,8 +1,8 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-03 15:53:51
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-04-18 19:27:41
  * @FilePath: \big-screen\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -11,7 +11,7 @@
 import type { FormInstance, FormRules } from 'element-plus'
 import type { SELECT_OPTION_MODEL, USER_FORM_MODEL } from '~/model'
 
-const propObj = withDefaults(defineProps<{ agreementFlag: boolean }>(), { agreementFlag: false })
+const propObj = withDefaults(defineProps<{ agreementFlag: boolean; openId?: string }>(), { agreementFlag: false })
 /**
  * @description: 注册表单检验规则
  */
@@ -74,13 +74,14 @@ const signUp = async (formEl: FormInstance | undefined): Promise<void> => {
           tel: signUpForm.value.tel,
           pass: signUpForm.value.pass,
           checkcode: signUpForm.value.telCode,
+          openId: propObj.openId,
         }
 
         const zcyhFun = async () => {
           await zcyh(param)
           emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, {
             type: OPERATE_DIALOG_FLAG_ENUM.SIGN_UP,
-            closeCallBack: () => emitter.emit(LOGIN_MITT_ENUM.openEnterInformation, { userType: signUpForm.value.userType, tel: signUpForm.value.tel }),
+            closeCallBack: () => emitter.emit(LOGIN_MITT_ENUM.openEnterInformation, { userSignType: signUpForm.value.userType, userSignTel: signUpForm.value.tel }),
           })
         }
         debounce(zcyhFun, 500, false, [])

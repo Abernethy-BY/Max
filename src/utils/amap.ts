@@ -35,7 +35,6 @@ export const getProvinces = async (parentArea: string, role: string) => {
       throw new Error('地区服务器错误请刷新重试')
 
     const temp = res?.districts?.[0]?.districts
-    consola.info(temp)
     const nodes = temp.map(e => ({ value: e.adcode, label: e.name, leaf: !permissionsMap.get(role).includes(e.level) }))
     return nodes
   }

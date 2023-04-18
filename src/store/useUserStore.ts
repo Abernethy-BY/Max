@@ -1,8 +1,8 @@
 /*
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-08 11:57:45
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-01-31 14:10:00
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-04-18 19:23:51
  * @FilePath: \big-screen\src\store\useUserStore.ts
  * @Description: userInfo
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
