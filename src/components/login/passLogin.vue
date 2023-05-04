@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import type { FormInstance, FormRules } from 'element-plus'
+import { ElMessage } from 'element-plus'
 import userNameIcon from '~/assets/image/login/userNameIcon.png'
 import passWordIcon from '~/assets/image/login/passWordIcon.png'
 import type { LOGIN_ERROR_TYPE_LEY, USER_ROLE_TYPE } from '~/model/login'
@@ -38,7 +39,7 @@ const openForgotPass = () => {
 /**
  * @description: 用户权限
  */
-let userRole = $ref<USER_ROLE_TYPE>('企业')
+let userRole = $ref<USER_ROLE_TYPE>()
 
 /**
  * @description: 状态字典
@@ -48,6 +49,7 @@ const statusMap = new Map()
   .set('未录入资料', OPERATE_DIALOG_FLAG_ENUM.NOT_ENTERED)
   .set('审核不通过', OPERATE_DIALOG_FLAG_ENUM.AUDIT_FAILED)
   .set('账号或密码不正确', OPERATE_DIALOG_FLAG_ENUM.PASS_MISTAKE)
+  .set('账号已停用', OPERATE_DIALOG_FLAG_ENUM.ACCOUNT_DEACTIVATION)
 
 /**
  * @description: 未录入资料弹窗关闭回调方法 --- 弹出资料录入弹窗
@@ -104,10 +106,10 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         }
         const res: any = await xtdl(param)
 
-        const stateList = ['审核中', '审核不通过', '未录入资料']
+        const stateList = ['审核中', '审核不通过', '未录入资料', '账号已停用']
 
         const temp = res?.data[0]
-        consola.info(temp)
+
         if (temp && stateList.includes(temp.state)) {
           userRole = temp.role === '' ? '企业' : temp.role
           throw new Error(temp.state)
@@ -127,7 +129,6 @@ const submitForm = async (formEl: FormInstance | undefined) => {
       }
       catch (error: any) {
         let errorTemp
-        consola.start([error, error.message, errorTemp])
 
         if (error === '账号或密码不正确')
           errorTemp = error
@@ -136,6 +137,7 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         else
           errorTemp = ''
 
+        consola.info(errorTemp)
         if (errorTemp.includes('审核不通过'))
           ElMessage({ message: error, type: 'error' })
         emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: statusMap.get(errorTemp), closeCallBack: statusCloseCallBackMap.get(errorTemp) })

@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-02 10:37:02
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-03-27 20:13:16
+ * @LastEditTime: 2023-05-04 20:05:00
  * @FilePath: \big-screen\src\components\login\enterInformation.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -10,6 +10,7 @@
 
 <script lang="ts" setup>
 import type { HTMLAttributes } from 'vue'
+import { ElMessage } from 'element-plus'
 import closeIcon from '~/assets/image/login/closeIcon.png'
 import headerBg from '~/assets/image/login/headerBg.png'
 import type { ENTER_INFORMATION_MODEL } from '~/model'

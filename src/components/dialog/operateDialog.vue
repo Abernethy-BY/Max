@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-24 16:09:53
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-03-25 16:31:08
+ * @LastEditTime: 2023-05-04 20:19:29
  * @FilePath: \big-screen\src\components\dialog\operateDialog.vue
  * @Description: 注册成功弹窗
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -228,6 +228,18 @@ const closeNotEntered = () => {
 
       <el-button class="not_entered-button" @click="closeNotEntered">
         录入资料
+      </el-button>
+    </div>
+
+    <div
+      v-else-if="propObj.type === 'ACCOUNT_DEACTIVATION'" class="audit-failed-box" w-500px h-364px po-r flex-column-end
+      cross-axis-center padding-0-0-32px-0
+    >
+      <el-image class="audit-failed-close-icon" :src="closeIcon" fit="fill" @click="closeIconFun" />
+      <span class="pop-span">账户已停用</span>
+
+      <el-button class="audit-failed-button" @click="closeAuditFailed">
+        返回
       </el-button>
     </div>
   </div>

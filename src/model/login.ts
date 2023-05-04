@@ -2,7 +2,7 @@
  * @Author: Abernethy-BY by15242952083@outlook.com
  * @Date: 2023-02-02 16:15:11
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-03-25 16:20:59
+ * @LastEditTime: 2023-05-04 20:20:05
  * @FilePath: \big-screen\src\model\login.ts
  * @Description:
  * Copyright (c) 2023 by Abernethy-BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -44,6 +44,7 @@ export enum OPERATE_DIALOG_FLAG_ENUM {
   AUDIT_FAILED = 'AUDIT_FAILED',
   NOT_ENTERED = 'NOT_ENTERED',
   PASS_MISTAKE = 'PASS_MISTAKE',
+  ACCOUNT_DEACTIVATION = 'ACCOUNT_DEACTIVATION',
 }
 
 export type OPERATE_DIALOG_TYPE = `${OPERATE_DIALOG_FLAG_ENUM}`
@@ -73,6 +74,7 @@ export enum LOGIN_ERROR_ENUM {
   UNDER_REVIEW = '审核中',
   NOT_ENTERED = '未录入资料',
   AUDIT_FAILED = '审核不通过',
+  ACCOUNT_DEACTIVATION = '账户已停用',
 }
 
 export type LOGIN_ERROR_TYPE_LEY = keyof typeof LOGIN_ERROR_ENUM
