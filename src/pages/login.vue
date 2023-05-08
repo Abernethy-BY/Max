@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-02-01 16:43:55
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-04-18 19:28:56
+ * @LastEditTime: 2023-05-08 22:23:03
  * @FilePath: \big-screen\src\pages\login.vue
  * @Description:
  * Copyright (c) 2023 by ${git_name} email: ${git_email}, All Rights Reserved.
@@ -233,7 +233,7 @@ onUnmounted(() => {
     <main flex-1>
       <pass-login v-if="loginFlag === 'PASS_LOGIN'" />
 
-      <forgot-pass v-else-if="loginFlag === 'FORGOT_PASS'" />
+      <forgot-pass v-else-if="loginFlag === 'FORGOT_PASS'" @open-pass-login="loginFlag = 'PASS_LOGIN'" />
 
       <sign-up v-else-if="loginFlag === 'SIGN_UP'" :agreement-flag="agreementFlag" :open-id="openId" />
 

@@ -140,7 +140,11 @@ const submitForm = async (formEl: FormInstance | undefined) => {
         consola.info(errorTemp)
         if (errorTemp.includes('审核不通过'))
           ElMessage({ message: error, type: 'error' })
-        emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: statusMap.get(errorTemp), closeCallBack: statusCloseCallBackMap.get(errorTemp) })
+        if (errorTemp === '未录入资料')
+          emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: statusMap.get(errorTemp), nextCallBack: statusCloseCallBackMap.get(errorTemp) })
+
+        else
+          emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: statusMap.get(errorTemp), closeCallBack: statusCloseCallBackMap.get(errorTemp) })
 
         // dialogType.value = statusMap.get(errorTemp) ? statusMap.get(errorTemp) : statusMap.get('审核不通过')
         // operateDialogRef.value.openDialog()
