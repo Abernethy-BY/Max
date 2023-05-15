@@ -53,7 +53,7 @@ export const getMapAdCode = async (area: string) => {
   try {
     const param = {
       key: '79848c3f3fbd1e9321efb5408c3c4a31',
-      keywords: area || '中国',
+      keywords: area || useUserStore().city,
       subdistrict: 0,
       sig: '',
     }

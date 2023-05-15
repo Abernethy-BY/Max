@@ -87,10 +87,14 @@ const scanLogin = (user) => {
 const getOutcome = async () => {
   try {
     const res: any = await scanloginchk({ logincode: state })
-    if (errMap.get(res.message))
-      emitter.emit(errMap.get(res.message)!, { type: errMap.get(res.message), closeCallBack: statusCloseCallBackMap.get(res.message), openId: res.data[0]?.openid })
-    else
-      scanLogin(res.data[0])
+    if (errMap.get(res.message)) {
+      if (res.message === '未录入资料')
+        emitter.emit(errMap.get(res.message)!, { type: errMap.get(res.message), nextCallBack: statusCloseCallBackMap.get(res.message), openId: res.data[0]?.openid })
+
+      else
+        emitter.emit(errMap.get(res.message)!, { type: errMap.get(res.message), closeCallBack: statusCloseCallBackMap.get(res.message), openId: res.data[0]?.openid })
+    }
+    else { scanLogin(res.data[0]) }
   }
   catch (error) {
     consola.fatal(error)

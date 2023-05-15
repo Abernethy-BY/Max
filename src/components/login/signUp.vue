@@ -81,7 +81,7 @@ const signUp = async (formEl: FormInstance | undefined): Promise<void> => {
           await zcyh(param)
           emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, {
             type: OPERATE_DIALOG_FLAG_ENUM.SIGN_UP,
-            closeCallBack: () => emitter.emit(LOGIN_MITT_ENUM.openEnterInformation, { userSignType: signUpForm.value.userType, userSignTel: signUpForm.value.tel }),
+            nextCallBack: () => emitter.emit(LOGIN_MITT_ENUM.openEnterInformation, { userSignType: signUpForm.value.userType, userSignTel: signUpForm.value.tel }),
           })
         }
         debounce(zcyhFun, 500, false, [])

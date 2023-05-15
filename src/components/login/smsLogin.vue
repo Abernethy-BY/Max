@@ -140,7 +140,7 @@ const phoneLogin = async (formEl: FormInstance | undefined): Promise<void> => {
       temp && (userInfo.token = temp.token)
       temp && (userInfo.userCode = temp.usercode)
       temp && (userInfo.userRole = temp.role)
-      emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: OPERATE_DIALOG_FLAG_ENUM.LOGIN, closeCallBack: loginSuccessfulCloseFun })
+      emitter.emit(LOGIN_MITT_ENUM.openOperateDialog, { type: OPERATE_DIALOG_FLAG_ENUM.LOGIN, nextCallBack: loginSuccessfulCloseFun })
     }
   })
 }
