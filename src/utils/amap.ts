@@ -2,7 +2,7 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-09-26 18:09:51
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-03-25 18:34:30
+ * @LastEditTime: 2023-05-16 20:10:24
  * @FilePath: \big-screen\src\utils\amap.ts
  * @Description:
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
@@ -53,7 +53,7 @@ export const getMapAdCode = async (area: string) => {
   try {
     const param = {
       key: '79848c3f3fbd1e9321efb5408c3c4a31',
-      keywords: area || useUserStore().city,
+      keywords: area || '中国',
       subdistrict: 0,
       sig: '',
     }
