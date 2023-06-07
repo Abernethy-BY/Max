@@ -1,9 +1,9 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 18:53:36
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-16 22:55:35
- * @FilePath: \big-screen\src\layouts\home.vue
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-06-07 10:21:00
+ * @FilePath: \Max\src\layouts\home.vue
  * @Description:
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
@@ -22,7 +22,7 @@ onMounted(() => {
   <div po-r class="home-box" wPE-100 hPE-100 flex-column-start>
     <the-header />
     <video ref="videoRef" autoplay po-a z-0 wPE-100 hPE-100 controls>
-      <source src="http://www.maxrongbigdata.com:8700/video.aspx" type="video/mp4">
+      <source :src="`http://www.maxrongbigdata.com:8700/video.aspx?usercode=${useUserStore().userCode}`" type="video/mp4">
       <p>您的浏览器不支持 HTML5 视频 </p>
     </video>
     <the-bar />

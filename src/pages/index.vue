@@ -1,9 +1,9 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 18:50:54
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-16 22:59:25
- * @FilePath: \big-screen\src\pages\index.vue
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-06-07 10:17:29
+ * @FilePath: \Max\src\pages\index.vue
  * @Description: 首页
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
