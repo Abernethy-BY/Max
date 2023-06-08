@@ -1,9 +1,9 @@
 <!--
  * @Author: BY by15242952083@outlook.com
  * @Date: 2023-01-09 19:25:26
- * @LastEditors: BY by15242952083@outlook.com
- * @LastEditTime: 2023-02-03 11:27:59
- * @FilePath: \big-screen\src\components\common\TheHeader.vue
+ * @LastEditors: Abernethy-BY by15242952083@outlook.com
+ * @LastEditTime: 2023-06-08 10:12:33
+ * @FilePath: \Max\src\components\common\TheHeader.vue
  * @Description:
  * Copyright (c) 2023 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
@@ -14,7 +14,7 @@ import timeIcon from '~/assets/image/common/timeIcon.png'
 /**
  * @description: 实时时间
  */
-const realTime = ref(formatDate(getNowDate(), 'yyyy-MM-dd-cn'))
+const realTime = ref(`${formatDate(getNowDate(), 'yyyy-MM-dd-cn')}日`)
 
 /**
  * @description: 周数据字典

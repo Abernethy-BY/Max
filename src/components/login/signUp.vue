@@ -2,8 +2,8 @@
  * @Author: BY by15242952083@outlook.com
  * @Date: 2022-11-21 19:12:35
  * @LastEditors: Abernethy-BY by15242952083@outlook.com
- * @LastEditTime: 2023-04-18 19:27:41
- * @FilePath: \big-screen\src\components\login\signUp.vue
+ * @LastEditTime: 2023-06-08 10:09:29
+ * @FilePath: \Max\src\components\login\signUp.vue
  * @Description: 注册
  * Copyright (c) 2022 by BY email: by15242952083@outlook.com, All Rights Reserved.
 -->
@@ -20,7 +20,7 @@ const signUpRules = ref<FormRules>({
     { required: true, message: '请输入手机号码', trigger: 'blur' },
     { min: 11, max: 11, message: '请输入11位手机号码', trigger: 'blur' },
     {
-      pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[89])\d{8}$/,
+      pattern: /^(13[0-9]|14[579]|15[0-3,5-9]|16[6]|17[0135678]|18[0-9]|19[890])\d{8}$/,
       message: '请输入正确的手机号码',
     },
   ],
@@ -40,7 +40,7 @@ const signUpForm = ref<USER_FORM_MODEL>({ userType: '', tel: '', pass: '', telCo
 const userTypeOptions = ref<Array<SELECT_OPTION_MODEL>>([
   { label: '工信厅', value: '工信厅' },
   { label: '工信局', value: '工信局' },
-  { label: '园区管委会', value: '园区管委会' },
+  // { label: '园区管委会', value: '园区管委会' },
   { label: '园区专员', value: '园区专员' },
   { label: '企业', value: '企业' },
 ])
